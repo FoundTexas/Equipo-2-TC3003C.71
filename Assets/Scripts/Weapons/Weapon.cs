@@ -10,25 +10,40 @@ public class Weapon : MonoBehaviour
     [Tooltip("Speed you reload your magazine")]
     [SerializeField] float reloadSpeed;
     [Tooltip("Speed between shoots")]
-    [SerializeField] float shootSpeed;
-    float curShootS;
+    public float shootSpeed;
+    public float curShootS;
 
     [Header("Bullet Stats")]
     [Tooltip("Amount of proyectiles the weapon can contain")]
     [SerializeField] int ammo;
     [Tooltip("Amount of proyectiles the weapon holds and can fire before reload")]
     [SerializeField] int magazine;
-    int curMagazine, curAmmo;
+    public int curMagazine, curAmmo;
     [Tooltip("Position where the projectiles and Raycasts are Fired")]
     public Transform firePoint, camara;
     [SerializeField] bool isRaycast;
     [SerializeField] GameObject projectile;
     [SerializeField] LayerMask rayMasks;
-    [SerializeField] float distance, dmg;
+    public float distance, dmg;
 
+    public ParticleSystem particles;
     bool canReload = true;
-    Animator anim;
 
+    private void Start()
+    {
+        curMagazine = magazine;
+        curAmmo = ammo;
+        if(firePoint.TryGetComponent<ParticleSystem>(out particles) == false)
+        {
+            particles = firePoint.gameObject.AddComponent<ParticleSystem>();
+            particles.Stop();
+        }
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown("r")) { Reolad(); }
+        if (Input.GetMouseButtonDown(0)) { Shoot(); }
+    }
     private void FixedUpdate()
     {
         if (curShootS > 0) { curShootS -= Time.deltaTime; }
@@ -36,6 +51,7 @@ public class Weapon : MonoBehaviour
 
     public void Reolad()
     {
+        Debug.Log("reload");
         if (canReload) { ReoladEvent(); }
     }
     IEnumerator ReoladEvent()
@@ -63,9 +79,9 @@ public class Weapon : MonoBehaviour
         curAmmo = ammo;
     }
 
-    public void PlayShootAnimation()
+    public virtual void PlayShootAnimation()
     {
-        anim.SetTrigger("Shoot");
+        particles.Play();
     }
 
     public virtual RaycastHit GetRay()
@@ -86,9 +102,23 @@ public class Weapon : MonoBehaviour
 
     public virtual void Shoot() 
     {
-        if (isRaycast) { 
-            GetRay().transform.GetComponent<IDamage>().TakeDamage(dmg); 
+        if (curMagazine > 0)
+        {
+            if (curShootS <= 0)
+            {
+                curShootS = shootSpeed;
+                PlayShootAnimation();
+                if (isRaycast)
+                {
+                    GetRay().transform.GetComponent<IDamage>().TakeDamage(dmg);
+                    curMagazine--;
+                }
+                else if (!isRaycast) 
+                { 
+                    SpawnProjectile();
+                    curMagazine--;
+                }
+            }
         }
-        else if (!isRaycast) { SpawnProjectile(); }
     }
 }

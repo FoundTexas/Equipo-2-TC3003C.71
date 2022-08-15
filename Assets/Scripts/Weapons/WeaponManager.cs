@@ -8,14 +8,13 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] List<Weapon> weapons;
     Dictionary<string, int> weaponDictionary;
     [SerializeField] Weapon selected;
-    List<string> unlocked = new List<string>(new string[1] {"Grappling"});
+    [SerializeField] List<string> unlocked = new List<string>(new string[1] {"Grappling"});
 
     void Start()
     {
-        int i = 0;
-        foreach(var weapon in weapons)
+        for (int i = 0; i < weapons.Count; i++)
         {
-            weaponDictionary.Add(weapon.ID, 1);
+            weaponDictionary.Add(weapons[i].ID, i);
         }
     }
 
