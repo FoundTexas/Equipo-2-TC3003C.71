@@ -7,30 +7,32 @@ using UnityEngine;
 public class PlayerMovement3D : MonoBehaviour
 {
     [Header("Horizontal movement")]
-    [Tooltip("Variables needed for character movement and camera functionality")]
+    // Variables needed for character movement and camera functionality
     public float speed = 6f;
     private Vector3 direction;
     new private Rigidbody rigidbody;
 
     [Header("Camera movement")]
-    [Tooltip("Variables needed for camera turning")]
+    // Variables needed for camera turning
     new public Transform camera;
     public float turnTime = 0.1f;
     public float turnVelocity;
 
     [Header("Vertical movement")]
-    [Tooltip("Variables needed for gravity functionality")]
+    // Variables needed for gravity functionality
     public float jumpHeight = 8f;
-    public float fallMultiplier = 2.5f;     // Value determining how fast the player will fall
-    public float lowJumpMultiplier = 2f;    // Value determining how far will the long jump go
+    [Tooltip("Value determining how fast the player will fall")]
+    public float fallMultiplier = 2.5f;
+    [Tooltip("Value determining how far will the long jump go")]
+    public float lowJumpMultiplier = 2f;
     private float gravity =  -9.81f;
     private Vector3 velocity;
 
 
     [Header("Ground controller")]
-    [Tooltip("Variables needed to check ground below player")]
-    public Transform groundCheck;
+    // Variables needed to check ground below player
     public float groundDistance = 0.4f;
+    public Transform groundCheck;
     public LayerMask groundMask;
     private bool isGrounded;
 
@@ -46,6 +48,7 @@ public class PlayerMovement3D : MonoBehaviour
         CheckGrounded();
         CheckInputs();
         CheckMove();
+        SpeedControl();
         CheckJump();
     }
 
@@ -96,7 +99,20 @@ public class PlayerMovement3D : MonoBehaviour
             float resultAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnVelocity, turnTime);
             transform.rotation = Quaternion.Euler(0f, resultAngle, 0f);
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            rigidbody.AddForce(moveDirection.normalized * speed);
+            rigidbody.AddForce(moveDirection.normalized * speed, ForceMode.Force);
+        }
+    }
+
+    private void SpeedControl()
+    {
+        Vector3 currentVelocity = new Vector3(rigidbody.velocity.x, 0f, rigidbody.velocity.z);
+
+        if(currentVelocity.magnitude > speed)
+        {
+            Vector3 limitedVelocity = currentVelocity.normalized * speed;
+            rigidbody.velocity = new Vector3(   limitedVelocity.x, 
+                                                rigidbody.velocity.y,
+                                                limitedVelocity.z);
         }
     }
 }
