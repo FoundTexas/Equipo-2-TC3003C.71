@@ -156,11 +156,7 @@ Transform:
   m_Children:
   - {fileID: 1472645269}
   - {fileID: 548002966}
-<<<<<<< Updated upstream
-  - {fileID: 1008658422}
-=======
   - {fileID: 451366155}
->>>>>>> Stashed changes
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -185,11 +181,7 @@ MonoBehaviour:
   groundDistance: 0.4
   groundMask:
     serializedVersion: 2
-<<<<<<< Updated upstream
-    m_Bits: 72
-=======
     m_Bits: 64
->>>>>>> Stashed changes
 --- !u!143 &31659516
 CharacterController:
   m_ObjectHideFlags: 0
@@ -275,11 +267,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-<<<<<<< Updated upstream
-    FieldOfView: 50
-=======
     FieldOfView: 70
->>>>>>> Stashed changes
     OrthographicSize: 10
     NearClipPlane: 0.01
     FarClipPlane: 5000
@@ -287,11 +275,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-<<<<<<< Updated upstream
-    m_SensorSize: {x: 1.7772021, y: 1}
-=======
     m_SensorSize: {x: 2.3547053, y: 1}
->>>>>>> Stashed changes
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -307,11 +291,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 193539716}
-<<<<<<< Updated upstream
-  m_LocalRotation: {x: 0.10859989, y: -0.7521732, z: 0.12819777, w: 0.6371867}
-=======
   m_LocalRotation: {x: 0.24259445, y: -0.2585193, z: 0.06724588, w: 0.9326273}
->>>>>>> Stashed changes
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -403,8 +383,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 199023482}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-<<<<<<< Updated upstream
-=======
 --- !u!1 &451366154
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,7 +414,6 @@ Transform:
   m_Father: {fileID: 31659514}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
->>>>>>> Stashed changes
 --- !u!1 &548002965
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,11 +497,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 5000
-<<<<<<< Updated upstream
-  field of view: 50
-=======
   field of view: 70
->>>>>>> Stashed changes
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -549,13 +522,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 598906741}
-<<<<<<< Updated upstream
-  m_LocalRotation: {x: 0.09372624, y: -0.7549556, z: 0.11064004, w: 0.6395438}
-  m_LocalPosition: {x: 12.401032, y: 8.07, z: 1.4309527}
-=======
   m_LocalRotation: {x: 0.20985447, y: -0.26071134, z: 0.058170535, w: 0.9405354}
   m_LocalPosition: {x: 4.935014, y: 7.0699997, z: -4.261411}
->>>>>>> Stashed changes
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -641,11 +609,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-<<<<<<< Updated upstream
-    FieldOfView: 50
-=======
     FieldOfView: 70
->>>>>>> Stashed changes
     OrthographicSize: 10
     NearClipPlane: 0.01
     FarClipPlane: 5000
@@ -653,11 +617,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-<<<<<<< Updated upstream
-    m_SensorSize: {x: 1.7772021, y: 1}
-=======
     m_SensorSize: {x: 2.3547053, y: 1}
->>>>>>> Stashed changes
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -673,11 +633,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 832514446}
-<<<<<<< Updated upstream
-  m_LocalRotation: {x: 0.07886638, y: -0.75731885, z: 0.09309856, w: 0.6415457}
-=======
   m_LocalRotation: {x: 0.17717862, y: -0.26256835, z: 0.04911296, w: 0.9472347}
->>>>>>> Stashed changes
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -686,41 +642,6 @@ Transform:
   m_Father: {fileID: 1796144451}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< Updated upstream
---- !u!1 &1008658421
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1008658422}
-  m_Layer: 0
-  m_Name: LookAt
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1008658422
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1008658421}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.07999992, y: 1.5010002, z: -0.30754656}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 31659514}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-=======
->>>>>>> Stashed changes
---- !u!1 &1133689889
 GameObject:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -794,11 +715,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-<<<<<<< Updated upstream
-  m_FollowOffset: {x: 0, y: 5, z: -10}
-=======
   m_FollowOffset: {x: 0, y: 4, z: -5}
->>>>>>> Stashed changes
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -818,11 +735,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-<<<<<<< Updated upstream
-    Value: -97.64849
-=======
     Value: -29.27506
->>>>>>> Stashed changes
     m_SpeedMode: 0
     m_MaxSpeed: 300
     m_AccelTime: 0.1
@@ -1157,11 +1070,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-<<<<<<< Updated upstream
-  m_FollowOffset: {x: 0, y: 5, z: -10}
-=======
   m_FollowOffset: {x: 0, y: 4, z: -5}
->>>>>>> Stashed changes
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -1181,11 +1090,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-<<<<<<< Updated upstream
-    Value: -97.64849
-=======
     Value: -29.27506
->>>>>>> Stashed changes
     m_SpeedMode: 0
     m_MaxSpeed: 300
     m_AccelTime: 0.1
@@ -1229,10 +1134,6 @@ GameObject:
   - component: {fileID: 1796144451}
   - component: {fileID: 1796144450}
   - component: {fileID: 1796144452}
-<<<<<<< Updated upstream
-  - component: {fileID: 1796144453}
-=======
->>>>>>> Stashed changes
   m_Layer: 0
   m_Name: Third Person Camera
   m_TagString: Untagged
@@ -1258,19 +1159,11 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-<<<<<<< Updated upstream
-  m_LookAt: {fileID: 1008658422}
-  m_Follow: {fileID: 31659514}
-  m_CommonLens: 1
-  m_Lens:
-    FieldOfView: 50
-=======
   m_LookAt: {fileID: 451366155}
   m_Follow: {fileID: 31659514}
   m_CommonLens: 1
   m_Lens:
     FieldOfView: 70
->>>>>>> Stashed changes
     OrthographicSize: 10
     NearClipPlane: 0.01
     FarClipPlane: 5000
@@ -1278,11 +1171,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-<<<<<<< Updated upstream
-    m_SensorSize: {x: 1.7772021, y: 1}
-=======
     m_SensorSize: {x: 2.3547053, y: 1}
->>>>>>> Stashed changes
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1315,11 +1204,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-<<<<<<< Updated upstream
-    Value: -97.64849
-=======
     Value: -29.27506
->>>>>>> Stashed changes
     m_SpeedMode: 0
     m_MaxSpeed: 450
     m_AccelTime: 0.1
@@ -1349,21 +1234,12 @@ MonoBehaviour:
   m_BindingMode: 4
   m_SplineCurvature: 0.2
   m_Orbits:
-<<<<<<< Updated upstream
-  - m_Height: 10
-    m_Radius: 14
-  - m_Height: 5
-    m_Radius: 10
-  - m_Height: 0
-    m_Radius: 7
-=======
   - m_Height: 5
     m_Radius: 7
   - m_Height: 4
     m_Radius: 5
   - m_Height: 3
     m_Radius: 4
->>>>>>> Stashed changes
   m_LegacyHeadingBias: 3.4028235e+38
   m_Rigs:
   - {fileID: 193539717}
@@ -1377,11 +1253,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1796144449}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-<<<<<<< Updated upstream
-  m_LocalPosition: {x: 12.401032, y: 8.07, z: 1.4309527}
-=======
   m_LocalPosition: {x: 4.935014, y: 7.0699997, z: -4.261411}
->>>>>>> Stashed changes
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1410,11 +1282,7 @@ MonoBehaviour:
   m_TransparentLayers:
     serializedVersion: 2
     m_Bits: 0
-<<<<<<< Updated upstream
-  m_MinimumDistanceFromTarget: 0.1
-=======
   m_MinimumDistanceFromTarget: 1
->>>>>>> Stashed changes
   m_AvoidObstacles: 1
   m_DistanceLimit: 0
   m_MinimumOcclusionTime: 0
@@ -1425,24 +1293,6 @@ MonoBehaviour:
   m_Damping: 0.3
   m_DampingWhenOccluded: 0.3
   m_OptimalTargetDistance: 0
-<<<<<<< Updated upstream
---- !u!114 &1796144453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1796144449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44d70cc20219cd84593f67d248eafe36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0, z: 0}
-  m_ApplyAfter: 1
-  m_PreserveComposition: 0
-=======
->>>>>>> Stashed changes
 --- !u!1 &1910848253
 GameObject:
   m_ObjectHideFlags: 0
@@ -1611,11 +1461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-<<<<<<< Updated upstream
-  m_FollowOffset: {x: 0, y: 5, z: -10}
-=======
   m_FollowOffset: {x: 0, y: 4, z: -5}
->>>>>>> Stashed changes
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -1635,11 +1481,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-<<<<<<< Updated upstream
-    Value: -97.64849
-=======
     Value: -29.27506
->>>>>>> Stashed changes
     m_SpeedMode: 0
     m_MaxSpeed: 300
     m_AccelTime: 0.1
@@ -1717,11 +1559,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-<<<<<<< Updated upstream
-    FieldOfView: 50
-=======
     FieldOfView: 70
->>>>>>> Stashed changes
     OrthographicSize: 10
     NearClipPlane: 0.01
     FarClipPlane: 5000
@@ -1729,11 +1567,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-<<<<<<< Updated upstream
-    m_SensorSize: {x: 1.7772021, y: 1}
-=======
     m_SensorSize: {x: 2.3547053, y: 1}
->>>>>>> Stashed changes
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1749,11 +1583,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2049236033}
-<<<<<<< Updated upstream
-  m_LocalRotation: {x: 0.09372624, y: -0.7549556, z: 0.11064005, w: 0.6395438}
-=======
   m_LocalRotation: {x: 0.20985448, y: -0.26071137, z: 0.058170535, w: 0.9405354}
->>>>>>> Stashed changes
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
