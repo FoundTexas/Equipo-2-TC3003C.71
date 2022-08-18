@@ -8,7 +8,9 @@ public class PlayerMovement3D : MonoBehaviour
 {
     [Header("Horizontal movement")]
     // Variables needed for character movement and camera functionality
-    public float speed = 6f;
+    public float moveSpeed = 15f;
+    [Range(0f, 1f)] public float rotateVelocity = 0.5f;
+    private float originalSpeed;
     private Vector3 direction;
     new private Rigidbody rigidbody;
 
@@ -16,18 +18,34 @@ public class PlayerMovement3D : MonoBehaviour
     // Variables needed for camera turning
     new public Transform camera;
     public float turnTime = 0.1f;
-    public float turnVelocity;
+    private float turnVelocity;
 
-    [Header("Vertical movement")]
+    [Header("Slope Movement")]
+    // Variables needed for movement while standing on a slope
+    public float maxSlopeAngle = 60f;
+    public float onSlopeSpeed = 5f;
+    private RaycastHit slopeHit;
+
+    [Header("Jumping")]
     // Variables needed for gravity functionality
-    public float jumpHeight = 8f;
+    public float jumpHeight = 12f;
     [Tooltip("Value determining how fast the player will fall")]
     public float fallMultiplier = 2.5f;
     [Tooltip("Value determining how far will the long jump go")]
-    public float lowJumpMultiplier = 2f;
+    public float lowJumpMultiplier = 4f;
     private float gravity =  -9.81f;
     private Vector3 velocity;
 
+    [Header("Wall jumping")]
+    public float wallDistance = 0.7f;
+    public float minJumpHeight = 0.75f;
+    public float wallJumpForce = 7f;
+    public float wallJumpSideForce = 12f;
+    public float exitWallTime = 0.7f;
+    private bool canWallJump = true;
+    private bool wallFound = false;
+    public LayerMask wallMask;
+    private RaycastHit wallHit;
 
     [Header("Ground controller")]
     // Variables needed to check ground below player
@@ -36,10 +54,22 @@ public class PlayerMovement3D : MonoBehaviour
     public LayerMask groundMask;
     private bool isGrounded;
 
+    [Header("Crouching")]
+    // Variables needed for crouching
+    public float crouchSpeed = 3.5f;
+    public float crouchHeight = 0.5f;
+    private float originalHeight;
+
+    [Header("Keyboard inputs")]
+    public KeyCode jumpInput = KeyCode.Space;
+    public KeyCode crouchInput = KeyCode.LeftShift;
+
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+        originalHeight = transform.localScale.y;
+        originalSpeed = moveSpeed;
     }
 
     // Update is called once per frame
@@ -47,8 +77,10 @@ public class PlayerMovement3D : MonoBehaviour
     {
         CheckGrounded();
         CheckInputs();
+        CheckWallJump();
         CheckMove();
         SpeedControl();
+        CheckCrouch();
         CheckJump();
     }
 
@@ -66,14 +98,16 @@ public class PlayerMovement3D : MonoBehaviour
         //Gather Keyboard Input and create resulting vector
         //Normalized to avoid faster movement in diagonals
         float horizontalInput = Input.GetAxisRaw("Horizontal");
-        float verticalInput = Input.GetAxisRaw("Vertical");
+        float verticalInput = 0f;
+        if(!wallFound || isGrounded)
+            verticalInput = Input.GetAxisRaw("Vertical");
         direction = new Vector3(horizontalInput, 0f, verticalInput).normalized;
     }
 
     private void CheckJump()
     {
         //Gravity Control
-        if(Input.GetButtonDown("Jump") && isGrounded)
+        if(Input.GetKeyDown(jumpInput) && isGrounded)
         {
             rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z);
             rigidbody.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
@@ -81,12 +115,9 @@ public class PlayerMovement3D : MonoBehaviour
 
         // Manage Long/short jump
         if(rigidbody.velocity.y < 0)
-        {
             rigidbody.velocity += Vector3.up * gravity * (fallMultiplier - 1) * Time.deltaTime;
-        }else if(rigidbody.velocity.y > 0 && !Input.GetButton("Jump"))
-        {
+        else if(rigidbody.velocity.y > 0 && !Input.GetKey(jumpInput))
             rigidbody.velocity += Vector3.up * gravity * (lowJumpMultiplier - 1) * Time.deltaTime;
-        }
     }
 
     private void CheckMove()
@@ -99,20 +130,111 @@ public class PlayerMovement3D : MonoBehaviour
             float resultAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnVelocity, turnTime);
             transform.rotation = Quaternion.Euler(0f, resultAngle, 0f);
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            rigidbody.AddForce(moveDirection.normalized * speed, ForceMode.Force);
+            rigidbody.useGravity = !OnSlope();
+
+            if(!canWallJump)
+                return;
+            
+            if(OnSlope())
+            {
+                rigidbody.AddForce(Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized * moveSpeed * onSlopeSpeed, ForceMode.Force);
+                if(rigidbody.velocity.y > 0)
+                    rigidbody.AddForce(Vector3.down * 10f, ForceMode.Force);
+            }
+            else
+                rigidbody.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
         }
     }
 
+    private bool OnSlope()
+    {
+        if(Physics.Raycast(transform.position, Vector3.down, 
+        out slopeHit, groundCheck.position.y + 0.3f))
+        {
+            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+            return angle < maxSlopeAngle && angle != 0;
+        }
+
+        return false;
+    }
     private void SpeedControl()
     {
-        Vector3 currentVelocity = new Vector3(rigidbody.velocity.x, 0f, rigidbody.velocity.z);
-
-        if(currentVelocity.magnitude > speed)
+        if(OnSlope())
         {
-            Vector3 limitedVelocity = currentVelocity.normalized * speed;
-            rigidbody.velocity = new Vector3(   limitedVelocity.x, 
-                                                rigidbody.velocity.y,
-                                                limitedVelocity.z);
+            if(rigidbody.velocity.magnitude > moveSpeed)
+                rigidbody.velocity = rigidbody.velocity.normalized * moveSpeed;
         }
+        else
+        {
+            Vector3 currentVelocity = new Vector3(  rigidbody.velocity.x, 
+                                                    0f, 
+                                                    rigidbody.velocity.z);
+
+            if(currentVelocity.magnitude > moveSpeed)
+            {
+                Vector3 limitedVelocity = currentVelocity.normalized * moveSpeed;
+                rigidbody.velocity = new Vector3(   limitedVelocity.x, 
+                                                    rigidbody.velocity.y,
+                                                    limitedVelocity.z);
+            }
+        }
+    }
+
+    private void CheckCrouch()
+    {
+        if(Input.GetKeyDown(crouchInput))
+        {
+            transform.localScale = new Vector3( transform.localScale.x,
+                                                crouchHeight,
+                                                transform.localScale.z);
+            rigidbody.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+            moveSpeed = crouchSpeed;
+        }
+
+        if(Input.GetKeyUp(crouchInput))
+        {
+            transform.localScale = new Vector3( transform.localScale.x,
+                                                originalHeight,
+                                                transform.localScale.z);
+            moveSpeed = originalSpeed;
+        }
+    }
+
+    private void CheckWallJump()
+    {
+        wallFound = Physics.Raycast(transform.position, transform.forward, out wallHit, wallDistance, wallMask);
+
+        if(wallFound && AboveGround())
+        {
+            if(Input.GetKeyDown(jumpInput))
+                WallJump();
+        }
+    }
+
+    private bool AboveGround()
+    {
+        return !Physics.Raycast(transform.position, Vector3.down, minJumpHeight, groundMask);
+    }
+
+    private void WallJump()
+    {
+        if(!canWallJump)
+            return;
+        
+        Vector3 wallNormal = wallHit.normal;
+
+        Vector3 jumpForce = transform.up * wallJumpForce + wallNormal * wallJumpSideForce;
+
+        rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0f, rigidbody.velocity.z);
+        rigidbody.AddForce(jumpForce, ForceMode.Impulse);
+
+        StartCoroutine(ResetWallJump());
+    }
+
+    private IEnumerator ResetWallJump()
+    {
+        canWallJump = false;
+        yield return new WaitForSeconds(exitWallTime);
+        canWallJump = true; 
     }
 }
