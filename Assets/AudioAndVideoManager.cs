@@ -10,6 +10,12 @@ public class AudioAndVideoManager : MonoBehaviour
     [SerializeField] AudioClip Land, jump, step;
     AudioSource audios;
     Animator anim;
+
+    private void Start()
+    {
+        audios = GetComponent<AudioSource>();
+        anim = GetComponent<Animator>();
+    }
     /// <summary>
     /// Plays sound of a step when called from the player Animator.
     /// </summary>
