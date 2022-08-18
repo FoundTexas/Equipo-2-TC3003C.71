@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class Weapon : MonoBehaviour
 {
     [Header("ID")]
@@ -20,17 +21,22 @@ public class Weapon : MonoBehaviour
     [SerializeField] int magazine;
     public int curMagazine, curAmmo;
     [Tooltip("Position where the projectiles and Raycasts are Fired")]
-    public Transform firePoint, camara;
+    public Transform firePoint;
+    Transform camara;
     [SerializeField] bool isRaycast;
-    [SerializeField] GameObject projectile;
-    [SerializeField] LayerMask rayMasks;
+    public GameObject projectile;
+    public LayerMask rayMasks;
     public float distance, dmg;
 
     public ParticleSystem particles;
-    bool canReload = true;
+    Animator anim;
+    public bool canReload = true;
 
     private void Start()
     {
+        anim = GetComponent<Animator>();
+        camara = Camera.main.transform;
+        canReload = true;
         curMagazine = magazine;
         curAmmo = ammo;
         if(firePoint.TryGetComponent<ParticleSystem>(out particles) == false)
@@ -49,17 +55,21 @@ public class Weapon : MonoBehaviour
         if (curShootS > 0) { curShootS -= Time.deltaTime; }
     }
 
+
     public void Reolad()
     {
-        Debug.Log("reload");
-        if (canReload) { ReoladEvent(); }
+        if (canReload)
+        {
+            Debug.Log("reload");
+            anim.SetTrigger("reload");
+        }
     }
-    IEnumerator ReoladEvent()
+    public void ReoladEvent()
     {
         if (curAmmo > 0)
         {
+            Debug.Log("reloading");
             canReload = false;
-            yield return new WaitForSeconds(reloadSpeed);
             curMagazine += curAmmo;
             if (curMagazine > magazine)
             {
@@ -71,6 +81,7 @@ public class Weapon : MonoBehaviour
                 curAmmo = 0;
             }
             canReload = true;
+            Debug.Log("reloaded");
         }
     }
 

@@ -35,7 +35,7 @@ public class GrapplingHook : Weapon
                 if (GetRay().transform)
                 {
                     grapplepoint = GetRay().point;
-                    entity = Instantiate(claw, grapplepoint, Quaternion.identity, GetRay().transform).transform;
+                    entity = Instantiate(projectile, grapplepoint, Quaternion.identity, GetRay().transform).transform;
 
                     entity.LookAt(GetRay().transform);
         
