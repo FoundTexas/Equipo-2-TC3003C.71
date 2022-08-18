@@ -7,8 +7,8 @@ public class CameraSensitivity : MonoBehaviour
 {
     //Recieve Cinemachine camera of FreeLook type along with desired sentivity
     public CinemachineFreeLook camera;
-    public float xSensitivity = 400f;
-    public float ySensitivity = 4f;
+    public float xSensitivity;
+    public float ySensitivity;
     
     // Start is called before the first frame update
     void Start()
@@ -19,7 +19,7 @@ public class CameraSensitivity : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SetSensitivity(xSensitivity, ySensitivity, camera);
+        
     }
     
     //Function that recieves floats for X and Y sensitivity
