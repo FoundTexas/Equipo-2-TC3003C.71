@@ -5,17 +5,20 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
-    [SerializeField] List<Weapon> weapons;
-    Dictionary<string, int> weaponDictionary;
+    [SerializeField] List<Weapon> weapons = new List<Weapon>();
+    Dictionary<string, int> weaponDictionary = new Dictionary<string, int>();
     [SerializeField] Weapon selected;
-    [SerializeField] List<string> unlocked = new List<string>(new string[1] {"Grappling"});
+    [SerializeField] List<string> unlocked = new List<string>(new string[2] {"Grappling", "SoundShoot" });
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Confined;
         for (int i = 0; i < weapons.Count; i++)
         {
             weaponDictionary.Add(weapons[i].ID, i);
+            weapons[i].gameObject.SetActive(false);
         }
+        selected.gameObject.SetActive(true);
     }
 
     void Update()
@@ -25,15 +28,16 @@ public class WeaponManager : MonoBehaviour
 
     void Inputs()
     {
+        /*
         if (Input.inputString != "")
         {
             int number = 1;
             bool is_a_number = Int32.TryParse(Input.inputString, out number);
-            if (is_a_number && number > 0 && number <= 7)
+            if (is_a_number && number > 0 && number <= 9)
             {
                 ChangeWeapon(number - 1);
             }
-        }
+        }*/
         if (Input.mouseScrollDelta.y != 0)
         {
             int selectedIndex = GetSelectedIndex();
@@ -49,7 +53,9 @@ public class WeaponManager : MonoBehaviour
     {
         if (unlocked.Count >= i)
         {
+            selected.gameObject.SetActive(false);
             selected = weapons[weaponDictionary[unlocked[i]]];
+            selected.gameObject.SetActive(true);
         }
     }
 
