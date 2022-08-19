@@ -9,6 +9,7 @@ public class PlayerMovement3D : MonoBehaviour
     [Header("Horizontal movement")]
     // Variables needed for character movement and camera functionality
     public float moveSpeed = 15f;
+    public float maxSpeed = 20f;
     private float originalSpeed;
     private Vector3 direction;
     private Vector3 moveDirection;
@@ -66,6 +67,12 @@ public class PlayerMovement3D : MonoBehaviour
     public float crouchHeight = 0.5f;
     private float originalHeight;
 
+    [Header("Dashing")]
+    public float dashForce = 3f;
+    public float doubleTapTime = 0.4f;
+    private float doubleTapDelta;
+    private bool doubleTap = false;
+
     [Header("Keyboard inputs")]
     public KeyCode jumpInput = KeyCode.Space;
     public KeyCode crouchInput = KeyCode.LeftShift;
@@ -85,6 +92,7 @@ public class PlayerMovement3D : MonoBehaviour
         CheckInputs();
         CheckWallJump();
         CheckMove();
+        CheckDash();
         SpeedControl();
         CheckCrouch();
         CheckJump();
@@ -181,9 +189,9 @@ public class PlayerMovement3D : MonoBehaviour
                                                     0f, 
                                                     rigidbody.velocity.z);
 
-            if(currentVelocity.magnitude > moveSpeed)
+            if(currentVelocity.magnitude >= maxSpeed)
             {
-                Vector3 limitedVelocity = currentVelocity.normalized * moveSpeed;
+                Vector3 limitedVelocity = currentVelocity.normalized * maxSpeed;
                 rigidbody.velocity = new Vector3(   limitedVelocity.x, 
                                                     rigidbody.velocity.y,
                                                     limitedVelocity.z);
@@ -272,7 +280,30 @@ public class PlayerMovement3D : MonoBehaviour
         rigidbody.AddForce(new Vector3(moveDirection.x  * diveForce, jumpHeight  * diveForce / 3, moveDirection.z * diveForce), ForceMode.Impulse);
         rigidbody.useGravity = true;
         yield return new WaitForSeconds(airTimeWait / 2);
-        // yield return new WaitUntil(() => isGrounded);
         canMove = true;
+    }
+
+    private void CheckDash()
+    {
+        if((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && doubleTap) {
+            print(Time.time - doubleTapDelta);
+            if(Time.time - doubleTapDelta < doubleTapTime) {
+                Dash();
+                print("Dashing");
+                doubleTapDelta = 0f;
+            }
+            doubleTap = false;
+        }
+
+        if((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && !doubleTap) {
+            doubleTap = true;
+            doubleTapDelta = Time.time;
+        }
+    }
+
+    private void Dash()
+    {
+        Vector3 forceToApply = transform.forward * dashForce;
+        rigidbody.AddForce(rigidbody.velocity * dashForce, ForceMode.Impulse);
     }
 }

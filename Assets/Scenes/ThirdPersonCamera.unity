@@ -172,7 +172,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 15
-  rotateVelocity: 0.5
   camera: {fileID: 598906744}
   turnTime: 0.1
   maxSlopeAngle: 60
@@ -792,7 +791,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 598906741}
-  m_LocalRotation: {x: 0.12451124, y: -0.00000001280641, z: 0.0000000016065186, w: 0.9922182}
+  m_LocalRotation: {x: 0.12451124, y: -0.0000000128064075, z: 0.0000000016065046, w: 0.9922182}
   m_LocalPosition: {x: 2.49, y: 8.07, z: -16.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -903,7 +902,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 832514446}
-  m_LocalRotation: {x: 0.10649046, y: -0.0000000042771338, z: 4.580787e-10, w: 0.9943138}
+  m_LocalRotation: {x: 0.10649046, y: 0.0000000042771364, z: -4.5807902e-10, w: 0.9943138}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
