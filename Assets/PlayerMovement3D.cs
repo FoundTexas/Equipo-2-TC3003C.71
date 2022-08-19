@@ -9,10 +9,11 @@ public class PlayerMovement3D : MonoBehaviour
     [Header("Horizontal movement")]
     // Variables needed for character movement and camera functionality
     public float moveSpeed = 15f;
-    [Range(0f, 1f)] public float rotateVelocity = 0.5f;
     private float originalSpeed;
     private Vector3 direction;
+    private Vector3 moveDirection;
     new private Rigidbody rigidbody;
+    private bool canMove = true;
 
     [Header("Camera movement")]
     // Variables needed for camera turning
@@ -36,13 +37,18 @@ public class PlayerMovement3D : MonoBehaviour
     private float gravity =  -9.81f;
     private Vector3 velocity;
 
+    [Header("Diving")]
+    public float diveForce = 5f;
+    public float airTimeWait = 0.2f;
+    public float canDiveStart = 0.2f;
+    private bool canDive = false;
+
     [Header("Wall jumping")]
     public float wallDistance = 0.7f;
     public float minJumpHeight = 0.75f;
     public float wallJumpForce = 7f;
     public float wallJumpSideForce = 12f;
     public float exitWallTime = 0.7f;
-    private bool canWallJump = true;
     private bool wallFound = false;
     public LayerMask wallMask;
     private RaycastHit wallHit;
@@ -82,6 +88,7 @@ public class PlayerMovement3D : MonoBehaviour
         SpeedControl();
         CheckCrouch();
         CheckJump();
+        CheckDive();
     }
 
     private void CheckGrounded()
@@ -91,6 +98,9 @@ public class PlayerMovement3D : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if(isGrounded && velocity.y < 0)
             velocity.y = -2f;
+        
+        if(isGrounded)
+            canDive = false;
     }
 
     private void CheckInputs()
@@ -109,6 +119,7 @@ public class PlayerMovement3D : MonoBehaviour
         //Gravity Control
         if(Input.GetKeyDown(jumpInput) && isGrounded)
         {
+            StartCoroutine(EnableDive());
             rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z);
             rigidbody.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
         }
@@ -129,10 +140,10 @@ public class PlayerMovement3D : MonoBehaviour
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + camera.eulerAngles.y;
             float resultAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnVelocity, turnTime);
             transform.rotation = Quaternion.Euler(0f, resultAngle, 0f);
-            Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             rigidbody.useGravity = !OnSlope();
 
-            if(!canWallJump)
+            if(!canMove)
                 return;
             
             if(OnSlope())
@@ -218,7 +229,7 @@ public class PlayerMovement3D : MonoBehaviour
 
     private void WallJump()
     {
-        if(!canWallJump)
+        if(!canMove)
             return;
         
         Vector3 wallNormal = wallHit.normal;
@@ -233,8 +244,35 @@ public class PlayerMovement3D : MonoBehaviour
 
     private IEnumerator ResetWallJump()
     {
-        canWallJump = false;
+        canMove = false;
         yield return new WaitForSeconds(exitWallTime);
-        canWallJump = true; 
+        canMove = true; 
+    }
+    private IEnumerator EnableDive()
+    {
+        yield return new WaitForSeconds(canDiveStart);
+        canDive = true; 
+    }
+
+    private void CheckDive()
+    {
+        if(canDive && Input.GetKeyDown(jumpInput))
+        {
+            StartCoroutine(Dive());
+        }
+    }
+
+    private IEnumerator Dive()
+    {
+        canMove = false;
+        canDive = false;
+        rigidbody.useGravity = false;
+        rigidbody.velocity = Vector3.zero;
+        yield return new WaitForSeconds(airTimeWait);
+        rigidbody.AddForce(new Vector3(moveDirection.x  * diveForce, jumpHeight  * diveForce / 3, moveDirection.z * diveForce), ForceMode.Impulse);
+        rigidbody.useGravity = true;
+        yield return new WaitForSeconds(airTimeWait / 2);
+        // yield return new WaitUntil(() => isGrounded);
+        canMove = true;
     }
 }
