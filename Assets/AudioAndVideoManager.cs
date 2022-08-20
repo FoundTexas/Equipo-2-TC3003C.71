@@ -9,12 +9,11 @@ public class AudioAndVideoManager : MonoBehaviour
     [SerializeField] float IdelTime;
     [SerializeField] AudioClip Land, jump, step;
     AudioSource audios;
-    Animator anim;
+    [SerializeField] Animator anim;
 
     private void Start()
     {
         audios = GetComponent<AudioSource>();
-        anim = GetComponent<Animator>();
     }
     /// <summary>
     /// Plays sound of a step when called from the player Animator.
@@ -24,7 +23,7 @@ public class AudioAndVideoManager : MonoBehaviour
         audios.PlayOneShot(step);
     }
     /// <summary>
-    /// Plays Robot´s jump sound when called.
+    /// Plays Robotï¿½s jump sound when called.
     /// </summary>
     public void jumpSound()
     {
@@ -55,7 +54,7 @@ public class AudioAndVideoManager : MonoBehaviour
         anim.SetBool("onWall", wall);
     }
     /// <summary>
-    /// Function that sets the Animator "hasGun" boolean and sets The gun´s sound if is the case.
+    /// Function that sets the Animator "hasGun" boolean and sets The gunï¿½s sound if is the case.
     /// </summary>
     /// <param name="gun"> State sent and compared with Animator state. </param>
     /// <param name="sound"> AudioClip from the Weapon. </param>

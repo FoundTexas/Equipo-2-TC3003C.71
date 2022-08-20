@@ -77,9 +77,12 @@ public class PlayerMovement3D : MonoBehaviour
     public KeyCode jumpInput = KeyCode.Space;
     public KeyCode crouchInput = KeyCode.LeftShift;
 
+    AudioAndVideoManager anim;
+
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<AudioAndVideoManager>();
         rigidbody = GetComponent<Rigidbody>();
         originalHeight = transform.localScale.y;
         originalSpeed = moveSpeed;
@@ -109,6 +112,8 @@ public class PlayerMovement3D : MonoBehaviour
         
         if(isGrounded)
             canDive = false;
+
+        anim.IsOnGround(isGrounded);
     }
 
     private void CheckInputs()
@@ -163,6 +168,7 @@ public class PlayerMovement3D : MonoBehaviour
             else
                 rigidbody.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
         }
+        anim.SetIfMovement(rigidbody.velocity.magnitude);
     }
 
     private bool OnSlope()
