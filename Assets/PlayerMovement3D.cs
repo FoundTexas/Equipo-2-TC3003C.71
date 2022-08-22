@@ -195,6 +195,12 @@ public class PlayerMovement3D : MonoBehaviour
         }
         else
         {
+            rigidbody.velocity = new Vector3(
+                Mathf.Clamp(rigidbody.velocity.x, -maxSpeed, maxSpeed),
+                Mathf.Clamp(rigidbody.velocity.y, -maxSpeed, maxSpeed),
+                Mathf.Clamp(rigidbody.velocity.z, -maxSpeed, maxSpeed)    
+                );
+            /*
             Vector3 currentVelocity = new Vector3(  rigidbody.velocity.x, 
                                                     0f, 
                                                     rigidbody.velocity.z);
@@ -205,7 +211,7 @@ public class PlayerMovement3D : MonoBehaviour
                 rigidbody.velocity = new Vector3(   limitedVelocity.x, 
                                                     rigidbody.velocity.y,
                                                     limitedVelocity.z);
-            }
+            }*/
         }
     }
 
@@ -288,7 +294,7 @@ public class PlayerMovement3D : MonoBehaviour
         rigidbody.useGravity = false;
         rigidbody.velocity = Vector3.zero;
         yield return new WaitForSeconds(airTimeWait);
-        rigidbody.AddForce(new Vector3(moveDirection.x  * diveForce, jumpHeight  * diveForce / 3, moveDirection.z * diveForce), ForceMode.Impulse);
+        rigidbody.AddForce( this.transform.forward * diveForce + Vector3.up * (jumpHeight / 2), ForceMode.Impulse);// new Vector3(moveDirection.x  * diveForce, (jumpHeight/3)  * diveForce , moveDirection.z * diveForce), ForceMode.Impulse);
         rigidbody.useGravity = true;
         yield return new WaitForSeconds(airTimeWait / 2);
         canMove = true;

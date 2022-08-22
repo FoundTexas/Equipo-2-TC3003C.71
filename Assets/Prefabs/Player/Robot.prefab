@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1feae076601e2de4582d176425a2397f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 20
+  moveSpeed: 10
   maxSpeed: 20
   camera: {fileID: 0}
   turnTime: 0.1
@@ -138,7 +138,7 @@ MonoBehaviour:
   jumpHeight: 12
   fallMultiplier: 2.5
   lowJumpMultiplier: 4
-  diveForce: 5
+  diveForce: 100
   airTimeWait: 0.2
   canDiveStart: 0.2
   wallDistance: 0.7
@@ -150,7 +150,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   groundDistance: 0.4
-  groundCheck: {fileID: 7140450418167325203}
+  groundCheck: {fileID: 0}
   groundMask:
     serializedVersion: 2
     m_Bits: 64

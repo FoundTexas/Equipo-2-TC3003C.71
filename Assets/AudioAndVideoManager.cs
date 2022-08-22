@@ -34,6 +34,7 @@ public class AudioAndVideoManager : MonoBehaviour
     {
         audios.PlayOneShot(jump);
         anim.SetTrigger("Jump");
+        anim.SetTrigger("Jump2");
     }
     /// <summary>
     /// Function that sets the Animator "isGround" boolean and sets landing sound if is the case.
