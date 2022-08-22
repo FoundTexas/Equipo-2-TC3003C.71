@@ -22,7 +22,7 @@ public class ThirdPersonMovement : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
-    public bool isGrounded;
+    bool isGrounded;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +33,7 @@ public class ThirdPersonMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(isGrounded);
         //Check if object is grounded by creating an invisible sphere
         //and checking if anything contained in groundMask is in contact with it
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
