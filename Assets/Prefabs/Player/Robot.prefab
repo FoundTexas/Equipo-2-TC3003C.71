@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7140450418167325200}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.018, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -113,9 +113,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IdelTime: 0
-  Land: {fileID: 0}
-  jump: {fileID: 0}
-  step: {fileID: 0}
+  Land: {fileID: 8300000, guid: 585cbd945ada4e14e90baf6ec111d719, type: 3}
+  jump: {fileID: 8300000, guid: 96c07bf41ec7369448ac1dafab5c7214, type: 3}
+  step: {fileID: 8300000, guid: 96c07bf41ec7369448ac1dafab5c7214, type: 3}
   anim: {fileID: 7140450416936869669}
 --- !u!114 &7140450418692057982
 MonoBehaviour:
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1feae076601e2de4582d176425a2397f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
+  moveSpeed: 20
   maxSpeed: 20
   camera: {fileID: 0}
   turnTime: 0.1
@@ -339,6 +339,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6635996063216330837, guid: d6cd0396cc33cca49a85272b1f00ff5f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1fcbd77eb3d3ff74895ed58872053f55, type: 2}
     - target: {fileID: 919132149155446097, guid: d6cd0396cc33cca49a85272b1f00ff5f, type: 3}
       propertyPath: m_Name
       value: Robot
@@ -364,7 +368,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8058786926651809811}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 1760fe3495dcfeb4189f46d06d03d16a, type: 3}
   m_Controller: {fileID: 9100000, guid: ea213782b6fc33546aba6389c107d6da, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0

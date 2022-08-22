@@ -28,6 +28,12 @@ public class AudioAndVideoManager : MonoBehaviour
     public void jumpSound()
     {
         audios.PlayOneShot(jump);
+        anim.SetTrigger("Jump");
+    }
+    public void DiveSound()
+    {
+        audios.PlayOneShot(jump);
+        anim.SetTrigger("Jump");
     }
     /// <summary>
     /// Function that sets the Animator "isGround" boolean and sets landing sound if is the case.
@@ -35,11 +41,11 @@ public class AudioAndVideoManager : MonoBehaviour
     /// <param name="grounded">State sent and compared with Animator state. </param>
     public void IsOnGround(bool grounded)
     {
-        if (!anim.GetBool("isGround") && grounded)
+        if (!anim.GetBool("isGrounded") && grounded)
         {
             audios.PlayOneShot(Land);
         }
-        anim.SetBool("isGround",grounded);
+        anim.SetBool("isGrounded", grounded);
     }
     /// <summary>
     /// Function that sets the Animator "onWall" boolean and sets landing sound if is the case.
@@ -60,11 +66,11 @@ public class AudioAndVideoManager : MonoBehaviour
     /// <param name="sound"> AudioClip from the Weapon. </param>
     public void GunValue(bool gun, AudioClip sound)
     {
-        if (!anim.GetBool("hasGun") && gun)
+        if (anim.GetFloat("hasGun") == 0 && gun)
         {
             audios.PlayOneShot(sound);
         }
-        anim.SetBool("hasGun", gun);
+        anim.SetFloat("hasGun", gun? 1 : 0);
     }
     /// <summary>
     /// Function that sets Animator "speed" Float.
@@ -73,10 +79,10 @@ public class AudioAndVideoManager : MonoBehaviour
     public void SetIfMovement(float speed)
     {
         anim.SetFloat("speed", speed);
+        anim.SetFloat("IdelTime", IdelTime);
 
-        if(speed <= 0)
+        if (speed <= 0)
         {
-            anim.SetFloat("IdelTime", IdelTime);
             if (IdelTime > 40)
             {
                 IdelTime = 0;
@@ -85,6 +91,10 @@ public class AudioAndVideoManager : MonoBehaviour
             {
                 IdelTime += Time.deltaTime;
             }
+        }
+        else
+        {
+            IdelTime = 0;
         }
     }
 }

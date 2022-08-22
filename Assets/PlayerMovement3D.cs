@@ -91,6 +91,7 @@ public class PlayerMovement3D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SendAnimationVals();
         CheckGrounded();
         CheckInputs();
         CheckWallJump();
@@ -100,6 +101,11 @@ public class PlayerMovement3D : MonoBehaviour
         CheckCrouch();
         CheckJump();
         CheckDive();
+    }
+
+    void SendAnimationVals(){
+        anim.IsOnGround(isGrounded);
+        anim.SetIfMovement(rigidbody.velocity.magnitude);
     }
 
     private void CheckGrounded()
@@ -112,8 +118,6 @@ public class PlayerMovement3D : MonoBehaviour
         
         if(isGrounded)
             canDive = false;
-
-        anim.IsOnGround(isGrounded);
     }
 
     private void CheckInputs()
@@ -133,6 +137,7 @@ public class PlayerMovement3D : MonoBehaviour
         if(Input.GetKeyDown(jumpInput) && isGrounded)
         {
             StartCoroutine(EnableDive());
+            anim.jumpSound();
             rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z);
             rigidbody.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
         }
@@ -168,7 +173,6 @@ public class PlayerMovement3D : MonoBehaviour
             else
                 rigidbody.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
         }
-        anim.SetIfMovement(rigidbody.velocity.magnitude);
     }
 
     private bool OnSlope()
@@ -272,6 +276,7 @@ public class PlayerMovement3D : MonoBehaviour
     {
         if(canDive && Input.GetKeyDown(jumpInput))
         {
+            anim.DiveSound();
             StartCoroutine(Dive());
         }
     }
