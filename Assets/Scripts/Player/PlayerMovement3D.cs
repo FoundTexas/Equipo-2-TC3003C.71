@@ -106,6 +106,7 @@ public class PlayerMovement3D : MonoBehaviour
     void SendAnimationVals(){
         anim.IsOnGround(isGrounded);
         anim.SetIfMovement(rigidbody.velocity.magnitude);
+        anim.IsOnWall(wallFound);
     }
 
     private void CheckGrounded()
@@ -263,6 +264,8 @@ public class PlayerMovement3D : MonoBehaviour
         rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0f, rigidbody.velocity.z);
         rigidbody.AddForce(jumpForce, ForceMode.Impulse);
 
+        transform.Rotate(new Vector3(0, 180, 0));
+
         StartCoroutine(ResetWallJump());
     }
 
@@ -280,7 +283,7 @@ public class PlayerMovement3D : MonoBehaviour
 
     private void CheckDive()
     {
-        if(canDive && Input.GetKeyDown(jumpInput))
+        if(canDive && Input.GetKeyDown(jumpInput) && !wallFound)
         {
             anim.DiveSound();
             StartCoroutine(Dive());
@@ -303,7 +306,6 @@ public class PlayerMovement3D : MonoBehaviour
     private void CheckDash()
     {
         if((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && doubleTap) {
-            print(Time.time - doubleTapDelta);
             if(Time.time - doubleTapDelta < doubleTapTime) {
                 Dash();
                 print("Dashing");

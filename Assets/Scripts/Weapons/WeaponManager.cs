@@ -20,24 +20,12 @@ public class WeaponManager : MonoBehaviour
         }
         selected.gameObject.SetActive(true);
     }
-
     void Update()
     {
         Inputs();
     }
-
     void Inputs()
     {
-        /*
-        if (Input.inputString != "")
-        {
-            int number = 1;
-            bool is_a_number = Int32.TryParse(Input.inputString, out number);
-            if (is_a_number && number > 0 && number <= 9)
-            {
-                ChangeWeapon(number - 1);
-            }
-        }*/
         if (Input.mouseScrollDelta.y != 0)
         {
             int selectedIndex = GetSelectedIndex();
@@ -46,6 +34,10 @@ public class WeaponManager : MonoBehaviour
             selectedIndex = Mathf.Clamp(selectedIndex, 0, weapons.Count-1);
             ChangeWeapon(selectedIndex);
         }
+    }
+
+    public void toggleWeapon()
+    {
 
     }
 
