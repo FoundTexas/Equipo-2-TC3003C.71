@@ -75,6 +75,7 @@ public class PlayerMovement3D : MonoBehaviour
 
     [Header("Keyboard inputs")]
     public KeyCode jumpInput = KeyCode.Space;
+    public KeyCode diveInput = KeyCode.LeftControl;
     public KeyCode crouchInput = KeyCode.LeftShift;
 
     AudioAndVideoManager anim;
@@ -283,7 +284,7 @@ public class PlayerMovement3D : MonoBehaviour
 
     private void CheckDive()
     {
-        if(canDive && Input.GetKeyDown(jumpInput) && !wallFound)
+        if(canDive && Input.GetKeyDown(diveInput) && !wallFound)
         {
             anim.DiveSound();
             StartCoroutine(Dive());

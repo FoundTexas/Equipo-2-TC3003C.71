@@ -95,10 +95,13 @@ MonoBehaviour:
     m_Bits: 64
   distance: 20
   dmg: 10
+  sound: {fileID: 8300000, guid: e0e5fb07b8b657c4fb6222f5239c585b, type: 3}
   particles: {fileID: 4234776060911250779}
   canReload: 1
   player: {fileID: 0}
-  claw: {fileID: 4558197808376601885, guid: 5ad67af066912fd43b8922e77eded619, type: 3}
+  spring: 100
+  damper: 7
+  massScale: 4.5
 --- !u!120 &5737172475526211295
 LineRenderer:
   m_ObjectHideFlags: 0
