@@ -84,14 +84,16 @@ public class BasicEnemyAI : MonoBehaviour
     {
         //Stop enemy movement and look at player
         agent.SetDestination(transform.position);
-        animator.SetTrigger("Attack");
+
+        //Find the player's current position
+        //Keep enemy's current position in Y axis to prevent tilt
+        //Rotate enemy to face player
         Vector3 targetPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
-
         transform.LookAt(targetPosition);
-
 
         if(!hasAttacked)
         {
+            animator.SetTrigger("Attack");
             hasAttacked = true;
             Invoke(nameof(ResetAttack), attackSpeed);
         }
