@@ -85,7 +85,9 @@ public class BasicEnemyAI : MonoBehaviour
         //Stop enemy movement and look at player
         agent.SetDestination(transform.position);
         animator.SetTrigger("Attack");
-        transform.LookAt(player);
+        Vector3 targetPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+
+        transform.LookAt(targetPosition);
 
 
         if(!hasAttacked)
