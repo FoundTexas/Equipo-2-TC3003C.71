@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BasicEnemyAI : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     //Variables needed for enemy calculations
     public NavMeshAgent agent;
@@ -13,18 +13,18 @@ public class BasicEnemyAI : MonoBehaviour
 
     //Patrolling variables
     public Vector3 walkPoint;
-    bool walkPointSet;
+    public bool walkPointSet;
     public float walkPointRange;
 
     //Attacking variables
     public float attackSpeed;
-    bool hasAttacked;
+    public bool hasAttacked;
 
     //State variables
     public float sightRange, attackRange;
     public bool playerInSights, playerInRange;
 
-    Animator animator;
+    public Animator animator;
 
     void Awake()
     {
@@ -60,7 +60,7 @@ public class BasicEnemyAI : MonoBehaviour
     
     }
 
-    void Patrolling()
+    public virtual void Patrolling()
     {
         if(!walkPointSet)
             CreateWalkPoint();
@@ -75,12 +75,12 @@ public class BasicEnemyAI : MonoBehaviour
             walkPointSet = false;
     }
 
-    void Chasing()
+    public void Chasing()
     {
         agent.SetDestination(player.position);
     }
 
-    void Attacking()
+    public virtual void Attacking()
     {
         //Stop enemy movement and look at player
         agent.SetDestination(transform.position);
@@ -100,7 +100,7 @@ public class BasicEnemyAI : MonoBehaviour
 
     }
 
-    void CreateWalkPoint()
+    public virtual void CreateWalkPoint()
     {
         //Generate a random point in enemy range
         float randX = Random.Range(-walkPointRange, walkPointRange);
@@ -109,10 +109,13 @@ public class BasicEnemyAI : MonoBehaviour
         walkPoint = new Vector3(transform.position.x + randX, transform.position.y, transform.position.z + randZ);
 
         if(Physics.Raycast(walkPoint, -transform.up, 2f, isGround))
+        {
             walkPointSet = true;
+        }
+            
     }
 
-    void ResetAttack()
+    public void ResetAttack()
     {
         hasAttacked = false;
     }
