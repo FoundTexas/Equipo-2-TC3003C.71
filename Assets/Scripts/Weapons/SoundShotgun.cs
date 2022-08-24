@@ -24,7 +24,7 @@ public class SoundShotgun : Weapon
                 {
                     Rigidbody tmprb = obj.gameObject.GetComponent<Rigidbody>();
                     if (tmprb != null)
-                        tmprb.AddExplosionForce(explosionForce, GetRay().point, explosionRadius, 3.0F);
+                        tmprb.AddExplosionForce(explosionForce, pos, explosionRadius, 3.0F);
                 }
                 curMagazine--;
             }

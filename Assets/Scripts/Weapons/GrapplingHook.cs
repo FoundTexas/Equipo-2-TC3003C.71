@@ -65,7 +65,7 @@ public class GrapplingHook : Weapon
         float distanceFromPoint = Vector3.Distance(
             player.position,
             entity.position);
-        joint.maxDistance = distanceFromPoint * 0.5f;
+        joint.maxDistance = distanceFromPoint * 0.8f;
         joint.minDistance = distanceFromPoint * 0.5f;
 
         joint.spring = spring;
