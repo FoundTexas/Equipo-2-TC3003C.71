@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class GrapplingHook : Weapon
 {
-    private LineRenderer lr;
-    Vector3 grapplepoint;
+    [Header("Grappling Gun Values")]
+    public Transform player;
+    [SerializeField] float spring = 100, damper = 7, massScale = 4.5f;
+    LineRenderer lr;
     Transform entity;
     SpringJoint joint;
-    public Transform player;
-    public GameObject claw;
 
     private void Awake()
     {
@@ -15,9 +15,12 @@ public class GrapplingHook : Weapon
     }
     void Update()
     {
-        if (Input.GetKeyDown("r")) { Reolad(); }
-        if (Input.GetMouseButtonDown(0)) { Shoot(); }
-        if (Input.GetMouseButtonUp(0)) { StopGrapple(); }
+        if (WeaponManager.hasWeapon)
+        {
+            if (Input.GetKeyDown("r")) { Reolad(); }
+            if (Input.GetMouseButtonDown(0)) { Shoot(); }
+            if (Input.GetMouseButtonUp(0)) { StopGrapple(); }
+        }
     }
     private void LateUpdate()
     {
@@ -32,26 +35,23 @@ public class GrapplingHook : Weapon
             {
                 curShootS = shootSpeed;
                 PlayShootAnimation();
-                if (GetRay().transform)
+                entity = GetNearest();
+                if (entity)
                 {
-                    grapplepoint = GetRay().point;
-                    entity = Instantiate(projectile, grapplepoint, Quaternion.identity, GetRay().transform).transform;
+                    //grapplepoint = GetRay().point;
+                    //entity = Instantiate(projectile, grapplepoint, Quaternion.identity, GetRay().transform).transform;
 
-                    entity.LookAt(GetRay().transform);
+                    //entity.LookAt(GetRay().transform);
         
-                    if (GetRay().transform.GetComponent<IDamage>() != null)
+                    if (entity.GetComponent<IDamage>() != null)
                     {
-                        GetRay().transform.GetComponent<IDamage>().TakeDamage(dmg);
+                        entity.GetComponent<IDamage>().TakeDamage(dmg);
                     }
 
                     joint = player.gameObject.AddComponent<SpringJoint>();
                     lr.positionCount = 2;
                     curMagazine--;
                     SetJoint();
-                }
-                else
-                {
-                    grapplepoint = firePoint.position;
                 }
             }
         }
@@ -65,12 +65,12 @@ public class GrapplingHook : Weapon
         float distanceFromPoint = Vector3.Distance(
             player.position,
             entity.position);
-        joint.maxDistance = distanceFromPoint * 0.8f;
-        joint.minDistance = distanceFromPoint * 0.3f;
+        joint.maxDistance = distanceFromPoint * 0.5f;
+        joint.minDistance = distanceFromPoint * 0.5f;
 
-        joint.spring = 12;
-        joint.damper = 7;
-        joint.massScale = 4.5f;
+        joint.spring = spring;
+        joint.damper = damper;
+        joint.massScale = massScale;
     }
     void DrawRope()
     {
@@ -84,6 +84,23 @@ public class GrapplingHook : Weapon
     {
         lr.positionCount = 0;
         if (joint) { Destroy(joint); }
-        if (entity) { Destroy(entity.gameObject); }
+        //if (entity) { Destroy(entity.gameObject); }
+    }
+
+    Transform GetNearest()
+    {
+        Transform tmp = null;
+        Collider[] objs = Physics.OverlapSphere(transform.position + Vector3.up, distance, rayMasks);
+        float objdist = Mathf.Infinity;
+        foreach (var obj in objs)
+        {
+            float tmpdist = Vector3.Distance(obj.transform.position, transform.position);
+            if (objdist > tmpdist)
+            {
+                objdist = tmpdist;
+                tmp = obj.transform;
+            }
+        }
+        return tmp;
     }
 }

@@ -9,6 +9,10 @@ public class WeaponManager : MonoBehaviour
     Dictionary<string, int> weaponDictionary = new Dictionary<string, int>();
     [SerializeField] Weapon selected;
     [SerializeField] List<string> unlocked = new List<string>(new string[2] {"Grappling", "SoundShoot" });
+    [SerializeField] Transform torso, hand;
+    [SerializeField] AudioAndVideoManager audios;
+    public static bool hasWeapon = true;
+    Vector3 pos;
 
     void Start()
     {
@@ -18,26 +22,20 @@ public class WeaponManager : MonoBehaviour
             weaponDictionary.Add(weapons[i].ID, i);
             weapons[i].gameObject.SetActive(false);
         }
+        toggleWeapon();
+
         selected.gameObject.SetActive(true);
     }
-
     void Update()
     {
         Inputs();
     }
-
+    private void LateUpdate()
+    {
+        transform.localPosition = pos;
+    }
     void Inputs()
     {
-        /*
-        if (Input.inputString != "")
-        {
-            int number = 1;
-            bool is_a_number = Int32.TryParse(Input.inputString, out number);
-            if (is_a_number && number > 0 && number <= 9)
-            {
-                ChangeWeapon(number - 1);
-            }
-        }*/
         if (Input.mouseScrollDelta.y != 0)
         {
             int selectedIndex = GetSelectedIndex();
@@ -46,7 +44,28 @@ public class WeaponManager : MonoBehaviour
             selectedIndex = Mathf.Clamp(selectedIndex, 0, weapons.Count-1);
             ChangeWeapon(selectedIndex);
         }
+        if (Input.GetKeyDown("q"))
+        {
+            toggleWeapon();
+        }
+    }
 
+    public void toggleWeapon()
+    {
+        hasWeapon = !hasWeapon;
+        if (hasWeapon)
+        {
+            this.transform.parent = hand;
+            pos = Vector3.zero;
+            transform.localRotation = Quaternion.Euler(-70, 9, 77);
+        }
+        else if (!hasWeapon)
+        {
+            this.transform.parent = torso;
+            pos = Vector3.zero;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        audios.GunValue(hasWeapon, selected.sound);
     }
 
     public void ChangeWeapon(int i)

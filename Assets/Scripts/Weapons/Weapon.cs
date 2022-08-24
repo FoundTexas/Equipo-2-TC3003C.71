@@ -27,6 +27,7 @@ public class Weapon : MonoBehaviour
     public GameObject projectile;
     public LayerMask rayMasks;
     public float distance, dmg;
+    public AudioClip sound;
 
     public ParticleSystem particles;
     Animator anim;
@@ -47,8 +48,11 @@ public class Weapon : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown("r")) { Reolad(); }
-        if (Input.GetMouseButtonDown(0)) { Shoot(); }
+        if (WeaponManager.hasWeapon)
+        {
+            if (Input.GetKeyDown("r")) { Reolad(); }
+            if (Input.GetMouseButtonDown(0)) { Shoot(); }
+        }
     }
     private void FixedUpdate()
     {
