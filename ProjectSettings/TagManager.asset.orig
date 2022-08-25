@@ -14,10 +14,15 @@ TagManager:
   - UI
   - Hookable
   - Wall
+<<<<<<< HEAD
   - Player
   - Enemy
-  - Prop
+=======
   - Wall2
+  - 
+>>>>>>> 6e9645736b983c9fd04239b7a3e7b053eab498cf
+  - 
+  - 
   - 
   - 
   - 
