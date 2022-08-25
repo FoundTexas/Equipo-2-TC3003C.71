@@ -27,13 +27,13 @@ public class SoundShotgun : Weapon
                     if (tmprb != null)
                     {
                         tmprb.AddExplosionForce(explosionForce, pos, explosionRadius, 3.0F);
-                        if (tmprb.gameObject != player)
+                    }
+                    if (obj.gameObject != player)
+                    {
+                        IDamage Dmginterface = null;
+                        if (obj.gameObject.TryGetComponent<IDamage>(out Dmginterface))
                         {
-                            IDamage Dmginterface = null;
-                            if (tmprb.gameObject.TryGetComponent<IDamage>(out Dmginterface))
-                            {
-                                Dmginterface.TakeDamage(dmg);
-                            }
+                            Dmginterface.TakeDamage(dmg);
                         }
                     }
                 }
