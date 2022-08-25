@@ -201,7 +201,7 @@ MonoBehaviour:
   canDiveStart: 0.2
   wallDistance: 0.7
   minJumpHeight: 0.75
-  wallJumpForce: 12
+  wallJumpForce: 8
   wallJumpSideForce: 12
   exitWallTime: 0.2
   wallMask:
@@ -211,7 +211,7 @@ MonoBehaviour:
   groundCheck: {fileID: 7140450418167325203}
   groundMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 520
   crouchSpeed: 3.5
   crouchHeight: 0.5
   dashForce: 3

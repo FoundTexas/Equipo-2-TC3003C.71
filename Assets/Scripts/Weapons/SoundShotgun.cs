@@ -6,6 +6,7 @@ public class SoundShotgun : Weapon
 {
     public float explosionRadius = 10;
     public float explosionForce = 100;
+    public GameObject player;
     public override void Shoot()
     {
         if (curMagazine > 0)
@@ -24,7 +25,17 @@ public class SoundShotgun : Weapon
                 {
                     Rigidbody tmprb = obj.gameObject.GetComponent<Rigidbody>();
                     if (tmprb != null)
+                    {
                         tmprb.AddExplosionForce(explosionForce, pos, explosionRadius, 3.0F);
+                        if (tmprb.gameObject != player)
+                        {
+                            IDamage Dmginterface = null;
+                            if (tmprb.gameObject.TryGetComponent<IDamage>(out Dmginterface))
+                            {
+                                Dmginterface.TakeDamage(dmg);
+                            }
+                        }
+                    }
                 }
                 curMagazine--;
             }

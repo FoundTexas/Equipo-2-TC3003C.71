@@ -82,7 +82,7 @@ public class AudioAndVideoManager : MonoBehaviour
         anim.SetFloat("speed", speed);
         anim.SetFloat("IdelTime", IdelTime);
 
-        if (speed <= 0)
+        if (speed <= 0.3f)
         {
             if (IdelTime > 40)
             {
