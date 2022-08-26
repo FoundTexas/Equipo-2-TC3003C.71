@@ -13,14 +13,27 @@ TagManager:
   - Water
   - UI
   - Hookable
+<<<<<<< HEAD
+<<<<<<< HEAD
   - 
   - 
   - 
   - 
+=======
   - Wall
   - Player
   - Enemy
+>>>>>>> Feature/BasicEnemy
+=======
+  - Wall
+<<<<<<< HEAD
+  - Player
+  - Enemy
+=======
+  - Wall2
   - 
+>>>>>>> 6e9645736b983c9fd04239b7a3e7b053eab498cf
+>>>>>>> Feature/PauseMenu
   - 
   - 
   - 
