@@ -25,11 +25,11 @@ public class CameraSensitivity : MonoBehaviour
     //Function that recieves floats for X and Y sensitivity
     //along with the Cinemachine camera
     //Modifies the camera's sensitivity using the float values
-    public void SetSensitivity(float xSens, float ySens, CinemachineFreeLook camera)
+    public void SetSensitivity(float sensFactor)
     {
         //Set desired sensitivity
-        camera.m_XAxis.m_MaxSpeed = xSens;
-        camera.m_YAxis.m_MaxSpeed = ySens;
+        camera.m_XAxis.m_MaxSpeed += sensFactor*50 + 50;
+        camera.m_YAxis.m_MaxSpeed += sensFactor;
     }
 
 }
