@@ -16,9 +16,10 @@ public class SoundShotgun : Weapon
                 curShootS = shootSpeed;
                 PlayShootAnimation();
                 Vector3 pos = firePoint.position + firePoint.forward * distance;
-                if (GetRay().transform)
+                Vector3 dir = Direction();
+                if (GetRay(dir).transform)
                 {
-                    pos = GetRay().point;
+                    pos = GetRay(dir).point;
                 }
                 Collider[] objs = Physics.OverlapSphere(pos, explosionRadius, rayMasks);
                 foreach (var obj in objs)

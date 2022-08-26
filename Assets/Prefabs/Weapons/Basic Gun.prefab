@@ -83,6 +83,9 @@ MonoBehaviour:
   reloadSpeed: 5
   shootSpeed: 10
   curShootS: 0
+  BulletSpreadVariance: {x: 0.1, y: 0.1, z: 0.1}
+  ImpactParticleSystem: {fileID: 0}
+  BulletTrail: {fileID: 3958543375046743312, guid: 97700d8afa1a790408a805fab56667bb, type: 3}
   ammo: 5
   magazine: 10
   curMagazine: 10
@@ -230,15 +233,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7206324574939256705, guid: 128dc9196e86e88428bd783a9fbb7130, type: 3}
       propertyPath: m_LocalScale.x
-      value: 600
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 7206324574939256705, guid: 128dc9196e86e88428bd783a9fbb7130, type: 3}
       propertyPath: m_LocalScale.y
-      value: 600
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 7206324574939256705, guid: 128dc9196e86e88428bd783a9fbb7130, type: 3}
       propertyPath: m_LocalScale.z
-      value: 600
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 7206324574939256705, guid: 128dc9196e86e88428bd783a9fbb7130, type: 3}
       propertyPath: m_LocalPosition.x
