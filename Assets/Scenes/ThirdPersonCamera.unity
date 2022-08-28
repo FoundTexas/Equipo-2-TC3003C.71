@@ -3556,7 +3556,7 @@ GameObject:
   - component: {fileID: 1022695993}
   - component: {fileID: 1022695992}
   - component: {fileID: 1022695995}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16474,6 +16474,10 @@ PrefabInstance:
     - target: {fileID: 7140450418692057982, guid: b8e5af792b3810b44876eae9429ab288, type: 3}
       propertyPath: maxSlopeAngle
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140450418692057982, guid: b8e5af792b3810b44876eae9429ab288, type: 3}
+      propertyPath: slopes.m_Bits
+      value: 4096
       objectReference: {fileID: 0}
     - target: {fileID: 7140450418692057983, guid: b8e5af792b3810b44876eae9429ab288, type: 3}
       propertyPath: m_RootOrder
