@@ -21,12 +21,14 @@ public class PlayerMovement3D : MonoBehaviour
     new public Transform camera;
     public float turnTime = 0.1f;
     private float turnVelocity;
+    public float tmpspeed = 0;
 
     [Header("Slope Movement")]
     // Variables needed for movement while standing on a slope
     public float maxSlopeAngle = 60f;
     public float onSlopeSpeed = 5f;
     private RaycastHit slopeHit;
+    public bool sloped;
 
     [Header("Jumping")]
     // Variables needed for gravity functionality
@@ -90,18 +92,19 @@ public class PlayerMovement3D : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
+        sloped = OnSlope();
         SendAnimationVals();
         CheckGrounded();
         CheckInputs();
         CheckWallJump();
         CheckMove();
         CheckDash();
-        SpeedControl();
         CheckCrouch();
         CheckJump();
         CheckDive();
+        SpeedControl();
     }
 
     void SendAnimationVals(){
@@ -126,11 +129,14 @@ public class PlayerMovement3D : MonoBehaviour
     {
         //Gather Keyboard Input and create resulting vector
         //Normalized to avoid faster movement in diagonals
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = 0f;
-        if(!wallFound || isGrounded)
+        float horizontalInput = 0f;
+        if (!wallFound || isGrounded)
+        {
             verticalInput = Input.GetAxisRaw("Vertical");
-        direction = new Vector3(horizontalInput, 0f, verticalInput).normalized;
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+        }
+        direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
     }
 
     private void CheckJump()
@@ -161,26 +167,36 @@ public class PlayerMovement3D : MonoBehaviour
             float resultAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnVelocity, turnTime);
             transform.rotation = Quaternion.Euler(0f, resultAngle, 0f);
             moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            rigidbody.useGravity = !OnSlope();
+            //rigidbody.useGravity = !OnSlope();
+            tmpspeed += moveSpeed * Time.deltaTime;
+            tmpspeed = Mathf.Clamp(tmpspeed, -5, 5);
 
-            if(!canMove)
+            if (!canMove)
                 return;
-            
-            if(OnSlope())
+
+            if (OnSlope())
             {
-                rigidbody.AddForce(Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized * moveSpeed * onSlopeSpeed, ForceMode.Force);
-                if(rigidbody.velocity.y > 0)
-                    rigidbody.AddForce(Vector3.down * 10f, ForceMode.Force);
+                //rigidbody.AddForce(Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized * moveSpeed * onSlopeSpeed, ForceMode.Force);
+                //if (rigidbody.velocity.y > 0)
+                // rigidbody.AddForce(Vector3.down * 10f, ForceMode.Force);
+                rigidbody.velocity = Vector3.ProjectOnPlane(moveDirection , slopeHit.normal).normalized * tmpspeed;
             }
             else
-                rigidbody.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
+            {
+                //rigidbody.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
+                rigidbody.velocity += moveDirection * moveSpeed;
+            }
+        }
+        else
+        {
+            tmpspeed = 0;
         }
     }
 
     private bool OnSlope()
     {
-        if(Physics.Raycast(transform.position, Vector3.down, 
-        out slopeHit, groundCheck.position.y + 0.3f))
+        if(Physics.Raycast(transform.position + transform.forward, Vector3.down, 
+        out slopeHit, 1))
         {
             float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
             return angle < maxSlopeAngle && angle != 0;
@@ -190,31 +206,7 @@ public class PlayerMovement3D : MonoBehaviour
     }
     private void SpeedControl()
     {
-        if(OnSlope())
-        {
-            if(rigidbody.velocity.magnitude > moveSpeed)
-                rigidbody.velocity = rigidbody.velocity.normalized * moveSpeed;
-        }
-        else
-        {
-            rigidbody.velocity = new Vector3(
-                Mathf.Clamp(rigidbody.velocity.x, -maxSpeed, maxSpeed),
-                Mathf.Clamp(rigidbody.velocity.y, -maxSpeed, maxSpeed),
-                Mathf.Clamp(rigidbody.velocity.z, -maxSpeed, maxSpeed)    
-                );
-            /*
-            Vector3 currentVelocity = new Vector3(  rigidbody.velocity.x, 
-                                                    0f, 
-                                                    rigidbody.velocity.z);
-
-            if(currentVelocity.magnitude >= maxSpeed)
-            {
-                Vector3 limitedVelocity = currentVelocity.normalized * maxSpeed;
-                rigidbody.velocity = new Vector3(   limitedVelocity.x, 
-                                                    rigidbody.velocity.y,
-                                                    limitedVelocity.z);
-            }*/
-        }
+        rigidbody.velocity = Vector3.ClampMagnitude(rigidbody.velocity, maxSpeed);
     }
 
     private void CheckCrouch()
