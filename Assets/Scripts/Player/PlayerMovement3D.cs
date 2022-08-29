@@ -94,14 +94,18 @@ public class PlayerMovement3D : MonoBehaviour
     {
         SendAnimationVals();
         CheckGrounded();
-        CheckInputs();
         CheckWallJump();
-        CheckMove();
         CheckDash();
         SpeedControl();
         CheckCrouch();
         CheckJump();
         CheckDive();
+    }
+
+    private void FixedUpdate()
+    {
+        CheckInputs();
+        CheckMove();
     }
 
     void SendAnimationVals()
@@ -127,9 +131,10 @@ public class PlayerMovement3D : MonoBehaviour
     {
         //Gather Keyboard Input and create resulting vector
         //Normalized to avoid faster movement in diagonals
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float horizontalInput = 0f;
         float verticalInput = 0f;
         if (!wallFound || isGrounded)
+            horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");
         direction = new Vector3(horizontalInput, 0f, verticalInput).normalized;
     }
