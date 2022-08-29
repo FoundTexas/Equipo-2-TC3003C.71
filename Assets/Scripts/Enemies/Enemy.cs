@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamage
 {
     //Variables needed for enemy calculations
     public NavMeshAgent agent;
@@ -26,8 +26,13 @@ public class Enemy : MonoBehaviour
 
     public Animator animator;
 
+    [SerializeField] float hp = 20;
+    float maxhp;
+    [SerializeField] Renderer render;
+
     void Awake()
     {
+        maxhp = hp;
         player = GameObject.Find("Robot").transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
@@ -38,7 +43,6 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -120,4 +124,34 @@ public class Enemy : MonoBehaviour
         hasAttacked = false;
     }
 
+    public void Die()
+    {
+        Destroy(this.gameObject);
+    }
+
+    public virtual void TakeDamage(float dmg)
+    {
+        hp -= dmg;
+        render.material.color = new Color(hp / maxhp,1, hp / maxhp);
+
+        if (hp < 0)
+        {
+            Die();
+        }
+    }
+
+    public void Freeze()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Burn()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public IEnumerator Burnning()
+    {
+        throw new System.NotImplementedException();
+    }
 }

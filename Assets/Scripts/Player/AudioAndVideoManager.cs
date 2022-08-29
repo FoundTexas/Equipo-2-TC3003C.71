@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(AudioSource))]
 public class AudioAndVideoManager : MonoBehaviour
 {
@@ -82,7 +81,7 @@ public class AudioAndVideoManager : MonoBehaviour
         anim.SetFloat("speed", speed);
         anim.SetFloat("IdelTime", IdelTime);
 
-        if (speed <= 0)
+        if (speed <= 0.3f)
         {
             if (IdelTime > 40)
             {
