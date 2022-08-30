@@ -116,11 +116,11 @@ public class Weapon : MonoBehaviour
 
     public virtual void SpawnProjectile()
     {
-        Instantiate(projectile, firePoint.position, Quaternion.identity, null);
+        Instantiate(projectile, firePoint.position, firePoint.transform.rotation, null);
     }
 
     public Vector3 Direction(){
-        Vector3 direction = transform.forward;
+        Vector3 direction = firePoint.forward;
 
         direction += new Vector3(
             Random.Range(-BulletSpreadVariance.x, BulletSpreadVariance.x),
@@ -135,7 +135,7 @@ public class Weapon : MonoBehaviour
         float time = 0;
         Vector3 startPosition = trail.transform.position;
 
-        while(time<1){
+        while(time<0.5f){
             trail.transform.position = Vector3.Lerp(startPosition,vec,time);
             time += Time.deltaTime/trail.time;
 

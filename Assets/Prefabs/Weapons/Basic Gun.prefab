@@ -80,26 +80,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: BasicGun
-  reloadSpeed: 5
-  shootSpeed: 10
+  reloadSpeed: 0
+  shootSpeed: 0.1
   curShootS: 0
   BulletSpreadVariance: {x: 0.1, y: 0.1, z: 0.1}
   ImpactParticleSystem: {fileID: 0}
   BulletTrail: {fileID: 3958543375046743312, guid: 97700d8afa1a790408a805fab56667bb, type: 3}
   ammo: 5
-  magazine: 10
-  curMagazine: 10
+  magazine: 20
+  curMagazine: 20
   curAmmo: 5
-  firePoint: {fileID: 0}
-  isRaycast: 0
-  projectile: {fileID: 0}
+  firePoint: {fileID: 4092853827896714745}
+  isRaycast: 1
+  projectile: {fileID: 3789263430464748179, guid: 00261e7b7e43b084586753801bcb6c0d, type: 3}
   rayMasks:
     serializedVersion: 2
-    m_Bits: 0
-  distance: 0
+    m_Bits: 513
+  distance: 5
   dmg: 10
   sound: {fileID: 8300000, guid: c87c177af9fda8443a6330879a5723b1, type: 3}
-  particles: {fileID: 0}
+  particles: {fileID: 9036128803690488351}
   canReload: 1
 --- !u!95 &336870631830943012
 Animator:
@@ -232,18 +232,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7206324574939256705, guid: 128dc9196e86e88428bd783a9fbb7130, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 400
-      objectReference: {fileID: 0}
-    - target: {fileID: 7206324574939256705, guid: 128dc9196e86e88428bd783a9fbb7130, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 400
-      objectReference: {fileID: 0}
-    - target: {fileID: 7206324574939256705, guid: 128dc9196e86e88428bd783a9fbb7130, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 400
-      objectReference: {fileID: 0}
-    - target: {fileID: 7206324574939256705, guid: 128dc9196e86e88428bd783a9fbb7130, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -283,22 +271,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7216874480464720217, guid: 128dc9196e86e88428bd783a9fbb7130, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: 1fcbd77eb3d3ff74895ed58872053f55, type: 2}
     - target: {fileID: 8708822207045214100, guid: 128dc9196e86e88428bd783a9fbb7130, type: 3}
       propertyPath: m_Name
       value: 1911_Body
       objectReference: {fileID: 0}
-    - target: {fileID: 9064736867452626432, guid: 128dc9196e86e88428bd783a9fbb7130, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 7ad70c8a36499554aa8a55722b46ee54, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 128dc9196e86e88428bd783a9fbb7130, type: 3}
 --- !u!4 &1057174233238808363 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7206324574939256705, guid: 128dc9196e86e88428bd783a9fbb7130, type: 3}
+  m_PrefabInstance: {fileID: 7685907713582772394}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4092853827896714745 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5937266613423740243, guid: 128dc9196e86e88428bd783a9fbb7130, type: 3}
+  m_PrefabInstance: {fileID: 7685907713582772394}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &9036128803690488351 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1715611000543941301, guid: 128dc9196e86e88428bd783a9fbb7130, type: 3}
   m_PrefabInstance: {fileID: 7685907713582772394}
   m_PrefabAsset: {fileID: 0}

@@ -5154,6 +5154,9 @@ MonoBehaviour:
   reloadSpeed: 0
   shootSpeed: 2
   curShootS: 0
+  BulletSpreadVariance: {x: 0.1, y: 0.1, z: 0.1}
+  ImpactParticleSystem: {fileID: 0}
+  BulletTrail: {fileID: 0}
   ammo: 10
   magazine: 5
   curMagazine: 5
@@ -5166,7 +5169,7 @@ MonoBehaviour:
     m_Bits: 513
   distance: 5
   dmg: 5
-  sound: {fileID: 0}
+  sound: {fileID: 8300000, guid: c87c177af9fda8443a6330879a5723b1, type: 3}
   particles: {fileID: 0}
   canReload: 1
   explosionRadius: 10
