@@ -21,6 +21,7 @@ public class GrapplingHook : Weapon
             if (Input.GetMouseButtonDown(0)) { Shoot(); }
             if (Input.GetMouseButtonUp(0)) { StopGrapple(); }
         }
+        else { StopGrapple(); }
     }
     private void LateUpdate()
     {
