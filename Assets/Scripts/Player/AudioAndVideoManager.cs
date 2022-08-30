@@ -93,6 +93,7 @@ public class AudioAndVideoManager : MonoBehaviour
 
             }
         }
+    }
     /// <summary>
     /// Function that sets Animator "speed" Float.
     /// </summary>
