@@ -2419,6 +2419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 2595454782465635904}
   settingsMenu: {fileID: 2595454782926519591}
+  miniMap: {fileID: 7102526332412190278}
   menuScene: 0
 --- !u!1 &2595454784088682938
 GameObject:
