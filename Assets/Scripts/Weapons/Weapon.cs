@@ -15,6 +15,9 @@ public class Weapon : MonoBehaviour
     public float curShootS;
 
     [Header("Bullet Stats")]
+    [SerializeField] Vector3 BulletSpreadVariance = new Vector3(0.1f,0.1f,0.1f);
+    [SerializeField] ParticleSystem ImpactParticleSystem;
+    public TrailRenderer BulletTrail;
     [Tooltip("Amount of proyectiles the weapon can contain")]
     [SerializeField] int ammo;
     [Tooltip("Amount of proyectiles the weapon holds and can fire before reload")]
@@ -99,10 +102,11 @@ public class Weapon : MonoBehaviour
         particles.Play();
     }
 
-    public virtual RaycastHit GetRay()
+    public virtual RaycastHit GetRay(Vector3 direction)
     {
+
         RaycastHit tmp = new RaycastHit();
-        if (Physics.Raycast(camara.position, camara.forward,
+        if (Physics.Raycast(firePoint.position, direction,
             out RaycastHit hitinfo, distance, rayMasks))
         {
             tmp = hitinfo;
@@ -112,7 +116,37 @@ public class Weapon : MonoBehaviour
 
     public virtual void SpawnProjectile()
     {
-        Instantiate(projectile, firePoint.position, Quaternion.identity, null);
+        Instantiate(projectile, firePoint.position, firePoint.transform.rotation, null);
+    }
+
+    public Vector3 Direction(){
+        Vector3 direction = firePoint.forward;
+
+        direction += new Vector3(
+            Random.Range(-BulletSpreadVariance.x, BulletSpreadVariance.x),
+            Random.Range(-BulletSpreadVariance.y, BulletSpreadVariance.y),
+            Random.Range(-BulletSpreadVariance.z, BulletSpreadVariance.z)
+        );
+        direction.Normalize();
+        return direction;
+    }
+
+    public IEnumerator SpawnTrail(TrailRenderer trail, Vector3 vec, bool obama){
+        float time = 0;
+        Vector3 startPosition = trail.transform.position;
+
+        while(time<1f){
+            trail.transform.position = Vector3.Lerp(startPosition,vec,time);
+            time += Time.deltaTime/trail.time;
+
+            yield return null;
+        }
+        trail.transform.position = vec;
+        if(obama){
+        Destroy(Instantiate(ImpactParticleSystem, vec, Quaternion.identity).gameObject,1);
+
+        }
+        Destroy(trail.gameObject);
     }
 
     public virtual void Shoot() 
@@ -125,7 +159,7 @@ public class Weapon : MonoBehaviour
                 PlayShootAnimation();
                 if (isRaycast)
                 {
-                    GetRay().transform.GetComponent<IDamage>().TakeDamage(dmg);
+                    GetRay(Direction()).transform.GetComponent<IDamage>().TakeDamage(dmg);
                     curMagazine--;
                 }
                 else if (!isRaycast) 

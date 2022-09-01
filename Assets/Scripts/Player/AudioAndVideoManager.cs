@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(AudioSource))]
 public class AudioAndVideoManager : MonoBehaviour
 {
@@ -10,10 +9,15 @@ public class AudioAndVideoManager : MonoBehaviour
     [SerializeField] AudioClip Land, jump, step;
     AudioSource audios;
     [SerializeField] Animator anim;
+    float curgunval = 0, gunset = -1;
 
     private void Start()
     {
         audios = GetComponent<AudioSource>();
+    }
+    private void Update()
+    {
+        ChangeGun();
     }
     /// <summary>
     /// Plays sound of a step when called from the player Animator.
@@ -73,6 +77,23 @@ public class AudioAndVideoManager : MonoBehaviour
         }
         anim.SetFloat("hasGun", gun? 1 : 0);
     }
+    void ChangeGun()
+    {
+        if (gunset > 0)
+        {
+            if (curgunval > 0)
+            {
+
+            }
+        }
+        else if (gunset < 0)
+        {
+            if (curgunval > 0)
+            {
+
+            }
+        }
+    }
     /// <summary>
     /// Function that sets Animator "speed" Float.
     /// </summary>
@@ -82,7 +103,7 @@ public class AudioAndVideoManager : MonoBehaviour
         anim.SetFloat("speed", speed);
         anim.SetFloat("IdelTime", IdelTime);
 
-        if (speed <= 0)
+        if (speed <= 0.3f)
         {
             if (IdelTime > 40)
             {
