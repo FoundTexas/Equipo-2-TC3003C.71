@@ -57,7 +57,7 @@ public class WeaponManager : MonoBehaviour
         {
             this.transform.parent = hand;
             pos = Vector3.zero;
-            transform.localRotation = Quaternion.Euler(-70, 9, 77);
+            transform.localRotation = Quaternion.Euler(-65, 48, 54);
         }
         else if (!hasWeapon)
         {
