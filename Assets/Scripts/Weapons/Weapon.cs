@@ -143,10 +143,10 @@ public class Weapon : MonoBehaviour
         }
         trail.transform.position = vec;
         if(obama){
-        Destroy(Instantiate(ImpactParticleSystem, vec, Quaternion.identity),2);
+        Destroy(Instantiate(ImpactParticleSystem, vec, Quaternion.identity).gameObject,1);
 
         }
-        Destroy(trail.gameObject,4);
+        Destroy(trail.gameObject);
     }
 
     public virtual void Shoot() 
