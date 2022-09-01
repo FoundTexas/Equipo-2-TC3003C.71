@@ -17,9 +17,9 @@ public class Gun : Weapon
                 Vector3 dir = Direction();
                 RaycastHit HitGun = GetRay(dir);
 
-                Debug.Log(HitGun.transform.name);
                 TrailRenderer trail = Instantiate(BulletTrail, firePoint.position,firePoint.rotation);
                 if(HitGun.transform){
+                    Debug.Log(HitGun.transform.name);
                     StartCoroutine(SpawnTrail(trail,HitGun.point,true));
                     IDamage Dmginterface = null;
                     if (HitGun.transform.gameObject.TryGetComponent<IDamage>(out Dmginterface))
@@ -29,6 +29,7 @@ public class Gun : Weapon
                 }
                 
                 else{
+                    Debug.Log(dir * distance);
                     StartCoroutine(SpawnTrail(trail, firePoint.position + dir * distance,false));
                 }
             }
