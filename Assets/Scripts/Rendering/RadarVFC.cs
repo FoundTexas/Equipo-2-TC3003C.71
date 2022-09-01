@@ -50,7 +50,7 @@ namespace Optimization_Module
             {
                 return false;
             }
-            else if (Vector3.Dot(w, Camy) < -ht / 10 || Vector3.Dot(w, Camy) > ht / 10)
+            else if (Vector3.Dot(w, Camy) < -ht / 50 || Vector3.Dot(w, Camy) > ht / 50)
             {
                 return false;
             }
