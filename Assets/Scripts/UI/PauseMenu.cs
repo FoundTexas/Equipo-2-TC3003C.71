@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
     public static bool isPaused = false;
     public GameObject pauseMenu;
     public GameObject settingsMenu;
+    public GameObject miniMap;
     public int menuScene;
     SceneLoader sceneLoader;
     GameObject camera;
@@ -39,11 +40,13 @@ public class PauseMenu : MonoBehaviour
         settingsMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+        miniMap.SetActive(true);
     }
 
     void Pause()
     {
         pauseMenu.SetActive(true);
+        miniMap.SetActive(false);
         Time.timeScale = 0f;
         isPaused = true;
     }

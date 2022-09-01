@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class MiniMap : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Transform player;
 
-    // Update is called once per frame
-    void Update()
+    //Uses LateUpdate to update the minimap after the player moves
+    void LateUpdate()
     {
-        
+        Vector3 newPos = player.position;
+        newPos.y = transform.position.y;
+        transform.position = newPos;
     }
 }
