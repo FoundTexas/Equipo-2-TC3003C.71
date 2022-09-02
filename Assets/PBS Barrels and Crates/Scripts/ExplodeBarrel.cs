@@ -14,29 +14,21 @@ public class ExplodeBarrel : MonoBehaviour
 
 	public bool autoDestroy = true;
 	public float lifeTime = 5.0f;
-
+	private AudioSource audioSource;
 	void Start () 
 	{
-		// explode the barrel, called automatically when instantiated b/c it is in the start method
-		// you may want to move this to a different peice of code...
-		// Explode();
-
-		// auto destruction setup
-		// if (autoDestroy)
-		// 	Destroy(gameObject, lifeTime);
+		audioSource = GetComponent<AudioSource>();
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
 		if(other.gameObject.name == "bullet" || other.CompareTag("Player"))
-		{
-			print("Explosion");
 			Explode();
-		}
 	}
 
 	public void Explode()
 	{
+        audioSource.Play();
 		Vector3 centerPos = transform.position;
 
 		foreach (Transform child in transform) 
@@ -45,5 +37,6 @@ public class ExplodeBarrel : MonoBehaviour
 			rb.isKinematic = false;
 			rb.AddExplosionForce (explosionForce, centerPos, explosionRadius, Random.Range(upForceMin, upForceMax), ForceMode.Impulse);
 		}
+		Destroy(gameObject, lifeTime);
 	}
 }
