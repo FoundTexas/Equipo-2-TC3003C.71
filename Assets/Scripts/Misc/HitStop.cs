@@ -20,8 +20,10 @@ public class HitStop : MonoBehaviour
             StartCoroutine(DoHitStop());
     }
 
-    public void HitStopFreeze()
+    public void HitStopFreeze(float magnitude, float duration)
     {
+        shakeMagnitude = magnitude;
+        shakeDuration = duration;
         remainingHitStop = hitStopDuration;
     }
 
@@ -30,7 +32,7 @@ public class HitStop : MonoBehaviour
         inHitStop = true;
         var original = Time.timeScale;
         Time.timeScale = 0f;
-        StartCoroutine(ScreenShake(shakeMagnitude, shakeDuration));
+        StartCoroutine(ScreenShake());
         yield return new WaitForSecondsRealtime(hitStopDuration);
 
         Time.timeScale = original;
@@ -38,17 +40,14 @@ public class HitStop : MonoBehaviour
         inHitStop = false;
     }
 
-    public IEnumerator ScreenShake(float magnitude, float duration)
+    public IEnumerator ScreenShake()
     {
         Vector3 originalPos = cinemachineCamera.m_Offset;
-        Debug.Log("Camera X offset is: " + originalPos.x);
-        Debug.Log("Camera Y offset is: " + originalPos.y);
-        Debug.Log("Camera Z offset is: " + originalPos.z);
         float timeShaking = 0.0f;
-        while(timeShaking < duration)
+        while(timeShaking < shakeDuration)
         {
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
+            float x = Random.Range(-1f, 1f) * shakeMagnitude;
+            float y = Random.Range(-1f, 1f) * shakeMagnitude;
             cinemachineCamera.m_Offset = new Vector3(x, y, originalPos.z);
 
             timeShaking += Time.deltaTime;

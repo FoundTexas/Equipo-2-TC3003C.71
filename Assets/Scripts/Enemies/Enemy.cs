@@ -30,12 +30,18 @@ public class Enemy : MonoBehaviour, IDamage
     float maxhp;
     [SerializeField] Renderer render;
 
+    public HitStop hitStop;
+
     void Awake()
     {
         maxhp = hp;
         player = GameObject.Find("Robot").transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        GameObject manager = GameObject.FindWithTag("Manager");
+        if(manager!=null)
+            hitStop = manager.GetComponent<HitStop>();
+            
     }
 
 
@@ -128,6 +134,8 @@ public class Enemy : MonoBehaviour, IDamage
     public void Die()
     {
         Destroy(this.gameObject);
+        if(hitStop != null)
+            hitStop.HitStopFreeze(0.02f, 0.2f);
     }
 
     public virtual void TakeDamage(float dmg)

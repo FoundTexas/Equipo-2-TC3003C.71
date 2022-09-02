@@ -16,6 +16,9 @@ public class VacuumEnemy : Enemy
         player = GameObject.Find("Robot").transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        GameObject manager = GameObject.FindWithTag("Manager");
+        if(manager!=null)
+            hitStop = manager.GetComponent<HitStop>();
     }
 
     // Update is called once per frame

@@ -69,7 +69,7 @@ public class PlayerHealth : MonoBehaviour, IDamage
     {
         hp -= dmg;
         healthBar.SetHealth(hp);
-        hitStop.HitStopFreeze();
+        hitStop.HitStopFreeze(0.02f, 0.2f);
         if (hp <= -1)
         {
             Die();
