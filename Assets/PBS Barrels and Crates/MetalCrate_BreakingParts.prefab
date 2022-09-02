@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 23000010813632926}
   - component: {fileID: 54000010309639272}
   - component: {fileID: 64000012974029108}
+  - component: {fileID: 1419467885}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.012
   m_TagString: Untagged
@@ -115,6 +116,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300038, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &1419467885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010116640052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000010169228840
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,6 +141,7 @@ GameObject:
   - component: {fileID: 23000011593986004}
   - component: {fileID: 54000013148101570}
   - component: {fileID: 64000011210099614}
+  - component: {fileID: 1982717531}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.020
   m_TagString: Untagged
@@ -230,6 +244,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300022, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &1982717531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010169228840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000010209260970
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,6 +269,7 @@ GameObject:
   - component: {fileID: 23000010886384262}
   - component: {fileID: 54000010290891418}
   - component: {fileID: 64000010734542202}
+  - component: {fileID: 1376702032}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.029
   m_TagString: Untagged
@@ -345,6 +372,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300004, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &1376702032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010209260970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000010323574320
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,6 +397,7 @@ GameObject:
   - component: {fileID: 23000011480253206}
   - component: {fileID: 54000013393871674}
   - component: {fileID: 64000010480553274}
+  - component: {fileID: 807709843}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.016
   m_TagString: Untagged
@@ -460,6 +500,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300030, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &807709843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010323574320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000010337285526
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,6 +525,7 @@ GameObject:
   - component: {fileID: 23000010949308118}
   - component: {fileID: 54000013537656046}
   - component: {fileID: 64000012876842056}
+  - component: {fileID: 1999222825}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.026
   m_TagString: Untagged
@@ -575,6 +628,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300010, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &1999222825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010337285526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000010345728388
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,6 +653,7 @@ GameObject:
   - component: {fileID: 23000012409507712}
   - component: {fileID: 54000012994209334}
   - component: {fileID: 64000012456819500}
+  - component: {fileID: 196059026}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.009
   m_TagString: Untagged
@@ -690,6 +756,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300044, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &196059026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010345728388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000010625159918
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,6 +781,7 @@ GameObject:
   - component: {fileID: 23000012302874098}
   - component: {fileID: 54000010160161920}
   - component: {fileID: 64000013568952920}
+  - component: {fileID: 1922608018}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.014
   m_TagString: Untagged
@@ -805,6 +884,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300034, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &1922608018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010625159918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000010684652914
 GameObject:
   m_ObjectHideFlags: 0
@@ -818,6 +909,7 @@ GameObject:
   - component: {fileID: 23000010865727330}
   - component: {fileID: 54000010154915026}
   - component: {fileID: 64000011996717122}
+  - component: {fileID: 934562039}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.031
   m_TagString: Untagged
@@ -920,6 +1012,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &934562039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010684652914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000010796703864
 GameObject:
   m_ObjectHideFlags: 0
@@ -933,6 +1037,7 @@ GameObject:
   - component: {fileID: 23000013215251870}
   - component: {fileID: 54000012367422610}
   - component: {fileID: 64000012856446826}
+  - component: {fileID: 695354105}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.002
   m_TagString: Untagged
@@ -1035,6 +1140,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300058, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &695354105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010796703864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000010913379710
 GameObject:
   m_ObjectHideFlags: 0
@@ -1048,6 +1165,7 @@ GameObject:
   - component: {fileID: 23000012924254326}
   - component: {fileID: 54000010389021888}
   - component: {fileID: 64000010279762008}
+  - component: {fileID: 995524540}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.008
   m_TagString: Untagged
@@ -1150,6 +1268,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300046, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &995524540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010913379710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000010949095688
 GameObject:
   m_ObjectHideFlags: 0
@@ -1163,6 +1293,7 @@ GameObject:
   - component: {fileID: 23000012872809100}
   - component: {fileID: 54000010744131056}
   - component: {fileID: 64000012720365640}
+  - component: {fileID: 1491387895}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.030
   m_TagString: Untagged
@@ -1265,6 +1396,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300002, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &1491387895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010949095688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000011103392238
 GameObject:
   m_ObjectHideFlags: 0
@@ -1278,6 +1421,7 @@ GameObject:
   - component: {fileID: 23000011654005848}
   - component: {fileID: 54000013693480530}
   - component: {fileID: 64000013339189204}
+  - component: {fileID: 695354104}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.003
   m_TagString: Untagged
@@ -1380,6 +1524,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300056, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &695354104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011103392238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000011376533108
 GameObject:
   m_ObjectHideFlags: 0
@@ -1393,6 +1549,7 @@ GameObject:
   - component: {fileID: 23000011543571868}
   - component: {fileID: 54000010736743212}
   - component: {fileID: 64000012232242910}
+  - component: {fileID: 1983266691}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.023
   m_TagString: Untagged
@@ -1495,6 +1652,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300016, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &1983266691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011376533108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000011637690098
 GameObject:
   m_ObjectHideFlags: 0
@@ -1508,6 +1677,7 @@ GameObject:
   - component: {fileID: 23000012278180132}
   - component: {fileID: 54000010695418270}
   - component: {fileID: 64000010618082006}
+  - component: {fileID: 685994194}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.017
   m_TagString: Untagged
@@ -1610,6 +1780,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300028, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &685994194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011637690098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000011729837520
 GameObject:
   m_ObjectHideFlags: 0
@@ -1623,6 +1805,7 @@ GameObject:
   - component: {fileID: 23000011392298604}
   - component: {fileID: 54000013088586206}
   - component: {fileID: 64000012326446482}
+  - component: {fileID: 498787762}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.005
   m_TagString: Untagged
@@ -1725,6 +1908,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300052, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &498787762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011729837520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000011738356632
 GameObject:
   m_ObjectHideFlags: 0
@@ -1738,6 +1933,7 @@ GameObject:
   - component: {fileID: 23000010577694256}
   - component: {fileID: 54000012303321552}
   - component: {fileID: 64000011232448188}
+  - component: {fileID: 695354103}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.004
   m_TagString: Untagged
@@ -1840,6 +2036,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300054, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &695354103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011738356632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000011764139030
 GameObject:
   m_ObjectHideFlags: 0
@@ -1853,6 +2061,7 @@ GameObject:
   - component: {fileID: 23000011222643310}
   - component: {fileID: 54000014128856738}
   - component: {fileID: 64000014255996358}
+  - component: {fileID: 891298959}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.007
   m_TagString: Untagged
@@ -1955,6 +2164,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300048, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &891298959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011764139030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000011822845438
 GameObject:
   m_ObjectHideFlags: 0
@@ -1968,6 +2189,7 @@ GameObject:
   - component: {fileID: 23000014105793950}
   - component: {fileID: 54000014035010742}
   - component: {fileID: 64000013891989082}
+  - component: {fileID: 832585018}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.019
   m_TagString: Untagged
@@ -2070,6 +2292,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300024, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &832585018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011822845438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000012295385406
 GameObject:
   m_ObjectHideFlags: 0
@@ -2083,6 +2317,7 @@ GameObject:
   - component: {fileID: 23000010830839200}
   - component: {fileID: 54000011970885604}
   - component: {fileID: 64000010626315172}
+  - component: {fileID: 1290025372}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.022
   m_TagString: Untagged
@@ -2185,6 +2420,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300018, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &1290025372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012295385406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000012570746254
 GameObject:
   m_ObjectHideFlags: 0
@@ -2198,6 +2445,7 @@ GameObject:
   - component: {fileID: 23000011967356444}
   - component: {fileID: 54000011139744750}
   - component: {fileID: 64000010426193736}
+  - component: {fileID: 161222544}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.027
   m_TagString: Untagged
@@ -2300,6 +2548,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300008, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &161222544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012570746254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000012916578916
 GameObject:
   m_ObjectHideFlags: 0
@@ -2313,6 +2573,7 @@ GameObject:
   - component: {fileID: 23000011286798486}
   - component: {fileID: 54000012813501650}
   - component: {fileID: 64000010800322876}
+  - component: {fileID: 695354106}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.001
   m_TagString: Untagged
@@ -2415,6 +2676,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300060, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &695354106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012916578916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000012965815698
 GameObject:
   m_ObjectHideFlags: 0
@@ -2428,6 +2701,7 @@ GameObject:
   - component: {fileID: 23000010967201282}
   - component: {fileID: 54000012761661444}
   - component: {fileID: 64000012170609736}
+  - component: {fileID: 6098496}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.015
   m_TagString: Untagged
@@ -2530,6 +2804,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300032, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &6098496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012965815698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000013048960336
 GameObject:
   m_ObjectHideFlags: 0
@@ -2543,6 +2829,7 @@ GameObject:
   - component: {fileID: 23000012441791754}
   - component: {fileID: 54000012640960462}
   - component: {fileID: 64000010982133620}
+  - component: {fileID: 1012688816}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.011
   m_TagString: Untagged
@@ -2645,6 +2932,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300040, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &1012688816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013048960336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000013207733282
 GameObject:
   m_ObjectHideFlags: 0
@@ -2658,6 +2957,7 @@ GameObject:
   - component: {fileID: 23000013367036178}
   - component: {fileID: 54000013318562742}
   - component: {fileID: 64000010667598068}
+  - component: {fileID: 695354107}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell
   m_TagString: Untagged
@@ -2760,6 +3060,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300062, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &695354107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013207733282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000013246696930
 GameObject:
   m_ObjectHideFlags: 0
@@ -2773,6 +3085,7 @@ GameObject:
   - component: {fileID: 23000012001123922}
   - component: {fileID: 54000013376317076}
   - component: {fileID: 64000011809125766}
+  - component: {fileID: 325903302}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.021
   m_TagString: Untagged
@@ -2875,6 +3188,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300020, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &325903302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013246696930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000013326810936
 GameObject:
   m_ObjectHideFlags: 0
@@ -2888,6 +3213,7 @@ GameObject:
   - component: {fileID: 23000014079514300}
   - component: {fileID: 54000012410904116}
   - component: {fileID: 64000012489537522}
+  - component: {fileID: 477761304}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.028
   m_TagString: Untagged
@@ -2990,6 +3316,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300006, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &477761304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013326810936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000013410108058
 GameObject:
   m_ObjectHideFlags: 0
@@ -3003,6 +3341,7 @@ GameObject:
   - component: {fileID: 23000013246714200}
   - component: {fileID: 54000012282487986}
   - component: {fileID: 64000010924615804}
+  - component: {fileID: 524243835}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.024
   m_TagString: Untagged
@@ -3105,6 +3444,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300014, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &524243835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013410108058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000013617931646
 GameObject:
   m_ObjectHideFlags: 0
@@ -3118,6 +3469,7 @@ GameObject:
   - component: {fileID: 23000013521852432}
   - component: {fileID: 54000013422247224}
   - component: {fileID: 64000011334652276}
+  - component: {fileID: 1788785788}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.006
   m_TagString: Untagged
@@ -3220,6 +3572,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300050, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &1788785788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013617931646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000013709254234
 GameObject:
   m_ObjectHideFlags: 0
@@ -3230,7 +3594,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000012167921242}
   - component: {fileID: 114000010552344996}
-  - component: {fileID: 1914257365}
+  - component: {fileID: 627024662}
   m_Layer: 0
   m_Name: MetalCrate_BreakingParts
   m_TagString: Untagged
@@ -3247,7 +3611,7 @@ Transform:
   m_GameObject: {fileID: 1000013709254234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4000010806271764}
@@ -3301,20 +3665,103 @@ MonoBehaviour:
   upForceMin: 0
   upForceMax: 0.5
   autoDestroy: 0
-  lifeTime: 5
---- !u!65 &1914257365
-BoxCollider:
+  lifeTime: 2
+--- !u!82 &627024662
+AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000013709254234}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.55, y: 0.55, z: 0.55}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 3771dd511730c6843a4a2e90b6f5b40a, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1000013735639842
 GameObject:
   m_ObjectHideFlags: 0
@@ -3328,6 +3775,7 @@ GameObject:
   - component: {fileID: 23000013240175280}
   - component: {fileID: 54000011874970886}
   - component: {fileID: 64000013571193232}
+  - component: {fileID: 1550174795}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.018
   m_TagString: Untagged
@@ -3430,6 +3878,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300026, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &1550174795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013735639842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000013865160916
 GameObject:
   m_ObjectHideFlags: 0
@@ -3443,6 +3903,7 @@ GameObject:
   - component: {fileID: 23000010944160560}
   - component: {fileID: 54000011365633188}
   - component: {fileID: 64000014061851878}
+  - component: {fileID: 1104031987}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.013
   m_TagString: Untagged
@@ -3545,6 +4006,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300036, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &1104031987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013865160916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000014005349212
 GameObject:
   m_ObjectHideFlags: 0
@@ -3558,6 +4031,7 @@ GameObject:
   - component: {fileID: 23000014038740768}
   - component: {fileID: 54000012025617250}
   - component: {fileID: 64000012138081850}
+  - component: {fileID: 1408337106}
   m_Layer: 0
   m_Name: Metal Crate Broken_cell.025
   m_TagString: Untagged
@@ -3660,3 +4134,15 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300012, guid: 4009a4e71fe9b40deb2d424db6c44d3b, type: 3}
+--- !u!114 &1408337106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000014005349212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

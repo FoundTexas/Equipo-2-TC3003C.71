@@ -18,12 +18,7 @@ public class ExplodeBarrel : MonoBehaviour
 	void Start () 
 	{
 		audioSource = GetComponent<AudioSource>();
-	}
-
-	private void OnTriggerEnter(Collider other)
-	{
-		if(other.gameObject.name == "bullet" || other.CompareTag("Player"))
-			Explode();
+		Explode();
 	}
 
 	public void Explode()
