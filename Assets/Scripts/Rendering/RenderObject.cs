@@ -11,10 +11,12 @@ namespace Optimization_Module
     public class RenderObject : MonoBehaviour
     {
         bool isApplicationQuitting = false;
+        Renderer render;
 
         // Start is called before the first frame update
         void Start()
         {
+            render = GetComponent<Renderer>();
             FindObjectOfType<RadarVFC>().AddSceneObj(this);
         }
 
@@ -24,7 +26,14 @@ namespace Optimization_Module
         /// <param name="isActive"> Boolean that sets active state. </param>
         public void SetRender(bool isActive)
         {
-            this.gameObject.SetActive(isActive);
+            if (render)
+            {
+                render.enabled = isActive;
+            }
+            else
+            {
+                this.gameObject.SetActive(isActive);
+            }
         }
 
         private void OnDestroy()
