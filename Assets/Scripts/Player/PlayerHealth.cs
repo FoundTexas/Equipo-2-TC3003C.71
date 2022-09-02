@@ -8,6 +8,9 @@ public class PlayerHealth : MonoBehaviour, IDamage
     float hp;
     float maxHp = 6;
     public HealthBar healthBar;
+    public WeaponManager playerWeapons;
+    public AmmoDisplay ammoDisplay;
+    Weapon currentWeapon;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +22,12 @@ public class PlayerHealth : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        
+        currentWeapon = playerWeapons.currentSelect();
+        if(currentWeapon != null)
+        {
+            ammoDisplay.SetCurrentAmmo(currentWeapon.curMagazine.ToString());
+            ammoDisplay.SetRemainingAmmo(currentWeapon.curAmmo.ToString());
+        }
     }
 
     void OnCollisionEnter(Collision collision)
