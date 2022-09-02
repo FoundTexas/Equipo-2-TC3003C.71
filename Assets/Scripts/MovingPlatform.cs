@@ -42,19 +42,19 @@ public class MovingPlatform : MonoBehaviour
         return tmp;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if(other.gameObject.tag == "Player")
+        if(collision.gameObject.tag == "Player")
         {
-            other.transform.parent = transform;
+            collision.transform.parent = transform;
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnCollisionExit(Collision collision)
     {
-        if (other.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
-            other.transform.parent = null;
+            collision.transform.parent = null;
         }
     }
 }
