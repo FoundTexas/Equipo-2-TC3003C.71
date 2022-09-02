@@ -11,12 +11,20 @@ public class PlayerHealth : MonoBehaviour, IDamage
     public WeaponManager playerWeapons;
     public AmmoDisplay ammoDisplay;
     Weapon currentWeapon;
+    HitStop hitStop;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         hp = maxHp;
         healthBar.SetMaxHealth(maxHp);
+        GameObject manager = GameObject.FindWithTag("Manager");
+        if(manager!=null)
+            hitStop = manager.GetComponent<HitStop>();
+            
+
+        
     }
 
     // Update is called once per frame
@@ -61,7 +69,7 @@ public class PlayerHealth : MonoBehaviour, IDamage
     {
         hp -= dmg;
         healthBar.SetHealth(hp);
-
+        hitStop.HitStopFreeze();
         if (hp <= -1)
         {
             Die();
@@ -82,4 +90,7 @@ public class PlayerHealth : MonoBehaviour, IDamage
     {
         throw new System.NotImplementedException();
     }
+
+    
+
 }
