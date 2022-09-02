@@ -56,9 +56,9 @@ public class Enemy : MonoBehaviour, IDamage
         //in comparison to enemy
         if(!playerInSights && !playerInRange)
             Patrolling();
-        if(playerInSights && !playerInRange)
+        else if(playerInSights && !playerInRange)
             Chasing();
-        if(playerInSights && playerInRange)
+        else if(playerInSights && playerInRange)
             Attacking();
     
     
@@ -81,7 +81,8 @@ public class Enemy : MonoBehaviour, IDamage
 
     public void Chasing()
     {
-        agent.SetDestination(player.position);
+        if(this.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            agent.SetDestination(player.position);    
     }
 
     public virtual void Attacking()

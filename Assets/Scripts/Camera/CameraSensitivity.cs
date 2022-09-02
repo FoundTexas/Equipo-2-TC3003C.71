@@ -28,8 +28,8 @@ public class CameraSensitivity : MonoBehaviour
     public void SetSensitivity(float sens)
     {
         //Set desired sensitivity
-        camera.m_XAxis.m_MaxSpeed += sens*50 + 50;
-        camera.m_YAxis.m_MaxSpeed += sens;
+        camera.m_XAxis.m_MaxSpeed = (sens*50) + 50;
+        camera.m_YAxis.m_MaxSpeed = sens;
     }
 
 }

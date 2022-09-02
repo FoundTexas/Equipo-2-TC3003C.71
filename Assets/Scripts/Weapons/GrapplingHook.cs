@@ -21,6 +21,7 @@ public class GrapplingHook : Weapon
             if (Input.GetMouseButtonDown(0)) { Shoot(); }
             if (Input.GetMouseButtonUp(0)) { StopGrapple(); }
         }
+        else { StopGrapple(); }
     }
     private void LateUpdate()
     {
@@ -66,7 +67,7 @@ public class GrapplingHook : Weapon
             player.position,
             entity.position);
         joint.maxDistance = distanceFromPoint * 0.8f;
-        joint.minDistance = distanceFromPoint * 0.5f;
+        joint.minDistance = distanceFromPoint * 0.8f;
 
         joint.spring = spring;
         joint.damper = damper;

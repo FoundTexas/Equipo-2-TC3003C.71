@@ -9,10 +9,15 @@ public class AudioAndVideoManager : MonoBehaviour
     [SerializeField] AudioClip Land, jump, step;
     AudioSource audios;
     [SerializeField] Animator anim;
+    float curgunval = 0, gunset = -1;
 
     private void Start()
     {
         audios = GetComponent<AudioSource>();
+    }
+    private void Update()
+    {
+        ChangeGun();
     }
     /// <summary>
     /// Plays sound of a step when called from the player Animator.
@@ -71,6 +76,23 @@ public class AudioAndVideoManager : MonoBehaviour
             audios.PlayOneShot(sound);
         }
         anim.SetFloat("hasGun", gun? 1 : 0);
+    }
+    void ChangeGun()
+    {
+        if (gunset > 0)
+        {
+            if (curgunval > 0)
+            {
+
+            }
+        }
+        else if (gunset < 0)
+        {
+            if (curgunval > 0)
+            {
+
+            }
+        }
     }
     /// <summary>
     /// Function that sets Animator "speed" Float.

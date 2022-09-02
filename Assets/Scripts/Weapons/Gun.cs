@@ -5,18 +5,6 @@ using UnityEngine;
 public class Gun : Weapon
 {
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public override void Shoot(){
         if (curMagazine > 0)
         {
@@ -28,8 +16,10 @@ public class Gun : Weapon
 
                 Vector3 dir = Direction();
                 RaycastHit HitGun = GetRay(dir);
-                TrailRenderer trail = Instantiate(BulletTrail, firePoint.position, Quaternion.identity);
+
+                TrailRenderer trail = Instantiate(BulletTrail, firePoint.position,firePoint.rotation);
                 if(HitGun.transform){
+                    Debug.Log(HitGun.transform.name);
                     StartCoroutine(SpawnTrail(trail,HitGun.point,true));
                     IDamage Dmginterface = null;
                     if (HitGun.transform.gameObject.TryGetComponent<IDamage>(out Dmginterface))
@@ -39,7 +29,8 @@ public class Gun : Weapon
                 }
                 
                 else{
-                    StartCoroutine(SpawnTrail(trail,dir,false));
+                    Debug.Log(dir * distance);
+                    StartCoroutine(SpawnTrail(trail, firePoint.position + dir * distance,false));
                 }
             }
         }
