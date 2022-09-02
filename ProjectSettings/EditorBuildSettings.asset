@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: a0d2a1b6d568be247b27204cfd2ec4c8
   - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 5515da6ccb7ad5b49957157e2506ada3
+  - enabled: 1
     path: Assets/Scenes/ThirdPersonCamera.unity
     guid: 7c492718f04bc03478b2971813db1d0a
   m_configObjects: {}
