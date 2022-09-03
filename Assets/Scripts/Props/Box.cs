@@ -7,6 +7,7 @@ public class Box : MonoBehaviour, IDamage
     [SerializeField] float hp = 20;
     float maxhp;
     Renderer render;
+    public GameObject ExplosiveCrate;
     private void Start()
     {
         maxhp = hp;
@@ -14,7 +15,8 @@ public class Box : MonoBehaviour, IDamage
     }
     public void Die()
     {
-        Destroy(this.gameObject);
+        Instantiate(ExplosiveCrate, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 
     public void TakeDamage(float dmg)
