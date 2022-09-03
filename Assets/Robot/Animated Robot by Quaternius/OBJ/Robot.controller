@@ -800,7 +800,7 @@ AnimatorStateMachine:
     m_Position: {x: -200, y: 60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4461595017035855326}
-    m_Position: {x: 70, y: 230, z: 0}
+    m_Position: {x: 70, y: 240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6800322602101865156}
     m_Position: {x: -140, y: -70, z: 0}
@@ -833,7 +833,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Walking Blend Tree
-  m_Speed: 1.5
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -1259644596888596731}

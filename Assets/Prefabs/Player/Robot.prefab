@@ -240,7 +240,7 @@ MonoBehaviour:
   exitWallTime: 0.2
   wallMask:
     serializedVersion: 2
-    m_Bits: 136
+    m_Bits: 128
   groundDistance: 0.4
   groundCheck: {fileID: 7140450418167325203}
   groundMask:
