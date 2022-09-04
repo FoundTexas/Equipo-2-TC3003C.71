@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour, IDamage
     void Awake()
     {
         maxhp = hp;
-        player = GameObject.Find("Robot").transform;
+        player = GameObject.FindWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         GameObject manager = GameObject.FindWithTag("Manager");

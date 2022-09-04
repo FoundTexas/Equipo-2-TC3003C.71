@@ -13,7 +13,7 @@ public class VacuumEnemy : Enemy
 
     void Awake()
     {
-        player = GameObject.Find("Robot").transform;
+        player = GameObject.FindWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         GameObject manager = GameObject.FindWithTag("Manager");

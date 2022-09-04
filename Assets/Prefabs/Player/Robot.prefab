@@ -365,6 +365,7 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   playerWeapons: {fileID: 6846958025988829846}
   ammoDisplay: {fileID: 0}
+  explosionfx: {fileID: 2984970767663435081, guid: 645736631e667754caba46abda4eddfd, type: 3}
 --- !u!1 &6955975099648491107
 GameObject:
   m_ObjectHideFlags: 0
