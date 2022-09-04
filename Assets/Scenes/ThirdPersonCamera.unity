@@ -9959,7 +9959,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1204176264022393358, guid: 328c4f14cd131964fb6cf803963a1622, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.24325329
+      value: -0.24325326
       objectReference: {fileID: 0}
     - target: {fileID: 1204176264022393358, guid: 328c4f14cd131964fb6cf803963a1622, type: 3}
       propertyPath: m_LocalRotation.z
@@ -10816,6 +10816,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8125777835921750837, guid: e3035f92ed3381f4999ac11574ada215, type: 3}
       propertyPath: m_Name
+      value: SceneLoader
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125777835921750837, guid: e3035f92ed3381f4999ac11574ada215, type: 3}
+      propertyPath: m_TagString
       value: SceneLoader
       objectReference: {fileID: 0}
     - target: {fileID: 8125777835921750860, guid: e3035f92ed3381f4999ac11574ada215, type: 3}
