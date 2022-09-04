@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour, IDamage
     [SerializeField] Renderer render;
 
     public HitStop hitStop;
+    public GameObject explosionfx;
 
     void Awake()
     {
@@ -133,9 +134,17 @@ public class Enemy : MonoBehaviour, IDamage
 
     public void Die()
     {
+        GameObject deathvfx;
+        Vector3 vfxpos = this.transform.position;
+        vfxpos.y = this.transform.position.y + 1;
+        deathvfx = Instantiate(explosionfx, vfxpos, Quaternion.identity);
+
         Destroy(this.gameObject);
         if(hitStop != null)
             hitStop.HitStopFreeze(0.02f, 0.2f);
+
+        var vfxDuration = 1f;
+        Destroy(deathvfx, vfxDuration);
     }
 
     public virtual void TakeDamage(float dmg)

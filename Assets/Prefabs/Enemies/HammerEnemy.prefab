@@ -188,7 +188,8 @@ MonoBehaviour:
   animator: {fileID: 266078309743769701}
   hp: 20
   render: {fileID: 1200854551811863352}
-  hitStop: {fileID: 0}
+  hitStop: {fileID: 5903629768628973847, guid: 290af89ca8b899249ab60f6502e73d02, type: 3}
+  explosionfx: {fileID: 2984970767663435081, guid: 645736631e667754caba46abda4eddfd, type: 3}
 --- !u!95 &266078309743769701
 Animator:
   serializedVersion: 4

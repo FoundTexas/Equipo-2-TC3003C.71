@@ -69,9 +69,13 @@ public class PlayerHealth : MonoBehaviour, IDamage
         Vector3 vfxpos = this.transform.position;
         vfxpos.y = this.transform.position.y + 1;
         deathvfx = Instantiate(explosionfx, vfxpos, Quaternion.identity);
+        
         hitStop.HitStopFreeze(0.2f, 0.1f);
         this.gameObject.SetActive(false);
         sceneLoader.LoadByIndex(1);
+        
+        var vfxDuration = 1f;
+        Destroy(deathvfx, vfxDuration);
         
     }
 
