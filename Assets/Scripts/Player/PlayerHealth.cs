@@ -77,7 +77,7 @@ public class PlayerHealth : MonoBehaviour, IDamage
 
     public virtual void TakeDamage(float dmg)
     {
-        iFrames = 2f;
+        iFrames = 1f;
         hp -= dmg;
         healthBar.SetHealth(hp);
         if (hp <= -1)
