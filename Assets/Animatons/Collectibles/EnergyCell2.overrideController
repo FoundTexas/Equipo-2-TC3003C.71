@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: EnergyCell2
+  m_Controller: {fileID: 9100000, guid: f89c0737c86468b4e84434ee602784db, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: ed1c47e68c45b1b46bda07c9011a4ede, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e5b87a4ce8e117e43b4b6af3a740548f, type: 2}
