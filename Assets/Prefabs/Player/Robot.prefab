@@ -206,8 +206,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IdelTime: 0
-  Land: {fileID: 8300000, guid: 585cbd945ada4e14e90baf6ec111d719, type: 3}
-  jump: {fileID: 8300000, guid: 96c07bf41ec7369448ac1dafab5c7214, type: 3}
+  Land: {fileID: 8300000, guid: 5049e69e143b6ec43bf86d91cafc3802, type: 3}
+  jump: {fileID: 8300000, guid: 5049e69e143b6ec43bf86d91cafc3802, type: 3}
   step: {fileID: 8300000, guid: 96c07bf41ec7369448ac1dafab5c7214, type: 3}
   anim: {fileID: 3485253620909875121}
 --- !u!114 &7140450418692057982
@@ -700,6 +700,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 411860681319028848}
     m_Modifications:
     - target: {fileID: 151304819172026113, guid: 74c6e2fa02fd1754cb8a5a191a3b4162, type: 3}
+      propertyPath: sound
+      value: 
+      objectReference: {fileID: 8300000, guid: cd0e348fd07381b4cbd4430e69959946, type: 3}
+    - target: {fileID: 151304819172026113, guid: 74c6e2fa02fd1754cb8a5a191a3b4162, type: 3}
       propertyPath: rayMasks.m_Bits
       value: 649
       objectReference: {fileID: 0}
@@ -759,7 +763,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Basic Gun
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5203393462576392086, guid: 74c6e2fa02fd1754cb8a5a191a3b4162, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 74c6e2fa02fd1754cb8a5a191a3b4162, type: 3}
 --- !u!4 &4713211765542328657 stripped
 Transform:
