@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 7140450418692057221}
   - component: {fileID: 7140450418692057982}
   - component: {fileID: 7140450418692057979}
+  - component: {fileID: 393937956}
   m_Layer: 8
   m_Name: Robot
   m_TagString: Player
@@ -227,7 +228,7 @@ MonoBehaviour:
   turnTime: 0.2
   maxSlopeAngle: 45
   onSlopeSpeed: 2
-  jumpHeight: 12
+  jumpHeight: 15
   fallMultiplier: 2.5
   lowJumpMultiplier: 4
   diveForce: 30
@@ -235,8 +236,8 @@ MonoBehaviour:
   canDiveStart: 0.2
   wallDistance: 1.5
   minJumpHeight: 0.75
-  wallJumpForce: 12
-  wallJumpSideForce: 15
+  wallJumpForce: 10
+  wallJumpSideForce: 20
   exitWallTime: 0.2
   wallMask:
     serializedVersion: 2
@@ -349,6 +350,14 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!81 &393937956
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7140450418692057980}
+  m_Enabled: 1
 --- !u!1 &8538238403328556245
 GameObject:
   m_ObjectHideFlags: 0
