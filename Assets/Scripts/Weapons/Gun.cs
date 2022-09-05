@@ -30,7 +30,7 @@ public class Gun : Weapon
                 
                 else{
                     Debug.Log(dir * distance);
-                    StartCoroutine(SpawnTrail(trail, firePoint.position + dir * distance,false));
+                    StartCoroutine(SpawnTrail(trail, firePoint.position + dir * distance,true));
                 }
             }
         }

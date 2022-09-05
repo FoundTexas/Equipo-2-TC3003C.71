@@ -81,7 +81,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: BasicGun
   reloadSpeed: 0
-  shootSpeed: 0.1
+  shootSpeed: 0.5
   curShootS: 0
   BulletSpreadVariance: {x: 0, y: 0.01, z: 0}
   ImpactParticleSystem: {fileID: 1952829162161550246, guid: dc17e0b860f437541809d9f2653f0c27, type: 3}
@@ -96,7 +96,7 @@ MonoBehaviour:
   rayMasks:
     serializedVersion: 2
     m_Bits: 513
-  distance: 20
+  distance: 30
   dmg: 10
   sound: {fileID: 8300000, guid: c87c177af9fda8443a6330879a5723b1, type: 3}
   particles: {fileID: 9036128803690488351}

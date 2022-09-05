@@ -106,7 +106,7 @@ public class Weapon : MonoBehaviour
     {
 
         RaycastHit tmp = new RaycastHit();
-        if (Physics.Raycast(firePoint.position, direction,
+        if (Physics.Raycast(transform.position, direction,
             out RaycastHit hitinfo, distance, rayMasks))
         {
             tmp = hitinfo;
