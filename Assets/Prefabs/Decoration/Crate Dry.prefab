@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 2332548}
   - component: {fileID: 5441882}
   - component: {fileID: 6535578}
+  - component: {fileID: 6016186807980652383}
+  - component: {fileID: 5125868057078329241}
+  - component: {fileID: 4484520974516128135}
   m_Layer: 0
   m_Name: Crate Dry
   m_TagString: Untagged
@@ -29,7 +32,8 @@ Transform:
   m_GameObject: {fileID: 119378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -53,6 +57,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -112,3 +117,42 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5000002, y: 0.5000054, z: 0.49999216}
   m_Center: {x: -0.00000001490116, y: 1.5026364e-18, z: -0.000006616115}
+--- !u!65 &6016186807980652383
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119378}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.55, y: 0.55, z: 0.55}
+  m_Center: {x: -0.000000014901161, y: 0, z: 0}
+--- !u!114 &5125868057078329241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce4ffb076a4b284bb5b84b16873c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4484520974516128135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d61a31cb6b89b9f49ab0f8c5b9077077, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 20
+  ExplosiveCrate: {fileID: 1000012471779828, guid: 26de71f5e5d1a4909ad61fa05de13ea2, type: 3}
