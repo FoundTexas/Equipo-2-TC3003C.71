@@ -11,7 +11,6 @@ public class Gun : Weapon
             if (curShootS <= 0)
             {
                 curShootS = shootSpeed;
-                curMagazine--;
                 PlayShootAnimation();
 
                 Vector3 dir = Direction();
