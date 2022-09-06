@@ -206,9 +206,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IdelTime: 0
-  Land: {fileID: 8300000, guid: 5049e69e143b6ec43bf86d91cafc3802, type: 3}
+  Land: {fileID: 8300000, guid: 00cb177fe32b1a24f884f03a879053ce, type: 3}
   jump: {fileID: 8300000, guid: 5049e69e143b6ec43bf86d91cafc3802, type: 3}
-  step: {fileID: 8300000, guid: 96c07bf41ec7369448ac1dafab5c7214, type: 3}
+  step:
+  - {fileID: 8300000, guid: 00cb177fe32b1a24f884f03a879053ce, type: 3}
+  - {fileID: 8300000, guid: 0f720e2cda80a984ba559ce24e728c77, type: 3}
+  - {fileID: 8300000, guid: b4583ab64af695045979a2e637a9b047, type: 3}
+  step2:
+  - {fileID: 8300000, guid: aed1b279413ba8b4d9e256c39b6b5e63, type: 3}
+  - {fileID: 8300000, guid: 2a994084484e9dc429224f60ad536c70, type: 3}
+  - {fileID: 8300000, guid: aea376a0bd9520b469d35e5c3247f6f7, type: 3}
+  grounds:
+  - Concrete
+  - Metal
+  - Trash
   anim: {fileID: 3485253620909875121}
 --- !u!114 &7140450418692057982
 MonoBehaviour:
@@ -562,6 +573,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e35563a1a62ed13488e16213b4f7b019, type: 3}
   m_PrefabInstance: {fileID: 7004379563354137120}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7923493981809778545 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e35563a1a62ed13488e16213b4f7b019, type: 3}
+  m_PrefabInstance: {fileID: 7004379563354137120}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7140450418711002760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7923493981809778545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05cc27ec4f302a941a6fdcdc85423cba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 648
+  anim: {fileID: 7140450418692057221}
 --- !u!4 &8156449513885353071 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8069032694317455793, guid: e35563a1a62ed13488e16213b4f7b019, type: 3}
@@ -707,6 +739,10 @@ PrefabInstance:
       propertyPath: rayMasks.m_Bits
       value: 649
       objectReference: {fileID: 0}
+    - target: {fileID: 151304819172026113, guid: 74c6e2fa02fd1754cb8a5a191a3b4162, type: 3}
+      propertyPath: BulletSpreadVariance.y
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3375513094542914325, guid: 74c6e2fa02fd1754cb8a5a191a3b4162, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -762,6 +798,10 @@ PrefabInstance:
     - target: {fileID: 5374995939001763048, guid: 74c6e2fa02fd1754cb8a5a191a3b4162, type: 3}
       propertyPath: m_Name
       value: Basic Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 7383022070613283798, guid: 74c6e2fa02fd1754cb8a5a191a3b4162, type: 3}
+      propertyPath: m_Pitch
+      value: 1.83
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5203393462576392086, guid: 74c6e2fa02fd1754cb8a5a191a3b4162, type: 3}

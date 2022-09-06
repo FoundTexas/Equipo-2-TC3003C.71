@@ -255,7 +255,7 @@ public class PlayerMovement3D : MonoBehaviour
 
     private bool AboveGround()
     {
-        return !Physics.Raycast(transform.position, Vector3.down, minJumpHeight, groundMask);
+        return !Physics.Raycast(transform.position, Vector3.down, 2, groundMask);
     }
 
     private void WallJump()

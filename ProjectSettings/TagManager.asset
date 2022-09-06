@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Metal
+  - Conrete
+  - Trash
   layers:
   - Default
   - TransparentFX
