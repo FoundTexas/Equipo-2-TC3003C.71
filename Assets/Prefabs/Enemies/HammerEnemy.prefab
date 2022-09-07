@@ -6179,7 +6179,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: -0.2
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &3850422007205044282
@@ -6194,7 +6194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 340f70d83cf58aa428c1c401a41f8154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 0}
+  agent: {fileID: 3850422007205044277}
   player: {fileID: 0}
   isGround:
     serializedVersion: 2
@@ -6211,7 +6211,7 @@ MonoBehaviour:
   attackRange: 2
   playerInSights: 0
   playerInRange: 0
-  animator: {fileID: 0}
+  animator: {fileID: 3850422007205044283}
   hp: 20
   render: {fileID: 5173538126871673004}
   hitStop: {fileID: 5903629768628973847, guid: 290af89ca8b899249ab60f6502e73d02, type: 3}

@@ -46,6 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitStopDuration: 0.2
   remainingHitStop: 0
-  cinemachineCamera: {fileID: 0}
+  cinemachineCamera: {fileID: 2920909310714011901, guid: 328c4f14cd131964fb6cf803963a1622, type: 3}
   shakeMagnitude: 0.02
   shakeDuration: 0.2
