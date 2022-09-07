@@ -12,6 +12,7 @@ public class PlayerHealth : MonoBehaviour, IDamage
     public WeaponManager playerWeapons;
     public AmmoDisplay ammoDisplay;
     public GameObject explosionfx;
+    public GameObject forceField;
     Weapon currentWeapon;
     HitStop hitStop;
     SceneLoader sceneLoader;
@@ -39,6 +40,8 @@ public class PlayerHealth : MonoBehaviour, IDamage
             ammoDisplay.SetRemainingAmmo(currentWeapon.curAmmo.ToString());
         }
         iFrames -= Time.deltaTime;
+        if(iFrames <= 0)
+            forceField.SetActive(false);
     }
 
     void OnCollisionEnter(Collision collision)
@@ -81,7 +84,7 @@ public class PlayerHealth : MonoBehaviour, IDamage
 
     public virtual void TakeDamage(float dmg)
     {
-        iFrames = 1f;
+        iFrames = 2f;
         hp -= dmg;
         healthBar.SetHealth(hp);
         if (hp <= -1)
@@ -90,6 +93,7 @@ public class PlayerHealth : MonoBehaviour, IDamage
         }
         else
         {
+            forceField.SetActive(true);
             hitStop.HitStopFreeze(0.02f, 0.2f);
         }
     }
