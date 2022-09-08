@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Metal
+  - Conrete
+  - Trash
   - Manager
   - SceneLoader
   layers:
@@ -22,7 +25,7 @@ TagManager:
   - Wall2
   - Slopes
   - Marker
-  - 
+  - playerRagDoll
   - 
   - 
   - 

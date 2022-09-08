@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(AudioSource))]
 public class Weapon : MonoBehaviour
 {
     [Header("ID")]
@@ -31,13 +32,17 @@ public class Weapon : MonoBehaviour
     public LayerMask rayMasks;
     public float distance, dmg;
     public AudioClip sound;
+    AudioSource source;
 
     public ParticleSystem particles;
     Animator anim;
     public bool canReload = true;
 
+    public GameObject PlayerRef;
+
     private void Start()
     {
+        source = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         camara = Camera.main.transform;
         canReload = true;
@@ -100,13 +105,14 @@ public class Weapon : MonoBehaviour
     public virtual void PlayShootAnimation()
     {
         particles.Play();
+        source.PlayOneShot(sound);
     }
 
     public virtual RaycastHit GetRay(Vector3 direction)
     {
 
         RaycastHit tmp = new RaycastHit();
-        if (Physics.Raycast(firePoint.position, direction,
+        if (Physics.Raycast(transform.position, direction,
             out RaycastHit hitinfo, distance, rayMasks))
         {
             tmp = hitinfo;
@@ -120,7 +126,7 @@ public class Weapon : MonoBehaviour
     }
 
     public Vector3 Direction(){
-        Vector3 direction = firePoint.forward;
+        Vector3 direction = PlayerRef.transform.forward;
 
         direction += new Vector3(
             Random.Range(-BulletSpreadVariance.x, BulletSpreadVariance.x),

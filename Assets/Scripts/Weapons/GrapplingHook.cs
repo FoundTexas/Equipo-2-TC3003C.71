@@ -17,7 +17,6 @@ public class GrapplingHook : Weapon
     {
         if (WeaponManager.hasWeapon)
         {
-            if (Input.GetKeyDown("r")) { Reolad(); }
             if (Input.GetMouseButtonDown(0)) { Shoot(); }
             if (Input.GetMouseButtonUp(0)) { StopGrapple(); }
         }
@@ -51,7 +50,6 @@ public class GrapplingHook : Weapon
 
                     joint = player.gameObject.AddComponent<SpringJoint>();
                     lr.positionCount = 2;
-                    curMagazine--;
                     SetJoint();
                 }
             }
@@ -67,7 +65,7 @@ public class GrapplingHook : Weapon
             player.position,
             entity.position);
         joint.maxDistance = distanceFromPoint * 0.8f;
-        joint.minDistance = distanceFromPoint * 0.8f;
+        joint.minDistance = distance*.8f;
 
         joint.spring = spring;
         joint.damper = damper;

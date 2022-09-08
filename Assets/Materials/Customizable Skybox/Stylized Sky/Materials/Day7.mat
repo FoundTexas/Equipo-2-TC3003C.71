@@ -40,7 +40,7 @@ Material:
     - _View: 0
     - __dirty: 0
     m_Colors:
-    - _HorizonLineColor: {r: 1, g: 0.5330188, b: 0.865867, a: 0}
+    - _HorizonLineColor: {r: 0.8584906, g: 0.068841234, b: 0.6328766, a: 0}
     - _SkyGradientBottom: {r: 0.5377358, g: 0.36271802, b: 0.5132371, a: 1}
     - _SkyGradientTop: {r: 0.8301887, g: 0.71008503, b: 0.49733, a: 0.59607846}
     - _SunDiscColor: {r: 0.990566, g: 0.9578586, b: 0.9792415, a: 1}
