@@ -8,6 +8,8 @@ TagManager:
   - Metal
   - Conrete
   - Trash
+  - Manager
+  - SceneLoader
   layers:
   - Default
   - TransparentFX

@@ -153,6 +153,9 @@ MonoBehaviour:
   playerInSights: 0
   playerInRange: 0
   animator: {fileID: 291311373717343488}
+  hp: 20
+  render: {fileID: 1662378209446626909}
+  hitStop: {fileID: 0}
 --- !u!95 &291311373717343488
 Animator:
   serializedVersion: 4
