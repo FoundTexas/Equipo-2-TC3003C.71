@@ -18,14 +18,45 @@ public class RagDollHandler : MonoBehaviour
         AnimatedRigidbody = GetComponent<Rigidbody>();
         AnimatedColider = GetComponent<CapsuleCollider>();
 
-        SetRagDoll(startvalue);
+        //SetRagDoll(startvalue);
     }
 
-    public void SetRagDoll(bool enable)
+    public void SetRagDollON()
     {
         //AnimatedRigidbody.isKinematic = enabled;
         //AnimatedColider.enabled = !enable;
-        anim.enabled = !enable;
+        anim.enabled = false;
+
+        foreach(Rigidbody rb in RagdollRigidBodies)
+        {
+            rb.isKinematic = true;
+        }
+        foreach(Collider col in RagdollColliders)
+        {
+            col.enabled = true;
+        }
+    }
+
+    public void SetRagDollOFF()
+    {
+        //AnimatedRigidbody.isKinematic = enabled;
+        //AnimatedColider.enabled = !enable;
+        anim.enabled = true;
+
+        foreach(Rigidbody rb in RagdollRigidBodies)
+        {
+            rb.isKinematic = false;
+        }
+        foreach(Collider col in RagdollColliders)
+        {
+            col.enabled = false;
+        }
+    }
+
+    public void SetTmpRagDoll(int time)
+    {
+        bool enabled = time == 1;
+        anim.enabled = !enabled;
 
         foreach(Rigidbody rb in RagdollRigidBodies)
         {
@@ -35,10 +66,5 @@ public class RagDollHandler : MonoBehaviour
         {
             col.enabled = enabled;
         }
-    }
-
-    public void SetTmpRagDoll(float time)
-    {
-
     }
 }

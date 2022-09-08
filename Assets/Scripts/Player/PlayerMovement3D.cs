@@ -167,11 +167,12 @@ public class PlayerMovement3D : MonoBehaviour
             float resultAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnVelocity, turnTime);
             transform.rotation = Quaternion.Euler(0f, resultAngle, 0f);
             moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            rigidbody.useGravity = !OnSlope();
+            //rigidbody.useGravity = !OnSlope();
 
             if (!canMove)
                 return;
 
+                
             if (OnSlope())
             {
                 rigidbody.AddForce(Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized * moveSpeed * onSlopeSpeed, ForceMode.Force);
