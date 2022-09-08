@@ -16,7 +16,7 @@ public class Gun : Weapon
                 Vector3 dir = Direction();
                 RaycastHit HitGun = GetRay(dir);
 
-                TrailRenderer trail = Instantiate(BulletTrail, firePoint.position,firePoint.rotation);
+                TrailRenderer trail = Instantiate(BulletTrail, firePoint.position, Quaternion.identity);
                 if(HitGun.transform){
                     Debug.Log(HitGun.transform.name);
                     StartCoroutine(SpawnTrail(trail,HitGun.point,true));
