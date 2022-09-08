@@ -38,6 +38,8 @@ public class Weapon : MonoBehaviour
     Animator anim;
     public bool canReload = true;
 
+    public GameObject PlayerRef;
+
     private void Start()
     {
         source = GetComponent<AudioSource>();
@@ -124,7 +126,7 @@ public class Weapon : MonoBehaviour
     }
 
     public Vector3 Direction(){
-        Vector3 direction = firePoint.forward;
+        Vector3 direction = PlayerRef.transform.forward;
 
         direction += new Vector3(
             Random.Range(-BulletSpreadVariance.x, BulletSpreadVariance.x),

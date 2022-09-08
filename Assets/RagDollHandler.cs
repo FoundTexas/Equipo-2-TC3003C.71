@@ -17,7 +17,7 @@ public class RagDollHandler : MonoBehaviour
     {
         AnimatedRigidbody = GetComponent<Rigidbody>();
         AnimatedColider = GetComponent<CapsuleCollider>();
-
+        SetRagDollOFF();
         //SetRagDoll(startvalue);
     }
 

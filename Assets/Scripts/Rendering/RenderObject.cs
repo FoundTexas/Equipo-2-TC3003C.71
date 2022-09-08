@@ -42,7 +42,7 @@ namespace Optimization_Module
             {
                 return;
             }
-            else
+            else  if (!isApplicationQuitting)
             {
                 FindObjectOfType<RadarVFC>().RemoveSceneObj(this);
             }
