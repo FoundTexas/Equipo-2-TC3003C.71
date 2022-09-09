@@ -66,6 +66,11 @@ public class PlayerHealth : MonoBehaviour, IDamage
         healthBar.SetHealth(hp);
     }
 
+    public WeaponManager GetWeaponManager()
+    {
+        return playerWeapons;
+    }
+
     public void Die()
     {
         GameObject deathvfx;

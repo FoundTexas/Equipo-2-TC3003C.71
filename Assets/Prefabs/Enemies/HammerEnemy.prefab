@@ -6104,6 +6104,7 @@ GameObject:
   - component: {fileID: 3850422007205044277}
   - component: {fileID: 3850422007205044282}
   - component: {fileID: 3850422007205044276}
+  - component: {fileID: 3449380597821903445}
   m_Layer: 9
   m_Name: HammerEnemy
   m_TagString: Enemy
@@ -6229,6 +6230,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.11, y: 4, z: 1}
   m_Center: {x: 0, y: 2.3, z: 0}
+--- !u!114 &3449380597821903445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4477882904499583618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 794fc404dd84aa74c8122f73aec3cee7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropEnergy: 0.4
+  dropCurrency: 0.6
+  EnergyPrefab: {fileID: 0}
+  CurrencyPrefab: {fileID: 0}
 --- !u!1 &4764221637942091288
 GameObject:
   m_ObjectHideFlags: 0
