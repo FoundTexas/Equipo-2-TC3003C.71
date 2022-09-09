@@ -10,6 +10,7 @@ TagManager:
   - Trash
   - Manager
   - SceneLoader
+  - Vacuum
   layers:
   - Default
   - TransparentFX
