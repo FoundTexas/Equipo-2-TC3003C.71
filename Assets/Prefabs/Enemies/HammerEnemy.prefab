@@ -6244,8 +6244,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropEnergy: 0.4
   dropCurrency: 0.6
-  EnergyPrefab: {fileID: 0}
-  CurrencyPrefab: {fileID: 0}
+  EnergyPrefab: {fileID: 3137065535578657644, guid: 048d1d3ebeace6149ae6e54a11454d80, type: 3}
+  CurrencyPrefab: {fileID: 9084417241935925860, guid: 6d3eb26499d18d94fb49f1bda0a74c49, type: 3}
 --- !u!1 &4764221637942091288
 GameObject:
   m_ObjectHideFlags: 0

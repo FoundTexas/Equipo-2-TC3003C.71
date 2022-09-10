@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
 {
     [Header("ID")]
     public string ID = "";
+    public GameObject GunModel;
     [Header("Speed/Timers Stats")]
     [Tooltip("Speed you reload your magazine")]
     [SerializeField] float reloadSpeed;

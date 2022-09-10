@@ -80,7 +80,13 @@ public class WeaponManager : MonoBehaviour
 
     public void UnlockWeapon(string weapon)
     {
-        unlocked.Add(weapon);
+        if (unlocked.Contains(weapon) == false){
+            unlocked.Add(weapon);
+        }
+        else if (unlocked.Contains(weapon))
+        {
+            weapons[weaponDictionary[weapon]].AddAmmo();
+        }
     }
 
     public Weapon currentSelect()

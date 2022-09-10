@@ -81,6 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: BasicGun
+  GunModel: {fileID: 8708822207045214100, guid: 128dc9196e86e88428bd783a9fbb7130, type: 3}
   reloadSpeed: 0
   shootSpeed: 0.5
   curShootS: 0
