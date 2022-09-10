@@ -138,7 +138,11 @@ public class PlayerMovement3D : MonoBehaviour
             velocity.y = -2f;
 
         if (isGrounded)
+        {
             canDive = false;
+            transform.GetChild(transform.childCount - 1).gameObject.SetActive(false); // Deactivate smoke
+            transform.GetChild(transform.childCount - 1).gameObject.GetComponent<ParticleSystem>().Pause(); // Deactivate smoke
+        }
     }
 
     private void CheckInputs()
@@ -166,7 +170,11 @@ public class PlayerMovement3D : MonoBehaviour
 
         // Manage Long/short jump
         if (rigidbody.velocity.y < 0)
+        {
             rigidbody.velocity += Vector3.up * gravity * (fallMultiplier - 1) * Time.deltaTime;
+            transform.GetChild(transform.childCount - 1).gameObject.SetActive(true); // Activate smoke
+            transform.GetChild(transform.childCount - 1).gameObject.GetComponent<ParticleSystem>().Play(); // Activate smoke
+        }
         else if (rigidbody.velocity.y > 0 && !Input.GetKey(jumpInput))
             rigidbody.velocity += Vector3.up * gravity * (lowJumpMultiplier - 1) * Time.deltaTime;
     }
@@ -190,8 +198,8 @@ public class PlayerMovement3D : MonoBehaviour
             if (OnSlope())
             {
                 rigidbody.AddForce(Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized * moveSpeed * onSlopeSpeed, ForceMode.Force);
-                // if (rigidbody.velocity.y > 0)
-                //     rigidbody.AddForce(Vector3.down, ForceMode.Force);
+                if (rigidbody.velocity.y > 0)
+                    rigidbody.AddForce(Vector3.down * 2, ForceMode.Force);
             }
             else
                 rigidbody.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
