@@ -24,7 +24,10 @@ public class WeaponManager : MonoBehaviour
         }
         toggleWeapon();
 
-        selected.gameObject.SetActive(true);
+        if (unlocked.Count > 0)
+        {
+            selected.gameObject.SetActive(true);
+        }
     }
     void Update()
     {
@@ -36,17 +39,20 @@ public class WeaponManager : MonoBehaviour
     }
     void Inputs()
     {
-        if (Input.mouseScrollDelta.y != 0)
+        if (unlocked.Count > 0)
         {
-            int selectedIndex = GetSelectedIndex();
-            selectedIndex -= Mathf.RoundToInt(Input.mouseScrollDelta.y);
+            if (Input.mouseScrollDelta.y != 0)
+            {
+                int selectedIndex = GetSelectedIndex();
+                selectedIndex += Mathf.RoundToInt(Input.mouseScrollDelta.y);
 
-            selectedIndex = Mathf.Clamp(selectedIndex, 0, weapons.Count-1);
-            ChangeWeapon(selectedIndex);
-        }
-        if (Input.GetKeyDown("q"))
-        {
-            toggleWeapon();
+                selectedIndex = Mathf.Clamp(selectedIndex, 0, unlocked.Count - 1);
+                ChangeWeapon(selectedIndex);
+            }
+            if (Input.GetKeyDown("q"))
+            {
+                toggleWeapon();
+            }
         }
     }
 
@@ -80,7 +86,21 @@ public class WeaponManager : MonoBehaviour
 
     public void UnlockWeapon(string weapon)
     {
-        unlocked.Add(weapon);
+        if (unlocked.Contains(weapon) == false){
+            unlocked.Add(weapon);
+        }
+        else if (unlocked.Contains(weapon))
+        {
+            weapons[weaponDictionary[weapon]].AddAmmo();
+        }
+
+        if (!hasWeapon)
+        {
+            toggleWeapon();
+        }
+
+        selected = weapons[weaponDictionary[weapon]];
+        ChangeWeapon(GetSelectedIndex());
     }
 
     public Weapon currentSelect()
