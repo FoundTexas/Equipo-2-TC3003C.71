@@ -167,7 +167,6 @@ public class PlayerMovement3D : MonoBehaviour
         {
             StartCoroutine(EnableDive());
             anim.jumpSound();
-            // rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z);
             rigidbody.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
         }
 
@@ -192,7 +191,6 @@ public class PlayerMovement3D : MonoBehaviour
             float resultAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnVelocity, turnTime);
             transform.rotation = Quaternion.Euler(0f, resultAngle, 0f);
             moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            //rigidbody.useGravity = !OnSlope();
 
             if (!canMove)
                 return;
@@ -202,7 +200,7 @@ public class PlayerMovement3D : MonoBehaviour
             {
                 rigidbody.AddForce(Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized * moveSpeed * onSlopeSpeed, ForceMode.Force);
                 if (rigidbody.velocity.y > 0)
-                    rigidbody.AddForce(Vector3.down * 2, ForceMode.Force);
+                    rigidbody.AddForce(Vector3.down * 3, ForceMode.Force);
             }
             else
                 rigidbody.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
@@ -222,19 +220,11 @@ public class PlayerMovement3D : MonoBehaviour
     }
     private void SpeedControl()
     {
-        if (OnSlope())
-        {
-            if (rigidbody.velocity.magnitude > moveSpeed)
-                rigidbody.velocity = rigidbody.velocity.normalized * moveSpeed;
-        }
-        else
-        {
-            rigidbody.velocity = new Vector3(
-                Mathf.Clamp(rigidbody.velocity.x, -maxSpeed, maxSpeed),
-                Mathf.Clamp(rigidbody.velocity.y, -maxSpeed, maxSpeed),
-                Mathf.Clamp(rigidbody.velocity.z, -maxSpeed, maxSpeed)
-                );
-        }
+        rigidbody.velocity = new Vector3(
+            Mathf.Clamp(rigidbody.velocity.x, -maxSpeed, maxSpeed),
+            Mathf.Clamp(rigidbody.velocity.y, -maxSpeed, maxSpeed),
+            Mathf.Clamp(rigidbody.velocity.z, -maxSpeed, maxSpeed)
+            );
     }
 
     private void CheckCrouch()

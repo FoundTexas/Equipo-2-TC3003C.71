@@ -118656,7 +118656,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7140450418692057982, guid: b8e5af792b3810b44876eae9429ab288, type: 3}
       propertyPath: jumpHeight
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7140450418692057982, guid: b8e5af792b3810b44876eae9429ab288, type: 3}
       propertyPath: crouchSpeed
