@@ -432,6 +432,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6741a774aee8ff849b4d4022d84f2eb2, type: 3}
   m_PrefabInstance: {fileID: 4431826519965500590}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1855981063
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3548954621470718463}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 33.89431, y: 9.727823, z: 12.943564}
+  m_Center: {x: -8.15178, y: 4.15042, z: 0}
 --- !u!95 &1855981058
 Animator:
   serializedVersion: 4
@@ -452,7 +465,34 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!65 &1855981063
+--- !u!114 &1855981062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3548954621470718463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68cf6c14add7fd84ebe0d98bc016f495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TriggerEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1311546467741026344}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+--- !u!65 &5973975743000009240
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -465,7 +505,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 33.89431, y: 9.727823, z: 12.943564}
   m_Center: {x: -8.15178, y: 4.15042, z: 0}
---- !u!114 &1855981062
+--- !u!114 &7043349268153379083
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
