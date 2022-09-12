@@ -91,11 +91,14 @@ public class PlayerMovement3D : MonoBehaviour
 
     new private Rigidbody rigidbody;
     private AudioAndVideoManager anim;
+    new private ParticleSystem particleSystem;
 
     void Start()
     {
         anim = GetComponent<AudioAndVideoManager>();
         rigidbody = GetComponent<Rigidbody>();
+        particleSystem = transform.GetChild(transform.childCount - 1).gameObject.GetComponent<ParticleSystem>();
+        particleSystem.Pause();
         originalHeight = transform.localScale.y;
         originalSpeed = moveSpeed;
         ConfigSecretInput();
@@ -108,7 +111,6 @@ public class PlayerMovement3D : MonoBehaviour
         CheckGrounded();
         CheckWallJump();
         CheckDash();
-        SpeedControl();
         CheckCrouch();
         CheckJump();
         CheckDive();
@@ -120,6 +122,7 @@ public class PlayerMovement3D : MonoBehaviour
     {
         CheckInputs();
         CheckMove();
+        SpeedControl();
     }
 
     void SendAnimationVals()
@@ -141,7 +144,7 @@ public class PlayerMovement3D : MonoBehaviour
         {
             canDive = false;
             transform.GetChild(transform.childCount - 1).gameObject.SetActive(false); // Deactivate smoke
-            transform.GetChild(transform.childCount - 1).gameObject.GetComponent<ParticleSystem>().Pause(); // Deactivate smoke
+            particleSystem.Pause(); // Deactivate smoke
         }
     }
 
@@ -164,7 +167,7 @@ public class PlayerMovement3D : MonoBehaviour
         {
             StartCoroutine(EnableDive());
             anim.jumpSound();
-            rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z);
+            // rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z);
             rigidbody.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
         }
 
@@ -173,7 +176,7 @@ public class PlayerMovement3D : MonoBehaviour
         {
             rigidbody.velocity += Vector3.up * gravity * (fallMultiplier - 1) * Time.deltaTime;
             transform.GetChild(transform.childCount - 1).gameObject.SetActive(true); // Activate smoke
-            transform.GetChild(transform.childCount - 1).gameObject.GetComponent<ParticleSystem>().Play(); // Activate smoke
+            particleSystem.Play(); // Activate smoke
         }
         else if (rigidbody.velocity.y > 0 && !Input.GetKey(jumpInput))
             rigidbody.velocity += Vector3.up * gravity * (lowJumpMultiplier - 1) * Time.deltaTime;
