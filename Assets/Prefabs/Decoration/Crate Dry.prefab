@@ -17,7 +17,8 @@ GameObject:
   - component: {fileID: 5125868057078329241}
   - component: {fileID: 4484520974516128135}
   - component: {fileID: 7165365753723848233}
-  m_Layer: 0
+  - component: {fileID: 3934368315650607385}
+  m_Layer: 7
   m_Name: Crate Dry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,3 +174,19 @@ MonoBehaviour:
   dropCurrency: 0
   EnergyPrefab: {fileID: 3137065535578657644, guid: 048d1d3ebeace6149ae6e54a11454d80, type: 3}
   CurrencyPrefab: {fileID: 9084417241935925860, guid: 6d3eb26499d18d94fb49f1bda0a74c49, type: 3}
+--- !u!208 &3934368315650607385
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119378}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 0.25, z: 0.25}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
