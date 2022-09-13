@@ -32,6 +32,7 @@ public class Enemy : MonoBehaviour, IDamage
 
     public HitStop hitStop;
     public GameObject explosionfx;
+    public float timePatrolling = 0f;
 
     void Awake()
     {
@@ -81,9 +82,15 @@ public class Enemy : MonoBehaviour, IDamage
 
         Vector3 distanceToGoal = transform.position - walkPoint;
 
+        timePatrolling += Time.deltaTime;
+
         //Reached the destination, repeat to find a new one
-        if(distanceToGoal.magnitude < 1f)
+        if(distanceToGoal.magnitude < 1f || timePatrolling >= 3f)
+        {
             walkPointSet = false;
+            timePatrolling = 0f;
+        }
+        
     }
 
     public void Chasing()
