@@ -16,7 +16,7 @@ public class Gun : Weapon
                 Vector3 dir = Direction();
                 RaycastHit HitGun = GetRay(dir);
 
-                TrailRenderer trail = Instantiate(BulletTrail, RayOut.position, Quaternion.identity,RayOut);
+                TrailRenderer trail = Instantiate(BulletTrail, RayOut.position, Quaternion.identity);
 
                 curMagazine--;
                 if(HitGun.transform){
