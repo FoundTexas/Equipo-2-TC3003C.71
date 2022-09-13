@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,23 +9,23 @@ public class PlayerMovement3D : MonoBehaviour
 {
     [Header("Horizontal movement")]
     // Variables needed for character movement and camera functionality
-    public float moveSpeed = 15f;
-    public float maxSpeed = 20f;
+    public float moveSpeed = 20f;
+    public float maxSpeed = 25f;
+    private bool canMove = true;
     private float originalSpeed;
     private Vector3 direction;
     private Vector3 moveDirection;
-    new private Rigidbody rigidbody;
-    private bool canMove = true;
 
     [Header("Camera movement")]
     // Variables needed for camera turning
-    new public Transform camera;
     public float turnTime = 0.1f;
+    new public Transform camera;
     private float turnVelocity;
 
     [Header("Slope Movement")]
     // Variables needed for movement while standing on a slope
     public float maxSlopeAngle = 60f;
+    public float minSlopeAngle = 15f;
     public float onSlopeSpeed = 5f;
     private RaycastHit slopeHit;
 
@@ -50,9 +51,9 @@ public class PlayerMovement3D : MonoBehaviour
     public float wallJumpForce = 7f;
     public float wallJumpSideForce = 12f;
     public float exitWallTime = 0.7f;
-    private bool wallFound = false;
     public LayerMask wallMask;
     private RaycastHit wallHit;
+    private bool wallFound = false;
 
     [Header("Ground controller")]
     // Variables needed to check ground below player
@@ -70,23 +71,37 @@ public class PlayerMovement3D : MonoBehaviour
     [Header("Dashing")]
     public float dashForce = 3f;
     public float doubleTapTime = 0.4f;
+    public float doubleTapCoolDown = 0.4f;
+    private float doubleTapResetTime = 0f;
+    private bool canDash = true;
     private float doubleTapDelta;
     private bool doubleTap = false;
+    private bool enableGlitch = false;
 
     [Header("Keyboard inputs")]
     public KeyCode jumpInput = KeyCode.Space;
     public KeyCode diveInput = KeyCode.LeftControl;
     public KeyCode crouchInput = KeyCode.LeftShift;
 
-    AudioAndVideoManager anim;
+    [Header("Secret Code")]
+    public string[] secretCode;
+    public float inputTimeReset = 1.0f;
+    private string secretCodeString;
+    private string currentCode = "";
 
-    // Start is called before the first frame update
+    new private Rigidbody rigidbody;
+    private AudioAndVideoManager anim;
+    new private ParticleSystem particleSystem;
+
     void Start()
     {
         anim = GetComponent<AudioAndVideoManager>();
         rigidbody = GetComponent<Rigidbody>();
+        particleSystem = transform.GetChild(transform.childCount - 1).gameObject.GetComponent<ParticleSystem>();
+        particleSystem.Pause();
         originalHeight = transform.localScale.y;
         originalSpeed = moveSpeed;
+        ConfigSecretInput();
     }
 
     // Update is called once per frame
@@ -96,16 +111,18 @@ public class PlayerMovement3D : MonoBehaviour
         CheckGrounded();
         CheckWallJump();
         CheckDash();
-        SpeedControl();
         CheckCrouch();
         CheckJump();
         CheckDive();
+        CheckResetDash();
+        CheckSecretInput();
     }
 
     private void FixedUpdate()
     {
         CheckInputs();
         CheckMove();
+        SpeedControl();
     }
 
     void SendAnimationVals()
@@ -124,7 +141,11 @@ public class PlayerMovement3D : MonoBehaviour
             velocity.y = -2f;
 
         if (isGrounded)
+        {
             canDive = false;
+            transform.GetChild(transform.childCount - 1).gameObject.SetActive(false); // Deactivate smoke
+            particleSystem.Pause(); // Deactivate smoke
+        }
     }
 
     private void CheckInputs()
@@ -146,13 +167,16 @@ public class PlayerMovement3D : MonoBehaviour
         {
             StartCoroutine(EnableDive());
             anim.jumpSound();
-            rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z);
             rigidbody.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
         }
 
         // Manage Long/short jump
         if (rigidbody.velocity.y < 0)
+        {
             rigidbody.velocity += Vector3.up * gravity * (fallMultiplier - 1) * Time.deltaTime;
+            transform.GetChild(transform.childCount - 1).gameObject.SetActive(true); // Activate smoke
+            particleSystem.Play(); // Activate smoke
+        }
         else if (rigidbody.velocity.y > 0 && !Input.GetKey(jumpInput))
             rigidbody.velocity += Vector3.up * gravity * (lowJumpMultiplier - 1) * Time.deltaTime;
     }
@@ -167,7 +191,6 @@ public class PlayerMovement3D : MonoBehaviour
             float resultAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnVelocity, turnTime);
             transform.rotation = Quaternion.Euler(0f, resultAngle, 0f);
             moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            //rigidbody.useGravity = !OnSlope();
 
             if (!canMove)
                 return;
@@ -177,7 +200,7 @@ public class PlayerMovement3D : MonoBehaviour
             {
                 rigidbody.AddForce(Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized * moveSpeed * onSlopeSpeed, ForceMode.Force);
                 if (rigidbody.velocity.y > 0)
-                    rigidbody.AddForce(Vector3.down * 10f, ForceMode.Force);
+                    rigidbody.AddForce(Vector3.down * 3, ForceMode.Force);
             }
             else
                 rigidbody.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
@@ -190,37 +213,18 @@ public class PlayerMovement3D : MonoBehaviour
         out slopeHit, groundCheck.position.y + 0.3f))
         {
             float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-            return angle < maxSlopeAngle && angle != 0;
+            return angle > minSlopeAngle && angle < maxSlopeAngle && angle != 0;
         }
 
         return false;
     }
     private void SpeedControl()
     {
-        if (OnSlope())
-        {
-            if (rigidbody.velocity.magnitude > moveSpeed)
-                rigidbody.velocity = rigidbody.velocity.normalized * moveSpeed;
-        }
-        else
-        {
-            rigidbody.velocity = new Vector3(
-                Mathf.Clamp(rigidbody.velocity.x, -maxSpeed, maxSpeed),
-                Mathf.Clamp(rigidbody.velocity.y, -maxSpeed, maxSpeed),
-                Mathf.Clamp(rigidbody.velocity.z, -maxSpeed, maxSpeed)
-                );
-            /*
-            Vector3 currentVelocity = new Vector3(  rigidbody.velocity.x, 
-                                                    0f, 
-                                                    rigidbody.velocity.z);
-            if(currentVelocity.magnitude >= maxSpeed)
-            {
-                Vector3 limitedVelocity = currentVelocity.normalized * maxSpeed;
-                rigidbody.velocity = new Vector3(   limitedVelocity.x, 
-                                                    rigidbody.velocity.y,
-                                                    limitedVelocity.z);
-            }*/
-        }
+        rigidbody.velocity = new Vector3(
+            Mathf.Clamp(rigidbody.velocity.x, -maxSpeed, maxSpeed),
+            Mathf.Clamp(rigidbody.velocity.y, -maxSpeed, maxSpeed),
+            Mathf.Clamp(rigidbody.velocity.z, -maxSpeed, maxSpeed)
+            );
     }
 
     private void CheckCrouch()
@@ -317,7 +321,7 @@ public class PlayerMovement3D : MonoBehaviour
             if (Time.time - doubleTapDelta < doubleTapTime)
             {
                 Dash();
-                print("Dashing");
+                doubleTapResetTime = doubleTapCoolDown; // Reset Dash
                 doubleTapDelta = 0f;
             }
             doubleTap = false;
@@ -332,7 +336,57 @@ public class PlayerMovement3D : MonoBehaviour
 
     private void Dash()
     {
-        Vector3 forceToApply = transform.forward * dashForce;
-        rigidbody.AddForce(rigidbody.velocity * dashForce, ForceMode.Impulse);
+        if(canDash)
+        {
+            Vector3 forceToApply = transform.forward * dashForce;
+            rigidbody.AddForce(rigidbody.velocity * dashForce, ForceMode.Impulse);
+        }
+    }
+
+    private void CheckResetDash()
+    {
+        if(enableGlitch)
+            return;
+        
+        if(doubleTapResetTime > 0)
+        {
+            canDash = false;
+            doubleTapResetTime -= Time.deltaTime;
+            if(doubleTapResetTime == 0)
+                doubleTapResetTime = doubleTapCoolDown;
+        }
+        else if(doubleTapResetTime <= 0)
+        {
+            canDash = true;
+        }
+    }
+
+    private void CheckSecretInput()
+    {
+        if(enableGlitch)
+            return;
+        
+        foreach(KeyCode kcode in Enum.GetValues(typeof(KeyCode)))
+        {
+            if(Input.GetKeyDown(kcode))
+            {
+                currentCode += kcode;
+                if(currentCode.Contains(secretCodeString))
+                {
+                    enableGlitch = true;
+                    anim.UnlockSound();
+                }
+                else
+                    if(currentCode.Length > secretCodeString.Length * 3) // Limit currentCode storage data
+                        currentCode = "";
+            }
+        }
+    }
+    private void ConfigSecretInput()
+    {
+        foreach (string input in secretCode)
+        {
+            secretCodeString += input;
+        }
     }
 }

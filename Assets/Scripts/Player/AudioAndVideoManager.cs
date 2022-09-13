@@ -6,7 +6,7 @@ using UnityEngine;
 public class AudioAndVideoManager : MonoBehaviour
 {
     [SerializeField] float IdelTime;
-    [SerializeField] AudioClip Land, jump;
+    [SerializeField] AudioClip Land, jump, unlock;
     [SerializeField] AudioClip[] step, step2;
     [SerializeField] string[] grounds;
     Dictionary<string, int> ground = new Dictionary<string, int>();
@@ -35,6 +35,13 @@ public class AudioAndVideoManager : MonoBehaviour
         audios.PlayOneShot(
             Random.Range(0,2) == 0? step[tmp] : step2[tmp]
             );
+    }
+    /// <summary>
+    /// Plays unlock sound when inputting the secret code when called from the player Animator.
+    /// </summary>
+    public void UnlockSound()
+    {
+        audios.PlayOneShot(unlock);
     }
     /// <summary>
     /// Plays Robot�s jump sound when called.
