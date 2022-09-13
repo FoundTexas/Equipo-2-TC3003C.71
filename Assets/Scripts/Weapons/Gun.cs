@@ -17,6 +17,8 @@ public class Gun : Weapon
                 RaycastHit HitGun = GetRay(dir);
 
                 TrailRenderer trail = Instantiate(BulletTrail, RayOut.position, Quaternion.identity,RayOut);
+
+                curMagazine--;
                 if(HitGun.transform){
                     Debug.Log(HitGun.transform.name);
                     StartCoroutine(SpawnTrail(trail,HitGun.point,true));
@@ -32,6 +34,10 @@ public class Gun : Weapon
                     StartCoroutine(SpawnTrail(trail, firePoint.position + dir * distance,true));
                 }
             }
+        }
+        else
+        {
+            Reolad();
         }
     }
 }
