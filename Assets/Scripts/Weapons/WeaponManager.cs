@@ -96,10 +96,10 @@ public class WeaponManager : MonoBehaviour
 
         if (!hasWeapon)
         {
+            selected = weapons[weaponDictionary[weapon]];
+            ChangeWeapon(GetSelectedIndex());
             toggleWeapon();
         }
-
-        ChangeWeapon(GetSelectedIndex());
     }
 
     public Weapon currentSelect()

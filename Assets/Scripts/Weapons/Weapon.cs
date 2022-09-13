@@ -153,7 +153,7 @@ public class Weapon : MonoBehaviour
         Destroy(Instantiate(ImpactParticleSystem, vec, Quaternion.identity).gameObject,1);
 
         }
-        Destroy(trail.gameObject);
+        Destroy(trail.gameObject,0.5f);
     }
 
     public virtual void Shoot() 

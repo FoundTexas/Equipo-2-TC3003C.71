@@ -4864,10 +4864,7 @@ MonoBehaviour:
   - {fileID: 6354479406733601193}
   - {fileID: 7901847609964416325}
   selected: {fileID: 2416626296868315644}
-  unlocked:
-  - Grappling
-  - SoundShoot
-  - BasicGun
+  unlocked: []
   torso: {fileID: 8156449513885353071}
   hand: {fileID: 4633423232551185928}
   audios: {fileID: 7140450418692057221}
@@ -5240,7 +5237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 20
   maxSpeed: 25
-  turnTime: 0.2
+  turnTime: 0.1
   camera: {fileID: 0}
   maxSlopeAngle: 60
   minSlopeAngle: 15

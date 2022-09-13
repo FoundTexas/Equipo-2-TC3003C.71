@@ -14,7 +14,7 @@ public class Dropper : MonoBehaviour
     public GameObject CurrencyPrefab;
     bool isApplicationQuitting = false;
 
-    void OnDestroy()
+    public void Spawn()
     {
         if (isApplicationQuitting)
         {
