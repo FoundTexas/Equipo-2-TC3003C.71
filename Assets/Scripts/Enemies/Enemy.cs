@@ -141,7 +141,6 @@ public class Enemy : MonoBehaviour, IDamage
 
     public void Die()
     {
-        GetComponent<Dropper>().Spawn();
         GameObject deathvfx;
         Vector3 vfxpos = this.transform.position;
         vfxpos.y = this.transform.position.y + 1;
@@ -152,6 +151,7 @@ public class Enemy : MonoBehaviour, IDamage
             hitStop.HitStopFreeze(0.02f, 0.2f);
 
         var vfxDuration = 1f;
+        GetComponent<Dropper>().Spawn();
         Destroy(deathvfx, vfxDuration);
     }
 

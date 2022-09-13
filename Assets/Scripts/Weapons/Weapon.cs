@@ -40,6 +40,7 @@ public class Weapon : MonoBehaviour
     public bool canReload = true;
 
     public GameObject PlayerRef;
+    public Transform RayOut;
 
     private void Start()
     {
@@ -49,6 +50,11 @@ public class Weapon : MonoBehaviour
         canReload = true;
         curMagazine = magazine;
         curAmmo = ammo;
+
+        if (PlayerRef)
+        {
+            RayOut = PlayerRef.transform.GetChild(0);
+        }
         if(firePoint.TryGetComponent<ParticleSystem>(out particles) == false)
         {
             particles = firePoint.gameObject.AddComponent<ParticleSystem>();
@@ -62,6 +68,8 @@ public class Weapon : MonoBehaviour
             if (Input.GetKeyDown("r")) { Reolad(); }
             if (Input.GetMouseButtonDown(0)) { Shoot(); }
         }
+
+        Debug.DrawRay(RayOut.position, PlayerRef.transform.forward*distance, Color.red);
     }
     private void FixedUpdate()
     {
@@ -111,9 +119,8 @@ public class Weapon : MonoBehaviour
 
     public virtual RaycastHit GetRay(Vector3 direction)
     {
-
         RaycastHit tmp = new RaycastHit();
-        if (Physics.Raycast(transform.position, direction,
+        if (Physics.Raycast(RayOut.position, direction,
             out RaycastHit hitinfo, distance, rayMasks))
         {
             tmp = hitinfo;
@@ -141,7 +148,6 @@ public class Weapon : MonoBehaviour
     public IEnumerator SpawnTrail(TrailRenderer trail, Vector3 vec, bool obama){
         float time = 0;
         Vector3 startPosition = trail.transform.position;
-
         while(time<1f){
             trail.transform.position = Vector3.Lerp(startPosition,vec,time);
             time += Time.deltaTime/trail.time;
