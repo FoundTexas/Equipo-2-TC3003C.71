@@ -12,19 +12,32 @@ public class Dropper : MonoBehaviour
     [Header("Prefabs")]
     public GameObject EnergyPrefab;
     public GameObject CurrencyPrefab;
-    
+    bool isApplicationQuitting = false;
+
     void OnDestroy()
     {
-        if(Random.Range(0f, 1f) >= dropEnergy)
+        if (isApplicationQuitting)
         {
-            Vector3 randomPosition = transform.position + Random.insideUnitSphere;
-            Instantiate(EnergyPrefab, randomPosition, Quaternion.identity);
+            return;
         }
-        if(Random.Range(0f, 1f) >= dropCurrency)
+        else if (!isApplicationQuitting)
         {
-            //Player obtained currency
-            Vector3 randomPosition = transform.position + Random.insideUnitSphere;
-            Instantiate(CurrencyPrefab, randomPosition, Quaternion.identity);
+            if (Random.Range(0f, 1f) >= dropEnergy)
+            {
+                Vector3 randomPosition = transform.position + Random.insideUnitSphere;
+                Instantiate(EnergyPrefab, randomPosition, Quaternion.identity);
+            }
+            if (Random.Range(0f, 1f) >= dropCurrency)
+            {
+                //Player obtained currency
+                Vector3 randomPosition = transform.position + Random.insideUnitSphere;
+                Instantiate(CurrencyPrefab, randomPosition, Quaternion.identity);
+            }
         }
+    }
+
+    void OnApplicationQuit()
+    {
+        isApplicationQuitting = true;
     }
 }

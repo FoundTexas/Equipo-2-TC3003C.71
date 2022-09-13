@@ -99,7 +99,6 @@ public class WeaponManager : MonoBehaviour
             toggleWeapon();
         }
 
-        selected = weapons[weaponDictionary[weapon]];
         ChangeWeapon(GetSelectedIndex());
     }
 
