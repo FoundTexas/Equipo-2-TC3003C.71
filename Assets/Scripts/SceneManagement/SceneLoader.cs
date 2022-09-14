@@ -46,4 +46,9 @@ public class SceneLoader : MonoBehaviour
         } while (scene.progress < 0.9f);
         scene.allowSceneActivation = true;
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
