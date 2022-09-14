@@ -87,10 +87,10 @@ MonoBehaviour:
   BulletSpreadVariance: {x: 0, y: 0.1, z: 0}
   ImpactParticleSystem: {fileID: 1952829162161550246, guid: dc17e0b860f437541809d9f2653f0c27, type: 3}
   BulletTrail: {fileID: 3958543375046743312, guid: 97700d8afa1a790408a805fab56667bb, type: 3}
-  ammo: 25
-  magazine: 50
-  curMagazine: 50
-  curAmmo: 25
+  ammo: 50
+  magazine: 15
+  curMagazine: 15
+  curAmmo: 50
   firePoint: {fileID: 4092853827896714745}
   isRaycast: 1
   projectile: {fileID: 3789263430464748179, guid: 00261e7b7e43b084586753801bcb6c0d, type: 3}
@@ -103,6 +103,7 @@ MonoBehaviour:
   particles: {fileID: 9036128803690488351}
   canReload: 1
   PlayerRef: {fileID: 0}
+  RayOut: {fileID: 0}
 --- !u!95 &336870631830943012
 Animator:
   serializedVersion: 4

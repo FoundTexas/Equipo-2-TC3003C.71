@@ -116,6 +116,7 @@ public class PlayerMovement3D : MonoBehaviour
         CheckDive();
         CheckResetDash();
         CheckSecretInput();
+        SpeedControl();
     }
 
     private void FixedUpdate()

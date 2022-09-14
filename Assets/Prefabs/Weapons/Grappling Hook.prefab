@@ -88,8 +88,8 @@ MonoBehaviour:
   BulletSpreadVariance: {x: 0.1, y: 0.1, z: 0.1}
   ImpactParticleSystem: {fileID: 0}
   BulletTrail: {fileID: 0}
-  ammo: 12
-  magazine: 3
+  ammo: 20
+  magazine: 5
   curMagazine: 0
   curAmmo: 0
   firePoint: {fileID: 4234776060911250781}
@@ -104,6 +104,7 @@ MonoBehaviour:
   particles: {fileID: 4234776060911250779}
   canReload: 1
   PlayerRef: {fileID: 0}
+  RayOut: {fileID: 0}
   player: {fileID: 0}
   spring: 100
   damper: 7
