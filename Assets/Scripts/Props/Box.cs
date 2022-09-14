@@ -15,6 +15,7 @@ public class Box : MonoBehaviour, IDamage
     }
     public void Die()
     {
+        GetComponent<Dropper>().Spawn();
         Instantiate(ExplosiveCrate, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

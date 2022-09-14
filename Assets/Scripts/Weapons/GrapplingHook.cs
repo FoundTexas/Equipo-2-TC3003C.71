@@ -17,6 +17,7 @@ public class GrapplingHook : Weapon
     {
         if (WeaponManager.hasWeapon)
         {
+            if (Input.GetKeyDown("r")) { Reolad(); }
             if (Input.GetMouseButtonDown(0)) { Shoot(); }
             if (Input.GetMouseButtonUp(0)) { StopGrapple(); }
         }
@@ -36,6 +37,7 @@ public class GrapplingHook : Weapon
                 curShootS = shootSpeed;
                 PlayShootAnimation();
                 entity = GetNearest();
+                curMagazine--;
                 if (entity)
                 {
                     //grapplepoint = GetRay().point;
@@ -53,6 +55,10 @@ public class GrapplingHook : Weapon
                     SetJoint();
                 }
             }
+        }
+        else
+        {
+            Reolad();
         }
     }
 

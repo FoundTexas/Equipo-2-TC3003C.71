@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: a215d801b1e545740b504d4fe7ed5486
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Origin Tech Demo
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 32360d10539ce5049b8c9640c10ce9aa, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
