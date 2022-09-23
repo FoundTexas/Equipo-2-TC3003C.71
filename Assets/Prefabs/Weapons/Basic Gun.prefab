@@ -41,8 +41,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3375513094542914325}
-  - component: {fileID: 151304819172026113}
   - component: {fileID: 336870631830943012}
+  - component: {fileID: 2629660798260331081}
   - component: {fileID: 7383022070613283798}
   m_Layer: 2
   m_Name: Basic Gun
@@ -67,43 +67,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &151304819172026113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5374995939001763048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4328bcdb981007418cafd62669933ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ID: BasicGun
-  GunModel: {fileID: 8708822207045214100, guid: 128dc9196e86e88428bd783a9fbb7130, type: 3}
-  reloadSpeed: 0
-  shootSpeed: 0.5
-  curShootS: 0
-  BulletSpreadVariance: {x: 0, y: 0.1, z: 0}
-  ImpactParticleSystem: {fileID: 1952829162161550246, guid: dc17e0b860f437541809d9f2653f0c27, type: 3}
-  BulletTrail: {fileID: 3958543375046743312, guid: 97700d8afa1a790408a805fab56667bb, type: 3}
-  ammo: 50
-  magazine: 15
-  curMagazine: 15
-  curAmmo: 50
-  firePoint: {fileID: 4092853827896714745}
-  isRaycast: 1
-  projectile: {fileID: 3789263430464748179, guid: 00261e7b7e43b084586753801bcb6c0d, type: 3}
-  rayMasks:
-    serializedVersion: 2
-    m_Bits: 649
-  distance: 30
-  dmg: 10
-  sound: {fileID: 8300000, guid: cd0e348fd07381b4cbd4430e69959946, type: 3}
-  particles: {fileID: 9036128803690488351}
-  canReload: 1
-  PlayerRef: {fileID: 0}
-  RayOut: {fileID: 0}
 --- !u!95 &336870631830943012
 Animator:
   serializedVersion: 4
@@ -124,6 +87,41 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2629660798260331081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5374995939001763048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6029dc2fd1d296649ba3ad21333e5023, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: BasicGun
+  GunModel: {fileID: 8708822207045214100, guid: 128dc9196e86e88428bd783a9fbb7130, type: 3}
+  shootSpeed: 0.5
+  curShootS: 0
+  BulletSpreadVariance: {x: 0, y: 0.1, z: 0}
+  ammo: 50
+  magazine: 15
+  curAmmo: 50
+  curMagazine: 15
+  ImpactParticleSystem: {fileID: 1952829162161550246, guid: dc17e0b860f437541809d9f2653f0c27, type: 3}
+  BulletTrail: {fileID: 3958543375046743312, guid: 97700d8afa1a790408a805fab56667bb, type: 3}
+  firePoint: {fileID: 4092853827896714745}
+  projectile: {fileID: 0}
+  sound: {fileID: 8300000, guid: cd0e348fd07381b4cbd4430e69959946, type: 3}
+  select: {fileID: 8300000, guid: cd0e348fd07381b4cbd4430e69959946, type: 3}
+  particles: {fileID: 9036128803690488351}
+  rayMasks:
+    serializedVersion: 2
+    m_Bits: 649
+  distance: 30
+  dmg: 10
+  PlayerRef: {fileID: 0}
+  RayOut: {fileID: 0}
 --- !u!82 &7383022070613283798
 AudioSource:
   m_ObjectHideFlags: 0

@@ -6,17 +6,18 @@ namespace WeaponSystem
         public class GrapplingHook : Weapon
         {
             [Header("Grappling Gun Values")]
-            public Transform player;
             [SerializeField] float spring = 100, damper = 7, massScale = 4.5f;
             LineRenderer lr;
             Transform entity;
             SpringJoint joint;
 
+            // ----------------------------------------------------------------------------------------------- Unity Methods
+
             private void Awake()
             {
                 lr = GetComponent<LineRenderer>();
             }
-            void Update()
+            void Update() //Overrided
             {
                 if (WeaponManager.hasWeapon)
                 {
@@ -31,47 +32,15 @@ namespace WeaponSystem
                 DrawRope();
             }
 
-            public override void Shoot()
-            {
-                if (curMagazine > 0)
-                {
-                    if (curShootS <= 0)
-                    {
-                        curShootS = shootSpeed;
-                        PlayShootAnimation();
-                        entity = GetNearest();
-                        curMagazine--;
-                        if (entity)
-                        {
-                            //grapplepoint = GetRay().point;
-                            //entity = Instantiate(projectile, grapplepoint, Quaternion.identity, GetRay().transform).transform;
-
-                            //entity.LookAt(GetRay().transform);
-
-                            if (entity.GetComponent<IDamage>() != null)
-                            {
-                                entity.GetComponent<IDamage>().TakeDamage(dmg);
-                            }
-
-                            joint = player.gameObject.AddComponent<SpringJoint>();
-                            lr.positionCount = 2;
-                            SetJoint();
-                        }
-                    }
-                }
-                else
-                {
-                    Reolad();
-                }
-            }
-
+            // ----------------------------------------------------------------------------------------------- Private Methods
+            // Funtion in charge of setting the spring joint points between the hooked position and player.
             void SetJoint()
             {
                 joint.autoConfigureConnectedAnchor = false;
                 joint.connectedAnchor = entity.position;
 
                 float distanceFromPoint = Vector3.Distance(
-                    player.position,
+                    PlayerRef.transform.position,
                     entity.position);
                 joint.maxDistance = distanceFromPoint * 0.8f;
                 joint.minDistance = distance * .8f;
@@ -80,6 +49,7 @@ namespace WeaponSystem
                 joint.damper = damper;
                 joint.massScale = massScale;
             }
+            // Void that handels the line renderer to set the rope visualization.
             void DrawRope()
             {
                 if (!joint) return;
@@ -88,13 +58,13 @@ namespace WeaponSystem
 
                 SetJoint();
             }
+            // Void that handels when the hook is stopped.
             void StopGrapple()
             {
                 lr.positionCount = 0;
                 if (joint) { Destroy(joint); }
-                //if (entity) { Destroy(entity.gameObject); }
             }
-
+            // Function that gets the nearest Transform in a shpere area around the top of the Player.
             Transform GetNearest()
             {
                 Transform tmp = null;
@@ -110,6 +80,40 @@ namespace WeaponSystem
                     }
                 }
                 return tmp;
+            }
+
+            // ----------------------------------------------------------------------------------------------- Overrided Methods
+
+            /// <summary>
+            /// Overrided Shoot Method for GrapplingHook.
+            /// </summary>
+            public override void Shoot()
+            {
+                if (curMagazine > 0)
+                {
+                    if (curShootS <= 0)
+                    {
+                        curShootS = shootSpeed;
+                        PlayShootAnimation();
+                        entity = GetNearest();
+                        curMagazine--;
+                        if (entity)
+                        {
+                            if (entity.GetComponent<IDamage>() != null)
+                            {
+                                entity.GetComponent<IDamage>().TakeDamage(dmg);
+                            }
+
+                            joint = PlayerRef.AddComponent<SpringJoint>();
+                            lr.positionCount = 2;
+                            SetJoint();
+                        }
+                    }
+                }
+                else
+                {
+                    Reolad();
+                }
             }
         }
     }

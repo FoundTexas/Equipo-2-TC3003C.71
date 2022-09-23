@@ -68,6 +68,7 @@ namespace WeaponSystem
         bool canReload = true;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
+
         private void Start()
         {
             source = GetComponent<AudioSource>();
@@ -100,7 +101,48 @@ namespace WeaponSystem
         {
             if (curShootS > 0) { curShootS -= Time.deltaTime; }
         }
+
+        // ----------------------------------------------------------------------------------------------- Private Methods
+
+        // Coroutine that handels the movement of the fired trail over time and distance.
+        IEnumerator SpawnTrail(TrailRenderer trail, Vector3 vec, bool obama)
+        {
+            float time = 0;
+            Vector3 startPosition = trail.transform.position;
+            while (time < 1f)
+            {
+                trail.transform.position = Vector3.Lerp(startPosition, vec, time);
+                time += Time.deltaTime / trail.time;
+
+                yield return null;
+            }
+            trail.transform.position = vec;
+            if (obama)
+            {
+                Destroy(Instantiate(ImpactParticleSystem, vec, Quaternion.identity).gameObject, 1);
+
+            }
+            Destroy(trail.gameObject, 0.5f);
+        }
+        // This Function returns a RaycastHit (can be Null) from the RayOut position given a Vector3 direction
+        public RaycastHit GetRay(Vector3 direction)
+        {
+            RaycastHit tmp = new RaycastHit();
+            if (Physics.Raycast(RayOut.position, direction,
+                out RaycastHit hitinfo, distance, rayMasks))
+            {
+                tmp = hitinfo;
+            }
+            return tmp;
+        }
+        // Function that instantiate the Weapon Projectile
+        void SpawnProjectile()
+        {
+            Instantiate(projectile, firePoint.position, firePoint.transform.rotation, null);
+        }
+
         // ----------------------------------------------------------------------------------------------- Public Methods
+
         /// <summary>
         /// Ths Function returns an string with the weapon id value.
         /// </summary>
@@ -110,11 +152,20 @@ namespace WeaponSystem
         /// This void restores ammo to the max amount.
         /// </summary>
         public void AddAmmo() { curAmmo = ammo; }
+        /// <summary>
+        /// Void that triggers the reload animation on the weapon.
+        /// </summary>
         public void Reolad()
         {
-            if (canReload)
-                anim.SetTrigger("reload");
+            if (curAmmo > 0)
+            {
+                if (canReload)
+                    anim.SetTrigger("reload");
+            }
         }
+        /// <summary>
+        /// Reload event triggered via animation to check the amount of ammo and fills current magazine.
+        /// </summary>
         public void ReoladEvent()
         {
             if (curAmmo > 0)
@@ -135,30 +186,8 @@ namespace WeaponSystem
                 Debug.Log("reloaded");
             }
         }
-        // ----------------------------------------------------------------------------------------------- Virtual Methods
-        public virtual void PlayShootAnimation()
-        {
-            particles.Play();
-            source.PlayOneShot(sound);
-        }
-
-
-        public virtual RaycastHit GetRay(Vector3 direction)
-        {
-            RaycastHit tmp = new RaycastHit();
-            if (Physics.Raycast(RayOut.position, direction,
-                out RaycastHit hitinfo, distance, rayMasks))
-            {
-                tmp = hitinfo;
-            }
-            return tmp;
-        }
-
-        public virtual void SpawnProjectile()
-        {
-            Instantiate(projectile, firePoint.position, firePoint.transform.rotation, null);
-        }
-
+        // This Function gets a direction relative to the player center and off sets it given a Vector3.
+        // This returns a normilized direction vector in 3D. </returns>
         public Vector3 Direction()
         {
             Vector3 direction = PlayerRef.transform.forward;
@@ -171,27 +200,50 @@ namespace WeaponSystem
             direction.Normalize();
             return direction;
         }
-
-        public IEnumerator SpawnTrail(TrailRenderer trail, Vector3 vec, bool obama)
+        /// <summary>
+        /// Method that visualize the shoot given the present parameters rendering a trail 
+        /// and or spawning a projectile if given the prefabs.
+        /// </summary>
+        public void PlayShootAnimation()
         {
-            float time = 0;
-            Vector3 startPosition = trail.transform.position;
-            while (time < 1f)
-            {
-                trail.transform.position = Vector3.Lerp(startPosition, vec, time);
-                time += Time.deltaTime / trail.time;
+            particles.Play();
+            source.PlayOneShot(sound);
 
-                yield return null;
-            }
-            trail.transform.position = vec;
-            if (obama)
+            if (projectile)
             {
-                Destroy(Instantiate(ImpactParticleSystem, vec, Quaternion.identity).gameObject, 1);
-
+                SpawnProjectile();
             }
-            Destroy(trail.gameObject, 0.5f);
+
+            if (BulletTrail)
+            {
+                Vector3 dir = Direction();
+                RaycastHit HitGun = GetRay(dir);
+
+                TrailRenderer trail = Instantiate(BulletTrail, RayOut.position, Quaternion.identity);
+
+                if (HitGun.transform)
+                {
+                    Debug.Log(HitGun.transform.name);
+                    StartCoroutine(SpawnTrail(trail, HitGun.point, true));
+                    IDamage Dmginterface = null;
+                    if (HitGun.transform.gameObject.TryGetComponent<IDamage>(out Dmginterface))
+                    {
+                        Dmginterface.TakeDamage(dmg);
+                    }
+                }
+                else
+                {
+                    Debug.Log(dir * distance);
+                    StartCoroutine(SpawnTrail(trail, firePoint.position + dir * distance, true));
+                }
+            }
         }
 
+        // ----------------------------------------------------------------------------------------------- Virtual Methods
+
+        /// <summary>
+        /// This Virtual Method handels the shooting for all weapons and can be overrided.
+        /// </summary>
         public virtual void Shoot()
         {
             if (curMagazine > 0)
@@ -200,10 +252,12 @@ namespace WeaponSystem
                 {
                     curShootS = shootSpeed;
                     PlayShootAnimation();
-
-                    GetRay(Direction()).transform.GetComponent<IDamage>().TakeDamage(dmg);
                     curMagazine--;
                 }
+            }
+            else
+            {
+                Reolad();
             }
         }
     }

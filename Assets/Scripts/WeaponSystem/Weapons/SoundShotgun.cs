@@ -10,7 +10,6 @@ namespace WeaponSystem
         {
             public float explosionRadius = 10;
             public float explosionForce = 100;
-            public GameObject player;
             public override void Shoot()
             {
                 if (curMagazine > 0)
@@ -33,7 +32,7 @@ namespace WeaponSystem
                             {
                                 tmprb.AddExplosionForce(explosionForce, pos, explosionRadius, 3.0F);
                             }
-                            if (obj.gameObject != player)
+                            if (obj.gameObject != PlayerRef)
                             {
                                 IDamage Dmginterface = null;
                                 if (obj.gameObject.TryGetComponent<IDamage>(out Dmginterface))

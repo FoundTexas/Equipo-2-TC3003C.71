@@ -14,6 +14,7 @@ namespace WeaponSystem
         WeaponManager WM;
         public int hitting;
 
+        // ----------------------------------------------------------------------------------------------- Unity Methods
         private void Start()
         {
             WM = FindObjectOfType<WeaponManager>();
@@ -40,6 +41,7 @@ namespace WeaponSystem
             }
         }
 
+        // ----------------------------------------------------------------------------------------------- Private Methods
         void ChangeColor(Color change)
         {
             foreach (var img in images)
