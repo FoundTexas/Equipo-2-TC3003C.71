@@ -33,7 +33,7 @@ namespace WeaponSystem
         public int curAmmo, curMagazine;
 
 
-        [Header("Weapon Visualization")]
+        [Header("Weapon Look & Feel")]
 
         [Tooltip("Particle system instantiated on when hitting a wall")]
         [SerializeField] ParticleSystem ImpactParticleSystem;
@@ -41,21 +41,33 @@ namespace WeaponSystem
         public TrailRenderer BulletTrail;
         [Tooltip("Position where the projectiles and Raycasts are Fired")]
         public Transform firePoint;
-
-
+        [Tooltip("Projectile Prefab instantiated if weapon is pojectile base")]
         public GameObject projectile;
-        public LayerMask rayMasks;
-        public float distance, dmg;
-        public AudioClip sound;
+        [Tooltip("Sound played when gun fired")]
+        [SerializeField] AudioClip sound;
+        [Tooltip("Sound played when gun selected")]
+        public AudioClip select;
+        [Tooltip("Particles burst played when gun fired")]
+        [SerializeField] ParticleSystem particles;
+        Animator anim;
         AudioSource source;
 
-        public ParticleSystem particles;
-        Animator anim;
-        public bool canReload = true;
 
+        [Header("Bullet Stats")]
+
+        [Tooltip("Layer of wht can be hitted by the Weapon if Raycast is used")]
+        public LayerMask rayMasks;
+        [Tooltip("Max distance the raycast will reach")]
+        public float distance;
+        [Tooltip("Damage done by waepon's hit")]
+        public float dmg;
+        [Tooltip("Reference to this WeaponManager owner Player")]
         public GameObject PlayerRef;
+        [Tooltip("centered position from where the ray is cast")]
         public Transform RayOut;
+        bool canReload = true;
 
+        // ----------------------------------------------------------------------------------------------- Unity Methods
         private void Start()
         {
             source = GetComponent<AudioSource>();
@@ -88,19 +100,20 @@ namespace WeaponSystem
         {
             if (curShootS > 0) { curShootS -= Time.deltaTime; }
         }
-
-        public string GetID()
-        {
-            return ID;
-        }
-
+        // ----------------------------------------------------------------------------------------------- Public Methods
+        /// <summary>
+        /// Ths Function returns an string with the weapon id value.
+        /// </summary>
+        /// <returns> Weapon ID </returns>
+        public string GetID() { return ID; }
+        /// <summary>
+        /// This void restores ammo to the max amount.
+        /// </summary>
+        public void AddAmmo() { curAmmo = ammo; }
         public void Reolad()
         {
             if (canReload)
-            {
-                Debug.Log("reload");
                 anim.SetTrigger("reload");
-            }
         }
         public void ReoladEvent()
         {
@@ -122,17 +135,13 @@ namespace WeaponSystem
                 Debug.Log("reloaded");
             }
         }
-
-        public void AddAmmo()
-        {
-            curAmmo = ammo;
-        }
-
+        // ----------------------------------------------------------------------------------------------- Virtual Methods
         public virtual void PlayShootAnimation()
         {
             particles.Play();
             source.PlayOneShot(sound);
         }
+
 
         public virtual RaycastHit GetRay(Vector3 direction)
         {

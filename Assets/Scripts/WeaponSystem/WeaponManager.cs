@@ -94,7 +94,7 @@ namespace WeaponSystem
                 pos = Vector3.zero;
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }
-            audios.GunValue(hasWeapon, selected.sound);
+            audios.GunValue(hasWeapon, selected.select);
         }
         /// <summary>
         /// This Function is in charge og changing between the unlocked weapons
