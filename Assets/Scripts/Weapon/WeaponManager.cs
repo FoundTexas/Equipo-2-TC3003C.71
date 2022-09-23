@@ -5,14 +5,28 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
+    /// <summary>
+    /// List Of the diferent weapon inheritanced clases
+    /// </summary>
     [SerializeField] List<Weapon> weapons = new List<Weapon>();
-    Dictionary<string, int> weaponDictionary = new Dictionary<string, int>();
-    [SerializeField] Weapon selected;
-    [SerializeField] List<string> unlocked = new List<string>(new string[2] {"Grappling", "SoundShoot" });
+    /// <summary>
+    /// Current Selected Weapon
+    /// </summary>
+    Weapon selected;
+    /// <summary>
+    /// Current Unlocked Weapon IDs
+    /// </summary>
+    List<string> unlocked = new List<string>(new string[2] {"Grappling", "SoundShoot" });
+
+    /// <summary>
+    /// 
+    /// </summary>
     [SerializeField] Transform torso, hand;
     [SerializeField] AudioAndVideoManager audios;
     public static bool hasWeapon = true;
     Vector3 pos;
+
+    Dictionary<string, int> weaponDictionary = new Dictionary<string, int>();
 
     void Start()
     {
