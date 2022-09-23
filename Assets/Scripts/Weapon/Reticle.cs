@@ -3,56 +3,59 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Reticle : MonoBehaviour
+namespace WeaponSystem
 {
-    [SerializeField] Image[] images;
-    [SerializeField] Color Normal, Interactable, Enemy;
-    [SerializeField] LayerMask layers;
-    [SerializeField] Transform camara;
-    WeaponManager WM;
-    public int hitting;
+    public class Reticle : MonoBehaviour
+    {
+        [SerializeField] Image[] images;
+        [SerializeField] Color Normal, Interactable, Enemy;
+        [SerializeField] LayerMask layers;
+        [SerializeField] Transform camara;
+        WeaponManager WM;
+        public int hitting;
 
-    private void Start()
-    {
-        WM = FindObjectOfType<WeaponManager>();
-    }
-    private void Update()
-    {
-        if (GetRay().transform)
+        private void Start()
         {
-            hitting = GetRay().transform.gameObject.layer;
+            WM = FindObjectOfType<WeaponManager>();
         }
-        else
+        private void Update()
         {
-            hitting = -1;
+            if (GetRay().transform)
+            {
+                hitting = GetRay().transform.gameObject.layer;
+            }
+            else
+            {
+                hitting = -1;
+            }
+
+            switch (hitting)
+            {
+                default:
+                    ChangeColor(Normal);
+                    break;
+                case 6:
+                    ChangeColor(Interactable);
+                    break;
+            }
         }
 
-        switch(hitting)
+        void ChangeColor(Color change)
         {
-            default:
-                ChangeColor(Normal);
-                break;
-            case 6:
-                ChangeColor(Interactable);
-                break;
+            foreach (var img in images)
+            {
+                img.color = change;
+            }
         }
-    }
-
-    void ChangeColor(Color change)
-    {
-        foreach(var img in images)
+        RaycastHit GetRay()
         {
-            img.color = change;
+            RaycastHit tmp = new RaycastHit();
+            if (Physics.Raycast(camara.position, camara.forward,
+                out RaycastHit hitinfo, WM.currentSelect().distance, layers))
+            {
+                tmp = hitinfo;
+            }
+            return tmp;
         }
-    }
-    RaycastHit GetRay()
-    {
-        RaycastHit tmp = new RaycastHit();
-        if (Physics.Raycast(camara.position, camara.forward,
-            out RaycastHit hitinfo, WM.currentSelect().distance, layers))
-        {
-            tmp = hitinfo;
-        }
-        return tmp;
     }
 }

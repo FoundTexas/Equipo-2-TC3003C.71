@@ -1,111 +1,116 @@
 using UnityEngine;
-
-public class GrapplingHook : Weapon
+namespace WeaponSystem
 {
-    [Header("Grappling Gun Values")]
-    public Transform player;
-    [SerializeField] float spring = 100, damper = 7, massScale = 4.5f;
-    LineRenderer lr;
-    Transform entity;
-    SpringJoint joint;
-
-    private void Awake()
+    namespace Weapons
     {
-        lr = GetComponent<LineRenderer>();
-    }
-    void Update()
-    {
-        if (WeaponManager.hasWeapon)
+        public class GrapplingHook : Weapon
         {
-            if (Input.GetKeyDown("r")) { Reolad(); }
-            if (Input.GetMouseButtonDown(0)) { Shoot(); }
-            if (Input.GetMouseButtonUp(0)) { StopGrapple(); }
-        }
-        else { StopGrapple(); }
-    }
-    private void LateUpdate()
-    {
-        DrawRope();
-    }
+            [Header("Grappling Gun Values")]
+            public Transform player;
+            [SerializeField] float spring = 100, damper = 7, massScale = 4.5f;
+            LineRenderer lr;
+            Transform entity;
+            SpringJoint joint;
 
-    public override void Shoot()
-    {
-        if (curMagazine > 0)
-        {
-            if (curShootS <= 0)
+            private void Awake()
             {
-                curShootS = shootSpeed;
-                PlayShootAnimation();
-                entity = GetNearest();
-                curMagazine--;
-                if (entity)
+                lr = GetComponent<LineRenderer>();
+            }
+            void Update()
+            {
+                if (WeaponManager.hasWeapon)
                 {
-                    //grapplepoint = GetRay().point;
-                    //entity = Instantiate(projectile, grapplepoint, Quaternion.identity, GetRay().transform).transform;
+                    if (Input.GetKeyDown("r")) { Reolad(); }
+                    if (Input.GetMouseButtonDown(0)) { Shoot(); }
+                    if (Input.GetMouseButtonUp(0)) { StopGrapple(); }
+                }
+                else { StopGrapple(); }
+            }
+            private void LateUpdate()
+            {
+                DrawRope();
+            }
 
-                    //entity.LookAt(GetRay().transform);
-        
-                    if (entity.GetComponent<IDamage>() != null)
+            public override void Shoot()
+            {
+                if (curMagazine > 0)
+                {
+                    if (curShootS <= 0)
                     {
-                        entity.GetComponent<IDamage>().TakeDamage(dmg);
-                    }
+                        curShootS = shootSpeed;
+                        PlayShootAnimation();
+                        entity = GetNearest();
+                        curMagazine--;
+                        if (entity)
+                        {
+                            //grapplepoint = GetRay().point;
+                            //entity = Instantiate(projectile, grapplepoint, Quaternion.identity, GetRay().transform).transform;
 
-                    joint = player.gameObject.AddComponent<SpringJoint>();
-                    lr.positionCount = 2;
-                    SetJoint();
+                            //entity.LookAt(GetRay().transform);
+
+                            if (entity.GetComponent<IDamage>() != null)
+                            {
+                                entity.GetComponent<IDamage>().TakeDamage(dmg);
+                            }
+
+                            joint = player.gameObject.AddComponent<SpringJoint>();
+                            lr.positionCount = 2;
+                            SetJoint();
+                        }
+                    }
+                }
+                else
+                {
+                    Reolad();
                 }
             }
-        }
-        else
-        {
-            Reolad();
-        }
-    }
 
-    void SetJoint()
-    {
-        joint.autoConfigureConnectedAnchor = false;
-        joint.connectedAnchor = entity.position;
-
-        float distanceFromPoint = Vector3.Distance(
-            player.position,
-            entity.position);
-        joint.maxDistance = distanceFromPoint * 0.8f;
-        joint.minDistance = distance*.8f;
-
-        joint.spring = spring;
-        joint.damper = damper;
-        joint.massScale = massScale;
-    }
-    void DrawRope()
-    {
-        if (!joint) return;
-        lr.SetPosition(0, firePoint.position);
-        lr.SetPosition(1, entity.position);
-        
-        SetJoint();
-    }
-    void StopGrapple()
-    {
-        lr.positionCount = 0;
-        if (joint) { Destroy(joint); }
-        //if (entity) { Destroy(entity.gameObject); }
-    }
-
-    Transform GetNearest()
-    {
-        Transform tmp = null;
-        Collider[] objs = Physics.OverlapSphere(transform.position + Vector3.up, distance, rayMasks);
-        float objdist = Mathf.Infinity;
-        foreach (var obj in objs)
-        {
-            float tmpdist = Vector3.Distance(obj.transform.position, transform.position);
-            if (objdist > tmpdist)
+            void SetJoint()
             {
-                objdist = tmpdist;
-                tmp = obj.transform;
+                joint.autoConfigureConnectedAnchor = false;
+                joint.connectedAnchor = entity.position;
+
+                float distanceFromPoint = Vector3.Distance(
+                    player.position,
+                    entity.position);
+                joint.maxDistance = distanceFromPoint * 0.8f;
+                joint.minDistance = distance * .8f;
+
+                joint.spring = spring;
+                joint.damper = damper;
+                joint.massScale = massScale;
+            }
+            void DrawRope()
+            {
+                if (!joint) return;
+                lr.SetPosition(0, firePoint.position);
+                lr.SetPosition(1, entity.position);
+
+                SetJoint();
+            }
+            void StopGrapple()
+            {
+                lr.positionCount = 0;
+                if (joint) { Destroy(joint); }
+                //if (entity) { Destroy(entity.gameObject); }
+            }
+
+            Transform GetNearest()
+            {
+                Transform tmp = null;
+                Collider[] objs = Physics.OverlapSphere(transform.position + Vector3.up, distance, rayMasks);
+                float objdist = Mathf.Infinity;
+                foreach (var obj in objs)
+                {
+                    float tmpdist = Vector3.Distance(obj.transform.position, transform.position);
+                    if (objdist > tmpdist)
+                    {
+                        objdist = tmpdist;
+                        tmp = obj.transform;
+                    }
+                }
+                return tmp;
             }
         }
-        return tmp;
     }
 }

@@ -2,42 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : Weapon
+namespace WeaponSystem
 {
-
-    public override void Shoot(){
-        if (curMagazine > 0)
+    namespace Weapons
+    {
+        public class Gun : Weapon
         {
-            if (curShootS <= 0)
+            public override void Shoot()
             {
-                curShootS = shootSpeed;
-                PlayShootAnimation();
-
-                Vector3 dir = Direction();
-                RaycastHit HitGun = GetRay(dir);
-
-                TrailRenderer trail = Instantiate(BulletTrail, RayOut.position, Quaternion.identity);
-
-                curMagazine--;
-                if(HitGun.transform){
-                    Debug.Log(HitGun.transform.name);
-                    StartCoroutine(SpawnTrail(trail,HitGun.point,true));
-                    IDamage Dmginterface = null;
-                    if (HitGun.transform.gameObject.TryGetComponent<IDamage>(out Dmginterface))
+                if (curMagazine > 0)
+                {
+                    if (curShootS <= 0)
                     {
-                        Dmginterface.TakeDamage(dmg);
+                        curShootS = shootSpeed;
+                        PlayShootAnimation();
+
+                        Vector3 dir = Direction();
+                        RaycastHit HitGun = GetRay(dir);
+
+                        TrailRenderer trail = Instantiate(BulletTrail, RayOut.position, Quaternion.identity);
+
+                        curMagazine--;
+                        if (HitGun.transform)
+                        {
+                            Debug.Log(HitGun.transform.name);
+                            StartCoroutine(SpawnTrail(trail, HitGun.point, true));
+                            IDamage Dmginterface = null;
+                            if (HitGun.transform.gameObject.TryGetComponent<IDamage>(out Dmginterface))
+                            {
+                                Dmginterface.TakeDamage(dmg);
+                            }
+                        }
+
+                        else
+                        {
+                            Debug.Log(dir * distance);
+                            StartCoroutine(SpawnTrail(trail, firePoint.position + dir * distance, true));
+                        }
                     }
                 }
-                
-                else{
-                    Debug.Log(dir * distance);
-                    StartCoroutine(SpawnTrail(trail, firePoint.position + dir * distance,true));
+                else
+                {
+                    Reolad();
                 }
             }
-        }
-        else
-        {
-            Reolad();
         }
     }
 }

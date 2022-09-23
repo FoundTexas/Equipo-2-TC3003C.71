@@ -2,43 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundShotgun : Weapon
+namespace WeaponSystem
 {
-    public float explosionRadius = 10;
-    public float explosionForce = 100;
-    public GameObject player;
-    public override void Shoot()
+    namespace Weapons
     {
-        if (curMagazine > 0)
+        public class SoundShotgun : Weapon
         {
-            if (curShootS <= 0)
+            public float explosionRadius = 10;
+            public float explosionForce = 100;
+            public GameObject player;
+            public override void Shoot()
             {
-                curShootS = shootSpeed;
-                PlayShootAnimation();
-                Vector3 pos = firePoint.position + firePoint.forward * distance;
-                Vector3 dir = Direction();
-                if (GetRay(dir).transform)
+                if (curMagazine > 0)
                 {
-                    pos = GetRay(dir).point;
-                }
-                Collider[] objs = Physics.OverlapSphere(pos, explosionRadius, rayMasks);
-                foreach (var obj in objs)
-                {
-                    Rigidbody tmprb = obj.gameObject.GetComponent<Rigidbody>();
-                    if (tmprb != null)
+                    if (curShootS <= 0)
                     {
-                        tmprb.AddExplosionForce(explosionForce, pos, explosionRadius, 3.0F);
-                    }
-                    if (obj.gameObject != player)
-                    {
-                        IDamage Dmginterface = null;
-                        if (obj.gameObject.TryGetComponent<IDamage>(out Dmginterface))
+                        curShootS = shootSpeed;
+                        PlayShootAnimation();
+                        Vector3 pos = firePoint.position + firePoint.forward * distance;
+                        Vector3 dir = Direction();
+                        if (GetRay(dir).transform)
                         {
-                            Dmginterface.TakeDamage(dmg);
+                            pos = GetRay(dir).point;
                         }
+                        Collider[] objs = Physics.OverlapSphere(pos, explosionRadius, rayMasks);
+                        foreach (var obj in objs)
+                        {
+                            Rigidbody tmprb = obj.gameObject.GetComponent<Rigidbody>();
+                            if (tmprb != null)
+                            {
+                                tmprb.AddExplosionForce(explosionForce, pos, explosionRadius, 3.0F);
+                            }
+                            if (obj.gameObject != player)
+                            {
+                                IDamage Dmginterface = null;
+                                if (obj.gameObject.TryGetComponent<IDamage>(out Dmginterface))
+                                {
+                                    Dmginterface.TakeDamage(dmg);
+                                }
+                            }
+                        }
+                        curMagazine--;
                     }
                 }
-                curMagazine--;
             }
         }
     }

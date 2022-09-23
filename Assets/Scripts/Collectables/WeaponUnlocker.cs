@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using WeaponSystem;
 
 public class WeaponUnlocker : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class WeaponUnlocker : MonoBehaviour
 
     private void Start()
     {
-        gunText.text = "<<" + weapon.ID + ">>";
+        gunText.text = "<<" + weapon.GetID() + ">>";
         InstantiateObject();
     }
 
@@ -30,7 +31,7 @@ public class WeaponUnlocker : MonoBehaviour
             {
                 WeaponManager player = other.GetComponent<PlayerHealth>().GetWeaponManager();
                 Destroy(gun.gameObject);
-                player.UnlockWeapon(weapon.ID);
+                player.UnlockWeapon(weapon.GetID());
             }
         }
     }
