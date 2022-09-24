@@ -7,6 +7,7 @@ namespace WeaponSystem
 {
     public class WeaponManager : MonoBehaviour
     {
+        [Tooltip("List of all weapons on that the player can access and are childs of the WeaponManager Object on scene")]
         [SerializeField] List<Weapon> weapons = new List<Weapon>();
         [SerializeField] Transform torso, hand;
         [SerializeField] AudioAndVideoManager audios;

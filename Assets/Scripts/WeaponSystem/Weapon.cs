@@ -124,17 +124,6 @@ namespace WeaponSystem
             }
             Destroy(trail.gameObject, 0.5f);
         }
-        // This Function returns a RaycastHit (can be Null) from the RayOut position given a Vector3 direction
-        public RaycastHit GetRay(Vector3 direction)
-        {
-            RaycastHit tmp = new RaycastHit();
-            if (Physics.Raycast(RayOut.position, direction,
-                out RaycastHit hitinfo, distance, rayMasks))
-            {
-                tmp = hitinfo;
-            }
-            return tmp;
-        }
         // Function that instantiate the Weapon Projectile
         void SpawnProjectile()
         {
@@ -186,8 +175,25 @@ namespace WeaponSystem
                 Debug.Log("reloaded");
             }
         }
-        // This Function gets a direction relative to the player center and off sets it given a Vector3.
-        // This returns a normilized direction vector in 3D. </returns>
+        /// <summary>
+        /// This Function returns a RaycastHit (can be Null) from the RayOut position given a Vector3 direction.
+        /// </summary>
+        /// <param name="direction"> Vector3 of the direction the Ray will take</param>
+        /// <returns> RaycasyHit of hitted object or null. </returns>
+        public RaycastHit GetRay(Vector3 direction)
+        {
+            RaycastHit tmp = new RaycastHit();
+            if (Physics.Raycast(RayOut.position, direction,
+                out RaycastHit hitinfo, distance, rayMasks))
+            {
+                tmp = hitinfo;
+            }
+            return tmp;
+        }
+        /// <summary>
+        /// This Function gets a direction relative to the player center and off sets it given a Vector3.
+        /// </summary>
+        /// <returns> This returns a normilized direction vector in 3D.</returns>
         public Vector3 Direction()
         {
             Vector3 direction = PlayerRef.transform.forward;
