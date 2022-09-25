@@ -7,15 +7,21 @@ namespace WeaponSystem
 {
     public class WeaponManager : MonoBehaviour
     {
+        public static bool hasWeapon = true;
+
         [Tooltip("List of all weapons on that the player can access and are childs of the WeaponManager Object on scene")]
         [SerializeField] List<Weapon> weapons = new List<Weapon>();
-        [SerializeField] Transform torso, hand;
+        [Tooltip("Transform reference of the torso object in the armature skeleton")]
+        [SerializeField] Transform torso;
+        [Tooltip("Transform reference of the hand object in the armature skeleton")]
+        [SerializeField] Transform hand;
+        [Tooltip("String List the represent the current unlocked weapons of the player")]
+        [SerializeField] List<string> unlocked = new List<string>(new string[2] { "Grappling", "SoundShoot" });
+        [Tooltip("Reference to the animation and audio manager")]
         [SerializeField] AudioAndVideoManager audios;
+        [Tooltip("The current selected Weapon script")]
+        [SerializeField] Weapon selected;
 
-        Weapon selected;
-        List<string> unlocked = new List<string>(new string[2] { "Grappling", "SoundShoot" });
-
-        public static bool hasWeapon = true;
         Vector3 pos;
 
         Dictionary<string, int> weaponDictionary = new Dictionary<string, int>();

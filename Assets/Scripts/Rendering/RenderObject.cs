@@ -14,12 +14,30 @@ namespace Optimization_Module
         bool isApplicationQuitting = false;
         Renderer render;
 
-        // Start is called before the first frame update
+        // ----------------------------------------------------------------------------------------------- Unity Methods
+
         void Start()
         {
             render = GetComponent<Renderer>();
             FindObjectOfType<RadarVFC>().AddSceneObj(this);
         }
+        private void OnDestroy()
+        {
+            if (isApplicationQuitting)
+            {
+                return;
+            }
+            else  if (!isApplicationQuitting)
+            {
+                FindObjectOfType<RadarVFC>().RemoveSceneObj(this);
+            }
+        }
+        void OnApplicationQuit()
+        {
+            isApplicationQuitting = true;
+        }
+
+        // ----------------------------------------------------------------------------------------------- Public Methods
 
         /// <summary>
         /// This method change the object active state based on the frustrum result from RadarVFC.
@@ -35,23 +53,6 @@ namespace Optimization_Module
             {
                 this.gameObject.SetActive(isActive);
             }
-        }
-
-        private void OnDestroy()
-        {
-            if (isApplicationQuitting)
-            {
-                return;
-            }
-            else  if (!isApplicationQuitting)
-            {
-                FindObjectOfType<RadarVFC>().RemoveSceneObj(this);
-            }
-        }
-
-        void OnApplicationQuit()
-        {
-            isApplicationQuitting = true;
         }
     }
 }

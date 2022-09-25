@@ -6,7 +6,9 @@ using WeaponSystem;
 
 public class WeaponUnlocker : MonoBehaviour
 {
+    [Tooltip("Referance to the weapon script ti be unlocked")]
     [SerializeField] Weapon weapon;
+    [Tooltip("Text Mesh que muestra el nombre del arma a desbloquear")]
     [SerializeField] TextMeshPro gunText;
     Transform gun;
 

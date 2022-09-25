@@ -15,6 +15,20 @@ namespace Optimization_Module
         Camera cam;
         public List<RenderObject> SceneObjs;
 
+        // ----------------------------------------------------------------------------------------------- Unity Methods
+        void Start()
+        {
+            cam = this.GetComponent<Camera>(); //GameObject.Find("Main Camera").GetComponent<Camera>();
+        }
+        void Update()
+        {
+            foreach (RenderObject render in SceneObjs)
+            {
+                render.SetRender(Frustum(render.gameObject));
+            }
+        }
+    
+        // ----------------------------------------------------------------------------------------------- Private Methods
         bool Frustum(GameObject anyObject)
         {
             if(anyObject.isStatic && Vector3.Distance(anyObject.transform.position, this.transform.position) < staticRender)
@@ -62,20 +76,7 @@ namespace Optimization_Module
             return true;
         }
 
-        // Start is called before the first frame update
-        void Start()
-        {
-            cam = this.GetComponent<Camera>(); //GameObject.Find("Main Camera").GetComponent<Camera>();
-        }
-        // Update is called once per frame
-
-        void Update()
-        {
-            foreach (RenderObject render in SceneObjs)
-            {
-                render.SetRender(Frustum(render.gameObject));
-            }
-        }
+        // ----------------------------------------------------------------------------------------------- Public Methods
 
         /// <summary>
         /// Method that removes an RenderObject object to the SceneObjs rendering list.

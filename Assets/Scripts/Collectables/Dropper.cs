@@ -6,11 +6,15 @@ public class Dropper : MonoBehaviour
 {
     
     [Header("Stats")]
-    [Range(0, 1)] public float dropEnergy = 0.4f; 
+    [Tooltip("Chance off dropping Energy collectable")]
+    [Range(0, 1)] public float dropEnergy = 0.4f;
+    [Tooltip("Chance off dropping Ammo collectable")]
     [Range(0, 1)] public float dropCurrency = 0.6f; 
     
     [Header("Prefabs")]
+    [Tooltip("Prefab of droppable Energy collectable")]
     public GameObject EnergyPrefab;
+    [Tooltip("Prefab of droppable Ammo collectable")]
     public GameObject CurrencyPrefab;
     bool isApplicationQuitting = false;
 
