@@ -34,7 +34,7 @@ public class PlayerHealth : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        currentWeapon = playerWeapons.currentSelect();
+        currentWeapon = playerWeapons.CurrentSelect();
         if(currentWeapon != null)
         {
             ammoDisplay.SetCurrentAmmo(currentWeapon.curMagazine.ToString());

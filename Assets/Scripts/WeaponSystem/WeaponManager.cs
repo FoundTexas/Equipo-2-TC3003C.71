@@ -35,7 +35,7 @@ namespace WeaponSystem
                 weaponDictionary.Add(weapons[i].GetID(), i);
                 weapons[i].gameObject.SetActive(false);
             }
-            toggleWeapon();
+            ToggleWeapon();
 
             if (unlocked.Count > 0)
             {
@@ -68,7 +68,7 @@ namespace WeaponSystem
                 }
                 if (Input.GetKeyDown("q"))
                 {
-                    toggleWeapon();
+                    ToggleWeapon();
                 }
             }
         }
@@ -86,7 +86,7 @@ namespace WeaponSystem
         /// This function is in charge of changing between an ON and OFF state 
         /// toggleing and diableing the Weapon on the Player.
         /// </summary>
-        public void toggleWeapon()
+        public void ToggleWeapon()
         {
             hasWeapon = !hasWeapon;
             if (hasWeapon)
@@ -135,14 +135,14 @@ namespace WeaponSystem
             {
                 selected = weapons[weaponDictionary[weapon]];
                 ChangeWeapon(GetSelectedIndex());
-                toggleWeapon();
+                ToggleWeapon();
             }
         }
         /// <summary>
         /// This method gets the current selected weapon (can be Null) and returns the reference.
         /// </summary>
         /// <returns> The current weapon on the selected slot. </returns>
-        public Weapon currentSelect()
+        public Weapon CurrentSelect()
         {
             return selected;
         }

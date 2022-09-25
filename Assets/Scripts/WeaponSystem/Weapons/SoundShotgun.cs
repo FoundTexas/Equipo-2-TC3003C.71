@@ -6,7 +6,7 @@ namespace WeaponSystem
 {
     namespace Weapons
     {
-        public class SoundShotgun : Weapon
+        public class SoundShotgun : RayCastWeapon
         {
             public float explosionRadius = 10;
             public float explosionForce = 100;

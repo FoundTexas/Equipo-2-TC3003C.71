@@ -1,9 +1,9 @@
 using UnityEngine;
 namespace WeaponSystem
 {
-    namespace Weapons
+    namespace misc
     {
-        public class GrapplingHook : Weapon
+        public class GrapplingHook : RayCastWeapon
         {
             [Header("Grappling Gun Values")]
             [SerializeField] float spring = 100, damper = 7, massScale = 4.5f;

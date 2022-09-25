@@ -25,7 +25,7 @@ public class Droppable : MonoBehaviour
             }
             if (AmmoVal > 0)
             {
-                player.GetWeaponManager().currentSelect().AddAmmo();
+                player.GetWeaponManager().CurrentSelect().AddAmmo();
             }
 
             Destroy(this.gameObject,0.3f);
