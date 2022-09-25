@@ -8,30 +8,29 @@ using UnityEngine;
 public class PlayerMovement3D : MonoBehaviour
 {
     [Header("Horizontal movement")]
-    // Variables needed for character movement and camera functionality
-    public float moveSpeed = 20f;
-    public float maxSpeed = 25f;
-    private bool canMove = true;
+    [Min(0)] public float moveSpeed = 20f;
+    [Min(0)] public float maxSpeed = 25f;
+    [Tooltip("Time needed to make a turn on its position")]
+    [Min(0)] public float turnTime = 0.1f;
+    private float turnVelocity;
     private float originalSpeed;
-    private Vector3 direction;
+    private Vector3 inputDirection;
     private Vector3 moveDirection;
+    private bool canMove = true;
 
     [Header("Camera movement")]
-    // Variables needed for camera turning
-    public float turnTime = 0.1f;
     new public Transform camera;
-    private float turnVelocity;
 
     [Header("Slope Movement")]
-    // Variables needed for movement while standing on a slope
-    public float maxSlopeAngle = 60f;
-    public float minSlopeAngle = 15f;
-    public float onSlopeSpeed = 5f;
+    [Tooltip("Maximum angle to consider a slope (greater values means walls)")]
+    [Min(0)] public float maxSlopeAngle = 60f;
+    [Tooltip("Minimum angle to consider a slope (lower values means floor)")]
+    [Min(0)] public float minSlopeAngle = 15f;
+    [Min(0)] public float onSlopeSpeed = 5f;
     private RaycastHit slopeHit;
 
     [Header("Jumping")]
-    // Variables needed for gravity functionality
-    public float jumpHeight = 12f;
+    [Min(0)] public float jumpHeight = 12f;
     [Tooltip("Value determining how fast the player will fall")]
     public float fallMultiplier = 2.5f;
     [Tooltip("Value determining how far will the long jump go")]
@@ -40,38 +39,46 @@ public class PlayerMovement3D : MonoBehaviour
     private Vector3 velocity;
 
     [Header("Diving")]
-    public float diveForce = 5f;
-    public float airTimeWait = 0.2f;
-    public float canDiveStart = 0.2f;
+    [Min(0)] public float diveForce = 5f;
+    [Tooltip("Time suspended in the air before diving")]
+    [Min(0)] public float airTimeWait = 0.2f;
+    [Tooltip("Minimum time so the player can dive again")]
+    [Min(0)] public float canDiveStart = 0.2f;
     private bool canDive = false;
 
     [Header("Wall jumping")]
-    public float wallDistance = 0.7f;
-    public float minJumpHeight = 0.75f;
-    public float wallJumpForce = 7f;
-    public float wallJumpSideForce = 12f;
-    public float exitWallTime = 0.7f;
+    [Min(0)] public float wallDistance = 0.7f;
+    [Min(0)] public float minJumpHeight = 0.75f;
+    [Min(0)] public float wallJumpForce = 7f;
+    [Min(0)] public float wallJumpSideForce = 12f;
+    [Tooltip("Minimum time so the player can wall jump again")]
+    [Min(0)] public float exitWallTime = 0.7f;
+    [Tooltip("Check what layer is considered wall")]
     public LayerMask wallMask;
     private RaycastHit wallHit;
     private bool wallFound = false;
 
     [Header("Ground controller")]
-    // Variables needed to check ground below player
-    public float groundDistance = 0.4f;
+    [Tooltip("Distance to check for the ground under the player")]
+    [Min(0)] public float groundDistance = 0.4f;
+    [Tooltip("Transform component to position the groundCheck attribute")]
     public Transform groundCheck;
+    [Tooltip("Check what layer is considered ground")]
     public LayerMask groundMask;
     private bool isGrounded;
 
     [Header("Crouching")]
-    // Variables needed for crouching
-    public float crouchSpeed = 3.5f;
-    public float crouchHeight = 0.5f;
+    [Min(0)] public float crouchSpeed = 3.5f;
+    [Tooltip("Height the player will have when crouching")]
+    [Min(0)] public float crouchHeight = 0.5f;
     private float originalHeight;
 
     [Header("Dashing")]
-    public float dashForce = 3f;
-    public float doubleTapTime = 0.4f;
-    public float doubleTapCoolDown = 0.4f;
+    [Min(0)] public float dashForce = 3f;
+    [Tooltip("Maximum time to consider a double tap")]
+    [Min(0)] public float doubleTapTime = 0.4f;
+    [Tooltip("Minimum time so the player can double tap again")]
+    [Min(0)] public float doubleTapCoolDown = 0.4f;
     private float doubleTapResetTime = 0f;
     private bool canDash = true;
     private float doubleTapDelta;
@@ -84,6 +91,7 @@ public class PlayerMovement3D : MonoBehaviour
     public KeyCode crouchInput = KeyCode.LeftShift;
 
     [Header("Secret Code")]
+    [Tooltip("List of KeyCode names to specify a secret code (enabling glitches)")]
     public string[] secretCode;
     public float inputTimeReset = 1.0f;
     private string secretCodeString;
@@ -93,14 +101,19 @@ public class PlayerMovement3D : MonoBehaviour
     private AudioAndVideoManager anim;
     new private ParticleSystem particleSystem;
 
+    // ----------------------------------------------------------------------------------------------- Unity Methods
     void Start()
     {
+        // Initialize private components
         anim = GetComponent<AudioAndVideoManager>();
         rigidbody = GetComponent<Rigidbody>();
         particleSystem = transform.GetChild(transform.childCount - 1).gameObject.GetComponent<ParticleSystem>();
         particleSystem.Pause();
+        
+        // Establish original values
         originalHeight = transform.localScale.y;
         originalSpeed = moveSpeed;
+        
         ConfigSecretInput();
     }
 
@@ -144,8 +157,8 @@ public class PlayerMovement3D : MonoBehaviour
         if (isGrounded)
         {
             canDive = false;
-            transform.GetChild(transform.childCount - 1).gameObject.SetActive(false); // Deactivate smoke
-            particleSystem.Pause(); // Deactivate smoke
+            particleSystem.gameObject.SetActive(false); // Deactivate smoke
+            particleSystem.Pause();
         }
     }
 
@@ -156,9 +169,11 @@ public class PlayerMovement3D : MonoBehaviour
         float horizontalInput = 0f;
         float verticalInput = 0f;
         if (!wallFound || isGrounded)
+        {
             horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");
-        direction = new Vector3(horizontalInput, 0f, verticalInput).normalized;
+        }
+        inputDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
     }
 
     private void CheckJump()
@@ -175,8 +190,8 @@ public class PlayerMovement3D : MonoBehaviour
         if (rigidbody.velocity.y < 0)
         {
             rigidbody.velocity += Vector3.up * gravity * (fallMultiplier - 1) * Time.deltaTime;
-            transform.GetChild(transform.childCount - 1).gameObject.SetActive(true); // Activate smoke
-            particleSystem.Play(); // Activate smoke
+            particleSystem.gameObject.SetActive(true); // Activate smoke
+            particleSystem.Play();
         }
         else if (rigidbody.velocity.y > 0 && !Input.GetKey(jumpInput))
             rigidbody.velocity += Vector3.up * gravity * (lowJumpMultiplier - 1) * Time.deltaTime;
@@ -184,19 +199,18 @@ public class PlayerMovement3D : MonoBehaviour
 
     private void CheckMove()
     {
-        if (direction.magnitude >= 0.1f)
+        if (!canMove)
+            return;
+        
+        if (inputDirection.magnitude >= 0.1f)
         {
             //Utilize Atan2 function to find angle player should look at based on direction vector and camera angle
             //Utilize SmoothDampAngle function to change the angle based on established variables for a smoother look
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + camera.eulerAngles.y;
+            float targetAngle = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + camera.eulerAngles.y;
             float resultAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnVelocity, turnTime);
             transform.rotation = Quaternion.Euler(0f, resultAngle, 0f);
             moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
-            if (!canMove)
-                return;
-
-                
             if (OnSlope())
             {
                 rigidbody.AddForce(Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized * moveSpeed * onSlopeSpeed, ForceMode.Force);
@@ -270,14 +284,12 @@ public class PlayerMovement3D : MonoBehaviour
             return;
 
         Vector3 wallNormal = wallHit.normal;
-
         Vector3 jumpForce = transform.up * wallJumpForce + wallNormal * wallJumpSideForce;
 
         rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0f, rigidbody.velocity.z);
         rigidbody.AddForce(jumpForce, ForceMode.Impulse);
 
         transform.Rotate(new Vector3(0, 180, 0));
-
         StartCoroutine(ResetWallJump());
     }
 
@@ -357,9 +369,7 @@ public class PlayerMovement3D : MonoBehaviour
                 doubleTapResetTime = doubleTapCoolDown;
         }
         else if(doubleTapResetTime <= 0)
-        {
             canDash = true;
-        }
     }
 
     private void CheckSecretInput()
@@ -386,8 +396,6 @@ public class PlayerMovement3D : MonoBehaviour
     private void ConfigSecretInput()
     {
         foreach (string input in secretCode)
-        {
             secretCodeString += input;
-        }
     }
 }
