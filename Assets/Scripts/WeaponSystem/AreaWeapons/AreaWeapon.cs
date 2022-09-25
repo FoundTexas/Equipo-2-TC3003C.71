@@ -35,7 +35,11 @@ namespace WeaponSystem
                 }
             }
         }
-        // Function that gets the nearest Transform in a shpere area around the top of the Player.
+        /// <summary>
+        /// Function that gets the nearest Transform in a shpere area around the top of the Player.
+        /// </summary>
+        /// <param name="pos"> Vector 3 of the check shere position. </param>
+        /// <returns> Nearest Transform or null. </returns>
         public Transform GetNearest(Vector3 pos)
         {
             Transform tmp = null;
