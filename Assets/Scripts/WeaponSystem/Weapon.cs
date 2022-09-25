@@ -33,8 +33,6 @@ namespace WeaponSystem
 
         [Tooltip("Position where the projectiles and Raycasts are Fired")]
         public Transform firePoint;
-        [Tooltip("Projectile Prefab instantiated if weapon is pojectile base")]
-        public GameObject projectile;
         [Tooltip("Sound played when gun fired")]
         [SerializeField] AudioClip sound;
         [Tooltip("Sound played when gun selected")]
@@ -94,13 +92,6 @@ namespace WeaponSystem
 
         // ----------------------------------------------------------------------------------------------- Public Methods
 
-        /// <summary>
-        /// Function that instantiate the Weapon Projectile.
-        /// </summary>
-        public void SpawnProjectile()
-        {
-            Instantiate(projectile, firePoint.position, firePoint.transform.rotation, null);
-        }
         /// <summary>
         /// Ths Function returns an string with the weapon id value.
         /// </summary>
@@ -168,11 +159,6 @@ namespace WeaponSystem
                 {
                     curShootS = shootSpeed;
                     PlayShootAnimation();
-
-                    if (projectile)
-                    {
-                        SpawnProjectile();
-                    }
 
                     curMagazine--;
 

@@ -108,7 +108,6 @@ MonoBehaviour:
   curAmmo: 50
   curMagazine: 15
   firePoint: {fileID: 4092853827896714745}
-  projectile: {fileID: 0}
   sound: {fileID: 8300000, guid: cd0e348fd07381b4cbd4430e69959946, type: 3}
   select: {fileID: 8300000, guid: cd0e348fd07381b4cbd4430e69959946, type: 3}
   particles: {fileID: 9036128803690488351}

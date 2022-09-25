@@ -84,6 +84,33 @@ namespace WeaponSystem
             return direction;
         }
 
+        public void ShootRay()
+        {
+            if (BulletTrail)
+            {
+                Vector3 dir = Direction();
+                RaycastHit HitGun = GetRay(dir);
+
+                TrailRenderer trail = Instantiate(BulletTrail, RayOut.position, Quaternion.identity);
+
+                if (HitGun.transform)
+                {
+                    Debug.Log(HitGun.transform.name);
+                    StartCoroutine(SpawnTrail(trail, HitGun.point, true));
+                    IDamage Dmginterface = null;
+                    if (HitGun.transform.gameObject.TryGetComponent<IDamage>(out Dmginterface))
+                    {
+                        Dmginterface.TakeDamage(dmg);
+                    }
+                }
+                else
+                {
+                    Debug.Log(dir * distance);
+                    StartCoroutine(SpawnTrail(trail, firePoint.position + dir * distance, true));
+                }
+            }
+        }
+
         // ----------------------------------------------------------------------------------------------- Overrided Methods
 
         /// <summary>
@@ -97,33 +124,9 @@ namespace WeaponSystem
                 {
                     curShootS = shootSpeed;
                     PlayShootAnimation();
+                    ShootRay();
 
-                    if (BulletTrail)
-                    {
-                        Vector3 dir = Direction();
-                        RaycastHit HitGun = GetRay(dir);
-
-                        TrailRenderer trail = Instantiate(BulletTrail, RayOut.position, Quaternion.identity);
-
-                        if (HitGun.transform)
-                        {
-                            Debug.Log(HitGun.transform.name);
-                            StartCoroutine(SpawnTrail(trail, HitGun.point, true));
-                            IDamage Dmginterface = null;
-                            if (HitGun.transform.gameObject.TryGetComponent<IDamage>(out Dmginterface))
-                            {
-                                Dmginterface.TakeDamage(dmg);
-                            }
-                        }
-                        else
-                        {
-                            Debug.Log(dir * distance);
-                            StartCoroutine(SpawnTrail(trail, firePoint.position + dir * distance, true));
-                        }
-                    }
                     curMagazine--;
-
-
                 }
             }
             else

@@ -6,11 +6,11 @@ TagManager:
   tags:
   - Enemy
   - Metal
-  - Conrete
   - Trash
   - Manager
   - SceneLoader
   - Vacuum
+  - Concrete
   layers:
   - Default
   - TransparentFX

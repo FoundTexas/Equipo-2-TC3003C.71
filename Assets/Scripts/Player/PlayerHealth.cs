@@ -37,8 +37,11 @@ public class PlayerHealth : MonoBehaviour, IDamage
         currentWeapon = playerWeapons.CurrentSelect();
         if(currentWeapon != null)
         {
-            ammoDisplay.SetCurrentAmmo(currentWeapon.curMagazine.ToString());
-            ammoDisplay.SetRemainingAmmo(currentWeapon.curAmmo.ToString());
+            if (ammoDisplay)
+            {
+                ammoDisplay.SetCurrentAmmo(currentWeapon.curMagazine.ToString());
+                ammoDisplay.SetRemainingAmmo(currentWeapon.curAmmo.ToString());
+            }
         }
         iFrames -= Time.deltaTime;
         if(iFrames <= 0)
