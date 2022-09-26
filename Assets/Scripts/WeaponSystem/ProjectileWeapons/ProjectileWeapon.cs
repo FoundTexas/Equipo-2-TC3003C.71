@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace WeaponSystem
 {
-    namespace ProjectileWeapon
+    namespace ProjectileWeapons
     {
         public class ProjectileWeapon : Weapon
         {

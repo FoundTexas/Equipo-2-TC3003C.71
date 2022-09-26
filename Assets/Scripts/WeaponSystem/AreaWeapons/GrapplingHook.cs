@@ -1,7 +1,7 @@
 using UnityEngine;
 namespace WeaponSystem
 {
-    namespace AreaWeapon
+    namespace AreaWeapons
     {
         public class GrapplingHook : AreaWeapon
         {
