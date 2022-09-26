@@ -4,73 +4,83 @@ using UnityEngine;
 
 namespace WeaponSystem
 {
-    public class AreaWeapon : Weapon
+    namespace AreaWeapon
     {
-        [Header("Area Bullet Stats")]
-
-        [Tooltip("Layer of wht can be hitted by the Weapon if Raycast is used")]
-        public LayerMask areaMasks;
-        public float explosionForce;
-        public float radius;
-
-
-        // ----------------------------------------------------------------------------------------------- Public Methods
-        public void Explode(Vector3 pos)
+        public class AreaWeapon : Weapon
         {
-            Collider[] objs = Physics.OverlapSphere(pos, radius, areaMasks);
-            foreach (var obj in objs)
+            [Header("Area Bullet Stats")]
+
+            [Tooltip("Layer of what can be hitted by the Weapon if Raycast is used")]
+            public LayerMask areaMasks;
+            [Tooltip("Force aplied to the objects near the explosion range")]
+            public float explosionForce;
+            [Tooltip("Radius of the OverlapShepre that checks for area Objects")]
+            public float radius;
+
+
+            // ----------------------------------------------------------------------------------------------- Public Methods
+
+            /// <summary>
+            /// Method that generates an explosion in a given position.
+            /// </summary>
+            /// <param name="pos"> Explosion Vector3 position. </param>
+            public void Explode(Vector3 pos)
             {
-                Rigidbody tmprb = obj.gameObject.GetComponent<Rigidbody>();
-                if (tmprb != null)
+                Collider[] objs = Physics.OverlapSphere(pos, radius, areaMasks);
+                foreach (var obj in objs)
                 {
-                    tmprb.AddExplosionForce(explosionForce, pos, distance, 3.0F);
-                }
-                if (obj.gameObject != PlayerRef)
-                {
-                    IDamage Dmginterface = null;
-                    if (obj.gameObject.TryGetComponent<IDamage>(out Dmginterface))
+                    Rigidbody tmprb = obj.gameObject.GetComponent<Rigidbody>();
+                    if (tmprb != null)
                     {
-                        Dmginterface.TakeDamage(dmg);
+                        tmprb.AddExplosionForce(explosionForce, pos, distance, 3.0F);
+                    }
+                    if (obj.gameObject != PlayerRef)
+                    {
+                        IDamage Dmginterface = null;
+                        if (obj.gameObject.TryGetComponent<IDamage>(out Dmginterface))
+                        {
+                            Dmginterface.TakeDamage(dmg);
+                        }
                     }
                 }
             }
-        }
-        /// <summary>
-        /// Function that gets the nearest Transform in a shpere area around the top of the Player.
-        /// </summary>
-        /// <param name="pos"> Vector 3 of the check shere position. </param>
-        /// <returns> Nearest Transform or null. </returns>
-        public Transform GetNearest(Vector3 pos)
-        {
-            Transform tmp = null;
-            Collider[] objs = Physics.OverlapSphere(pos, radius, areaMasks);
-            float objdist = Mathf.Infinity;
-            foreach (var obj in objs)
+            /// <summary>
+            /// Function that gets the nearest Transform in a shpere area around the top of the Player.
+            /// </summary>
+            /// <param name="pos"> Vector 3 of the check shere position. </param>
+            /// <returns> Nearest Transform or null. </returns>
+            public Transform GetNearest(Vector3 pos)
             {
-                float tmpdist = Vector3.Distance(obj.transform.position, transform.position);
-                if (objdist > tmpdist)
+                Transform tmp = null;
+                Collider[] objs = Physics.OverlapSphere(pos, radius, areaMasks);
+                float objdist = Mathf.Infinity;
+                foreach (var obj in objs)
                 {
-                    objdist = tmpdist;
-                    tmp = obj.transform;
+                    float tmpdist = Vector3.Distance(obj.transform.position, transform.position);
+                    if (objdist > tmpdist)
+                    {
+                        objdist = tmpdist;
+                        tmp = obj.transform;
+                    }
                 }
+                return tmp;
             }
-            return tmp;
-        }
 
-        // ----------------------------------------------------------------------------------------------- Overrided Methods
+            // ----------------------------------------------------------------------------------------------- Overrided Methods
 
-        /// <summary>
-        /// Overrided Shoot Method for GrapplingHook.
-        /// </summary>
-        public override void Shoot()
-        {
-            if (curMagazine > 0)
+            /// <summary>
+            /// Overrided Shoot Method for GrapplingHook.
+            /// </summary>
+            public override void Shoot()
             {
-                if (curShootS <= 0)
+                if (curMagazine > 0)
                 {
-                    PlayShootAnimation();
-                    Explode(PlayerRef.transform.forward*distance);
-                    curMagazine--;
+                    if (curShootS <= 0)
+                    {
+                        PlayShootAnimation();
+                        Explode(PlayerRef.transform.forward * distance);
+                        curMagazine--;
+                    }
                 }
             }
         }

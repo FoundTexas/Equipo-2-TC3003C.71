@@ -1,12 +1,17 @@
 using UnityEngine;
 namespace WeaponSystem
 {
-    namespace misc
+    namespace AreaWeapon
     {
         public class GrapplingHook : AreaWeapon
         {
             [Header("Grappling Gun Values")]
-            [SerializeField] float spring = 100, damper = 7, massScale = 4.5f;
+            [Tooltip("Force of the spring applied to the rope makes it more boucy")]
+            [SerializeField] float spring = 100;
+            [Tooltip("Damper value on the joint conforming the spring")]
+            [SerializeField] float damper = 7;
+            [Tooltip("mass scale applied to the rope")]
+            [SerializeField] float massScale = 4.5f;
             LineRenderer lr;
             Transform entity;
             SpringJoint joint;
