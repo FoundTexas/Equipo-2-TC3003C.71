@@ -7,18 +7,20 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using System.Linq;
 using Collectables;
+using Interfaces;
 
 [Serializable]
 public class jsonbools{
     public bool[] Values;
 }
 
-public class SceneManagement : MonoBehaviour
+public class SceneManagement : MonoBehaviour, ISave
 {
     public jsonbools values;
     public List<Collectable> collect;
     public TextMeshProUGUI Amount;
 
+    // ----------------------------------------------------------------------------------------------- Unity Methods
     private void Start()
     {
         string sname = SceneManager.GetActiveScene().name;
@@ -46,6 +48,17 @@ public class SceneManagement : MonoBehaviour
         ChangeUI();
     }
 
+    private void OnDestroy()
+    {
+        SaveValue(null);
+    }
+    // ----------------------------------------------------------------------------------------------- Pivate Methods
+    void ChangeUI()
+    {
+        Amount.text = values.Values.ToList().FindAll(x => x == true).Count
+            + " / " + values.Values.ToList().Count;
+    }
+    // ----------------------------------------------------------------------------------------------- Public Methods
     public void SaveValue(Collectable val)
     {
         if (val)
@@ -67,15 +80,19 @@ public class SceneManagement : MonoBehaviour
             collect[i].SetCollected(values.Values[i]);
         }
     }
-
-    void ChangeUI()
+    // ----------------------------------------------------------------------------------------------- ISave
+    public void FromJson()
     {
-        Amount.text = values.Values.ToList().FindAll(x => x == true).Count
-            + " / " + values.Values.ToList().Count;
+        throw new NotImplementedException();
     }
 
-    private void OnDestroy()
+    public string ToJson()
     {
-        SaveValue(null);
+        throw new NotImplementedException();
+    }
+
+    public bool Saved()
+    {
+        throw new NotImplementedException();
     }
 }
