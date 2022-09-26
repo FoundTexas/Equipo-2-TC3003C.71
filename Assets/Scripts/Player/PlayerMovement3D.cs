@@ -97,6 +97,7 @@ public class PlayerMovement3D : MonoBehaviour
     private string secretCodeString;
     private string currentCode = "";
 
+    // GameObject components
     new private Rigidbody rigidbody;
     private AudioAndVideoManager anim;
     new private ParticleSystem particleSystem;
@@ -105,8 +106,8 @@ public class PlayerMovement3D : MonoBehaviour
     void Start()
     {
         // Initialize private components
-        anim = GetComponent<AudioAndVideoManager>();
         rigidbody = GetComponent<Rigidbody>();
+        anim = GetComponent<AudioAndVideoManager>();
         particleSystem = transform.GetChild(transform.childCount - 1).gameObject.GetComponent<ParticleSystem>();
         particleSystem.Pause();
         
@@ -117,17 +118,16 @@ public class PlayerMovement3D : MonoBehaviour
         ConfigSecretInput();
     }
 
-    // Update is called once per frame
     void Update()
     {
         SendAnimationVals();
         CheckGrounded();
         CheckWallJump();
         CheckDash();
+        CheckResetDash();
         CheckCrouch();
         CheckJump();
         CheckDive();
-        CheckResetDash();
         CheckSecretInput();
         SpeedControl();
     }
@@ -139,194 +139,55 @@ public class PlayerMovement3D : MonoBehaviour
         SpeedControl();
     }
 
-    void SendAnimationVals()
+    // ----------------------------------------------------------------------------------------------- Private Methods
+    /// <summary>
+    /// This method sends animation states to the Audio and Video Manager component.
+    /// </summary>
+    private void SendAnimationVals()
     {
         anim.IsOnGround(isGrounded);
         anim.SetIfMovement(rigidbody.velocity.magnitude);
         anim.IsOnWall(wallFound);
     }
 
+    /// <summary>
+    /// This method checks if the player is on ground.
+    /// </summary>
     private void CheckGrounded()
     {
         //Check if object is grounded by creating an invisible sphere
         //and checking if anything contained in groundMask is in contact with it
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        // Creates a force down to stay in ground
         if (isGrounded && velocity.y < 0)
             velocity.y = -2f;
 
         if (isGrounded)
         {
             canDive = false;
-            particleSystem.gameObject.SetActive(false); // Deactivate smoke
+            // Deactivate smoke
+            particleSystem.gameObject.SetActive(false);
             particleSystem.Pause();
         }
     }
 
-    private void CheckInputs()
-    {
-        //Gather Keyboard Input and create resulting vector
-        //Normalized to avoid faster movement in diagonals
-        float horizontalInput = 0f;
-        float verticalInput = 0f;
-        if (!wallFound || isGrounded)
-        {
-            horizontalInput = Input.GetAxisRaw("Horizontal");
-            verticalInput = Input.GetAxisRaw("Vertical");
-        }
-        inputDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
-    }
-
-    private void CheckJump()
-    {
-        //Gravity Control
-        if (Input.GetKeyDown(jumpInput) && isGrounded)
-        {
-            StartCoroutine(EnableDive());
-            anim.jumpSound();
-            rigidbody.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
-        }
-
-        // Manage Long/short jump
-        if (rigidbody.velocity.y < 0)
-        {
-            rigidbody.velocity += Vector3.up * gravity * (fallMultiplier - 1) * Time.deltaTime;
-            particleSystem.gameObject.SetActive(true); // Activate smoke
-            particleSystem.Play();
-        }
-        else if (rigidbody.velocity.y > 0 && !Input.GetKey(jumpInput))
-            rigidbody.velocity += Vector3.up * gravity * (lowJumpMultiplier - 1) * Time.deltaTime;
-    }
-
-    private void CheckMove()
-    {
-        if (!canMove)
-            return;
-        
-        if (inputDirection.magnitude >= 0.1f)
-        {
-            //Utilize Atan2 function to find angle player should look at based on direction vector and camera angle
-            //Utilize SmoothDampAngle function to change the angle based on established variables for a smoother look
-            float targetAngle = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + camera.eulerAngles.y;
-            float resultAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnVelocity, turnTime);
-            transform.rotation = Quaternion.Euler(0f, resultAngle, 0f);
-            moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-
-            if (OnSlope())
-            {
-                rigidbody.AddForce(Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized * moveSpeed * onSlopeSpeed, ForceMode.Force);
-                if (rigidbody.velocity.y > 0)
-                    rigidbody.AddForce(Vector3.down * 3, ForceMode.Force);
-            }
-            else
-                rigidbody.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
-        }
-    }
-
-    private bool OnSlope()
-    {
-        if (Physics.Raycast(transform.position, Vector3.down,
-        out slopeHit, groundCheck.position.y + 0.3f))
-        {
-            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-            return angle > minSlopeAngle && angle < maxSlopeAngle && angle != 0;
-        }
-
-        return false;
-    }
-    private void SpeedControl()
-    {
-        rigidbody.velocity = new Vector3(
-            Mathf.Clamp(rigidbody.velocity.x, -maxSpeed, maxSpeed),
-            Mathf.Clamp(rigidbody.velocity.y, -maxSpeed, maxSpeed),
-            Mathf.Clamp(rigidbody.velocity.z, -maxSpeed, maxSpeed)
-            );
-    }
-
-    private void CheckCrouch()
-    {
-        if (Input.GetKeyDown(crouchInput))
-        {
-            transform.localScale = new Vector3(transform.localScale.x,
-                                                crouchHeight,
-                                                transform.localScale.z);
-            rigidbody.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-            moveSpeed = crouchSpeed;
-        }
-
-        if (Input.GetKeyUp(crouchInput))
-        {
-            transform.localScale = new Vector3(transform.localScale.x,
-                                                originalHeight,
-                                                transform.localScale.z);
-            moveSpeed = originalSpeed;
-        }
-    }
-
+    /// <summary>
+    /// This method checks if the player can wall jump.
+    /// </summary>
     private void CheckWallJump()
     {
+        // Looks for a wall in front of the player with a raycast, returns a RaycastHit if true
         wallFound = Physics.Raycast(transform.position, transform.forward, out wallHit, wallDistance, wallMask);
 
         if (wallFound && AboveGround())
-        {
             if (Input.GetKeyDown(jumpInput))
                 WallJump();
-        }
     }
 
-    private bool AboveGround()
-    {
-        return !Physics.Raycast(transform.position, Vector3.down, 2, groundMask);
-    }
-
-    private void WallJump()
-    {
-        if (!canMove)
-            return;
-
-        Vector3 wallNormal = wallHit.normal;
-        Vector3 jumpForce = transform.up * wallJumpForce + wallNormal * wallJumpSideForce;
-
-        rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0f, rigidbody.velocity.z);
-        rigidbody.AddForce(jumpForce, ForceMode.Impulse);
-
-        transform.Rotate(new Vector3(0, 180, 0));
-        StartCoroutine(ResetWallJump());
-    }
-
-    private IEnumerator ResetWallJump()
-    {
-        canMove = false;
-        yield return new WaitForSeconds(exitWallTime);
-        canMove = true;
-    }
-    private IEnumerator EnableDive()
-    {
-        yield return new WaitForSeconds(canDiveStart);
-        canDive = true;
-    }
-
-    private void CheckDive()
-    {
-        if (canDive && Input.GetKeyDown(diveInput) && !wallFound)
-        {
-            anim.DiveSound();
-            StartCoroutine(Dive());
-        }
-    }
-
-    private IEnumerator Dive()
-    {
-        canMove = false;
-        canDive = false;
-        rigidbody.useGravity = false;
-        rigidbody.velocity = Vector3.zero;
-        yield return new WaitForSeconds(airTimeWait);
-        rigidbody.AddForce(this.transform.forward * diveForce + Vector3.up * (jumpHeight / 2), ForceMode.Impulse);// new Vector3(moveDirection.x  * diveForce, (jumpHeight/3)  * diveForce , moveDirection.z * diveForce), ForceMode.Impulse);
-        rigidbody.useGravity = true;
-        yield return new WaitForSeconds(airTimeWait / 2);
-        canMove = true;
-    }
-
+    /// <summary>
+    /// This method checks if the player can dash by double tapping either up key or W key.
+    /// </summary>
     private void CheckDash()
     {
         if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && doubleTap)
@@ -347,20 +208,15 @@ public class PlayerMovement3D : MonoBehaviour
         }
     }
 
-    private void Dash()
-    {
-        if(canDash)
-        {
-            Vector3 forceToApply = transform.forward * dashForce;
-            rigidbody.AddForce(rigidbody.velocity * dashForce, ForceMode.Impulse);
-        }
-    }
-
+    /// <summary>
+    /// This method resets the dash used previously.
+    /// </summary>
     private void CheckResetDash()
     {
         if(enableGlitch)
             return;
         
+        // Reduce the doubleTapResetTime counter until it hits 0, then reset dash
         if(doubleTapResetTime > 0)
         {
             canDash = false;
@@ -372,11 +228,75 @@ public class PlayerMovement3D : MonoBehaviour
             canDash = true;
     }
 
+    /// <summary>
+    /// This method checks if the player can crouch when holding crouch key.
+    /// </summary>
+    private void CheckCrouch()
+    {
+        if (Input.GetKeyDown(crouchInput))
+        {
+            transform.localScale = new Vector3(transform.localScale.x,
+                                                crouchHeight,
+                                                transform.localScale.z);
+            rigidbody.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+            moveSpeed = crouchSpeed;
+        }
+
+        if (Input.GetKeyUp(crouchInput))
+        {
+            transform.localScale = new Vector3(transform.localScale.x,
+                                                originalHeight,
+                                                transform.localScale.z);
+            moveSpeed = originalSpeed;
+        }
+    }
+
+    /// <summary>
+    /// This method checks if the player can jump and manages long/short jump.
+    /// </summary>
+    private void CheckJump()
+    {
+        if (Input.GetKeyDown(jumpInput) && isGrounded)
+        {
+            StartCoroutine(EnableDive());
+            anim.jumpSound();
+            rigidbody.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+        }
+
+        // Checks if player is falling
+        if (rigidbody.velocity.y < 0)
+        {
+            rigidbody.velocity += Vector3.up * gravity * (fallMultiplier - 1) * Time.deltaTime;
+            // Activate smoke
+            particleSystem.gameObject.SetActive(true);
+            particleSystem.Play();
+        }
+        // check if the player is still going up while jumping and holding the jump button
+        else if (rigidbody.velocity.y > 0 && !Input.GetKey(jumpInput))
+            rigidbody.velocity += Vector3.up * gravity * (lowJumpMultiplier - 1) * Time.deltaTime;
+    }
+
+    /// <summary>
+    /// This method checks if the player can dive.
+    /// </summary>
+    private void CheckDive()
+    {
+        if (canDive && Input.GetKeyDown(diveInput) && !wallFound)
+        {
+            anim.DiveSound();
+            StartCoroutine(Dive());
+        }
+    }
+
+    /// <summary>
+    /// This method checks for the secret input command.
+    /// </summary>
     private void CheckSecretInput()
     {
         if(enableGlitch)
             return;
         
+        // Checks every key pressed and evaluates if it corresponds to the secret code
         foreach(KeyCode kcode in Enum.GetValues(typeof(KeyCode)))
         {
             if(Input.GetKeyDown(kcode))
@@ -384,18 +304,181 @@ public class PlayerMovement3D : MonoBehaviour
                 currentCode += kcode;
                 if(currentCode.Contains(secretCodeString))
                 {
+                    // Secret code succesfully typed
                     enableGlitch = true;
                     anim.UnlockSound();
                 }
+                // Limit currentCode storage data (3 times the length of the secret code)
                 else
-                    if(currentCode.Length > secretCodeString.Length * 3) // Limit currentCode storage data
+                    if(currentCode.Length > secretCodeString.Length * 3)
                         currentCode = "";
             }
         }
     }
+
+    /// <summary>
+    /// This method limits the global velocity of the player.
+    /// </summary>
+    private void SpeedControl()
+    {
+        rigidbody.velocity = new Vector3(
+            Mathf.Clamp(rigidbody.velocity.x, -maxSpeed, maxSpeed),
+            Mathf.Clamp(rigidbody.velocity.y, -maxSpeed, maxSpeed),
+            Mathf.Clamp(rigidbody.velocity.z, -maxSpeed, maxSpeed)
+            );
+    }
+
+    /// <summary>
+    /// This method checks for the player inputs involving movement.
+    /// </summary>
+    private void CheckInputs()
+    {
+        //Gather Keyboard Input and create resulting vector
+        //Normalized to avoid faster movement in diagonals
+        float horizontalInput = 0f;
+        float verticalInput = 0f;
+
+        if (!wallFound || isGrounded)
+        {
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+            verticalInput = Input.GetAxisRaw("Vertical");
+        }
+
+        inputDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
+    }
+
+    /// <summary>
+    /// This method manages the movement of the player.
+    /// </summary>
+    private void CheckMove()
+    {
+        if (!canMove)
+            return;
+        
+        // Moves if any input key is pressed
+        if (inputDirection.magnitude >= 0.1f)
+        {
+            // Utilize Atan2 function to find angle player should look at based on direction vector and camera angle
+            float targetAngle = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + camera.eulerAngles.y;
+            // Utilize SmoothDampAngle function to change the angle based on established variables for a smoother look
+            float resultAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnVelocity, turnTime);
+            
+            transform.rotation = Quaternion.Euler(0f, resultAngle, 0f);
+            moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+
+            if (OnSlope())
+            {
+                // If on slope, an extra force is applied to the horizontal movement depending on the slope angle
+                rigidbody.AddForce(Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized * moveSpeed * onSlopeSpeed, ForceMode.Force);
+                // Adds an extra force down to keep the player on ground
+                if (rigidbody.velocity.y > 0)
+                    rigidbody.AddForce(Vector3.down * 3, ForceMode.Force);
+            }
+            else
+                rigidbody.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
+        }
+    }
+
+    /// <summary>
+    /// This method adds forces to the player so that they can wall jump.
+    /// </summary>
+    private void WallJump()
+    {
+        if (!canMove)
+            return;
+
+        Vector3 wallNormal = wallHit.normal;
+        Vector3 jumpForce = transform.up * wallJumpForce + wallNormal * wallJumpSideForce;
+
+        rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0f, rigidbody.velocity.z);
+        rigidbody.AddForce(jumpForce, ForceMode.Impulse);
+
+        transform.Rotate(new Vector3(0, 180, 0));
+        StartCoroutine(ResetWallJump());
+    }
+
+    /// <summary>
+    /// This method adds forces to the player so that they can dash.
+    /// </summary>
+    private void Dash()
+    {
+        if(canDash)
+            rigidbody.AddForce(rigidbody.velocity * dashForce, ForceMode.Impulse);
+    }
+
+    /// <summary>
+    /// This method creates a string value using the list of keyCode inputs from the secretCode list.
+    /// </summary>
     private void ConfigSecretInput()
     {
         foreach (string input in secretCode)
             secretCodeString += input;
+    }
+
+    /// <summary>
+    /// This method checks if the player is on a slope.
+    /// </summary>
+    /// <returns>Returns a bool value wether the player is on a slope or not. </returns>
+    private bool OnSlope()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down,
+        out slopeHit, groundCheck.position.y + 0.3f))
+        {
+            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+            return angle > minSlopeAngle && angle < maxSlopeAngle && angle != 0;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// This method checks if the player is not on ground.
+    /// </summary>
+    /// <returns>Returns a bool value wether the player is above certain altitude from the ground. </returns>
+    private bool AboveGround()
+    {
+        return !Physics.Raycast(transform.position, Vector3.down, 2, groundMask);
+    }
+
+    // ----------------------------------------------------------------------------------------------- Private Coroutines
+
+    /// <summary>
+    /// This method waits for the exitWallTime time variable to enable movement back.
+    /// </summary>
+    private IEnumerator ResetWallJump()
+    {
+        canMove = false;
+        yield return new WaitForSeconds(exitWallTime);
+        canMove = true;
+    }
+
+    /// <summary>
+    /// This method waits for the canDiceStart time variable to enable diving again.
+    /// </summary>
+    private IEnumerator EnableDive()
+    {
+        yield return new WaitForSeconds(canDiveStart);
+        canDive = true;
+    }
+
+    /// <summary>
+    /// This method creates the movement of the dive.
+    /// </summary>
+    private IEnumerator Dive()
+    {
+        // Stops player movement in the air
+        canMove = false;
+        canDive = false;
+        rigidbody.useGravity = false;
+        rigidbody.velocity = Vector3.zero;
+        yield return new WaitForSeconds(airTimeWait);
+
+        // Adds forces to the player so they can dive
+        rigidbody.AddForce(this.transform.forward * diveForce + Vector3.up * (jumpHeight / 2), ForceMode.Impulse);// new Vector3(moveDirection.x  * diveForce, (jumpHeight/3)  * diveForce , moveDirection.z * diveForce), ForceMode.Impulse);
+        rigidbody.useGravity = true;
+        yield return new WaitForSeconds(airTimeWait / 2);
+
+        // Enables movement back
+        canMove = true;
     }
 }
