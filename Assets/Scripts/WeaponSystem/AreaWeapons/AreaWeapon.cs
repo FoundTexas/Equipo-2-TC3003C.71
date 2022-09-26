@@ -1,3 +1,5 @@
+
+using Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +8,9 @@ namespace WeaponSystem
 {
     namespace AreaWeapons
     {
+        /// <summary>
+        /// Class that has the basic methods for an area and or spray damage based Weapon.
+        /// </summary>
         public class AreaWeapon : Weapon
         {
             [Header("Area Bullet Stats")]
@@ -36,7 +41,7 @@ namespace WeaponSystem
                     }
                     if (obj.gameObject != PlayerRef)
                     {
-                        IDamage Dmginterface = null;
+                        IDamage Dmginterface;
                         if (obj.gameObject.TryGetComponent<IDamage>(out Dmginterface))
                         {
                             Dmginterface.TakeDamage(dmg);

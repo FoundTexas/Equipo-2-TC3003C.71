@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Interfaces;
 
 namespace WeaponSystem
 {
     namespace RayCastWeapons
     {
+        /// <summary>
+        /// Class that has the basic methods for a RayCast hit scan based Weapon.
+        /// </summary>
         public class RayCastWeapon : Weapon
         {
             [Header("RayCaast Weapon Stats")]

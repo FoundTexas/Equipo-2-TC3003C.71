@@ -6,6 +6,9 @@ namespace WeaponSystem
 {
     namespace ProjectileWeapons
     {
+        /// <summary>
+        /// Class that has the basic methods for a projectile based Weapon.
+        /// </summary>
         public class ProjectileWeapon : Weapon
         {
             [Header("Projectile Weapon Look & Feel")]

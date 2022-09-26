@@ -4,45 +4,59 @@ using UnityEngine;
 using TMPro;
 using WeaponSystem;
 
-public class WeaponUnlocker : MonoBehaviour
+namespace Collectables
 {
-    [Tooltip("Referance to the weapon script ti be unlocked")]
-    [SerializeField] Weapon weapon;
-    [Tooltip("Text Mesh que muestra el nombre del arma a desbloquear")]
-    [SerializeField] TextMeshPro gunText;
-    Transform gun;
-
-    private void Start()
+    /// <summary>
+    /// This Class unlocks weapons by adding the Weapon ID to the Player's WeaponManager when colllided and adding the max Ammo to that weapon by calling AddAmmo()
+    /// </summary>
+    public class WeaponUnlocker : MonoBehaviour
     {
-        gunText.text = "<<" + weapon.GetID() + ">>";
-        InstantiateObject();
-    }
+        [Tooltip("Referance to the weapon script ti be unlocked")]
+        [SerializeField] Weapon weapon;
+        [Tooltip("Text Mesh que muestra el nombre del arma a desbloquear")]
+        [SerializeField] TextMeshPro gunText;
+        [Tooltip("Effecto de recoger el arma")]
+        [SerializeField] GameObject effect;
+        Transform gun;
 
-    void InstantiateObject()
-    {
-        Transform parent = transform.GetChild(0).GetChild(0);
-        gun = Instantiate(weapon.GunModel, parent.position, Quaternion.identity, parent).transform;
-        gun.localPosition = Vector3.up;
-    }
+        // ----------------------------------------------------------------------------------------------- Unity Methods
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (gun)
+        private void Start()
+        {
+            gunText.text = "<<" + weapon.GetID() + ">>";
+            InstantiateObject();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (gun)
+            {
+                if (other.CompareTag("Player"))
+                {
+                    GameObject g = Instantiate(effect, transform.position, Quaternion.identity);
+                    WeaponManager player = other.GetComponent<PlayerHealth>().GetWeaponManager();
+                    Destroy(gun.gameObject);
+                    Destroy(g, 1f);
+                    player.UnlockWeapon(weapon.GetID());
+                }
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                WeaponManager player = other.GetComponent<PlayerHealth>().GetWeaponManager();
-                Destroy(gun.gameObject);
-                player.UnlockWeapon(weapon.GetID());
+                InstantiateObject();
             }
         }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        // ----------------------------------------------------------------------------------------------- Private Methods
+
+        void InstantiateObject()
         {
-            InstantiateObject();
+            Transform parent = transform.GetChild(0).GetChild(0);
+            gun = Instantiate(weapon.GunModel, parent.position, Quaternion.identity, parent).transform;
+            gun.localPosition = Vector3.up;
         }
     }
 }

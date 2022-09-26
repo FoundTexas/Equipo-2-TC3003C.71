@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace WeaponSystem
 {
+    /// <summary>
+    /// Class that manages the weapons available to the player.
+    /// </summary>
     public class WeaponManager : MonoBehaviour
     {
         public static bool hasWeapon = true;

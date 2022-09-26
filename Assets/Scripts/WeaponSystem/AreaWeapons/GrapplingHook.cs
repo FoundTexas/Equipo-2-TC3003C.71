@@ -1,8 +1,12 @@
+using Interfaces;
 using UnityEngine;
 namespace WeaponSystem
 {
     namespace AreaWeapons
     {
+        /// <summary>
+        /// Weapon Class that targets the nearest Hookable Object in an area and sets a spring rope between it and the player.
+        /// </summary>
         public class GrapplingHook : AreaWeapon
         {
             [Header("Grappling Gun Values")]

@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace WeaponSystem
 {
+    /// <summary>
+    /// Main class for all weapons containning the basic stats and methods that all share.
+    /// </summary>
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(AudioSource))]
     public class Weapon : MonoBehaviour

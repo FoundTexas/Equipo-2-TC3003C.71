@@ -10,7 +10,6 @@ namespace Optimization_Module
     /// </summary>
     public class RenderObject : MonoBehaviour
     {
-        bool isDestroyable;
         bool isApplicationQuitting = false;
         Renderer render;
 
