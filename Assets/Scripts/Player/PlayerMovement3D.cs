@@ -8,6 +8,7 @@ namespace Player
     /// <summary>
     /// Main class that contains all the player movement behaviour.
     /// </summary>
+    
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(CapsuleCollider))]
     public class PlayerMovement3D : MonoBehaviour
@@ -137,7 +138,7 @@ namespace Player
             SpeedControl();
         }
 
-        private void FixedUpdate()
+        void FixedUpdate()
         {
             CheckInputs();
             CheckMove();

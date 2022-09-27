@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using WeaponSystem;
+using Player;
 
 namespace Collectables
 {
@@ -34,7 +35,7 @@ namespace Collectables
                 if (other.CompareTag("Player"))
                 {
                     GameObject g = Instantiate(effect, transform.position, Quaternion.identity);
-                    WeaponManager player = other.GetComponent<PlayerHealth>().GetWeaponManager();
+                    WeaponManager player = other.GetComponent<PlayerAttack>().GetWeaponManager();
                     Destroy(gun.gameObject);
                     Destroy(g, 1f);
                     player.UnlockWeapon(weapon.GetID());

@@ -450,10 +450,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 991069480}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d1aadaadd3d5f439cecddce56a76ea, type: 3}
+  m_Script: {fileID: 11500000, guid: 35990ff35b68a764f9b51c26b45f8dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coolDownTime: 1
+  meleeCoolDownTime: 0.8
 --- !u!1 &1263834559
 GameObject:
   m_ObjectHideFlags: 0

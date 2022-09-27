@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Player;
 
 namespace Collectables
 {
@@ -28,11 +29,11 @@ namespace Collectables
                 PlayerHealth player = other.GetComponent<PlayerHealth>();
                 if (EnergyVal > 0)
                 {
-                    player.AddHealth(EnergyVal);
+                    other.GetComponent<PlayerHealth>().AddHealth(EnergyVal);
                 }
                 if (AmmoVal > 0)
                 {
-                    player.GetWeaponManager().CurrentSelect().AddAmmo();
+                    other.GetComponent<PlayerAttack>().GetWeaponManager().CurrentSelect().AddAmmo();
                 }
 
                 Destroy(this.gameObject, 2);
