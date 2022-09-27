@@ -39,9 +39,7 @@ namespace Collectables
         public void Spawn()
         {
             if (isApplicationQuitting)
-            {
                 return;
-            }
             else if (!isApplicationQuitting)
             {
                 if (Random.Range(0f, 1f) >= dropCurrency)

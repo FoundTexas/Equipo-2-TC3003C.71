@@ -12,16 +12,15 @@ namespace Collectables
     /// </summary>
     public class WeaponUnlocker : MonoBehaviour
     {
-        [Tooltip("Referance to the weapon script ti be unlocked")]
-        [SerializeField] Weapon weapon;
-        [Tooltip("Text Mesh que muestra el nombre del arma a desbloquear")]
-        [SerializeField] TextMeshPro gunText;
-        [Tooltip("Effecto de recoger el arma")]
-        [SerializeField] GameObject effect;
-        Transform gun;
+        [Tooltip("Reference to the weapon script to be unlocked")]
+        [SerializeField] private Weapon weapon;
+        [Tooltip("Text Mesh that shows the weapon to be unlocked")]
+        [SerializeField] private TextMeshPro gunText;
+        [Tooltip("Pick up effect")]
+        [SerializeField] private GameObject effect;
+        private Transform gun;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
-
         private void Start()
         {
             gunText.text = "<<" + weapon.GetID() + ">>";
@@ -46,14 +45,15 @@ namespace Collectables
         private void OnTriggerExit(Collider other)
         {
             if (other.CompareTag("Player"))
-            {
                 InstantiateObject();
-            }
         }
 
         // ----------------------------------------------------------------------------------------------- Private Methods
 
-        void InstantiateObject()
+        /// <summary>
+        /// This method instantiates the gun unlocked.
+        /// </summary>
+        private void InstantiateObject()
         {
             Transform parent = transform.GetChild(0).GetChild(0);
             gun = Instantiate(weapon.GunModel, parent.position, Quaternion.identity, parent).transform;

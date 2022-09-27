@@ -17,8 +17,6 @@ namespace Player
         [SerializeField] private AudioClip[] step, step2;
         [SerializeField] private string[] grounds;
         [SerializeField] private Animator anim;
-        private float gunset = -1;
-        private float curgunval = 0;
         private Dictionary<string, int> ground = new Dictionary<string, int>();
         private AudioSource audios;
 
@@ -33,11 +31,6 @@ namespace Player
                 ground.Add(grounds[i], i);
         }
 
-        // private void Update()
-        // {
-        //     ChangeGun();
-        // }
-        
         // ----------------------------------------------------------------------------------------------- Public Methods
         /// <summary>
         /// Plays sound of a step when called from the player Animator, selects a random sound from 2 options.
@@ -82,8 +75,8 @@ namespace Player
         /// <param name="grounded">State sent and compared with Animator state. </param>
         public void IsOnGround(bool grounded)
         {
-            // if (!anim.GetBool("isGrounded") && grounded)
-            //     audios.PlayOneShot(land);
+            if (!anim.GetBool("isGrounded") && grounded)
+                audios.PlayOneShot(land);
             anim.SetBool("isGrounded", grounded);
         }
 
@@ -109,24 +102,6 @@ namespace Player
                 audios.PlayOneShot(sound);
             anim.SetFloat("hasGun", gun? 1 : 0);
         }
-
-        // void ChangeGun()
-        // {
-        //     if (gunset > 0)
-        //     {
-        //         if (curgunval > 0)
-        //         {
-
-        //         }
-        //     }
-        //     else if (gunset < 0)
-        //     {
-        //         if (curgunval > 0)
-        //         {
-
-        //         }
-        //     }
-        // }
 
         /// <summary>
         /// Function that sets Animator "speed" Float.

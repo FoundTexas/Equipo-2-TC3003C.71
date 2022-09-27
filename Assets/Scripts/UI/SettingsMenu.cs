@@ -14,7 +14,7 @@ namespace UI {
         [Tooltip("Reference to the pause menu GameObject")]
         public GameObject pauseMenu;
 
-        GameObject camera;
+        new GameObject camera;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
 

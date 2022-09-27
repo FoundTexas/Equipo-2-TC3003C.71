@@ -161,8 +161,8 @@ namespace Player
         /// </summary>
         private void CheckGrounded()
         {
-            //Check if object is grounded by creating an invisible sphere
-            //and checking if anything contained in groundMask is in contact with it
+            // Check if object is grounded by creating an invisible sphere
+            // and checking if anything contained in groundMask is in contact with it
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
             // Creates a force down to stay in ground
@@ -424,7 +424,7 @@ namespace Player
         /// <summary>
         /// This method checks if the player is on a slope.
         /// </summary>
-        /// <returns>Returns a bool value wether the player is on a slope or not. </returns>
+        /// <returns> Returns a bool value wether the player is on a slope or not. </returns>
         private bool OnSlope()
         {
             if (Physics.Raycast(transform.position, Vector3.down,
@@ -440,7 +440,7 @@ namespace Player
         /// <summary>
         /// This method checks if the player is not on ground.
         /// </summary>
-        /// <returns>Returns a bool value wether the player is above certain altitude from the ground. </returns>
+        /// <returns> Returns a bool value wether the player is above certain altitude from the ground. </returns>
         private bool AboveGround()
         {
             return !Physics.Raycast(transform.position, Vector3.down, 2, groundMask);

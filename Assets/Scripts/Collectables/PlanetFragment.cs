@@ -15,10 +15,10 @@ namespace Collectables {
 		[Tooltip("Time between vertices movement")]
 		public float timer = Mathf.Infinity;
 
-		List<Vector3> Vectices;
-		Vector3[] newlist, tmpList;
-		Mesh myMesh;
-		MeshFilter mf;
+		private List<Vector3> Vectices;
+		private Vector3[] newlist, tmpList;
+		private Mesh myMesh;
+		private MeshFilter mf;
 
 		/// <summary>
 		/// Struct of shape with geometry and topology.
@@ -32,30 +32,31 @@ namespace Collectables {
 		};
 
 		// ----------------------------------------------------------------------------------------------- Unity Methods
-
 		void Start()
 		{
 			myMesh = new Mesh();
 			Shape i = new Shape();
-			i.geometry = new List<Vector3>(){
-	 		new Vector3(0, 0, 1),
-			new Vector3(1, 0, 0),
-			new Vector3(0, 0, -1),
-			new Vector3(-1, 0, 0),
-			new Vector3(0, 1, 0),
-			new Vector3(0, -1, 0)
-		};
+			i.geometry = new List<Vector3>()
+			{
+				new Vector3(0, 0, 1),
+				new Vector3(1, 0, 0),
+				new Vector3(0, 0, -1),
+				new Vector3(-1, 0, 0),
+				new Vector3(0, 1, 0),
+				new Vector3(0, -1, 0)
+			};
 
-			i.topology = new List<int>(){   0, 1, 4,
-										 1, 2, 4,
-								 		2, 3, 4,
-										 3, 0, 4,
+			i.topology = new List<int>()
+			{   0, 1, 4,
+				1, 2, 4,
+				2, 3, 4,
+				3, 0, 4,
 
-										 0, 5, 1,
-								 		1, 5, 2,
-								 		2, 5, 3,
-								 		3, 5, 0
-								};
+				0, 5, 1,
+				1, 5, 2,
+				2, 5, 3,
+				3, 5, 0
+			};
 			Tessellate(i);
 			Tessellate(i);
 			Vectices = i.geometry;
@@ -63,7 +64,7 @@ namespace Collectables {
 			myMesh.triangles = i.topology.ToArray();
 			myMesh.RecalculateNormals();
 			render = GetComponent<MeshRenderer>();
-			render.material = mat;// Material(Shader.Find("Diffuse"));
+			render.material = mat; // Material(Shader.Find("Diffuse"));
 			mf = gameObject.AddComponent<MeshFilter>();
 			mf.mesh = myMesh;
 
@@ -71,6 +72,7 @@ namespace Collectables {
 			tmpList = Vectices.ToArray();
 			//Vectices.AddRange(myMesh.vertices);
 		}
+
 		private void FixedUpdate()
 		{
 			Change();
@@ -79,8 +81,11 @@ namespace Collectables {
 
 		// ----------------------------------------------------------------------------------------------- Private Methods
 
-		// Function that adds sub 4 triangles to a triangular face on a mesh
-		void Tessellate(Shape input)
+		/// <summary>
+		/// Function that adds sub 4 triangles to a triangular face on a mesh.
+		/// </summary>
+        /// <param name="input"> Shape object containing topology and geometry to be tessellated </param>
+		private void Tessellate(Shape input)
 		{
 			for (int t = 0; t < input.topology.Count; t += 12)
 			{
@@ -123,19 +128,27 @@ namespace Collectables {
 				for (int i = t + 3; i < input.topology.Count; i++)
 					newT.Add(input.topology[i]);
 
-				input.topology.Clear(); // Reemplazo la topología con la versión teselada.
+				input.topology.Clear(); // Replaces the topology with the tessellated shape.
 				for (int i = 0; i < newT.Count; i++)
 					input.topology.Add(newT[i]);
 			}
 		}
-		// Gets the index of a certain Vertex in a list.
-		int FindVertex(List<Vector3> list, Vector3 look)
+
+		/// <summary>
+		/// Gets the index of a certain Vertex in a list.
+		/// </summary>
+        /// <param name="list"> A list of Vector3 containing the vertex of a shape. </param>
+        /// <param name="look"> A Vector3 vertex to be found within the list. </param>
+        /// <returns> Returns the index of look of the list </returns>
+		private int FindVertex(List<Vector3> list, Vector3 look)
 		{
 			return list.IndexOf(look);
 		}
 
-		// This method hangels the movement of the vertex on a FixedUpdate.
-		void Change()
+		/// <summary>
+		/// This method handles the movement of the vertex on a FixedUpdate.
+		/// </summary>
+        private void Change()
 		{
 			if (timer > 1)
 			{

@@ -4916,7 +4916,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &460776399117692569
 Transform:
   m_ObjectHideFlags: 0
@@ -5061,6 +5061,7 @@ GameObject:
   - component: {fileID: 1205743975}
   - component: {fileID: 3651490326980649826}
   - component: {fileID: 4227884278520534718}
+  - component: {fileID: 7140450418711002761}
   m_Layer: 8
   m_Name: Robot
   m_TagString: Player
@@ -5229,8 +5230,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f882cdece143fa458bbc52e5dc78d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IdelTime: 0
-  Land: {fileID: 8300000, guid: 00cb177fe32b1a24f884f03a879053ce, type: 3}
+  IdleTime: 0
+  land: {fileID: 8300000, guid: 00cb177fe32b1a24f884f03a879053ce, type: 3}
   jump: {fileID: 8300000, guid: 5049e69e143b6ec43bf86d91cafc3802, type: 3}
   unlock: {fileID: 8300000, guid: c87c177af9fda8443a6330879a5723b1, type: 3}
   step:
@@ -5259,7 +5260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 20
-  maxSpeed: 25
+  maxSpeed: 20
   turnTime: 0.1
   camera: {fileID: 0}
   maxSlopeAngle: 60
@@ -5354,10 +5355,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 0}
-  playerWeapons: {fileID: 6946794206860832595}
-  ammoDisplay: {fileID: 0}
-  explosionfx: {fileID: 2984970767663435081, guid: 645736631e667754caba46abda4eddfd, type: 3}
+  explosionFx: {fileID: 0}
   forceField: {fileID: 6069579965920166492}
+  maxHP: 6
 --- !u!95 &4227884278520534718
 Animator:
   serializedVersion: 4
@@ -5378,6 +5378,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7140450418711002761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7140450418692057980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35990ff35b68a764f9b51c26b45f8dbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeCoolDownTime: 0.8
+  playerWeapons: {fileID: 6946794206860832595}
+  ammoDisplay: {fileID: 0}
 --- !u!1 &8538238403328556245
 GameObject:
   m_ObjectHideFlags: 0
@@ -6697,6 +6712,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 7140450418692057983}
+    - target: {fileID: 5737172475526211281, guid: 9ec17e7945765b44abd8256ef27af3cc, type: 3}
+      propertyPath: radius
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5737172475526211281, guid: 9ec17e7945765b44abd8256ef27af3cc, type: 3}
       propertyPath: spring
       value: 50

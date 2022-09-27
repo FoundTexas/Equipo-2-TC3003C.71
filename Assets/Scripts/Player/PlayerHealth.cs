@@ -93,9 +93,7 @@ namespace Player
             playerHP -= dmg;
             healthBar.SetHealth(playerHP);
             if (playerHP <= -1)
-            {
                 Die();
-            }
             else
             {
                 forceField.SetActive(true);
