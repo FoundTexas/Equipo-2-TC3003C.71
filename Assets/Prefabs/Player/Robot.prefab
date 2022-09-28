@@ -5053,15 +5053,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7140450418692057983}
-  - component: {fileID: 7140450418692057976}
-  - component: {fileID: 7140450418692057977}
-  - component: {fileID: 7140450418692057979}
   - component: {fileID: 393937956}
   - component: {fileID: 7140450418692057221}
-  - component: {fileID: 7140450418692057982}
   - component: {fileID: 1205743975}
   - component: {fileID: 3651490326980649826}
+  - component: {fileID: 1867161907102097190}
   - component: {fileID: 4227884278520534718}
+  - component: {fileID: 9037469841567751199}
+  - component: {fileID: 7140450418692057977}
+  - component: {fileID: 7140450418692057979}
   m_Layer: 8
   m_Name: Robot
   m_TagString: Player
@@ -5092,22 +5092,163 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &7140450418692057976
-Rigidbody:
+--- !u!81 &393937956
+AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7140450418692057980}
+  m_Enabled: 1
+--- !u!114 &7140450418692057221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7140450418692057980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f882cdece143fa458bbc52e5dc78d08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IdelTime: 0
+  Land: {fileID: 8300000, guid: 00cb177fe32b1a24f884f03a879053ce, type: 3}
+  jump: {fileID: 8300000, guid: 5049e69e143b6ec43bf86d91cafc3802, type: 3}
+  unlock: {fileID: 8300000, guid: c87c177af9fda8443a6330879a5723b1, type: 3}
+  step:
+  - {fileID: 8300000, guid: 00cb177fe32b1a24f884f03a879053ce, type: 3}
+  - {fileID: 8300000, guid: 0f720e2cda80a984ba559ce24e728c77, type: 3}
+  - {fileID: 8300000, guid: b4583ab64af695045979a2e637a9b047, type: 3}
+  step2:
+  - {fileID: 8300000, guid: aed1b279413ba8b4d9e256c39b6b5e63, type: 3}
+  - {fileID: 8300000, guid: 2a994084484e9dc429224f60ad536c70, type: 3}
+  - {fileID: 8300000, guid: aea376a0bd9520b469d35e5c3247f6f7, type: 3}
+  grounds:
+  - Concrete
+  - Metal
+  - Trash
+  anim: {fileID: 3485253620909875121}
+--- !u!114 &1205743975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7140450418692057980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02f0bd73435cf4c41855ee6708e08df8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RagdollRigidBodies:
+  - {fileID: 1526503797}
+  - {fileID: 2108192846}
+  - {fileID: 344859291}
+  - {fileID: 236503408}
+  - {fileID: 1816872815}
+  - {fileID: 1532455759}
+  - {fileID: 1487104324}
+  - {fileID: 658319315}
+  - {fileID: 1157583936}
+  - {fileID: 2101967266}
+  RagdollColliders:
+  - {fileID: 1526503798}
+  - {fileID: 2108192847}
+  - {fileID: 344859292}
+  - {fileID: 236503409}
+  - {fileID: 1816872817}
+  - {fileID: 1532455760}
+  - {fileID: 1487104326}
+  - {fileID: 658319316}
+  - {fileID: 1157583938}
+  - {fileID: 2101967267}
+  anim: {fileID: 3485253620909875121}
+  startvalue: 0
+--- !u!114 &3651490326980649826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7140450418692057980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d152bdb88269da44caf68e033e709d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 0}
+  playerWeapons: {fileID: 6946794206860832595}
+  ammoDisplay: {fileID: 0}
+  explosionfx: {fileID: 2984970767663435081, guid: 645736631e667754caba46abda4eddfd, type: 3}
+  forceField: {fileID: 6069579965920166492}
+--- !u!114 &1867161907102097190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7140450418692057980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b722209bcc91cab4f86b2178ed4da0f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnTime: 0.1
+  cam: {fileID: 0}
+  speed: 10
+  speedStep: 1
+  jumpForce: 1
+  jumpTime: 0.5
+  gravity: 5
+  jumpParticles: {fileID: 386306079}
+  gravityModifier: 1
+  wallDistance: 0.7
+  minJumpHeight: 0.75
+  wallJumpForce: 8
+  wallJumpSideForce: 12
+  exitWallTime: 0.3
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!95 &4227884278520534718
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7140450418692057980}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!143 &9037469841567751199
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7140450418692057980}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 2
-  m_AngularDrag: 2
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 112
-  m_CollisionDetection: 1
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &7140450418692057977
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5218,175 +5359,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!81 &393937956
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7140450418692057980}
-  m_Enabled: 1
---- !u!114 &7140450418692057221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7140450418692057980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f882cdece143fa458bbc52e5dc78d08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IdelTime: 0
-  Land: {fileID: 8300000, guid: 00cb177fe32b1a24f884f03a879053ce, type: 3}
-  jump: {fileID: 8300000, guid: 5049e69e143b6ec43bf86d91cafc3802, type: 3}
-  unlock: {fileID: 8300000, guid: c87c177af9fda8443a6330879a5723b1, type: 3}
-  step:
-  - {fileID: 8300000, guid: 00cb177fe32b1a24f884f03a879053ce, type: 3}
-  - {fileID: 8300000, guid: 0f720e2cda80a984ba559ce24e728c77, type: 3}
-  - {fileID: 8300000, guid: b4583ab64af695045979a2e637a9b047, type: 3}
-  step2:
-  - {fileID: 8300000, guid: aed1b279413ba8b4d9e256c39b6b5e63, type: 3}
-  - {fileID: 8300000, guid: 2a994084484e9dc429224f60ad536c70, type: 3}
-  - {fileID: 8300000, guid: aea376a0bd9520b469d35e5c3247f6f7, type: 3}
-  grounds:
-  - Concrete
-  - Metal
-  - Trash
-  anim: {fileID: 3485253620909875121}
---- !u!114 &7140450418692057982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7140450418692057980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1feae076601e2de4582d176425a2397f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 20
-  maxSpeed: 25
-  turnTime: 0.1
-  camera: {fileID: 0}
-  maxSlopeAngle: 60
-  minSlopeAngle: 15
-  onSlopeSpeed: 5
-  jumpHeight: 15
-  fallMultiplier: 2.5
-  lowJumpMultiplier: 6
-  diveForce: 30
-  airTimeWait: 0.2
-  canDiveStart: 0.2
-  wallDistance: 1.5
-  minJumpHeight: 0.75
-  wallJumpForce: 10
-  wallJumpSideForce: 20
-  exitWallTime: 0.2
-  wallMask:
-    serializedVersion: 2
-    m_Bits: 128
-  groundDistance: 0.4
-  groundCheck: {fileID: 7140450418167325203}
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 4744
-  crouchSpeed: 20
-  crouchHeight: 0.5
-  dashForce: 2
-  doubleTapTime: 0.4
-  doubleTapCoolDown: 0.5
-  jumpInput: 32
-  diveInput: 306
-  crouchInput: 304
-  secretCode:
-  - UpArrow
-  - UpArrow
-  - DownArrow
-  - DownArrow
-  - LeftArrow
-  - RightArrow
-  - LeftArrow
-  - RightArrow
-  - A
-  - B
-  - Return
-  inputTimeReset: 1
---- !u!114 &1205743975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7140450418692057980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02f0bd73435cf4c41855ee6708e08df8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RagdollRigidBodies:
-  - {fileID: 1526503797}
-  - {fileID: 2108192846}
-  - {fileID: 344859291}
-  - {fileID: 236503408}
-  - {fileID: 1816872815}
-  - {fileID: 1532455759}
-  - {fileID: 1487104324}
-  - {fileID: 658319315}
-  - {fileID: 1157583936}
-  - {fileID: 2101967266}
-  RagdollColliders:
-  - {fileID: 1526503798}
-  - {fileID: 2108192847}
-  - {fileID: 344859292}
-  - {fileID: 236503409}
-  - {fileID: 1816872817}
-  - {fileID: 1532455760}
-  - {fileID: 1487104326}
-  - {fileID: 658319316}
-  - {fileID: 1157583938}
-  - {fileID: 2101967267}
-  anim: {fileID: 3485253620909875121}
-  startvalue: 0
---- !u!114 &3651490326980649826
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7140450418692057980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d152bdb88269da44caf68e033e709d84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 0}
-  playerWeapons: {fileID: 6946794206860832595}
-  ammoDisplay: {fileID: 0}
-  explosionfx: {fileID: 2984970767663435081, guid: 645736631e667754caba46abda4eddfd, type: 3}
-  forceField: {fileID: 6069579965920166492}
---- !u!95 &4227884278520534718
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7140450418692057980}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8538238403328556245
 GameObject:
   m_ObjectHideFlags: 0
