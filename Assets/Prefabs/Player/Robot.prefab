@@ -5053,7 +5053,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7140450418692057983}
-  - component: {fileID: 393937956}
   - component: {fileID: 7140450418692057221}
   - component: {fileID: 1205743975}
   - component: {fileID: 3651490326980649826}
@@ -5092,14 +5091,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &393937956
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7140450418692057980}
-  m_Enabled: 1
 --- !u!114 &7140450418692057221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5198,16 +5189,15 @@ MonoBehaviour:
   cam: {fileID: 0}
   speed: 13
   speedStep: 0.5
-  jumpForce: 1
-  jumpTime: 0.5
-  gravity: 5
-  fuel: 2
+  jumpForce: 14
+  jumpTime: 1
+  gravity: 50
   jumpParticles: {fileID: 386306079}
   gravityModifier: 1
   wallDistance: 0.7
   minJumpHeight: 0.75
-  wallJumpForce: 8
-  wallJumpSideForce: 12
+  wallJumpForce: 14
+  wallJumpSideForce: 20
   exitWallTime: 0.3
   wallMask:
     serializedVersion: 2

@@ -61,9 +61,16 @@ public class Move : MonoBehaviour
             movDirection.x,
             movDirection.y,
             movDirection.z);
+        Jump();
         Aim();
         WASD();
-        Jump();
+
+        if(!controller.isGrounded){
+            movDirection.y = movDirection.y - gravity * gravityModifier * Time.deltaTime;
+        }
+        movDirection.y = Mathf.Clamp(movDirection.y, -gravity * gravityModifier * 2, jumpForce * 100);
+
+        Debug.Log(movDirection);
         controller.Move(movDirection * Time.deltaTime);
         SendAnimationVals();
 
@@ -79,18 +86,21 @@ public class Move : MonoBehaviour
     void SetTargetAngle(Vector2 mov)
     {
         targetAngle = Mathf.Atan2(mov.x, mov.y) * Mathf.Rad2Deg + cam.eulerAngles.y;
-        resultAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnVelocity, mov.magnitude == 0 ? 0:turnTime);
+        resultAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnVelocity, mov.magnitude == 0 ? 0 : turnTime);
         transform.rotation = Quaternion.Euler(0f, resultAngle, 0f);
     }
 
-    void Aim(){
-        if (Input.GetMouseButton(1)) {SetTargetAngle(Vector2.zero);}
+    void Aim()
+    {
+        if (Input.GetMouseButton(1)) { SetTargetAngle(Vector2.zero); }
     }
 
     void WASD()
     {
-        if (!canMove)
+        if (!canMove){
+            curSpeed = 0;
             return;
+        }
 
         Vector2 mov = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
@@ -105,9 +115,16 @@ public class Move : MonoBehaviour
                 curSpeed += speedStep;
             }
         }
-        else
+        else if (controller.isGrounded)
         {
-            curSpeed = 0;
+            if (curSpeed > 0)
+            {
+                curSpeed -= speedStep*3;
+            }
+            else if (curSpeed <= 0)
+            {
+                curSpeed = 0;
+            }
         }
 
         Debug.Log(curSpeed);
@@ -130,11 +147,6 @@ public class Move : MonoBehaviour
 
         if (!canMove)
             return;
-
-        movDirection = new Vector3(
-            movDirection.x,
-            movDirection.y,
-            movDirection.z);
 
         wallFound = Physics.Raycast(transform.position, transform.forward, out wallHit, 1, wallMask);
 
@@ -161,11 +173,13 @@ public class Move : MonoBehaviour
             if (Input.GetKey("space"))
             {
                 jumpParticles.SetActive(true);
-                if (curJumpTime > jumpTime){
-                gravityModifier = 0.25f;
-                curJumpTime += Time.deltaTime;
+                if (curJumpTime < jumpTime)
+                {
+                    gravityModifier = 0.5f;
+                    curJumpTime += Time.deltaTime;
                 }
-                else{
+                else
+                {
                     gravityModifier = 1f;
                 }
 
@@ -175,11 +189,7 @@ public class Move : MonoBehaviour
                 gravityModifier = 1f;
                 jumpParticles.SetActive(false);
             }
-
-            movDirection.y = movDirection.y - gravity * gravityModifier * Time.deltaTime;
         }
-
-        movDirection.y = Mathf.Clamp(movDirection.y, -gravity * gravityModifier * 2, jumpForce * 100);
     }
     private void WallJump()
     {
@@ -187,12 +197,11 @@ public class Move : MonoBehaviour
             return;
 
         Vector3 wallNormal = wallHit.normal;
+        transform.Rotate(new Vector3(0, 180, 0));
 
         Vector3 jumpDir = transform.up * wallJumpForce + wallNormal * wallJumpSideForce;
 
         movDirection = jumpDir;
-
-        transform.Rotate(new Vector3(0, 180, 0));
 
         StartCoroutine(ResetWallJump());
     }
