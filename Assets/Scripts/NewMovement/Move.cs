@@ -57,7 +57,6 @@ public class Move : MonoBehaviour
     }
     void Update()
     {
-        SendAnimationVals();
         movDirection = new Vector3(
             movDirection.x,
             movDirection.y,
@@ -66,13 +65,14 @@ public class Move : MonoBehaviour
         WASD();
         Jump();
         controller.Move(movDirection * Time.deltaTime);
+        SendAnimationVals();
 
     }
 
     void SendAnimationVals()
     {
         anim.IsOnGround(controller.isGrounded);
-        anim.SetIfMovement(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).magnitude);
+        anim.SetIfMovement(Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical")));
         anim.IsOnWall(wallFound);
     }
 
@@ -152,7 +152,7 @@ public class Move : MonoBehaviour
             curJumpTime = 0;
             if (Input.GetKeyDown("space"))
             {
-                movDirection.y = jumpForce * 10;
+                movDirection.y = jumpForce;
                 jumpParticles.SetActive(true);
             }
         }
@@ -161,12 +161,14 @@ public class Move : MonoBehaviour
             if (Input.GetKey("space"))
             {
                 jumpParticles.SetActive(true);
+                if (curJumpTime > jumpTime){
                 gravityModifier = 0.25f;
-                if (curJumpTime < jumpTime)
-                {
-                    movDirection.y += jumpForce *Time.deltaTime;
-                    curJumpTime += Time.deltaTime;
+                curJumpTime += Time.deltaTime;
                 }
+                else{
+                    gravityModifier = 1f;
+                }
+
             }
             if (Input.GetKeyUp("space"))
             {
@@ -174,7 +176,7 @@ public class Move : MonoBehaviour
                 jumpParticles.SetActive(false);
             }
 
-            movDirection.y = movDirection.y - gravity * gravityModifier;
+            movDirection.y = movDirection.y - gravity * gravityModifier * Time.deltaTime;
         }
 
         movDirection.y = Mathf.Clamp(movDirection.y, -gravity * gravityModifier * 2, jumpForce * 100);
