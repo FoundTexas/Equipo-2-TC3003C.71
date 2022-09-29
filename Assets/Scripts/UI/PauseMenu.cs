@@ -1,82 +1,69 @@
+using GameManagement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour
+namespace UI
 {
-
-    public static bool isPaused = false;
-    public GameObject pauseMenu;
-    public GameObject settingsMenu;
-    public GameObject miniMap;
-    public int menuScene;
-    SceneLoader sceneLoader;
-    GameObject camera;
-
-    // Start is called before the first frame update
-    void Start()
+    public class PauseMenu : SettingsMenu
     {
-        camera = GameObject.Find("Third Person Camera");
-        sceneLoader = FindObjectOfType<SceneLoader>();
-        AudioListener.volume = 0.5f;
-    }
+        [Header("Menu Attributes")]
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Escape))
-            if(isPaused)
-                Resume();
-            else
-                Pause();
-            
-            
-    }
+        [Tooltip("Reference to the settingsMenu GameObject")]
+        public GameObject settingsMenu;
+        [Tooltip("Reference to the miniMap GameObject")]
+        public GameObject miniMap;
 
-    public void Resume()
-    {
-        pauseMenu.SetActive(false);
-        settingsMenu.SetActive(false);
-        Time.timeScale = 1f;
-        isPaused = false;
-        miniMap.SetActive(true);
-    }
+        SceneLoader sceneLoader;
 
-    void Pause()
-    {
-        pauseMenu.SetActive(true);
-        miniMap.SetActive(false);
-        Time.timeScale = 0f;
-        isPaused = true;
-    }
+        // ----------------------------------------------------------------------------------------------- Unity Methods
+        void Start()
+        {
+            sceneLoader = FindObjectOfType<SceneLoader>();
+            AudioListener.volume = 0.5f;
+        }
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+                if (isPaused)
+                    Resume();
+                else
+                    Pause();
 
-    public void SetVolume(float volume)
-    {
-        AudioListener.volume  = volume;
-    }
 
-    public void SetBrightness(float gamma)
-    {
-        RenderSettings.ambientSkyColor = new Color(gamma, gamma, gamma, 0f);
-    }
+        }
 
-    public void SetSensitivity(float sensFactor)
-    {
-        var sens = camera.GetComponent<CameraSensitivity>();
-        sens.SetSensitivity(sensFactor);
-    }
+        // ----------------------------------------------------------------------------------------------- Public Methods
 
-    public void LoadMenu()
-    {
-        Time.timeScale = 1f;
-        sceneLoader.LoadByIndex(menuScene);
+        /// <summary>
+        /// Method that handels how the game is paused.
+        /// </summary>
+        void Pause()
+        {
+            pauseMenu.SetActive(true);
+            miniMap.SetActive(false);
+            Time.timeScale = 0f;
+            isPaused = true;
+        }
+        /// <summary>
+        /// Method that handels the resume of the game.
+        /// </summary>
+        public void Resume()
+        {
+            pauseMenu.SetActive(false);
+            settingsMenu.SetActive(false);
+            Time.timeScale = 1f;
+            isPaused = false;
+            miniMap.SetActive(true);
+        }
+        /// <summary>
+        /// Method that loads the Menu from the game.
+        /// </summary>
+        public void LoadMenu()
+        {
+            Time.timeScale = 1f;
+            sceneLoader.LoadByIndex(0);
+        }
     }
-
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
-
-    
 }

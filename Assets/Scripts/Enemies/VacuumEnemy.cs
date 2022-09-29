@@ -3,29 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class VacuumEnemy : Enemy
+namespace Enemies
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// Class of the vacuum enemy that inherits Enemy behaviour.
+    /// </summary>
+    public class VacuumEnemy : Enemy
     {
-        
+        // ----------------------------------------------------------------------------------------------- Unity Methods
+        void Awake()
+        {
+            // Initialize private components
+            player = GameObject.FindWithTag("Player").transform;
+            agent = GetComponent<NavMeshAgent>();
+            animator = GetComponent<Animator>();
+            GameObject manager = GameObject.FindWithTag("Manager");
+            if(manager!=null)
+                hitStop = manager.GetComponent<HitStop>();
+        }
+
+        void Update()
+        {
+            Patrolling();
+        }
     }
-
-    void Awake()
-    {
-        player = GameObject.FindWithTag("Player").transform;
-        agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
-        GameObject manager = GameObject.FindWithTag("Manager");
-        if(manager!=null)
-            hitStop = manager.GetComponent<HitStop>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Patrolling();
-    }
-
-
 }
