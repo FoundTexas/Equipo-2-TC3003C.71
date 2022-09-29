@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 public class Move : MonoBehaviour
 {
+    Player PlayerInput;
+    InputAction MoveValue;
+    InputAction JumpInput,JumpInputHold;
+
     [Header("Camera movement")]
     // Variables needed for camera turning
     public float turnTime = 0.1f;
@@ -48,6 +53,20 @@ public class Move : MonoBehaviour
     private AudioAndVideoManager anim;
 
     // ------------------------------------- Unity Methods
+
+    private void Awake() {
+        PlayerInput = new Player();
+    }
+    private void OnEnable() {
+        MoveValue = PlayerInput.Game.WASD;
+        MoveValue.Enable();
+        JumpInput = PlayerInput.Game.Jump;
+        JumpInput.Enable();
+    }
+    private void OnDisable() {
+        MoveValue.Disable();
+        JumpInput.Disable();
+    }
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -70,7 +89,6 @@ public class Move : MonoBehaviour
         }
         movDirection.y = Mathf.Clamp(movDirection.y, -gravity * gravityModifier * 2, jumpForce * 100);
 
-        Debug.Log(movDirection);
         controller.Move(movDirection * Time.deltaTime);
         SendAnimationVals();
 
@@ -79,7 +97,7 @@ public class Move : MonoBehaviour
     void SendAnimationVals()
     {
         anim.IsOnGround(controller.isGrounded);
-        anim.SetIfMovement(Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical")));
+        anim.SetIfMovement(Mathf.Abs( MoveValue.ReadValue<Vector2>().x) + Mathf.Abs( MoveValue.ReadValue<Vector2>().y));
         anim.IsOnWall(wallFound);
     }
 
@@ -102,7 +120,7 @@ public class Move : MonoBehaviour
             return;
         }
 
-        Vector2 mov = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Vector2 mov = MoveValue.ReadValue<Vector2>();//new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
         if (mov.magnitude > 0.3f)
         {
@@ -127,10 +145,6 @@ public class Move : MonoBehaviour
             }
         }
 
-        Debug.Log(curSpeed);
-
-
-
         movDirection = Quaternion.Euler(0f, targetAngle, 0f) * new Vector3(
             0,
             movDirection.y,
@@ -143,16 +157,19 @@ public class Move : MonoBehaviour
     }
     void Jump()
     {
+        Debug.Log("Jump");
         gravityModifier = 1;
 
         if (!canMove)
             return;
 
+
+        anim.SetIfMovement(1);
         wallFound = Physics.Raycast(transform.position, transform.forward, out wallHit, 1, wallMask);
 
         if (wallFound && !controller.isGrounded)
         {
-            if (Input.GetKeyDown("space"))
+            if (JumpInput.IsPressed())
             {
                 WallJump();
             }
@@ -162,7 +179,7 @@ public class Move : MonoBehaviour
         {
             jumpParticles.SetActive(false);
             curJumpTime = 0;
-            if (Input.GetKeyDown("space"))
+            if (JumpInput.IsPressed())
             {
                 movDirection.y = jumpForce;
                 jumpParticles.SetActive(true);
@@ -170,7 +187,7 @@ public class Move : MonoBehaviour
         }
         else
         {
-            if (Input.GetKey("space"))
+            if (JumpInput.ReadValue<float>() > 0.1f)
             {
                 jumpParticles.SetActive(true);
                 if (curJumpTime < jumpTime)
@@ -184,12 +201,14 @@ public class Move : MonoBehaviour
                 }
 
             }
-            if (Input.GetKeyUp("space"))
+            if (!JumpInput.IsPressed())
             {
                 gravityModifier = 1f;
                 jumpParticles.SetActive(false);
             }
         }
+
+        Debug.Log(JumpInput.ReadValue<float>());
     }
     private void WallJump()
     {

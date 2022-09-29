@@ -2,9 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WeaponManager : MonoBehaviour
 {
+    Player PlayerInput;
+    InputAction MoveValue;
     [SerializeField] List<Weapon> weapons = new List<Weapon>();
     Dictionary<string, int> weaponDictionary = new Dictionary<string, int>();
     [SerializeField] Weapon selected;
