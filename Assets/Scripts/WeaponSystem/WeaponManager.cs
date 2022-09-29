@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 using Player;
 
@@ -12,6 +13,9 @@ namespace WeaponSystem
     public class WeaponManager : MonoBehaviour
     {
         public static bool hasWeapon = true;
+
+        PlayerInputs PlayerInput;
+        InputAction SwapInput, ToggleInput;
 
         [Tooltip("List of all weapons on that the player can access and are childs of the WeaponManager Object on scene")]
         [SerializeField] List<Weapon> weapons = new List<Weapon>();
@@ -31,6 +35,25 @@ namespace WeaponSystem
         Dictionary<string, int> weaponDictionary = new Dictionary<string, int>();
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
+        private void Awake()
+        {
+            PlayerInput = new PlayerInputs();
+        }
+        private void OnEnable()
+        {
+            SwapInput = PlayerInput.Game.ChangeArm;
+            SwapInput.Enable();
+            ToggleInput = PlayerInput.Game.ToggleArm;
+            ToggleInput.Enable();
+
+            ToggleInput.performed += ToggleWeaponInput;
+
+        }
+        private void OnDisable()
+        {
+            SwapInput.Disable();
+            ToggleInput.Disable();
+        }
         void Start()
         {
             Cursor.lockState = CursorLockMode.Confined;
@@ -39,6 +62,7 @@ namespace WeaponSystem
                 weaponDictionary.Add(weapons[i].GetID(), i);
                 weapons[i].gameObject.SetActive(false);
             }
+
             ToggleWeapon();
 
             if (unlocked.Count > 0)
@@ -62,17 +86,21 @@ namespace WeaponSystem
         {
             if (unlocked.Count > 0)
             {
-                if (Input.mouseScrollDelta.y != 0)
+                if (SwapInput.ReadValue<float>() != 0)
                 {
                     int selectedIndex = GetSelectedIndex();
-                    selectedIndex += Mathf.RoundToInt(Input.mouseScrollDelta.y);
+                    selectedIndex += Mathf.RoundToInt(SwapInput.ReadValue<float>());
+
+                    if(selectedIndex < 0)
+                    {
+                        selectedIndex = unlocked.Count - 1;
+                    }
+                    else if (selectedIndex >= unlocked.Count){
+                        selectedIndex = 0;
+                    }
 
                     selectedIndex = Mathf.Clamp(selectedIndex, 0, unlocked.Count - 1);
                     ChangeWeapon(selectedIndex);
-                }
-                if (Input.GetKeyDown("q"))
-                {
-                    ToggleWeapon();
                 }
             }
         }
@@ -90,6 +118,8 @@ namespace WeaponSystem
         /// This function is in charge of changing between an ON and OFF state 
         /// toggleing and diableing the Weapon on the Player.
         /// </summary>
+        public void ToggleWeaponInput(InputAction.CallbackContext context)
+        { ToggleWeapon(); }
         public void ToggleWeapon()
         {
             hasWeapon = !hasWeapon;

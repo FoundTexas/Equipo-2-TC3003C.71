@@ -1,5 +1,5 @@
 {
-    "name": "Player",
+    "name": "PlayerInputs",
     "maps": [
         {
             "name": "Game",
@@ -7,16 +7,16 @@
             "actions": [
                 {
                     "name": "Jump",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "e26d4ad0-e19e-4088-8dd7-ef2ec3079a8a",
-                    "expectedControlType": "Double",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
                     "name": "WASD",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "79953a7e-ba73-4aec-a945-f375c162d928",
                     "expectedControlType": "Dpad",
                     "processors": "",
@@ -43,17 +43,53 @@
                 },
                 {
                     "name": "Fire",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "97da4cd7-061d-433d-91a7-34f2ae8d1018",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Aim",
+                    "type": "Value",
+                    "id": "ed41ef38-1031-49da-a9cf-d368fd85cea0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "c0c6e078-6410-4476-8fea-264b572c455e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Aim",
+                    "name": "Crouch",
+                    "type": "Value",
+                    "id": "dea8c08c-87e4-45d1-ac44-cd7d756dc104",
+                    "expectedControlType": "Double",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "ChangeArm",
                     "type": "Button",
-                    "id": "ed41ef38-1031-49da-a9cf-d368fd85cea0",
+                    "id": "09aeb32b-d550-483c-af8b-32956ac243cd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleArm",
+                    "type": "Button",
+                    "id": "fc8735ca-281e-4946-977f-9c2a5c91dec6",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -289,6 +325,105 @@
                     "processors": "",
                     "groups": "",
                     "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f32d3285-e9f1-44f5-bec9-789056cc6601",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ab6c48ea-bb33-47df-aed5-aca83e580689",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f87351e1-99c7-406c-99e9-7ae9b821f11c",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f68df67e-bb7a-4dea-8eb1-200027e5c8e6",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "39aec1b6-0178-41f1-b311-d8b374ad9b3e",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ace7a11e-4632-451f-be15-c66bc7377e10",
+                    "path": "<Keyboard>/scrollLock",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeArm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c493631f-9742-4ae1-b9ef-6796541ef3ef",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeArm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ace65dd2-23d8-4bb8-a67a-b256d2350290",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleArm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "01974596-6351-40db-9ce3-2201165a89e4",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleArm",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

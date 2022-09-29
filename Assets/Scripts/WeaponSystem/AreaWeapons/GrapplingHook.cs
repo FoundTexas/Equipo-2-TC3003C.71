@@ -1,5 +1,6 @@
 using Interfaces;
 using UnityEngine;
+using UnityEngine.InputSystem;
 namespace WeaponSystem
 {
     namespace AreaWeapons
@@ -25,16 +26,29 @@ namespace WeaponSystem
             private void Awake()
             {
                 lr = GetComponent<LineRenderer>();
+                PlayerInput = new PlayerInputs();
+            }
+            private void OnEnable()
+            {
+                FireInput = PlayerInput.Game.Fire;
+                FireInput.Enable();
+                FireInput.canceled += StopGrapple;
+                FireInput.performed += Inputshoot;
+            }
+            private void OnDisable()
+            {
+                FireInput.Disable();
             }
             void Update() //Overrided
             {
                 if (WeaponManager.hasWeapon)
                 {
-                    if (Input.GetKeyDown("r")) { Reolad(); }
-                    if (Input.GetMouseButtonDown(0)) { Shoot(); }
-                    if (Input.GetMouseButtonUp(0)) { StopGrapple(); }
+                    if (ReloadInput.IsPressed()) { Reolad(); }
                 }
-                else { StopGrapple(); }
+                else
+                {
+                    StopGrappleAuto();
+                }
             }
             private void LateUpdate()
             {
@@ -68,7 +82,18 @@ namespace WeaponSystem
                 SetJoint();
             }
             // Void that handels when the hook is stopped.
-            void StopGrapple()
+            void StopGrapple(InputAction.CallbackContext context)
+            {
+                lr.positionCount = 0;
+                if (joint) { Destroy(joint); }
+            }
+            void Inputshoot(InputAction.CallbackContext context)
+            {
+                Shoot();
+            }
+            
+            // Void that handels when the hook is stopped.
+            void StopGrappleAuto()
             {
                 lr.positionCount = 0;
                 if (joint) { Destroy(joint); }

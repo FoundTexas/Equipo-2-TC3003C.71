@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Player;
 
 [RequireComponent(typeof(CharacterController))]
 public class Move : MonoBehaviour
 {
-    Player PlayerInput;
-    InputAction MoveValue;
-    InputAction JumpInput,JumpInputHold;
+    PlayerInputs PlayerInput;
+    InputAction MoveValue, JumpInput, AimInput, CrouchInput;
 
     [Header("Camera movement")]
     // Variables needed for camera turning
@@ -23,7 +23,7 @@ public class Move : MonoBehaviour
     [SerializeField] float speed;
     [Tooltip("amount of incement per frame")]
     [SerializeField] float speedStep;
-    float curSpeed;
+    float curSpeed, SeedMod;
 
 
     [Tooltip("Player's Jumping Force")]
@@ -38,7 +38,8 @@ public class Move : MonoBehaviour
 
 
     [Header("Wall jumping")]
-    public float wallDistance = 0.7f;
+
+    public float wallDistance = 1.5f;
     public float minJumpHeight = 0.75f;
     public float wallJumpForce = 7f;
     public float wallJumpSideForce = 12f;
@@ -47,7 +48,13 @@ public class Move : MonoBehaviour
     private RaycastHit wallHit;
     bool wallFound;
 
-    bool canMove = true;
+    [Header("Crouching")]
+    [Min(0)] public float crouchSpeed = 3.5f;
+    [Tooltip("Height the player will have when crouching")]
+    [Min(0)] public float crouchHeight = 0.5f;
+    private float originalHeight = 1;
+
+    public bool canMove = true;
     CharacterController controller;
     Vector3 movDirection;
     private AudioAndVideoManager anim;
@@ -55,17 +62,25 @@ public class Move : MonoBehaviour
     // ------------------------------------- Unity Methods
 
     private void Awake() {
-        PlayerInput = new Player();
+        PlayerInput = new PlayerInputs();
     }
     private void OnEnable() {
         MoveValue = PlayerInput.Game.WASD;
         MoveValue.Enable();
         JumpInput = PlayerInput.Game.Jump;
         JumpInput.Enable();
+        AimInput = PlayerInput.Game.Aim;
+        AimInput.Enable();
+        CrouchInput = PlayerInput.Game.Crouch;
+        CrouchInput.Enable();
+
+        JumpInput.performed += Jump;
     }
     private void OnDisable() {
         MoveValue.Disable();
         JumpInput.Disable();
+        AimInput.Disable();
+        CrouchInput.Disable();
     }
     void Start()
     {
@@ -73,31 +88,39 @@ public class Move : MonoBehaviour
         anim = GetComponent<AudioAndVideoManager>();
         cam = Camera.main.transform;
         jumpParticles.SetActive(false);
+        SeedMod = speed;
+        originalHeight = transform.localScale.y;
     }
     void Update()
     {
+        SendAnimationVals();
+        wallFound = Physics.Raycast(transform.position, transform.forward, out wallHit, wallDistance, wallMask);
         movDirection = new Vector3(
             movDirection.x,
             movDirection.y,
             movDirection.z);
-        Jump();
+        JumpHold();
         Aim();
         WASD();
 
-        if(!controller.isGrounded){
+        if (!controller.isGrounded) {
             movDirection.y = movDirection.y - gravity * gravityModifier * Time.deltaTime;
         }
         movDirection.y = Mathf.Clamp(movDirection.y, -gravity * gravityModifier * 2, jumpForce * 100);
 
         controller.Move(movDirection * Time.deltaTime);
-        SendAnimationVals();
+
+        CheckCrouch();
 
     }
 
     void SendAnimationVals()
     {
+        if (!canMove)
+            return;
+
         anim.IsOnGround(controller.isGrounded);
-        anim.SetIfMovement(Mathf.Abs( MoveValue.ReadValue<Vector2>().x) + Mathf.Abs( MoveValue.ReadValue<Vector2>().y));
+        anim.SetIfMovement(Mathf.Abs(MoveValue.ReadValue<Vector2>().x) + Mathf.Abs(MoveValue.ReadValue<Vector2>().y));
         anim.IsOnWall(wallFound);
     }
 
@@ -110,12 +133,12 @@ public class Move : MonoBehaviour
 
     void Aim()
     {
-        if (Input.GetMouseButton(1)) { SetTargetAngle(Vector2.zero); }
+        if (AimInput.ReadValue<float>() > 0.1f) { SetTargetAngle(Vector2.zero); }
     }
 
     void WASD()
     {
-        if (!canMove){
+        if (!canMove) {
             curSpeed = 0;
             return;
         }
@@ -128,7 +151,7 @@ public class Move : MonoBehaviour
         }
         if (mov.magnitude != 0)
         {
-            if (curSpeed < speed)
+            if (curSpeed < SeedMod)
             {
                 curSpeed += speedStep;
             }
@@ -137,7 +160,7 @@ public class Move : MonoBehaviour
         {
             if (curSpeed > 0)
             {
-                curSpeed -= speedStep*3;
+                curSpeed -= speedStep * 3;
             }
             else if (curSpeed <= 0)
             {
@@ -155,22 +178,16 @@ public class Move : MonoBehaviour
             movDirection.z * curSpeed);
 
     }
-    void Jump()
+    void Jump(InputAction.CallbackContext context)
     {
-        Debug.Log("Jump");
-        gravityModifier = 1;
-
         if (!canMove)
             return;
 
-
-        anim.SetIfMovement(1);
-        wallFound = Physics.Raycast(transform.position, transform.forward, out wallHit, 1, wallMask);
-
         if (wallFound && !controller.isGrounded)
         {
-            if (JumpInput.IsPressed())
+            if (context.performed)
             {
+                anim.SetIfMovement(1);
                 WallJump();
             }
         }
@@ -179,13 +196,23 @@ public class Move : MonoBehaviour
         {
             jumpParticles.SetActive(false);
             curJumpTime = 0;
-            if (JumpInput.IsPressed())
+            if (context.performed)
             {
+                anim.SetIfMovement(1);
                 movDirection.y = jumpForce;
                 jumpParticles.SetActive(true);
             }
         }
-        else
+        
+    }
+    void JumpHold()
+    {
+        gravityModifier = 1;
+
+        if (!canMove)
+            return;
+
+        if (!controller.isGrounded)
         {
             if (JumpInput.ReadValue<float>() > 0.1f)
             {
@@ -210,7 +237,7 @@ public class Move : MonoBehaviour
 
         Debug.Log(JumpInput.ReadValue<float>());
     }
-    private void WallJump()
+    void WallJump()
     {
         if (!canMove)
             return;
@@ -223,6 +250,26 @@ public class Move : MonoBehaviour
         movDirection = jumpDir;
 
         StartCoroutine(ResetWallJump());
+    }
+    /// <summary>
+    /// This method checks if the player can crouch when holding crouch key.
+    /// </summary>
+    void CheckCrouch()
+    {
+        if (CrouchInput.ReadValue<float>() > 0.1f)
+        {
+            transform.localScale = new Vector3(transform.localScale.x,
+                                                crouchHeight,
+                                                transform.localScale.z);
+            SeedMod = crouchSpeed;
+        }
+        else if (CrouchInput.ReadValue<float>() <= 0.1f)
+        {
+            transform.localScale = new Vector3(transform.localScale.x,
+                                                originalHeight,
+                                                transform.localScale.z);
+            SeedMod = speed;
+        }
     }
     private IEnumerator ResetWallJump()
     {

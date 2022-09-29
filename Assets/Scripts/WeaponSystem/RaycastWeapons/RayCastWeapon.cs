@@ -66,7 +66,7 @@ namespace WeaponSystem
             public RaycastHit GetRay(Vector3 direction)
             {
                 RaycastHit tmp = new RaycastHit();
-                if (Physics.Raycast(RayOut.position, direction,
+                if (Physics.Raycast(PlayerRef.transform.position, direction,
                     out RaycastHit hitinfo, distance, rayMasks))
                 {
                     tmp = hitinfo;
