@@ -7381,7 +7381,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5737172475526211281, guid: 9ec17e7945765b44abd8256ef27af3cc, type: 3}
       propertyPath: explosionForce
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5737172475526211281, guid: 9ec17e7945765b44abd8256ef27af3cc, type: 3}
       propertyPath: FireInput.m_Name
