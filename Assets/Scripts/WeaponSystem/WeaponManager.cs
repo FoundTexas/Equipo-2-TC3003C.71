@@ -47,7 +47,7 @@ namespace WeaponSystem
             ToggleInput.Enable();
 
             ToggleInput.performed += ToggleWeaponInput;
-
+            SwapInput.performed += Scroll;
         }
         private void OnDisable()
         {
@@ -70,34 +70,28 @@ namespace WeaponSystem
                 selected.gameObject.SetActive(true);
             }
         }
-        void Update()
-        {
-            Inputs();
-        }
         private void LateUpdate()
         {
             transform.localPosition = pos;
         }
         // ----------------------------------------------------------------------------------------------- Private Methods
         /// <summary>
-        /// This void is in charge of handelling The WeaponManager Inputs.
+        /// This void is in charge of handelling The Weapon change.
         /// </summary>
-        void Inputs()
+        void Scroll(InputAction.CallbackContext callbackContext)
         {
             if (unlocked.Count > 0)
             {
-                if (SwapInput.ReadValue<float>() != 0)
+
+                int selectedIndex = GetSelectedIndex();
+                selectedIndex++;
+
+                if (selectedIndex >= unlocked.Count)
                 {
-                    int selectedIndex = GetSelectedIndex();
-                    selectedIndex ++;
-
-                    if (selectedIndex >= unlocked.Count)
-                    {
-                        selectedIndex = 0;
-                    }
-
-                    ChangeWeapon(selectedIndex);
+                    selectedIndex = 0;
                 }
+
+                ChangeWeapon(selectedIndex);
             }
         }
         /// <summary>
@@ -179,7 +173,7 @@ namespace WeaponSystem
         /// <returns> The current weapon on the selected slot. </returns>
         public Weapon CurrentSelect()
         {
-            return unlocked.Count != 0? selected : null;
+            return unlocked.Count != 0 ? selected : null;
         }
     }
 }

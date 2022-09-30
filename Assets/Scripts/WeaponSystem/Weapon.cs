@@ -142,7 +142,6 @@ namespace WeaponSystem
         {
             if (curAmmo > 0)
             {
-                Debug.Log("reloading");
                 canReload = false;
                 curMagazine += curAmmo;
                 if (curMagazine > magazine)
@@ -155,7 +154,6 @@ namespace WeaponSystem
                     curAmmo = 0;
                 }
                 canReload = true;
-                Debug.Log("reloaded");
             }
         }
         

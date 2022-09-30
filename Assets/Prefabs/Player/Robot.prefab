@@ -5204,7 +5204,7 @@ MonoBehaviour:
     m_Bits: 136
   crouchSpeed: 3.5
   crouchHeight: 0.5
-  canMove: 0
+  canMove: 1
 --- !u!95 &4227884278520534718
 Animator:
   serializedVersion: 4
@@ -6355,6 +6355,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 8879528566716807029, guid: e35563a1a62ed13488e16213b4f7b019, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8916979045543815761, guid: e35563a1a62ed13488e16213b4f7b019, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -7389,7 +7393,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5737172475526211281, guid: 9ec17e7945765b44abd8256ef27af3cc, type: 3}
       propertyPath: areaMasks.m_Bits
-      value: 1600
+      value: 1088
       objectReference: {fileID: 0}
     - target: {fileID: 5737172475526211281, guid: 9ec17e7945765b44abd8256ef27af3cc, type: 3}
       propertyPath: ReloadInput.m_Name
