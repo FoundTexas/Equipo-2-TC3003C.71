@@ -78,6 +78,7 @@ namespace WeaponSystem
         private void OnDisable()
         {
             FireInput.Disable();
+            ReloadInput.Disable();
         }
         private void Start()
         {

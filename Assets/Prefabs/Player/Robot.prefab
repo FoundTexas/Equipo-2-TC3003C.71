@@ -7352,6 +7352,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7140450418692057983}
     - target: {fileID: 5737172475526211281, guid: 9ec17e7945765b44abd8256ef27af3cc, type: 3}
+      propertyPath: radius
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737172475526211281, guid: 9ec17e7945765b44abd8256ef27af3cc, type: 3}
       propertyPath: spring
       value: 50
       objectReference: {fileID: 0}
@@ -7372,12 +7376,20 @@ PrefabInstance:
       value: 52dd10a7-4225-43b8-934a-90270e4998b3
       objectReference: {fileID: 0}
     - target: {fileID: 5737172475526211281, guid: 9ec17e7945765b44abd8256ef27af3cc, type: 3}
+      propertyPath: explosionForce
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737172475526211281, guid: 9ec17e7945765b44abd8256ef27af3cc, type: 3}
       propertyPath: FireInput.m_Name
       value: Fire Input
       objectReference: {fileID: 0}
     - target: {fileID: 5737172475526211281, guid: 9ec17e7945765b44abd8256ef27af3cc, type: 3}
       propertyPath: ReloadInput.m_Id
       value: 1b41cad8-73f1-4fbb-a8dc-262e963c594e
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737172475526211281, guid: 9ec17e7945765b44abd8256ef27af3cc, type: 3}
+      propertyPath: areaMasks.m_Bits
+      value: 1600
       objectReference: {fileID: 0}
     - target: {fileID: 5737172475526211281, guid: 9ec17e7945765b44abd8256ef27af3cc, type: 3}
       propertyPath: ReloadInput.m_Name

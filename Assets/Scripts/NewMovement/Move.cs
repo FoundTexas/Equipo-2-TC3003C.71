@@ -102,6 +102,7 @@ public class Move : MonoBehaviour
         JumpHold();
         Aim();
         WASD();
+        CheckCrouch();
 
         if (!controller.isGrounded) {
             movDirection.y = movDirection.y - gravity * gravityModifier * Time.deltaTime;
@@ -109,9 +110,6 @@ public class Move : MonoBehaviour
         movDirection.y = Mathf.Clamp(movDirection.y, -gravity * gravityModifier * 2, jumpForce * 100);
 
         controller.Move(movDirection * Time.deltaTime);
-
-        CheckCrouch();
-
     }
 
     void SendAnimationVals()
@@ -234,8 +232,6 @@ public class Move : MonoBehaviour
                 jumpParticles.SetActive(false);
             }
         }
-
-        Debug.Log(JumpInput.ReadValue<float>());
     }
     void WallJump()
     {
@@ -275,6 +271,16 @@ public class Move : MonoBehaviour
     {
         canMove = false;
         yield return new WaitForSeconds(exitWallTime);
+        canMove = true;
+    }
+
+    public void AddForce(float force, Vector3 dir, float time){
+        movDirection = dir * force;
+        StartCoroutine(ForceRoutine(time));
+    }
+    IEnumerator ForceRoutine(float time){
+        canMove = false;
+        yield return new WaitForSeconds(time);
         canMove = true;
     }
 }

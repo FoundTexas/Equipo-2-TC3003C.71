@@ -101,7 +101,6 @@ namespace WeaponSystem
 
                     if (HitGun.transform)
                     {
-                        Debug.Log(HitGun.transform.name);
                         StartCoroutine(SpawnTrail(trail, HitGun.point, true));
                         IDamage Dmginterface = null;
                         if (HitGun.transform.gameObject.TryGetComponent<IDamage>(out Dmginterface))

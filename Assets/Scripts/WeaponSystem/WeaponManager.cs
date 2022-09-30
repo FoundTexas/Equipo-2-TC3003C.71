@@ -89,17 +89,13 @@ namespace WeaponSystem
                 if (SwapInput.ReadValue<float>() != 0)
                 {
                     int selectedIndex = GetSelectedIndex();
-                    selectedIndex += Mathf.RoundToInt(SwapInput.ReadValue<float>());
+                    selectedIndex ++;
 
-                    if(selectedIndex < 0)
+                    if (selectedIndex >= unlocked.Count)
                     {
-                        selectedIndex = unlocked.Count - 1;
-                    }
-                    else if (selectedIndex >= unlocked.Count){
                         selectedIndex = 0;
                     }
 
-                    selectedIndex = Mathf.Clamp(selectedIndex, 0, unlocked.Count - 1);
                     ChangeWeapon(selectedIndex);
                 }
             }
@@ -119,7 +115,12 @@ namespace WeaponSystem
         /// toggleing and diableing the Weapon on the Player.
         /// </summary>
         public void ToggleWeaponInput(InputAction.CallbackContext context)
-        { ToggleWeapon(); }
+        {
+            if (unlocked.Count != 0)
+            {
+                ToggleWeapon();
+            }
+        }
         public void ToggleWeapon()
         {
             hasWeapon = !hasWeapon;
@@ -178,7 +179,7 @@ namespace WeaponSystem
         /// <returns> The current weapon on the selected slot. </returns>
         public Weapon CurrentSelect()
         {
-            return selected;
+            return unlocked.Count != 0? selected : null;
         }
     }
 }
