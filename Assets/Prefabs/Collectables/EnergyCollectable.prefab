@@ -208,8 +208,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 304c07783eb3d4647854feb996372a25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnergyVal: 3
+  EnergyVal: 1
   AmmoVal: 0
+  effect: {fileID: 5177773536053213737, guid: 4fc9c240288002240aab4a4895fbd306, type: 3}
 --- !u!1001 &3137065535506649453
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -217,9 +218,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3137065535578657619}
     m_Modifications:
+    - target: {fileID: 7180474826090762866, guid: 305be5e0fdd8efe4ba012079676d5c7c, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 07a088acddb7c4b41babb46ac5503475, type: 3}
+    - target: {fileID: 7180474826091860146, guid: 305be5e0fdd8efe4ba012079676d5c7c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1345bb2e1f2cd2e4b895ccbf0d88dace, type: 2}
     - target: {fileID: 7180474826093630034, guid: 305be5e0fdd8efe4ba012079676d5c7c, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180474826093630034, guid: 305be5e0fdd8efe4ba012079676d5c7c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.4015691
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180474826093630034, guid: 305be5e0fdd8efe4ba012079676d5c7c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.4015691
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180474826093630034, guid: 305be5e0fdd8efe4ba012079676d5c7c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.4015691
       objectReference: {fileID: 0}
     - target: {fileID: 7180474826093630034, guid: 305be5e0fdd8efe4ba012079676d5c7c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -227,7 +248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7180474826093630034, guid: 305be5e0fdd8efe4ba012079676d5c7c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.53348
       objectReference: {fileID: 0}
     - target: {fileID: 7180474826093630034, guid: 305be5e0fdd8efe4ba012079676d5c7c, type: 3}
       propertyPath: m_LocalPosition.z
