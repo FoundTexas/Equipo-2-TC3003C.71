@@ -142,7 +142,7 @@ public class Move : MonoBehaviour
         }
 
         Vector2 mov = MoveValue.ReadValue<Vector2>();//new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
+        Debug.Log(mov);
         if (mov.magnitude > 0.3f)
         {
             SetTargetAngle(mov);

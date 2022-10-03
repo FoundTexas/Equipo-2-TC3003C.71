@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
-namespace UI
+namespace PlanetCrashUI
 {
     public class PauseMenu : SettingsMenu
     {
