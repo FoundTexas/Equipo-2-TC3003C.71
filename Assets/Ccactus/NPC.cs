@@ -9,12 +9,27 @@ public class NPC : MonoBehaviour
     [SerializeField] Rig turnRig;
     [SerializeField] float MaxDist, distance  = Mathf.Infinity;
 
+    
+    
+    public List<DialogueInteraction> posibleInteractions;
+    
     bool Locked;
+
 
     private void Update()
     {
         GetTarget();
     }
+
+
+    void InteractionHandler()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+
+        }
+    }
+
 
     void GetTarget()
     {

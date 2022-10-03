@@ -487,6 +487,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 919132147706117859, guid: 0d4a96a945ec2954083489cfba046c44, type: 3}
+      propertyPath: posibleInteractions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132147706117859, guid: 0d4a96a945ec2954083489cfba046c44, type: 3}
+      propertyPath: posibleInteractions.Array.data[0].Interactions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132147706117859, guid: 0d4a96a945ec2954083489cfba046c44, type: 3}
+      propertyPath: posibleInteractions.Array.data[0].startEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132147706117859, guid: 0d4a96a945ec2954083489cfba046c44, type: 3}
+      propertyPath: posibleInteractions.Array.data[0].startEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132147706117859, guid: 0d4a96a945ec2954083489cfba046c44, type: 3}
+      propertyPath: posibleInteractions.Array.data[0].startEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132147706117859, guid: 0d4a96a945ec2954083489cfba046c44, type: 3}
+      propertyPath: posibleInteractions.Array.data[0].Interactions.Array.data[0].startEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132147706117859, guid: 0d4a96a945ec2954083489cfba046c44, type: 3}
+      propertyPath: posibleInteractions.Array.data[0].Interactions.Array.data[0].startEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132147706117859, guid: 0d4a96a945ec2954083489cfba046c44, type: 3}
+      propertyPath: posibleInteractions.Array.data[0].Interactions.Array.data[0].startEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5796589990367288838, guid: 0d4a96a945ec2954083489cfba046c44, type: 3}
       propertyPath: m_Name
       value: CactusPal
