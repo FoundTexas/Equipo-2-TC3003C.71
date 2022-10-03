@@ -15,7 +15,6 @@ public class DialogueManager : MonoBehaviour
 
     AudioSource audios;
     DialogueInteraction currentInteraction;
-    UnityEvent currentEvent;
     int index;
     public static bool typeing;
     public static bool Ended;
@@ -27,13 +26,12 @@ public class DialogueManager : MonoBehaviour
         dialogBox.SetActive(false);
     }
 
-    public void StartInteraction(DialogueInteraction interaction, UnityEvent finalEvent)
+    public void StartInteraction(DialogueInteraction interaction)
     {
         StopAllCoroutines();
         Ended = false;
         typeing = false;
         currentInteraction = interaction;
-        currentEvent = finalEvent;
         index = 0;
         foreach (Transform obj in spawnSpot)
         {
@@ -75,22 +73,20 @@ public class DialogueManager : MonoBehaviour
                         g.GetComponent<Button>().onClick.AddListener(
                             delegate
                             {
-                                StartInteraction(inter, currentEvent);
+                                StartInteraction(inter);
                             });
                         g.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = inter.getButtonText();
                     }
                 }
                 else if (NextInteractions.Count == 1)
                 {
-                    StartInteraction(NextInteractions[0], currentEvent);
+                    StartInteraction(NextInteractions[0]);
                 }
                 else
                 {
                     Ended = true;
                     dialogUI.SetActive(false);
                     dialogBox.SetActive(false);
-
-                    currentEvent.Invoke();
                 }
             }
         }

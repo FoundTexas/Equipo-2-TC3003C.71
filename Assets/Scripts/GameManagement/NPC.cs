@@ -9,7 +9,6 @@ public class NPC : MonoBehaviour
     [SerializeField] Transform target;
     [SerializeField] Rig turnRig;
     [SerializeField] float MaxDist, distance = Mathf.Infinity;
-    public UnityEvent[] endEvent;
     public List<DialogueInteraction> interactions;
     public int index;
     public bool Locked;
@@ -31,15 +30,12 @@ public class NPC : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E) && !Locked)
             {
-                Debug.Log("Interaction");
                 if (interactions.Count >= index)
                 {
-                    Debug.Log("Interaction 1");
                     if (distance <= MaxDist)
                     {
                         Locked = true;
-                        manager.StartInteraction(interactions[index], endEvent[index]);
-                        Debug.Log("Interaction 2");
+                        manager.StartInteraction(interactions[index]);
                     }
                 }
             }
