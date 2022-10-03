@@ -82,30 +82,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: Grappling
   GunModel: {fileID: 2794180544713567534, guid: 15dfd68ad294eca4b978a197ff5c1a14, type: 3}
-  reloadSpeed: 0.5
   shootSpeed: 0.3
   curShootS: 0
-  BulletSpreadVariance: {x: 0.1, y: 0.1, z: 0.1}
-  ImpactParticleSystem: {fileID: 0}
-  BulletTrail: {fileID: 0}
   ammo: 20
   magazine: 5
-  curMagazine: 0
   curAmmo: 0
+  curMagazine: 0
   firePoint: {fileID: 4234776060911250781}
-  isRaycast: 1
-  projectile: {fileID: 4558197808376601885, guid: 5ad67af066912fd43b8922e77eded619, type: 3}
-  rayMasks:
-    serializedVersion: 2
-    m_Bits: 64
+  sound: {fileID: 8300000, guid: e0e5fb07b8b657c4fb6222f5239c585b, type: 3}
+  select: {fileID: 0}
+  particles: {fileID: 4234776060911250779}
   distance: 20
   dmg: 10
-  sound: {fileID: 8300000, guid: e0e5fb07b8b657c4fb6222f5239c585b, type: 3}
-  particles: {fileID: 4234776060911250779}
-  canReload: 1
   PlayerRef: {fileID: 0}
   RayOut: {fileID: 0}
-  player: {fileID: 0}
+  areaMasks:
+    serializedVersion: 2
+    m_Bits: 64
+  explosionForce: 0
+  radius: 0
   spring: 100
   damper: 7
   massScale: 4.5

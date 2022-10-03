@@ -320,6 +320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 0}
   gunText: {fileID: 2399185470204118910}
+  effect: {fileID: 5177773536053213737, guid: 4fc9c240288002240aab4a4895fbd306, type: 3}
 --- !u!65 &2399185470978828138
 BoxCollider:
   m_ObjectHideFlags: 0
