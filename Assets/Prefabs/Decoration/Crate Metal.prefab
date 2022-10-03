@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 7305104606798228845}
   - component: {fileID: 8302158448567463509}
   - component: {fileID: 7176299622745458134}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Crate Metal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d61a31cb6b89b9f49ab0f8c5b9077077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 20
+  maxhp: 20
   ExplosiveCrate: {fileID: 1000013709254234, guid: a7c1e80a958a7455abd946d86379a1c8, type: 3}
 --- !u!208 &8302158448567463509
 NavMeshObstacle:

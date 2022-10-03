@@ -1,5 +1,8 @@
 using Interfaces;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using System.Collections;
+
 namespace WeaponSystem
 {
     namespace AreaWeapons
@@ -25,16 +28,36 @@ namespace WeaponSystem
             private void Awake()
             {
                 lr = GetComponent<LineRenderer>();
+                PlayerInput = new PlayerInputs();
+            }
+            private void OnEnable()
+            {
+                ReloadInput = PlayerInput.Game.Reload;
+                ReloadInput.Enable();
+                FireInput = PlayerInput.Game.Fire;
+                FireInput.Enable();
+                FireInput.canceled += StopGrapple;
+                FireInput.performed += Inputshoot;
+            }
+            private void OnDisable()
+            {
+                FireInput.Disable();
             }
             void Update() //Overrided
             {
+                Debug.DrawLine(transform.position + Vector3.up, transform.position + Vector3.up * radius, Color.magenta);
+                Debug.DrawLine(transform.position + Vector3.up, transform.position + Vector3.left * radius, Color.magenta);
+                Debug.DrawLine(transform.position + Vector3.up, transform.position + Vector3.right * radius, Color.magenta);
+                Debug.DrawLine(transform.position + Vector3.up, transform.position + Vector3.forward * radius, Color.magenta);
+
                 if (WeaponManager.hasWeapon)
                 {
-                    if (Input.GetKeyDown("r")) { Reolad(); }
-                    if (Input.GetMouseButtonDown(0)) { Shoot(); }
-                    if (Input.GetMouseButtonUp(0)) { StopGrapple(); }
+                    if (ReloadInput.IsPressed()) { Reolad(); }
                 }
-                else { StopGrapple(); }
+                else
+                {
+                    StopGrappleAuto();
+                }
             }
             private void LateUpdate()
             {
@@ -61,17 +84,39 @@ namespace WeaponSystem
             // Void that handels the line renderer to set the rope visualization.
             void DrawRope()
             {
-                if (!joint) return;
+                if (!entity) return;
+
+                if(lr.positionCount == 0) return;
+
+                if(Vector3.Distance(PlayerRef.transform.position, entity.position) > radius*1.5){
+                    StopGrappleAuto();
+                    return;
+                }
+
                 lr.SetPosition(0, firePoint.position);
                 lr.SetPosition(1, entity.position);
-
-                SetJoint();
             }
             // Void that handels when the hook is stopped.
-            void StopGrapple()
+            void StopGrapple(InputAction.CallbackContext context)
             {
+                StartCoroutine(StopgrappleRoutine());
+            }
+            IEnumerator StopgrappleRoutine()
+            {
+                yield return new WaitForSeconds(1.5f);
+                entity = null;
                 lr.positionCount = 0;
-                if (joint) { Destroy(joint); }
+            }
+            void Inputshoot(InputAction.CallbackContext context)
+            {
+                Shoot();
+            }
+
+            // Void that handels when the hook is stopped.
+            void StopGrappleAuto()
+            {
+                entity = null;
+                lr.positionCount = 0;
             }
 
             // ----------------------------------------------------------------------------------------------- Overrided Methods
@@ -81,6 +126,7 @@ namespace WeaponSystem
             /// </summary>
             public override void Shoot()
             {
+                Debug.Log("Shooting");
                 if (curMagazine > 0)
                 {
                     if (curShootS <= 0)
@@ -88,17 +134,19 @@ namespace WeaponSystem
                         curShootS = shootSpeed;
                         PlayShootAnimation();
                         entity = GetNearest(transform.position + Vector3.up);
+
                         curMagazine--;
                         if (entity)
                         {
+                            Vector3 dir = entity.position - PlayerRef.transform.position;
+                            PlayerRef.GetComponent<Move>().AddForce(explosionForce,dir.normalized + PlayerRef.transform.forward + Vector3.up/2,1f);
                             if (entity.GetComponent<IDamage>() != null)
                             {
                                 entity.GetComponent<IDamage>().TakeDamage(dmg);
                             }
-
-                            joint = PlayerRef.AddComponent<SpringJoint>();
+                            //joint = PlayerRef.AddComponent<SpringJoint>();
                             lr.positionCount = 2;
-                            SetJoint();
+                            Debug.Log(entity.name);
                         }
                     }
                 }
