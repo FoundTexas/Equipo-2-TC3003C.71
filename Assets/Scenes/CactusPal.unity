@@ -489,7 +489,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 919132147706117859, guid: 0d4a96a945ec2954083489cfba046c44, type: 3}
       propertyPath: posibleInteractions.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132147706117859, guid: 0d4a96a945ec2954083489cfba046c44, type: 3}
       propertyPath: posibleInteractions.Array.data[0].Interactions.Array.size
