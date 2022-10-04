@@ -90,6 +90,8 @@ public class Move : MonoBehaviour
         jumpParticles.SetActive(false);
         SeedMod = speed;
         originalHeight = transform.localScale.y;
+
+        transform.position = GameManager.getCheckpoint();
     }
     void Update()
     {

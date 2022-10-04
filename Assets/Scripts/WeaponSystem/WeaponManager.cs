@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using Player;
+using Interfaces;
 
 namespace WeaponSystem
 {
+
     /// <summary>
     /// Class that manages the weapons available to the player.
     /// </summary>
-    public class WeaponManager : MonoBehaviour
+    [Serializable]
+    public class WeaponManager : MonoBehaviour, ISave
     {
         public static bool hasWeapon = true;
 
@@ -18,20 +21,19 @@ namespace WeaponSystem
         InputAction SwapInput, ToggleInput;
 
         [Tooltip("List of all weapons on that the player can access and are childs of the WeaponManager Object on scene")]
-        [SerializeField] List<Weapon> weapons = new List<Weapon>();
+        [NonSerialized] public List<Weapon> weapons = new List<Weapon>();
         [Tooltip("Transform reference of the torso object in the armature skeleton")]
-        [SerializeField] Transform torso;
+        [NonSerialized] public Transform torso;
         [Tooltip("Transform reference of the hand object in the armature skeleton")]
-        [SerializeField] Transform hand;
+        [NonSerialized] public Transform hand;
         [Tooltip("String List the represent the current unlocked weapons of the player")]
         [SerializeField] List<string> unlocked = new List<string>(new string[2] { "Grappling", "SoundShoot" });
         [Tooltip("Reference to the animation and audio manager")]
-        [SerializeField] AudioAndVideoManager audios;
+        [NonSerialized] public AudioAndVideoManager audios;
         [Tooltip("The current selected Weapon script")]
-        [SerializeField] Weapon selected;
+        [NonSerialized] public Weapon selected;
 
         Vector3 pos;
-
         Dictionary<string, int> weaponDictionary = new Dictionary<string, int>();
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
@@ -56,6 +58,8 @@ namespace WeaponSystem
         }
         void Start()
         {
+            FromJson();
+            audios = GetComponentInParent<AudioAndVideoManager>();
             Cursor.lockState = CursorLockMode.Confined;
             for (int i = 0; i < weapons.Count; i++)
             {
@@ -67,6 +71,7 @@ namespace WeaponSystem
 
             if (unlocked.Count > 0)
             {
+                selected = weapons[weaponDictionary[unlocked[0]]];
                 selected.gameObject.SetActive(true);
             }
         }
@@ -174,6 +179,29 @@ namespace WeaponSystem
         public Weapon CurrentSelect()
         {
             return unlocked.Count != 0 ? selected : null;
+        }
+
+        public void FromJson()
+        {
+            string s = "{}";
+            if (PlayerPrefs.HasKey("WeaponManager.1"))
+            {
+                s = PlayerPrefs.GetString("WeaponManager.1");
+            }
+            else
+            {
+                PlayerPrefs.SetString("Loader.1", s);
+            }
+
+            JsonUtility.FromJsonOverwrite(s, this);
+        }
+
+        public bool Save()
+        {
+            string s = JsonUtility.ToJson(this);
+            PlayerPrefs.SetString("Loader.1", s);
+
+            return true;
         }
     }
 }
