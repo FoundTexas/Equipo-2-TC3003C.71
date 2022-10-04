@@ -676,7 +676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d61a31cb6b89b9f49ab0f8c5b9077077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 20
+  maxhp: 20
   ExplosiveCrate: {fileID: 0}
 --- !u!65 &88507625
 BoxCollider:
@@ -1616,7 +1616,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 987296853746447269, guid: 31e301423cff2be4ebb66d2a827438c0, type: 3}
       propertyPath: m_Value
-      value: 5.78
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2595454782465635904, guid: 31e301423cff2be4ebb66d2a827438c0, type: 3}
       propertyPath: m_IsActive
@@ -8287,7 +8287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d61a31cb6b89b9f49ab0f8c5b9077077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 20
+  maxhp: 20
   ExplosiveCrate: {fileID: 0}
 --- !u!65 &1376186750
 BoxCollider:
@@ -8709,7 +8709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d61a31cb6b89b9f49ab0f8c5b9077077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 20
+  maxhp: 20
   ExplosiveCrate: {fileID: 0}
 --- !u!65 &1485809216
 BoxCollider:
@@ -9436,7 +9436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d61a31cb6b89b9f49ab0f8c5b9077077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 20
+  maxhp: 20
   ExplosiveCrate: {fileID: 0}
 --- !u!65 &1623949052
 BoxCollider:
