@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 namespace GameManagement
 {
     [System.Serializable]
-    public class InGameEvent : MonoBehaviour, ISave
+    public class InGameEvent : MonoBehaviour
     {
         public bool multiscene = false;
         public int index;
@@ -18,26 +18,11 @@ namespace GameManagement
         [Tooltip("Set of instructions that affect other game objects")]
         public UnityEvent TriggerEvent;
 
-
-        void Start()
-        {
-            FromJson();
-        }
-
         public void SetEnded(bool b) { Ended = b; }
         public void SetActive(bool b) { Active = b; }
 
-        public void FromJson()
+        public void StartVals()
         {
-            string sname = SceneManager.GetActiveScene().name;
-            string s = JsonUtility.ToJson(this);
-
-            if (PlayerPrefs.HasKey(sname + ".e" + index + ".1"))
-            {
-                s = PlayerPrefs.GetString(sname + ".e" + index + ".1");
-            }
-            JsonUtility.FromJsonOverwrite(s, this);
-
             if (Ended && Triggered)
             {
                 if (Persistent)
@@ -60,15 +45,6 @@ namespace GameManagement
             {
                 this.gameObject.SetActive(Active);
             }
-        }
-
-        public bool Save()
-        {
-            string sname = SceneManager.GetActiveScene().name;
-            string s = JsonUtility.ToJson(this);
-            PlayerPrefs.SetString(sname + ".e" + index + ".1", s);
-
-            return true;
         }
 
         // ----------------------------------------------------------------------------------------------- Public Methods

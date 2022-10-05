@@ -8,9 +8,10 @@ namespace GameManagement
     /// <summary>
     /// Class that handels the enabling of a UnityEvent when destroying this script in order affect the game in some sort.
     /// </summary>
-    public class TriggerEventOnDead : InGameEvent
+    public class TriggerEventOnDead : MonoBehaviour
     {
         bool isApplicationQuitting = false;
+        public InGameEvent GameEvent;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
 
@@ -22,7 +23,7 @@ namespace GameManagement
             }
             else if (!isApplicationQuitting)
             {
-                SetTrigger();
+                GameEvent.SetTrigger();
             }
         }
 

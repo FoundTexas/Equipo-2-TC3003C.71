@@ -13,7 +13,7 @@ public class CheckPoint : MonoBehaviour
     private void Start()
     {
         others = FindObjectsOfType<CheckPoint>();
-
+        pos = transform.position + transform.up;
     }
 
     private void Update()

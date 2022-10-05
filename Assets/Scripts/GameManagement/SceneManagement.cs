@@ -19,46 +19,44 @@ namespace GameManagement
     [Serializable]
     public class SceneManagement : MonoBehaviour, ISave
     {
-        public jsonbools values;
-        public List<Collectable> collect;
-        public List<InGameEvent> events;
+        public Collectable[] collect;
+        InGameEvent[] events;
         public TextMeshProUGUI Amount;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
         private void Start()
         {
+            collect = FindObjectsOfType<Collectable>();
+            events = FindObjectsOfType<InGameEvent>();
+
+            Debug.Log(JsonUtility.ToJson(this));
+
             FromJson();
             ChangeUI();
         }
 
         private void OnDestroy()
         {
-            SaveValue(null);
+            SaveValue();
         }
         // ----------------------------------------------------------------------------------------------- Pivate Methods
         void ChangeUI()
         {
-            Amount.text = values.Values.ToList().FindAll(x => x == true).Count
-                + " / " + values.Values.ToList().Count;
+            Amount.text = collect.ToList().FindAll(x => x.GetCollected() == true).Count
+                + " / " + collect.ToList().Count;
         }
         // ----------------------------------------------------------------------------------------------- Public Methods
-        public void SaveValue(Collectable val)
+        public void SaveValue()
         {
-            if (val)
-            {
-                int index = collect.FindIndex(a => a == val);
-                values.Values[index] = collect[index].GetCollected();
-            }
-
             GameManager.SaveGame();
             ChangeUI();
         }
 
         void UpdateValues()
         {
-            for (int i = 0; i < collect.Count; i++)
+            for (int i = 0; i < collect.Length; i++)
             {
-                collect[i].SetCollected(values.Values[i]);
+                //collect[i].SetCollected(values.Values[i]);
             }
         }
 
@@ -69,23 +67,36 @@ namespace GameManagement
             string sname = SceneManager.GetActiveScene().name;
             string s = JsonUtility.ToJson(this);
 
-            if (PlayerPrefs.HasKey(sname+".1"))
+            for (int i = 0; i < collect.ToList().Count; i++)
             {
-                s = PlayerPrefs.GetString(sname + ".1");
-            }
-            JsonUtility.FromJsonOverwrite(s, this);
+                Collectable c = collect[i];
+                c.index = i;
+                string tmps = JsonUtility.ToJson(c);
 
-            for (int i = 0; i < events.Count; i++)
+                Debug.Log(tmps);
+
+                if (PlayerPrefs.HasKey(sname + ".c" + c.index + ".1"))
+                {
+                    tmps = PlayerPrefs.GetString(sname + ".c" + c.index + ".1");
+                }
+                JsonUtility.FromJsonOverwrite(tmps, c);
+            }
+
+            //foreach(var e in events)
+            for (int i = 0; i < events.ToList().Count; i++)
             {
                 InGameEvent e = events [i];
                 e.index = i;
                 string tmps = JsonUtility.ToJson(e);
+
+                Debug.Log(tmps);
 
                 if (PlayerPrefs.HasKey(sname + ".e" + e.index + ".1"))
                 {
                     tmps = PlayerPrefs.GetString(sname + ".e" + e.index + ".1");
                 }
                 JsonUtility.FromJsonOverwrite(tmps, e);
+                e.StartVals();
             }
 
         }
@@ -93,11 +104,18 @@ namespace GameManagement
         public bool Save()
         {
             string sname = SceneManager.GetActiveScene().name;
-            string s = JsonUtility.ToJson(this);
 
-            PlayerPrefs.SetString(sname + ".1", s);
 
-            for (int i = 0; i < events.Count; i++)
+            for (int i = 0; i < collect.Length; i++)
+            {
+                Collectable e = collect[i];
+                string tmps = JsonUtility.ToJson(e);
+
+                PlayerPrefs.SetString(sname + ".c." + i + ".1", tmps);
+
+            }
+
+            for (int i = 0; i < events.Length; i++)
             {
                 InGameEvent e = events[i];
                 string tmps = JsonUtility.ToJson(e);

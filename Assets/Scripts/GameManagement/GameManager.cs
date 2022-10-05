@@ -12,33 +12,51 @@ public class GameManager : MonoBehaviour
     public static string eventRef = "";
     static InGameEvent tmpevent;
     public static bool saved;
-    static Vector3 CheckPoint;
+    public Vector3 CheckPoint;
 
-    public Vector3[] initialPositions;
+    public List<Vector3> initialPositions = new List<Vector3>();
 
     void Start()
     {
+        if (!inst)
+        {
+            inst = this;
+        }
+        else if (inst)
+        {
+            if (inst != this)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+
         saved = true;
+        DontDestroyOnLoad(this);
     }
 
-    public static void FirstPos(int i)
+    public static Vector3 FirstPos(int i)
     {
-        CheckPoint = inst.initialPositions[i];
+        Debug.Log(inst.initialPositions.Count);
+        Debug.Log(inst.initialPositions[i]);
+        inst.CheckPoint = inst.initialPositions[i];
+        return inst.CheckPoint;
     }
 
     public static Vector3 getCheckpoint()
     {
-        if(CheckPoint == Vector3.zero)
+        Debug.Log(inst.initialPositions.Count);
+        if (inst.CheckPoint == Vector3.zero)
         {
-            FirstPos(SceneManager.GetActiveScene().buildIndex);
+            Debug.Log(SceneManager.GetActiveScene().buildIndex);
+            return FirstPos(SceneManager.GetActiveScene().buildIndex);
         }
 
-        return CheckPoint;
+        return inst.CheckPoint;
     }
 
     public static void setCheckPoint(Vector3 newPos)
     {
-        CheckPoint = newPos;
+        inst.CheckPoint = newPos;
     }
 
     public static void SetEventReference(string val, InGameEvent val2)
@@ -53,10 +71,8 @@ public class GameManager : MonoBehaviour
         foreach (ISave save in saves)
         {
             bool isSaved = save.Save();
-            while (!isSaved)
-            {
-                Debug.Log("Saving");
-            }
+
+                Debug.Log("Saving: " + );
         }
         if (tmpevent)
         {

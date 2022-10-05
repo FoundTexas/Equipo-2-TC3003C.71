@@ -21,17 +21,17 @@ namespace WeaponSystem
         InputAction SwapInput, ToggleInput;
 
         [Tooltip("List of all weapons on that the player can access and are childs of the WeaponManager Object on scene")]
-        [NonSerialized] public List<Weapon> weapons = new List<Weapon>();
+        public List<Weapon> weapons = new List<Weapon>();
         [Tooltip("Transform reference of the torso object in the armature skeleton")]
-        [NonSerialized] public Transform torso;
+        public Transform torso;
         [Tooltip("Transform reference of the hand object in the armature skeleton")]
-        [NonSerialized] public Transform hand;
+        public Transform hand;
         [Tooltip("String List the represent the current unlocked weapons of the player")]
         [SerializeField] List<string> unlocked = new List<string>(new string[2] { "Grappling", "SoundShoot" });
         [Tooltip("Reference to the animation and audio manager")]
         [NonSerialized] public AudioAndVideoManager audios;
         [Tooltip("The current selected Weapon script")]
-        [NonSerialized] public Weapon selected;
+        public Weapon selected;
 
         Vector3 pos;
         Dictionary<string, int> weaponDictionary = new Dictionary<string, int>();

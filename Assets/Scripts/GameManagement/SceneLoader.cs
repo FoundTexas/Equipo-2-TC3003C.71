@@ -99,6 +99,10 @@ namespace GameManagement
             await Task.Delay(3000);
             do
             {
+                await Task.Delay(100);
+            } while (GameManager.saved == false);
+            do
+            {
                 progress.value = scene.progress;
             } while (scene.progress < 0.9f);
             scene.allowSceneActivation = true;
