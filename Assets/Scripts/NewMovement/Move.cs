@@ -55,6 +55,7 @@ public class Move : MonoBehaviour
     private float originalHeight = 1;
 
     public bool canMove = true;
+    bool wasGrounded = false;
     CharacterController controller;
     Vector3 movDirection;
     private AudioAndVideoManager anim;
@@ -90,6 +91,14 @@ public class Move : MonoBehaviour
         jumpParticles.SetActive(false);
         SeedMod = speed;
         originalHeight = transform.localScale.y;
+
+        StartCoroutine(SetFirstPos());
+    }
+
+    IEnumerator SetFirstPos()
+    {
+        yield return new WaitForEndOfFrame();
+        transform.position = GameManager.getCheckpoint();
     }
     void Update()
     {
@@ -110,6 +119,12 @@ public class Move : MonoBehaviour
         movDirection.y = Mathf.Clamp(movDirection.y, -gravity * gravityModifier * 2, jumpForce * 100);
 
         controller.Move(movDirection * Time.deltaTime);
+    }
+
+    private void LateUpdate()
+    {
+        wasGrounded = controller.isGrounded;
+        ResetMovement();
     }
 
     void SendAnimationVals()
@@ -142,7 +157,6 @@ public class Move : MonoBehaviour
         }
 
         Vector2 mov = MoveValue.ReadValue<Vector2>();//new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
         if (mov.magnitude > 0.3f)
         {
             SetTargetAngle(mov);
@@ -265,6 +279,28 @@ public class Move : MonoBehaviour
                                                 originalHeight,
                                                 transform.localScale.z);
             SeedMod = speed;
+        }
+    }
+    public void StopMove()
+    {
+        movDirection = Quaternion.Euler(0f, targetAngle, 0f) * new Vector3(
+           0,
+           movDirection.y,
+           1);
+        movDirection = new Vector3(
+            movDirection.x * 0,
+            movDirection.y,
+            movDirection.z * 0);
+    }
+    void ResetMovement()
+    {
+        if (!canMove)
+        {
+            if (wallFound)
+            {
+                Debug.Log("Reset");
+                //canMove = true;
+            }
         }
     }
     private IEnumerator ResetWallJump()

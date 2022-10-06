@@ -74,10 +74,10 @@ namespace Player
             Vector3 vfxPos = transform.position;
             vfxPos.y = transform.position.y + 1;
             GameObject deathvfx = Instantiate(explosionFx, vfxPos, Quaternion.identity);
-            
-            hitStop.HitStopFreeze(0.2f, 0.1f);
+
+            hitStop.HitStopFreeze(10f, 1f);
             gameObject.SetActive(false);
-            sceneLoader.LoadByIndex(1);
+            sceneLoader.LoadByIndex(1, GameManager.getCheckpoint());
             
             var vfxDuration = 1f;
             Destroy(deathvfx, vfxDuration);
@@ -97,7 +97,7 @@ namespace Player
             else
             {
                 forceField.SetActive(true);
-                hitStop.HitStopFreeze(0.02f, 0.2f);
+                hitStop.HitStopFreeze(2f, 0.2f);
             }
         }
 

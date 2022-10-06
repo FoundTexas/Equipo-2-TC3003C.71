@@ -88,7 +88,9 @@ namespace WeaponSystem
 
                 if(lr.positionCount == 0) return;
 
-                if(Vector3.Distance(PlayerRef.transform.position, entity.position) > radius*1.5){
+                float dist = Vector3.Distance(PlayerRef.transform.position, entity.position);
+
+                if (dist > radius*1.3f || dist <= 1){
                     StopGrappleAuto();
                     return;
                 }
@@ -126,7 +128,6 @@ namespace WeaponSystem
             /// </summary>
             public override void Shoot()
             {
-                Debug.Log("Shooting");
                 if (curMagazine > 0)
                 {
                     if (curShootS <= 0)
@@ -139,7 +140,8 @@ namespace WeaponSystem
                         if (entity)
                         {
                             Vector3 dir = entity.position - PlayerRef.transform.position;
-                            PlayerRef.GetComponent<Move>().AddForce(explosionForce,dir.normalized + PlayerRef.transform.forward + Vector3.up/2,1f);
+                            Debug.Log(dir);
+                            PlayerRef.GetComponent<Move>().AddForce(explosionForce,dir.normalized*5 + PlayerRef.transform.forward +Vector3.up,1);
                             if (entity.GetComponent<IDamage>() != null)
                             {
                                 entity.GetComponent<IDamage>().TakeDamage(dmg);

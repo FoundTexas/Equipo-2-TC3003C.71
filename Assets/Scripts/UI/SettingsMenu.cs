@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace UI {
+namespace PlanetCrashUI {
     public class SettingsMenu : MonoBehaviour
     {
 

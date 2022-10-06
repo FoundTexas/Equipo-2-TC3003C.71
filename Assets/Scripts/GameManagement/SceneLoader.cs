@@ -1,3 +1,4 @@
+using Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace GameManagement
     /// <summary>
     /// Class in Charge of chamging between scenes with an async method.
     /// </summary>
-    public class SceneLoader : MonoBehaviour
+    public class SceneLoader : MonoBehaviour, ISave
     {
         [Tooltip("Progress visualization slider")]
         [SerializeField] Slider progress;
@@ -22,6 +23,7 @@ namespace GameManagement
         private void Start()
         {
             anim = GetComponent<Animator>();
+            FromJson();
         }
 
         // ----------------------------------------------------------------------------------------------- Public Methods
@@ -37,6 +39,7 @@ namespace GameManagement
             {
                 loading = true;
                 int index = SceneManager.GetSceneByName(name).buildIndex;
+                GameManager.FirstPos(index);
                 Load(index);
             }
         }
@@ -50,6 +53,36 @@ namespace GameManagement
             if (!loading)
             {
                 loading = true;
+                GameManager.FirstPos(index);
+                Load(index);
+            }
+        }
+        /// <summary>
+        /// Method that start Loading scene routine by its name.
+        /// </summary>
+        /// <param name="name"> Scene name string. </param>
+        public void LoadByName(string name, Vector3 pos)
+        {
+            if (SceneManager.GetSceneByName(name) == null) { return; }
+            if (!loading)
+            {
+                GameManager.setCheckPoint(pos);
+                loading = true;
+                int index = SceneManager.GetSceneByName(name).buildIndex;
+                Load(index);
+            }
+        }
+        /// <summary>
+        /// Method that start Loading scene routine by its index.
+        /// </summary>
+        /// <param name="index"> Scene index int. </param>
+        public void LoadByIndex(int index, Vector3 pos)
+        {
+            if (SceneManager.GetSceneByBuildIndex(index) == null) { return; }
+            if (!loading)
+            {
+                GameManager.setCheckPoint(pos);
+                loading = true;
                 Load(index);
             }
         }
@@ -59,10 +92,16 @@ namespace GameManagement
         /// <param name="index"> Scene index int. </param>
         async void Load(int index)
         {
+            
             anim.SetTrigger("FadeIn");
             var scene = SceneManager.LoadSceneAsync(index);
             scene.allowSceneActivation = false;
             await Task.Delay(3000);
+            do
+            {
+                Debug.Log("waiting");
+                await Task.Delay(100);
+            } while (GameManager.saved == false);
             do
             {
                 progress.value = scene.progress;
@@ -75,6 +114,42 @@ namespace GameManagement
         public void QuitGame()
         {
             Application.Quit();
+        }
+
+        public void LoadLastSaved()
+        {
+            int i = 1;
+            if (PlayerPrefs.HasKey("Loader.1"))
+            {
+                i = PlayerPrefs.GetInt("Loader.1");
+            }
+
+            LoadByIndex(i);
+        }
+        public void RestartGame()
+        {
+            if (!loading)
+            {
+                PlayerPrefs.DeleteAll();
+                loading = true;
+                Load(1);
+            }
+        }
+        public void FromJson()
+        {
+            int i = 1;
+            if (PlayerPrefs.HasKey("Loader.1"))
+            {
+                i = PlayerPrefs.GetInt("Loader.1");
+            }
+            PlayerPrefs.SetInt("Loader.1", i);
+        }
+
+        public bool Save()
+        {
+            PlayerPrefs.GetInt("Loader.1", SceneManager.GetActiveScene().buildIndex);
+            Debug.Log("Saving: " + this.name);
+            return true;
         }
     }
 }
