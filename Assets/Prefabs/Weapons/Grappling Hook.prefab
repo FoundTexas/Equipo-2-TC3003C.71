@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 806189278754461157}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Hing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,13 +45,13 @@ GameObject:
   - component: {fileID: 5737172475526211295}
   - component: {fileID: 2250248862398198165}
   - component: {fileID: 4239296116108960736}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Grappling Hook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5737172475526211280
 Transform:
   m_ObjectHideFlags: 0
@@ -80,35 +80,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c4a1162bbc6b3f43bccf91b31e2d906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FireInput:
+    m_Name: Fire Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 52dd10a7-4225-43b8-934a-90270e4998b3
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  ReloadInput:
+    m_Name: Reload Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 1b41cad8-73f1-4fbb-a8dc-262e963c594e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   ID: Grappling
   GunModel: {fileID: 2794180544713567534, guid: 15dfd68ad294eca4b978a197ff5c1a14, type: 3}
-  reloadSpeed: 0.5
   shootSpeed: 0.3
   curShootS: 0
-  BulletSpreadVariance: {x: 0.1, y: 0.1, z: 0.1}
-  ImpactParticleSystem: {fileID: 0}
-  BulletTrail: {fileID: 0}
   ammo: 20
   magazine: 5
-  curMagazine: 0
   curAmmo: 0
+  curMagazine: 0
   firePoint: {fileID: 4234776060911250781}
-  isRaycast: 1
-  projectile: {fileID: 4558197808376601885, guid: 5ad67af066912fd43b8922e77eded619, type: 3}
-  rayMasks:
-    serializedVersion: 2
-    m_Bits: 64
-  distance: 20
-  dmg: 10
   sound: {fileID: 8300000, guid: e0e5fb07b8b657c4fb6222f5239c585b, type: 3}
+  select: {fileID: 0}
   particles: {fileID: 4234776060911250779}
-  canReload: 1
+  distance: 6
+  dmg: 10
   PlayerRef: {fileID: 0}
   RayOut: {fileID: 0}
-  player: {fileID: 0}
-  spring: 100
-  damper: 7
-  massScale: 4.5
+  areaMasks:
+    serializedVersion: 2
+    m_Bits: 1088
+  explosionForce: 10
+  radius: 10
+  spring: 50
+  damper: 10
+  massScale: 4
 --- !u!120 &5737172475526211295
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -329,9 +342,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 806189278754461157}
     m_Modifications:
+    - target: {fileID: 610315473151763145, guid: 15dfd68ad294eca4b978a197ff5c1a14, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2304901903109544788, guid: 15dfd68ad294eca4b978a197ff5c1a14, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2794180544713567534, guid: 15dfd68ad294eca4b978a197ff5c1a14, type: 3}
       propertyPath: m_Name
       value: Python_Body
+      objectReference: {fileID: 0}
+    - target: {fileID: 2794180544713567534, guid: 15dfd68ad294eca4b978a197ff5c1a14, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5737172475372780805, guid: 15dfd68ad294eca4b978a197ff5c1a14, type: 3}
       propertyPath: m_LocalPosition.x
@@ -344,6 +369,14 @@ PrefabInstance:
     - target: {fileID: 5737172475372780805, guid: 15dfd68ad294eca4b978a197ff5c1a14, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.0018286082
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737172475372780806, guid: 15dfd68ad294eca4b978a197ff5c1a14, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5908664814370347866, guid: 15dfd68ad294eca4b978a197ff5c1a14, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6710254211410314836, guid: 15dfd68ad294eca4b978a197ff5c1a14, type: 3}
       propertyPath: m_RootOrder

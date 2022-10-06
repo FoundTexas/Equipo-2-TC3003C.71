@@ -4936,7 +4936,6 @@ GameObject:
   - component: {fileID: 5725721577791721688}
   - component: {fileID: 5725721577791721685}
   - component: {fileID: 5725721577791721686}
-  - component: {fileID: 4387784180097590358}
   - component: {fileID: 8500859245058506961}
   - component: {fileID: 1693694320}
   - component: {fileID: 1693694321}
@@ -4976,8 +4975,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80d1c3dd429af1a4fb92ef4aa66d3744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: 0.2
+  index: 0
   mat: {fileID: 2100000, guid: 37f52f0c794476e4a987a3f06c8a66c6, type: 2}
+  mat2: {fileID: 2100000, guid: 7160870b8c5bf814ca3634c348fce4fe, type: 2}
+  isCollected: 0
+  offset: 0.2
   timer: Infinity
 --- !u!198 &5725721577791721685
 ParticleSystem:
@@ -9758,20 +9760,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &4387784180097590358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5725721577791721689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2b6cffa3aa8abb46b7bcd839b12c650, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mat: {fileID: 2100000, guid: 37f52f0c794476e4a987a3f06c8a66c6, type: 2}
-  mat2: {fileID: 2100000, guid: 7160870b8c5bf814ca3634c348fce4fe, type: 2}
 --- !u!23 &8500859245058506961
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9792,7 +9780,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 37f52f0c794476e4a987a3f06c8a66c6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9839,6 +9827,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68cf6c14add7fd84ebe0d98bc016f495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  multiscene: 0
+  index: 0
+  Ended: 0
+  Persistent: 0
+  Replay: 0
+  Active: 0
+  Triggered: 0
   TriggerEvent:
     m_PersistentCalls:
       m_Calls:
@@ -9853,6 +9848,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &6416835730278340043
 GameObject:

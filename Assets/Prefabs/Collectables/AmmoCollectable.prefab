@@ -293,3 +293,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnergyVal: 0
   AmmoVal: 10
+  effect: {fileID: 5177773536053213737, guid: 4fc9c240288002240aab4a4895fbd306, type: 3}

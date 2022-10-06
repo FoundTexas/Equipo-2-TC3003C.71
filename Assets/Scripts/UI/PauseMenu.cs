@@ -1,82 +1,79 @@
+using GameManagement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
-public class PauseMenu : MonoBehaviour
+namespace PlanetCrashUI
 {
-
-    public static bool isPaused = false;
-    public GameObject pauseMenu;
-    public GameObject settingsMenu;
-    public GameObject miniMap;
-    public int menuScene;
-    SceneLoader sceneLoader;
-    GameObject camera;
-
-    // Start is called before the first frame update
-    void Start()
+    public class PauseMenu : SettingsMenu
     {
-        camera = GameObject.Find("Third Person Camera");
-        sceneLoader = FindObjectOfType<SceneLoader>();
-        AudioListener.volume = 0.5f;
-    }
+        public InputAction pauseInput;
+        [Header("Menu Attributes")]
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        [Tooltip("Reference to the settingsMenu GameObject")]
+        public GameObject settingsMenu;
+        [Tooltip("Reference to the miniMap GameObject")]
+        public GameObject miniMap;
+
+        SceneLoader sceneLoader;
+
+        // ----------------------------------------------------------------------------------------------- Unity Methods
+        private void OnEnable()
+        {
+            pauseInput.Enable();
+            pauseInput.performed += PuseInput;
+        }
+        private void OnDisable()
+        {
+            pauseInput.Disable();
+        }
+        void Start()
+        {
+            sceneLoader = FindObjectOfType<SceneLoader>();
+            AudioListener.volume = 0.5f;
+        }
+
+        // ----------------------------------------------------------------------------------------------- Public Methods
+        void PuseInput(InputAction.CallbackContext context){
             if(isPaused)
-                Resume();
-            else
-                Pause();
-            
-            
-    }
+                    Resume();
+                else
+                    Pause();
+        }
 
-    public void Resume()
-    {
-        pauseMenu.SetActive(false);
-        settingsMenu.SetActive(false);
-        Time.timeScale = 1f;
-        isPaused = false;
-        miniMap.SetActive(true);
-    }
+        /// <summary>
+        /// Method that handels how the game is paused.
+        /// </summary>
+        void Pause()
+        {
+            pauseMenu.SetActive(true);
+            miniMap.SetActive(false);
+            Time.timeScale = 0f;
+            isPaused = true;
 
-    void Pause()
-    {
-        pauseMenu.SetActive(true);
-        miniMap.SetActive(false);
-        Time.timeScale = 0f;
-        isPaused = true;
+            FindObjectOfType<EventSystemUpdater>().OnPause(true);
+        }
+        /// <summary>
+        /// Method that handels the resume of the game.
+        /// </summary>
+        public void Resume()
+        {
+            pauseMenu.SetActive(false);
+            settingsMenu.SetActive(false);
+            Time.timeScale = 1f;
+            isPaused = false;
+            miniMap.SetActive(true);
+            FindObjectOfType<EventSystemUpdater>().OnPause(false);
+        }
+        /// <summary>
+        /// Method that loads the Menu from the game.
+        /// </summary>
+        public void LoadMenu()
+        {
+            Time.timeScale = 1f;
+            sceneLoader.LoadByIndex(0);
+        }
     }
-
-    public void SetVolume(float volume)
-    {
-        AudioListener.volume  = volume;
-    }
-
-    public void SetBrightness(float gamma)
-    {
-        RenderSettings.ambientSkyColor = new Color(gamma, gamma, gamma, 0f);
-    }
-
-    public void SetSensitivity(float sensFactor)
-    {
-        var sens = camera.GetComponent<CameraSensitivity>();
-        sens.SetSensitivity(sensFactor);
-    }
-
-    public void LoadMenu()
-    {
-        Time.timeScale = 1f;
-        sceneLoader.LoadByIndex(menuScene);
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
-
-    
 }

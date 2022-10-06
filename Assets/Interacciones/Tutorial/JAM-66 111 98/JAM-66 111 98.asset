@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a154a8ac7f0d2284c94bc94d6fd72ef8, type: 3}
+  m_Name: JAM-66 111 98
+  m_EditorClassIdentifier: 
+  lines:
+  - speakerName: JAM-66 111 98
+    dialogue: "Nice to see a new Face aound ! \nI Reckon you are a Nam unit still
+      on one pice."
+    soundEffect: {fileID: 0}
+  - speakerName: JAM-66 111 98
+    dialogue: "I'm a Joking Automaton Machine make for Mr. Heim's new friends. \nWhy
+      did Mr got rid of you?"
+    soundEffect: {fileID: 0}
+  - speakerName: JAM-66 111 98
+    dialogue: I see Your voice modulator is broken but, don't worry I do undertand
+      1 and 0.
+    soundEffect: {fileID: 0}
+  - speakerName: JAM-66 111 98
+    dialogue: I suffer from a memory malfunction that Rebots me frecuently therefore
+      I tend to repeat my jokes.
+    soundEffect: {fileID: 0}
+  - speakerName: JAM-66 111 98
+    dialogue: Before you go would you like to hear a Joke?
+    soundEffect: {fileID: 0}
+  buttonsText: 
+  Interactions:
+  - {fileID: 11400000, guid: 141855bbcf867c44089018bc4473e441, type: 2}
+  - {fileID: 11400000, guid: 506c3a8803492164392e287f1b5bdd2c, type: 2}

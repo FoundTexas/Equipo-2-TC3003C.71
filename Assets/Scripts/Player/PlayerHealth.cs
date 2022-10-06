@@ -1,123 +1,128 @@
+using Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameManagement;
 
-public class PlayerHealth : MonoBehaviour, IDamage
+namespace Player
 {
-
-    float hp;
-    float maxHp = 6;
-    float iFrames = 0f;
-    public HealthBar healthBar;
-    public WeaponManager playerWeapons;
-    public AmmoDisplay ammoDisplay;
-    public GameObject explosionfx;
-    public GameObject forceField;
-    Weapon currentWeapon;
-    HitStop hitStop;
-    SceneLoader sceneLoader;
-    
-    
-
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// Class that manages the player movement behaviour.
+    /// </summary>
+    public class PlayerHealth : MonoBehaviour, IDamage
     {
-        hp = maxHp;
-        healthBar.SetMaxHealth(maxHp);
-        GameObject manager = GameObject.FindWithTag("Manager");
-        if(manager!=null)
-            hitStop = manager.GetComponent<HitStop>();
-        sceneLoader = GameObject.FindWithTag("SceneLoader").GetComponent<SceneLoader>();
-    }
+        public HealthBar healthBar;
+        public GameObject explosionFx;
+        public GameObject forceField;
+        [Min(0)] public float maxHP = 6;
+        private float playerHP;
+        private float invFrames = 0f; // Invincivility frames after getting hit
+        private HitStop hitStop;
+        private SceneLoader sceneLoader;
 
-    // Update is called once per frame
-    void Update()
-    {
-        currentWeapon = playerWeapons.currentSelect();
-        if(currentWeapon != null)
+        // ----------------------------------------------------------------------------------------------- Unity Methods
+        void Start()
         {
-            ammoDisplay.SetCurrentAmmo(currentWeapon.curMagazine.ToString());
-            ammoDisplay.SetRemainingAmmo(currentWeapon.curAmmo.ToString());
+            // Initialize private components
+            GameObject manager = GameObject.FindWithTag("Manager");
+            if(manager != null)
+                hitStop = manager.GetComponent<HitStop>();
+            sceneLoader = GameObject.FindWithTag("SceneLoader").GetComponent<SceneLoader>();
+            
+            // Establish original values
+            playerHP = maxHP;
+            healthBar.SetMaxHealth(maxHP);
         }
-        iFrames -= Time.deltaTime;
-        if(iFrames <= 0)
-            forceField.SetActive(false);
-    }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.tag == "Enemy" && iFrames <= 0)
+        void Update()
         {
-            TakeDamage(1);
+            invFrames -= Time.deltaTime;
+            if(invFrames <= 0)
+                forceField.SetActive(false);
         }
-    }   
-    
-    void OnTriggerEnter(Collider collision)
-    {
-        if(collision.gameObject.tag == "Enemy" && iFrames <= 0)
+
+        void OnCollisionEnter(Collision collision)
         {
-            TakeDamage(1);
-        }
-    } 
+            if(collision.gameObject.tag == "Enemy" && invFrames <= 0)
+                TakeDamage(1);
+        }   
 
-    public void AddHealth(float amount)
-    {
-        hp += amount;
-        healthBar.SetHealth(hp);
-    }
-
-    public WeaponManager GetWeaponManager()
-    {
-        return playerWeapons;
-    }
-
-    public void Die()
-    {
-        GameObject deathvfx;
-        Vector3 vfxpos = this.transform.position;
-        vfxpos.y = this.transform.position.y + 1;
-        deathvfx = Instantiate(explosionfx, vfxpos, Quaternion.identity);
-        
-        hitStop.HitStopFreeze(0.2f, 0.1f);
-        this.gameObject.SetActive(false);
-        sceneLoader.LoadByIndex(1);
-        
-        var vfxDuration = 1f;
-        Destroy(deathvfx, vfxDuration);
-        
-    }
-
-    public virtual void TakeDamage(float dmg)
-    {
-        iFrames = 2f;
-        hp -= dmg;
-        healthBar.SetHealth(hp);
-        if (hp <= -1)
+        void OnTriggerEnter(Collider collision)
         {
-            Die();
-        }
-        else
+            if(collision.gameObject.tag == "Enemy" && invFrames <= 0)
+                TakeDamage(1);
+        } 
+
+        // ----------------------------------------------------------------------------------------------- Public Methods
+        /// <summary>
+        /// Method that adds health with a specific value to the player.
+        /// </summary>
+        /// <param name="amount"> float value to be added to the player's health. </param>
+        public void AddHealth(float amount)
         {
-            forceField.SetActive(true);
-            hitStop.HitStopFreeze(0.02f, 0.2f);
+            playerHP += amount;
+            healthBar.SetHealth(playerHP);
+        }
+
+        // ----------------------------------------------------------------------------------------------- Interface IDamage
+        /// <summary>
+        /// Interface Abstract method in charge of the death routine of the assigned Object.
+        /// </summary>
+        public void Die()
+        {
+            // Create death effects
+            Vector3 vfxPos = transform.position;
+            vfxPos.y = transform.position.y + 1;
+            GameObject deathvfx = Instantiate(explosionFx, vfxPos, Quaternion.identity);
+
+            hitStop.HitStopFreeze(10f, 1f);
+            gameObject.SetActive(false);
+            sceneLoader.LoadByIndex(1, GameManager.getCheckpoint());
+            
+            var vfxDuration = 1f;
+            Destroy(deathvfx, vfxDuration);
+        }
+
+        /// <summary>
+        /// Interface Abstract method that handels when an object takes damage.
+        /// </summary>
+        /// <param name="dmg"> Amount of damage taken. </param>
+        public virtual void TakeDamage(float dmg)
+        {
+            invFrames = 2f;
+            playerHP -= dmg;
+            healthBar.SetHealth(playerHP);
+            if (playerHP <= -1)
+                Die();
+            else
+            {
+                forceField.SetActive(true);
+                hitStop.HitStopFreeze(2f, 0.2f);
+            }
+        }
+
+        /// <summary>
+        /// Interface Abstract method that starts the freezing of an object.
+        /// </summary>
+        public void Freeze()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Interface Abstract method that starts the burnning of an object.
+        /// </summary>
+        public void Burn()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Interface Abstract method that handels the burnning of an object.
+        /// </summary>
+        public IEnumerator Burnning()
+        {
+            throw new System.NotImplementedException();
         }
     }
-
-    public void Freeze()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void Burn()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public IEnumerator Burnning()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    
-
 }

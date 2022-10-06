@@ -8,6 +8,7 @@ public class Line
 {
    
     [SerializeField] string speakerName;
+    [TextArea(1,3)]
     [SerializeField] string dialogue;
     [SerializeField] AudioClip soundEffect;
     /// <summary>
