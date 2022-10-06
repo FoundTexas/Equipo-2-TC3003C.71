@@ -932,6 +932,7 @@ GameObject:
   - component: {fileID: 6679108950486412595}
   - component: {fileID: 6679108950486412606}
   - component: {fileID: 919132147706117859}
+  - component: {fileID: 3964670948407134438}
   m_Layer: 0
   m_Name: CactusPalGameObject
   m_TagString: Untagged
@@ -1047,14 +1048,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053809ef095e66d4da3560eae8334c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Involved:
+  - {fileID: 0}
   target: {fileID: 6679108948627419538}
   turnRig: {fileID: 6679108949452577966}
-  MaxDist: 5
+  MaxDist: 7
+  MinDist: 3.2
   distance: Infinity
-  endEvent: []
-  interactions: []
+  interactions:
+  - {fileID: 11400000, guid: bfa4a3a4db668864781fa63f3a3bb6ff, type: 2}
   index: 0
   Locked: 0
+  StartConv:
+    m_PersistentCalls:
+      m_Calls: []
+  EndConv:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!136 &3964670948407134438
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5796589990367288838}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1
+  m_Height: 3.0471578
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.4951756, z: 0}
 --- !u!1 &6080172897314998079
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,11 +5,12 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(AudioSource))]
 public class DialogueManager : MonoBehaviour
 {
-    [SerializeField] GameObject dialogUI, dialogBox, responsePrefab;
+    [SerializeField] GameObject dialogUI, dialogBox, InputBox, responsePrefab;
     [SerializeField] Transform spawnSpot;
     [SerializeField] TextMeshProUGUI dialogText;
 
@@ -18,6 +19,10 @@ public class DialogueManager : MonoBehaviour
     int index;
     public static bool typeing;
     public static bool Ended;
+
+    UnityEvent End;
+    EventSystemUpdater events;
+
     void Start()
     {
         Ended = true;
@@ -26,8 +31,19 @@ public class DialogueManager : MonoBehaviour
         dialogBox.SetActive(false);
     }
 
-    public void StartInteraction(DialogueInteraction interaction)
+    public void ShowInput(bool b)
     {
+        InputBox.SetActive(b);
+    }
+
+    public void StartInteraction(DialogueInteraction interaction, UnityEvent End)
+    {
+        InputBox.SetActive(false);
+        dialogBox.SetActive(true);
+        this.End = End;
+        events = FindObjectOfType<EventSystemUpdater>();
+        events.paused = true;
+        events.UpdateSelected(dialogBox);
         StopAllCoroutines();
         Ended = false;
         typeing = false;
@@ -65,28 +81,37 @@ public class DialogueManager : MonoBehaviour
                 var NextInteractions = currentInteraction.getInteractions();
                 if (NextInteractions.Count > 1)
                 {
+                    dialogBox.SetActive(false);
                     dialogText.text = "Select:";
 
+                    bool selecting = false;
                     foreach (DialogueInteraction inter in NextInteractions)
                     {
                         GameObject g = Instantiate(responsePrefab, spawnSpot);
                         g.GetComponent<Button>().onClick.AddListener(
                             delegate
                             {
-                                StartInteraction(inter);
+                                StartInteraction(inter,End);
                             });
                         g.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = inter.getButtonText();
+                        if (!selecting)
+                        {
+                            selecting = true;
+                            events.UpdateSelected(g);
+                        }
                     }
                 }
                 else if (NextInteractions.Count == 1)
                 {
-                    StartInteraction(NextInteractions[0]);
+                    StartInteraction(NextInteractions[0],End);
                 }
                 else
                 {
                     Ended = true;
+                    events.paused = false;
                     dialogUI.SetActive(false);
                     dialogBox.SetActive(false);
+                    End.Invoke();
                 }
             }
         }
