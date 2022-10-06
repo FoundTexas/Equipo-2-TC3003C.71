@@ -79,7 +79,12 @@ public class DialogueManager : MonoBehaviour
             else
             {
                 var NextInteractions = currentInteraction.getInteractions();
-                if (NextInteractions.Count > 1)
+                
+                if (NextInteractions.Count > 2)
+                {
+                    StartInteraction(NextInteractions[Random.Range(0,NextInteractions.Count-1)], End);
+                }
+                else if (NextInteractions.Count > 1)
                 {
                     dialogBox.SetActive(false);
                     dialogText.text = "Select:";
