@@ -8,11 +8,8 @@ namespace GameManagement
     /// <summary>
     /// Class that handels the enabling of a UnityEvent on Trigger Collision in order affect the game in some sort.
     /// </summary>
-    public class TriggerEventOnCollision : MonoBehaviour
+    public class TriggerEventOnCollision : InGameEvent
     {
-        [Tooltip("Set of instructions that affect other game objects")]
-        public UnityEvent TriggerEvent;
-
         // ----------------------------------------------------------------------------------------------- Unity Methods
 
         private void OnTriggerEnter(Collider other)
@@ -21,16 +18,6 @@ namespace GameManagement
             {
                 SetTrigger();
             }
-        }
-
-        // ----------------------------------------------------------------------------------------------- Public Methods
-
-        /// <summary>
-        /// Void in charge of instantiate the UnityEvent.
-        /// </summary>
-        public void SetTrigger()
-        {
-            TriggerEvent.Invoke();
         }
     }
 }

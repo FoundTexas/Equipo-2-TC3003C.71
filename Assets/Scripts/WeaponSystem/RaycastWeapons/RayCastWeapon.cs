@@ -66,7 +66,7 @@ namespace WeaponSystem
             public RaycastHit GetRay(Vector3 direction)
             {
                 RaycastHit tmp = new RaycastHit();
-                if (Physics.Raycast(RayOut.position, direction,
+                if (Physics.Raycast(PlayerRef.transform.position, direction,
                     out RaycastHit hitinfo, distance, rayMasks))
                 {
                     tmp = hitinfo;
@@ -101,7 +101,6 @@ namespace WeaponSystem
 
                     if (HitGun.transform)
                     {
-                        Debug.Log(HitGun.transform.name);
                         StartCoroutine(SpawnTrail(trail, HitGun.point, true));
                         IDamage Dmginterface = null;
                         if (HitGun.transform.gameObject.TryGetComponent<IDamage>(out Dmginterface))

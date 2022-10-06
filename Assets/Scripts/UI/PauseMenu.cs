@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
-namespace UI
+namespace PlanetCrashUI
 {
     public class PauseMenu : SettingsMenu
     {
+        public InputAction pauseInput;
         [Header("Menu Attributes")]
 
         [Tooltip("Reference to the settingsMenu GameObject")]
@@ -18,23 +20,28 @@ namespace UI
         SceneLoader sceneLoader;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
+        private void OnEnable()
+        {
+            pauseInput.Enable();
+            pauseInput.performed += PuseInput;
+        }
+        private void OnDisable()
+        {
+            pauseInput.Disable();
+        }
         void Start()
         {
             sceneLoader = FindObjectOfType<SceneLoader>();
             AudioListener.volume = 0.5f;
         }
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-                if (isPaused)
+
+        // ----------------------------------------------------------------------------------------------- Public Methods
+        void PuseInput(InputAction.CallbackContext context){
+            if(isPaused)
                     Resume();
                 else
                     Pause();
-
-
         }
-
-        // ----------------------------------------------------------------------------------------------- Public Methods
 
         /// <summary>
         /// Method that handels how the game is paused.
@@ -45,6 +52,8 @@ namespace UI
             miniMap.SetActive(false);
             Time.timeScale = 0f;
             isPaused = true;
+
+            FindObjectOfType<EventSystemUpdater>().OnPause(true);
         }
         /// <summary>
         /// Method that handels the resume of the game.
@@ -56,6 +65,7 @@ namespace UI
             Time.timeScale = 1f;
             isPaused = false;
             miniMap.SetActive(true);
+            FindObjectOfType<EventSystemUpdater>().OnPause(false);
         }
         /// <summary>
         /// Method that loads the Menu from the game.

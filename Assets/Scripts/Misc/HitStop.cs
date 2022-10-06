@@ -18,8 +18,8 @@ public class HitStop : MonoBehaviour
     // ----------------------------------------------------------------------------------------------- Unity Methods
     void Update()
     {
-        if(remainingHitStop > 0 && !inHitStop)
-            StartCoroutine(DoHitStop());
+        if(remainingHitStop > 0 && !inHitStop) { }
+            //StartCoroutine(DoHitStop());
     }
 
     // ----------------------------------------------------------------------------------------------- Public Methods
@@ -33,6 +33,8 @@ public class HitStop : MonoBehaviour
         shakeMagnitude = magnitude;
         shakeDuration = duration;
         remainingHitStop = hitStopDuration;
+        StartCoroutine(DoHitStop());
+
     }
 
     // ----------------------------------------------------------------------------------------------- Private Coroutines
@@ -44,7 +46,7 @@ public class HitStop : MonoBehaviour
         inHitStop = true;
         float original = Time.timeScale;
         Time.timeScale = 0f;
-        StartCoroutine(ScreenShake());
+        CameraShake.Instance.DoShake(shakeMagnitude,1f,hitStopDuration);
         yield return new WaitForSecondsRealtime(hitStopDuration);
 
         Time.timeScale = original;

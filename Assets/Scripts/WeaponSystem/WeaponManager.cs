@@ -1,54 +1,82 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 using Player;
+using Interfaces;
 
 namespace WeaponSystem
 {
+    [Serializable]
+    public class WeaponsUnlocked
+    {
+        public List<string> unlock = new List<string>(new string[2] { "Grappling", "SoundShoot" });
+    }
     /// <summary>
     /// Class that manages the weapons available to the player.
     /// </summary>
-    public class WeaponManager : MonoBehaviour
+    public class WeaponManager : MonoBehaviour, ISave
     {
         public static bool hasWeapon = true;
 
+        PlayerInputs PlayerInput;
+        InputAction SwapInput, ToggleInput;
+
         [Tooltip("List of all weapons on that the player can access and are childs of the WeaponManager Object on scene")]
-        [SerializeField] List<Weapon> weapons = new List<Weapon>();
+        public List<Weapon> weapons = new List<Weapon>();
         [Tooltip("Transform reference of the torso object in the armature skeleton")]
-        [SerializeField] Transform torso;
+        public Transform torso;
         [Tooltip("Transform reference of the hand object in the armature skeleton")]
-        [SerializeField] Transform hand;
+        public Transform hand;
         [Tooltip("String List the represent the current unlocked weapons of the player")]
-        [SerializeField] List<string> unlocked = new List<string>(new string[2] { "Grappling", "SoundShoot" });
+        [SerializeField] WeaponsUnlocked unlocked;
         [Tooltip("Reference to the animation and audio manager")]
-        [SerializeField] AudioAndVideoManager audios;
+        [NonSerialized] public AudioAndVideoManager audios;
         [Tooltip("The current selected Weapon script")]
-        [SerializeField] Weapon selected;
+        public Weapon selected;
 
         Vector3 pos;
-
         Dictionary<string, int> weaponDictionary = new Dictionary<string, int>();
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
+        private void Awake()
+        {
+            PlayerInput = new PlayerInputs();
+        }
+        private void OnEnable()
+        {
+            SwapInput = PlayerInput.Game.ChangeArm;
+            SwapInput.Enable();
+            ToggleInput = PlayerInput.Game.ToggleArm;
+            ToggleInput.Enable();
+
+            ToggleInput.performed += ToggleWeaponInput;
+            SwapInput.performed += Scroll;
+        }
+        private void OnDisable()
+        {
+            SwapInput.Disable();
+            ToggleInput.Disable();
+        }
         void Start()
         {
+            FromJson();
+            audios = GetComponentInParent<AudioAndVideoManager>();
             Cursor.lockState = CursorLockMode.Confined;
             for (int i = 0; i < weapons.Count; i++)
             {
                 weaponDictionary.Add(weapons[i].GetID(), i);
                 weapons[i].gameObject.SetActive(false);
             }
+
             ToggleWeapon();
 
-            if (unlocked.Count > 0)
+            if (unlocked.unlock.Count > 0)
             {
+                selected = weapons[weaponDictionary[unlocked.unlock[0]]];
                 selected.gameObject.SetActive(true);
             }
-        }
-        void Update()
-        {
-            Inputs();
         }
         private void LateUpdate()
         {
@@ -56,24 +84,22 @@ namespace WeaponSystem
         }
         // ----------------------------------------------------------------------------------------------- Private Methods
         /// <summary>
-        /// This void is in charge of handelling The WeaponManager Inputs.
+        /// This void is in charge of handelling The Weapon change.
         /// </summary>
-        void Inputs()
+        void Scroll(InputAction.CallbackContext callbackContext)
         {
-            if (unlocked.Count > 0)
+            if (unlocked.unlock.Count > 0)
             {
-                if (Input.mouseScrollDelta.y != 0)
-                {
-                    int selectedIndex = GetSelectedIndex();
-                    selectedIndex += Mathf.RoundToInt(Input.mouseScrollDelta.y);
 
-                    selectedIndex = Mathf.Clamp(selectedIndex, 0, unlocked.Count - 1);
-                    ChangeWeapon(selectedIndex);
-                }
-                if (Input.GetKeyDown("q"))
+                int selectedIndex = GetSelectedIndex();
+                selectedIndex++;
+
+                if (selectedIndex >= unlocked.unlock.Count)
                 {
-                    ToggleWeapon();
+                    selectedIndex = 0;
                 }
+
+                ChangeWeapon(selectedIndex);
             }
         }
         /// <summary>
@@ -82,7 +108,7 @@ namespace WeaponSystem
         /// <returns>Returns the selected index relative to the unlocked index. </returns>
         int GetSelectedIndex()
         {
-            return unlocked.IndexOf(selected.GetID());
+            return unlocked.unlock.IndexOf(selected.GetID());
         }
         // ----------------------------------------------------------------------------------------------- Public Methods
 
@@ -90,6 +116,13 @@ namespace WeaponSystem
         /// This function is in charge of changing between an ON and OFF state 
         /// toggleing and diableing the Weapon on the Player.
         /// </summary>
+        public void ToggleWeaponInput(InputAction.CallbackContext context)
+        {
+            if (unlocked.unlock.Count != 0)
+            {
+                ToggleWeapon();
+            }
+        }
         public void ToggleWeapon()
         {
             hasWeapon = !hasWeapon;
@@ -113,10 +146,10 @@ namespace WeaponSystem
         /// <param name="i"> Weapon index relative to the unlocked weapons. </param>
         public void ChangeWeapon(int i)
         {
-            if (unlocked.Count >= i)
+            if (unlocked.unlock.Count >= i)
             {
                 selected.gameObject.SetActive(false);
-                selected = weapons[weaponDictionary[unlocked[i]]];
+                selected = weapons[weaponDictionary[unlocked.unlock[i]]];
                 selected.gameObject.SetActive(true);
             }
         }
@@ -126,11 +159,11 @@ namespace WeaponSystem
         /// <param name="weapon"> Weapon Id given to the function. </param>
         public void UnlockWeapon(string weapon)
         {
-            if (unlocked.Contains(weapon) == false)
+            if (unlocked.unlock.Contains(weapon) == false)
             {
-                unlocked.Add(weapon);
+                unlocked.unlock.Add(weapon);
             }
-            else if (unlocked.Contains(weapon))
+            else if (unlocked.unlock.Contains(weapon))
             {
                 weapons[weaponDictionary[weapon]].AddAmmo();
             }
@@ -141,6 +174,8 @@ namespace WeaponSystem
                 ChangeWeapon(GetSelectedIndex());
                 ToggleWeapon();
             }
+
+            Save();
         }
         /// <summary>
         /// This method gets the current selected weapon (can be Null) and returns the reference.
@@ -148,7 +183,36 @@ namespace WeaponSystem
         /// <returns> The current weapon on the selected slot. </returns>
         public Weapon CurrentSelect()
         {
-            return selected;
+            return unlocked.unlock.Count != 0 ? selected : null;
+        }
+
+        public void FromJson()
+        {
+            string s = JsonUtility.ToJson(unlocked);
+            Debug.Log(s);
+
+            if (PlayerPrefs.HasKey("WeaponManager.1"))
+            {
+                s = PlayerPrefs.GetString("WeaponManager.1");
+                //PlayerPrefs.SetString("WeaponManager.1", s);
+            }
+            else
+            {
+                PlayerPrefs.SetString("WeaponManager.1", s);
+            }
+
+            JsonUtility.FromJsonOverwrite(s, unlocked);
+            Debug.Log(JsonUtility.ToJson(this));
+        }
+
+        public bool Save()
+        {
+            string s = JsonUtility.ToJson(unlocked);
+            PlayerPrefs.SetString("WeaponManager.1", s);
+
+            Debug.Log("Saving: " + this.name);
+
+            return true;
         }
     }
 }

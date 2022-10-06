@@ -10,9 +10,8 @@ namespace GameManagement
     /// </summary>
     public class TriggerEventOnDead : MonoBehaviour
     {
-        [Tooltip("Set of instructions that affect other game objects")]
-        public UnityEvent TriggerEvent;
         bool isApplicationQuitting = false;
+        public InGameEvent GameEvent;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
 
@@ -24,23 +23,13 @@ namespace GameManagement
             }
             else if (!isApplicationQuitting)
             {
-                SetTrigger();
+                GameEvent.SetTrigger();
             }
         }
 
         void OnApplicationQuit()
         {
             isApplicationQuitting = true;
-        }
-
-        // ----------------------------------------------------------------------------------------------- Public Methods
-
-        /// <summary>
-        /// Void in charge of instantiate the UnityEvent.
-        /// </summary>
-        public void SetTrigger()
-        {
-            TriggerEvent.Invoke();
         }
     }
 }

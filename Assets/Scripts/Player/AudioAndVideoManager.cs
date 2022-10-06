@@ -12,7 +12,7 @@ namespace Player
     public class AudioAndVideoManager : MonoBehaviour
     {
         [Tooltip("Time in idle needed to reproduce a secondary idle animation")]
-        [SerializeField] private float IdleTime;
+        [SerializeField] private float IdleTime = 0;
         [SerializeField] private AudioClip land, jump, unlock;
         [SerializeField] private AudioClip[] step, step2;
         [SerializeField] private string[] grounds;
@@ -110,7 +110,7 @@ namespace Player
         public void SetIfMovement(float speed)
         {
             anim.SetFloat("speed", speed);
-            anim.SetFloat("IdleTime", IdleTime);
+            //anim.SetFloat("IdleTime", IdleTime);
 
             if (speed <= 0.3f)
             {

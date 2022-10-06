@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 namespace WeaponSystem
@@ -11,6 +12,9 @@ namespace WeaponSystem
     [RequireComponent(typeof(AudioSource))]
     public class Weapon : MonoBehaviour
     {
+        public PlayerInputs PlayerInput;
+        public InputAction FireInput, ReloadInput;
+
         [Header("Weapon Info")]
 
         [Tooltip("Weapon identification name")]
@@ -60,6 +64,22 @@ namespace WeaponSystem
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
 
+        private void Awake()
+        {
+            PlayerInput = new PlayerInputs();
+        }
+        private void OnEnable()
+        {
+            FireInput = PlayerInput.Game.Fire;
+            FireInput.Enable();
+            ReloadInput = PlayerInput.Game.Reload;
+            ReloadInput.Enable();
+        }
+        private void OnDisable()
+        {
+            FireInput.Disable();
+            ReloadInput.Disable();
+        }
         private void Start()
         {
             Debug.Log("start1");
@@ -83,8 +103,8 @@ namespace WeaponSystem
         {
             if (WeaponManager.hasWeapon)
             {
-                if (Input.GetKeyDown("r")) { Reolad(); }
-                if (Input.GetMouseButtonDown(0)) { Shoot(); }
+                if(FireInput.IsPressed()) { Shoot(); }
+                if (ReloadInput.IsPressed()) { Reolad(); }
             }
             //Debug.DrawRay(RayOut.position, PlayerRef.transform.forward * distance, Color.red);
         }
@@ -122,7 +142,6 @@ namespace WeaponSystem
         {
             if (curAmmo > 0)
             {
-                Debug.Log("reloading");
                 canReload = false;
                 curMagazine += curAmmo;
                 if (curMagazine > magazine)
@@ -135,7 +154,6 @@ namespace WeaponSystem
                     curAmmo = 0;
                 }
                 canReload = true;
-                Debug.Log("reloaded");
             }
         }
         
