@@ -195,7 +195,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8821036613299779632, guid: 377ac29d90c1c8c49ac3c093b88f8279, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8821036613299779632, guid: 377ac29d90c1c8c49ac3c093b88f8279, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4084,7 +4084,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1043459571
 GameObject:
@@ -4156,8 +4156,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1043459571}
-  m_LocalRotation: {x: 0.15630133, y: -0.24938408, z: 0.04082279, w: 0.9548356}
-  m_LocalPosition: {x: 5.3101597, y: 6.42, z: -0.8291918}
+  m_LocalRotation: {x: 0.15630133, y: -0.24938406, z: 0.04082279, w: 0.9548356}
+  m_LocalPosition: {x: 5.3101597, y: 6.42, z: -0.82919186}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4433,6 +4433,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CactusPal (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5796589990367288838, guid: 0d4a96a945ec2954083489cfba046c44, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6573653806534165692, guid: 0d4a96a945ec2954083489cfba046c44, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -4559,7 +4563,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4546401475416030387, guid: feffdf73fa041e9439c80b071cf18046, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4546401475416030387, guid: feffdf73fa041e9439c80b071cf18046, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4753,7 +4757,7 @@ Transform:
   - {fileID: 1846686747}
   - {fileID: 296145795}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1846686746
 PrefabInstance:
@@ -4812,7 +4816,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1204176264022393358, guid: 328c4f14cd131964fb6cf803963a1622, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.24938406
+      value: -0.24938405
       objectReference: {fileID: 0}
     - target: {fileID: 1204176264022393358, guid: 328c4f14cd131964fb6cf803963a1622, type: 3}
       propertyPath: m_LocalRotation.z
@@ -8740,7 +8744,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: bfa4a3a4db668864781fa63f3a3bb6ff, type: 2}
     - target: {fileID: 4685165788614870461, guid: 0e867872b9421b449b3e1c77edb3f032, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4685165788614870461, guid: 0e867872b9421b449b3e1c77edb3f032, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8786,6 +8790,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CactusPalSherif
       objectReference: {fileID: 0}
+    - target: {fileID: 5354460938223460103, guid: 0e867872b9421b449b3e1c77edb3f032, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e867872b9421b449b3e1c77edb3f032, type: 3}
 --- !u!1001 &6679108950484803812
@@ -8803,9 +8811,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: CactusPal
       objectReference: {fileID: 0}
+    - target: {fileID: 5796589990367288838, guid: 0d4a96a945ec2954083489cfba046c44, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6573653806534165692, guid: 0d4a96a945ec2954083489cfba046c44, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6573653806534165692, guid: 0d4a96a945ec2954083489cfba046c44, type: 3}
       propertyPath: m_LocalPosition.x

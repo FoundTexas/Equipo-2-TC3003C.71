@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a154a8ac7f0d2284c94bc94d6fd72ef8, type: 3}
+  m_Name: Yes - JAM-66 111 98
+  m_EditorClassIdentifier: 
+  lines:
+  - speakerName: JAM-66 111 98
+    dialogue: Okey, here I go!
+    soundEffect: {fileID: 0}
+  buttonsText: No
+  Interactions:
+  - {fileID: 11400000, guid: ba0ff32ec1d44c84b9d9d7244f2e3a07, type: 2}
+  - {fileID: 11400000, guid: 02b5a21620bedcf47be18036e94a1fda, type: 2}
+  - {fileID: 11400000, guid: 89ccc70d55064df409e6ebf481c7ca8d, type: 2}
+  - {fileID: 11400000, guid: a3c3f2197caa250479c0c3a393b3bd19, type: 2}
