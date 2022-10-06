@@ -36,18 +36,14 @@ public class GameManager : MonoBehaviour
 
     public static Vector3 FirstPos(int i)
     {
-        Debug.Log(inst.initialPositions.Count);
-        Debug.Log(inst.initialPositions[i]);
         inst.CheckPoint = inst.initialPositions[i];
         return inst.CheckPoint;
     }
 
     public static Vector3 getCheckpoint()
     {
-        Debug.Log(inst.initialPositions.Count);
         if (inst.CheckPoint == Vector3.zero)
         {
-            Debug.Log(SceneManager.GetActiveScene().buildIndex);
             return FirstPos(SceneManager.GetActiveScene().buildIndex);
         }
 
@@ -59,10 +55,9 @@ public class GameManager : MonoBehaviour
         inst.CheckPoint = newPos;
     }
 
-    public static void SetEventReference(string val, InGameEvent val2)
+    public static void SetEventReference(string val)
     {
         eventRef = val;
-        tmpevent = val2;
     }
     public static void SaveGame()
     {
@@ -70,15 +65,26 @@ public class GameManager : MonoBehaviour
         var saves = FindObjectsOfType<MonoBehaviour>().OfType<ISave>();
         foreach (ISave save in saves)
         {
-            bool isSaved = save.Save();
+            bool isSaved = false;
 
-                Debug.Log("Saving: " + );
+            while (!isSaved)
+            {
+                isSaved = save.Save();
+            }
         }
-        if (tmpevent)
+        if (eventRef !="")
         {
-            tmpevent.Ended = true;
+            string s = PlayerPrefs.GetString(eventRef);
+
+            GameObject newObj = new GameObject("Name");
+
+            tmpevent = Instantiate(newObj, Vector3.zero, Quaternion.identity).AddComponent<InGameEvent>();
+            JsonUtility.FromJsonOverwrite(s, tmpevent);
+
+            tmpevent.values.Ended = true;
+            
             PlayerPrefs.SetString(eventRef, JsonUtility.ToJson(tmpevent));
-            tmpevent = null;
+            Destroy(tmpevent);
         }
         saved = true;
     }

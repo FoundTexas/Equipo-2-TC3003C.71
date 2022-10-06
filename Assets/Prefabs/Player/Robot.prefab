@@ -4865,7 +4865,8 @@ MonoBehaviour:
   - {fileID: 8053905261730029444}
   torso: {fileID: 8156449513885353071}
   hand: {fileID: 4633423232551185928}
-  unlocked: []
+  unlocked:
+    unlock: []
   selected: {fileID: 8053905261730029444}
 --- !u!1 &4118365828605686851
 GameObject:
@@ -7338,6 +7339,10 @@ PrefabInstance:
       propertyPath: PlayerRef
       value: 
       objectReference: {fileID: 7140450418692057980}
+    - target: {fileID: 5737172475526211281, guid: 9ec17e7945765b44abd8256ef27af3cc, type: 3}
+      propertyPath: explosionForce
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5737172475526211284, guid: 9ec17e7945765b44abd8256ef27af3cc, type: 3}
       propertyPath: m_Name
       value: Grappling Hook

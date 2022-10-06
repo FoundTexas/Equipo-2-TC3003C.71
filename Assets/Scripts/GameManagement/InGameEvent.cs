@@ -9,41 +9,53 @@ using UnityEngine.SceneManagement;
 namespace GameManagement
 {
     [System.Serializable]
+    public class InGameEventVals
+    {
+        public bool Ended, Persistent, Replay, Active, Triggered;
+    }
     public class InGameEvent : MonoBehaviour
     {
+        public InGameEventVals values;
         public bool multiscene = false;
         public int index;
-        public bool Ended, Persistent, Replay, Active, Triggered;
+        bool Hitted = false, Setted = false;
 
         [Tooltip("Set of instructions that affect other game objects")]
         public UnityEvent TriggerEvent;
 
-        public void SetEnded(bool b) { Ended = b; }
-        public void SetActive(bool b) { Active = b; }
+        public void SetEnded(bool b) { values.Ended = b; }
+        public void SetActive(bool b) { values.Active = b; }
 
         public void StartVals()
         {
-            if (Ended && Triggered)
+            if (values.Ended && values.Triggered)
             {
-                if (Persistent)
+                if (values.Persistent)
                 {
-                    Active = false;
+                    values.Active = false;
                     this.gameObject.SetActive(false);
                     TriggerEvent.Invoke();
                 }
-                else if (Replay)
+                else if (values.Replay)
                 {
-                    Active = true;
-                    this.gameObject.SetActive(Active);
+                    values.Active = true;
+                    this.gameObject.SetActive(values.Active);
                 }
                 else
                 {
                     this.gameObject.SetActive(false);
                 }
             }
-            else if (Ended == false)
+            else if (values.Ended == false)
             {
-                this.gameObject.SetActive(Active);
+                this.gameObject.SetActive(values.Active);
+            }
+
+            Setted = true;
+
+            if (Hitted)
+            {
+                SetTrigger();
             }
         }
 
@@ -54,13 +66,20 @@ namespace GameManagement
         /// </summary>
         public void SetTrigger()
         {
-            Triggered = true;
-            if (multiscene)
+            if (Setted)
             {
-                string sname = SceneManager.GetActiveScene().name;
-                GameManager.SetEventReference(sname + ".e" + index + ".1", this);
+                values.Triggered = true;
+                if (multiscene)
+                {
+                    string sname = SceneManager.GetActiveScene().name;
+                    GameManager.SetEventReference(sname + "e" + index + "1");
+                }
+                TriggerEvent.Invoke();
             }
-            TriggerEvent.Invoke();
+            else if (!Setted)
+            {
+                Hitted = true;
+            }
         }
 
     }

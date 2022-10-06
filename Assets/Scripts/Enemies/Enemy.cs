@@ -147,7 +147,7 @@ namespace Enemies
 
             Destroy(this.gameObject);
             if(hitStop != null)
-                hitStop.HitStopFreeze(0.02f, 0.2f);
+                hitStop.HitStopFreeze(3f, 0.2f);
 
             var vfxDuration = 1f;
             GetComponent<Dropper>().Spawn();
@@ -162,7 +162,7 @@ namespace Enemies
         {
             hp -= dmg;
             render.material.color = new Color(hp / maxHp, 1, hp / maxHp);
-
+            CameraShake.Instance.DoShake(0.5f, 1f, 0.1f);
             if (hp < 0)
                 Die();
         }

@@ -15,9 +15,9 @@ namespace Collectables
     public class Collectable : MonoBehaviour
     {
         public int index;
-        [NonSerialized] public Material mat, mat2;
+        public Material mat, mat2;
         [Tooltip("Renderer object to vizualize mesh")]
-        public MeshRenderer render;
+        [NonSerialized] public MeshRenderer render;
         [Tooltip("Collected value of the Collectable")]
         [SerializeField] private bool isCollected;
         [Tooltip("Pick up effect")]
@@ -40,6 +40,7 @@ namespace Collectables
             if (other.tag == "Player")
             {
                 isCollected = true;
+                GameManager.SaveGame();
                 gameObject.SetActive(false);
             }
         }

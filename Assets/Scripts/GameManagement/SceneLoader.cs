@@ -99,6 +99,7 @@ namespace GameManagement
             await Task.Delay(3000);
             do
             {
+                Debug.Log("waiting");
                 await Task.Delay(100);
             } while (GameManager.saved == false);
             do
@@ -125,7 +126,15 @@ namespace GameManagement
 
             LoadByIndex(i);
         }
-
+        public void RestartGame()
+        {
+            if (!loading)
+            {
+                PlayerPrefs.DeleteAll();
+                loading = true;
+                Load(1);
+            }
+        }
         public void FromJson()
         {
             int i = 1;
@@ -139,6 +148,7 @@ namespace GameManagement
         public bool Save()
         {
             PlayerPrefs.GetInt("Loader.1", SceneManager.GetActiveScene().buildIndex);
+            Debug.Log("Saving: " + this.name);
             return true;
         }
     }

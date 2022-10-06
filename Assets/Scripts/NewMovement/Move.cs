@@ -281,6 +281,17 @@ public class Move : MonoBehaviour
             SeedMod = speed;
         }
     }
+    public void StopMove()
+    {
+        movDirection = Quaternion.Euler(0f, targetAngle, 0f) * new Vector3(
+           0,
+           movDirection.y,
+           1);
+        movDirection = new Vector3(
+            movDirection.x * 0,
+            movDirection.y,
+            movDirection.z * 0);
+    }
     void ResetMovement()
     {
         if (!canMove)
@@ -288,7 +299,7 @@ public class Move : MonoBehaviour
             if (wallFound)
             {
                 Debug.Log("Reset");
-                canMove = true;
+                //canMove = true;
             }
         }
     }

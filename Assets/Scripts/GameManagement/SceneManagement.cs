@@ -29,16 +29,9 @@ namespace GameManagement
             collect = FindObjectsOfType<Collectable>();
             events = FindObjectsOfType<InGameEvent>();
 
-            Debug.Log(JsonUtility.ToJson(this));
-
             FromJson();
-            ChangeUI();
         }
 
-        private void OnDestroy()
-        {
-            SaveValue();
-        }
         // ----------------------------------------------------------------------------------------------- Pivate Methods
         void ChangeUI()
         {
@@ -46,11 +39,6 @@ namespace GameManagement
                 + " / " + collect.ToList().Count;
         }
         // ----------------------------------------------------------------------------------------------- Public Methods
-        public void SaveValue()
-        {
-            GameManager.SaveGame();
-            ChangeUI();
-        }
 
         void UpdateValues()
         {
@@ -65,21 +53,26 @@ namespace GameManagement
         public void FromJson()
         {
             string sname = SceneManager.GetActiveScene().name;
-            string s = JsonUtility.ToJson(this);
 
             for (int i = 0; i < collect.ToList().Count; i++)
             {
                 Collectable c = collect[i];
                 c.index = i;
-                string tmps = JsonUtility.ToJson(c);
+                string tmps;
 
-                Debug.Log(tmps);
-
-                if (PlayerPrefs.HasKey(sname + ".c" + c.index + ".1"))
+                if (PlayerPrefs.HasKey(sname + "c" + i + "1"))
                 {
-                    tmps = PlayerPrefs.GetString(sname + ".c" + c.index + ".1");
+                    tmps = PlayerPrefs.GetString(sname + "c" + i + "1");
+                }
+                else
+                {
+                    tmps = JsonUtility.ToJson(c);
+                    PlayerPrefs.SetString(sname + "c" + i + "1", tmps);
                 }
                 JsonUtility.FromJsonOverwrite(tmps, c);
+
+                Debug.Log(JsonUtility.ToJson(c));
+                Debug.Log(PlayerPrefs.HasKey(sname + "c" + i + "1"));
             }
 
             //foreach(var e in events)
@@ -87,42 +80,52 @@ namespace GameManagement
             {
                 InGameEvent e = events [i];
                 e.index = i;
-                string tmps = JsonUtility.ToJson(e);
+                string tmps = JsonUtility.ToJson(e.values);
 
-                Debug.Log(tmps);
-
-                if (PlayerPrefs.HasKey(sname + ".e" + e.index + ".1"))
+                if (PlayerPrefs.HasKey(sname + "e" + i + "1"))
                 {
-                    tmps = PlayerPrefs.GetString(sname + ".e" + e.index + ".1");
+                    tmps = PlayerPrefs.GetString(sname + "e" + i + "1");
                 }
-                JsonUtility.FromJsonOverwrite(tmps, e);
+                else
+                {
+                    tmps = JsonUtility.ToJson(e.values);
+                    PlayerPrefs.SetString(sname + "e" + i + "1", tmps);
+                }
+                JsonUtility.FromJsonOverwrite(tmps, e.values);
+                Debug.Log(JsonUtility.ToJson(e.values));
+                Debug.Log(PlayerPrefs.HasKey(sname + "e" + i + "1"));
                 e.StartVals();
             }
-
+            ChangeUI();
         }
 
         public bool Save()
         {
             string sname = SceneManager.GetActiveScene().name;
 
-
             for (int i = 0; i < collect.Length; i++)
             {
                 Collectable e = collect[i];
                 string tmps = JsonUtility.ToJson(e);
 
-                PlayerPrefs.SetString(sname + ".c." + i + ".1", tmps);
-
+                PlayerPrefs.SetString(sname + "c" + i + "1", tmps);
+                Debug.Log("Saving: " + e.name);
+                Debug.Log(tmps);
             }
 
             for (int i = 0; i < events.Length; i++)
             {
                 InGameEvent e = events[i];
-                string tmps = JsonUtility.ToJson(e);
+                string tmps = JsonUtility.ToJson(e.values);
                 
-                PlayerPrefs.SetString(sname + ".e." + i + ".1", tmps);
+                PlayerPrefs.SetString(sname + "e" + i + "1", tmps);
 
+                Debug.Log("Saving: " + e.name);
+                Debug.Log(tmps);
             }
+            Debug.Log("Saving: " + this.name);
+
+            FromJson();
 
             return true;
         }

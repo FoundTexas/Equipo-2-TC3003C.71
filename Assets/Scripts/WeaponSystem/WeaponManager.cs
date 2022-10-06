@@ -8,11 +8,14 @@ using Interfaces;
 
 namespace WeaponSystem
 {
-
+    [Serializable]
+    public class WeaponsUnlocked
+    {
+        public List<string> unlock = new List<string>(new string[2] { "Grappling", "SoundShoot" });
+    }
     /// <summary>
     /// Class that manages the weapons available to the player.
     /// </summary>
-    [Serializable]
     public class WeaponManager : MonoBehaviour, ISave
     {
         public static bool hasWeapon = true;
@@ -27,7 +30,7 @@ namespace WeaponSystem
         [Tooltip("Transform reference of the hand object in the armature skeleton")]
         public Transform hand;
         [Tooltip("String List the represent the current unlocked weapons of the player")]
-        [SerializeField] List<string> unlocked = new List<string>(new string[2] { "Grappling", "SoundShoot" });
+        [SerializeField] WeaponsUnlocked unlocked;
         [Tooltip("Reference to the animation and audio manager")]
         [NonSerialized] public AudioAndVideoManager audios;
         [Tooltip("The current selected Weapon script")]
@@ -69,9 +72,9 @@ namespace WeaponSystem
 
             ToggleWeapon();
 
-            if (unlocked.Count > 0)
+            if (unlocked.unlock.Count > 0)
             {
-                selected = weapons[weaponDictionary[unlocked[0]]];
+                selected = weapons[weaponDictionary[unlocked.unlock[0]]];
                 selected.gameObject.SetActive(true);
             }
         }
@@ -85,13 +88,13 @@ namespace WeaponSystem
         /// </summary>
         void Scroll(InputAction.CallbackContext callbackContext)
         {
-            if (unlocked.Count > 0)
+            if (unlocked.unlock.Count > 0)
             {
 
                 int selectedIndex = GetSelectedIndex();
                 selectedIndex++;
 
-                if (selectedIndex >= unlocked.Count)
+                if (selectedIndex >= unlocked.unlock.Count)
                 {
                     selectedIndex = 0;
                 }
@@ -105,7 +108,7 @@ namespace WeaponSystem
         /// <returns>Returns the selected index relative to the unlocked index. </returns>
         int GetSelectedIndex()
         {
-            return unlocked.IndexOf(selected.GetID());
+            return unlocked.unlock.IndexOf(selected.GetID());
         }
         // ----------------------------------------------------------------------------------------------- Public Methods
 
@@ -115,7 +118,7 @@ namespace WeaponSystem
         /// </summary>
         public void ToggleWeaponInput(InputAction.CallbackContext context)
         {
-            if (unlocked.Count != 0)
+            if (unlocked.unlock.Count != 0)
             {
                 ToggleWeapon();
             }
@@ -143,10 +146,10 @@ namespace WeaponSystem
         /// <param name="i"> Weapon index relative to the unlocked weapons. </param>
         public void ChangeWeapon(int i)
         {
-            if (unlocked.Count >= i)
+            if (unlocked.unlock.Count >= i)
             {
                 selected.gameObject.SetActive(false);
-                selected = weapons[weaponDictionary[unlocked[i]]];
+                selected = weapons[weaponDictionary[unlocked.unlock[i]]];
                 selected.gameObject.SetActive(true);
             }
         }
@@ -156,11 +159,11 @@ namespace WeaponSystem
         /// <param name="weapon"> Weapon Id given to the function. </param>
         public void UnlockWeapon(string weapon)
         {
-            if (unlocked.Contains(weapon) == false)
+            if (unlocked.unlock.Contains(weapon) == false)
             {
-                unlocked.Add(weapon);
+                unlocked.unlock.Add(weapon);
             }
-            else if (unlocked.Contains(weapon))
+            else if (unlocked.unlock.Contains(weapon))
             {
                 weapons[weaponDictionary[weapon]].AddAmmo();
             }
@@ -171,6 +174,8 @@ namespace WeaponSystem
                 ChangeWeapon(GetSelectedIndex());
                 ToggleWeapon();
             }
+
+            Save();
         }
         /// <summary>
         /// This method gets the current selected weapon (can be Null) and returns the reference.
@@ -178,28 +183,34 @@ namespace WeaponSystem
         /// <returns> The current weapon on the selected slot. </returns>
         public Weapon CurrentSelect()
         {
-            return unlocked.Count != 0 ? selected : null;
+            return unlocked.unlock.Count != 0 ? selected : null;
         }
 
         public void FromJson()
         {
-            string s = "{}";
+            string s = JsonUtility.ToJson(unlocked);
+            Debug.Log(s);
+
             if (PlayerPrefs.HasKey("WeaponManager.1"))
             {
                 s = PlayerPrefs.GetString("WeaponManager.1");
+                //PlayerPrefs.SetString("WeaponManager.1", s);
             }
             else
             {
-                PlayerPrefs.SetString("Loader.1", s);
+                PlayerPrefs.SetString("WeaponManager.1", s);
             }
 
-            JsonUtility.FromJsonOverwrite(s, this);
+            JsonUtility.FromJsonOverwrite(s, unlocked);
+            Debug.Log(JsonUtility.ToJson(this));
         }
 
         public bool Save()
         {
-            string s = JsonUtility.ToJson(this);
-            PlayerPrefs.SetString("Loader.1", s);
+            string s = JsonUtility.ToJson(unlocked);
+            PlayerPrefs.SetString("WeaponManager.1", s);
+
+            Debug.Log("Saving: " + this.name);
 
             return true;
         }
