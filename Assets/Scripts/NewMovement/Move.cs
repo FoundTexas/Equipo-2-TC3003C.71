@@ -55,7 +55,8 @@ public class Move : MonoBehaviour
     private float originalHeight = 1;
 
     public bool canMove = true;
-    bool wasGrounded = false;
+    public bool wasGrounded = false;
+    public bool PossibleDialogue = false;
     CharacterController controller;
     Vector3 movDirection;
     private AudioAndVideoManager anim;
@@ -100,7 +101,7 @@ public class Move : MonoBehaviour
         yield return new WaitForEndOfFrame();
         transform.position = GameManager.getCheckpoint();
     }
-    void Update()
+    private void LateUpdate()
     {
         SendAnimationVals();
         wallFound = Physics.Raycast(transform.position, transform.forward, out wallHit, wallDistance, wallMask);
@@ -119,25 +120,26 @@ public class Move : MonoBehaviour
         movDirection.y = Mathf.Clamp(movDirection.y, -gravity * gravityModifier * 2, jumpForce * 100);
 
         controller.Move(movDirection * Time.deltaTime);
-    }
 
-    private void LateUpdate()
-    {
         wasGrounded = controller.isGrounded;
         ResetMovement();
     }
 
     void SendAnimationVals()
     {
-        if (!canMove)
-            return;
-
         anim.IsOnGround(controller.isGrounded);
-        anim.SetIfMovement(Mathf.Abs(MoveValue.ReadValue<Vector2>().x) + Mathf.Abs(MoveValue.ReadValue<Vector2>().y));
+        if (canMove)
+        {
+            anim.SetIfMovement(Mathf.Abs(MoveValue.ReadValue<Vector2>().x) + Mathf.Abs(MoveValue.ReadValue<Vector2>().y));
+        }
+        else if(!canMove)
+        {
+            anim.SetIfMovement(0.01f);
+        }
         anim.IsOnWall(wallFound);
     }
 
-    void SetTargetAngle(Vector2 mov)
+    public void SetTargetAngle(Vector2 mov)
     {
         targetAngle = Mathf.Atan2(mov.x, mov.y) * Mathf.Rad2Deg + cam.eulerAngles.y;
         resultAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnVelocity, mov.magnitude == 0 ? 0 : turnTime);
@@ -192,9 +194,8 @@ public class Move : MonoBehaviour
     }
     void Jump(InputAction.CallbackContext context)
     {
-        if (!canMove)
+        if (!canMove || PossibleDialogue)
             return;
-
         if (wallFound && !controller.isGrounded)
         {
             if (context.performed)
@@ -215,8 +216,8 @@ public class Move : MonoBehaviour
                 jumpParticles.SetActive(true);
             }
         }
-        
     }
+
     void JumpHold()
     {
         gravityModifier = 1;

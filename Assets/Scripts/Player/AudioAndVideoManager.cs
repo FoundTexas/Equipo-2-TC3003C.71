@@ -112,7 +112,7 @@ namespace Player
             anim.SetFloat("speed", speed);
             //anim.SetFloat("IdleTime", IdleTime);
 
-            if (speed <= 0.3f)
+            if (speed <= 0f)
             {
                 if (IdleTime > 40)
                     IdleTime = 0;
