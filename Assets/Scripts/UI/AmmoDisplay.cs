@@ -9,6 +9,7 @@ public class AmmoDisplay : MonoBehaviour
 {
     public TMP_Text currentAmmo;
     public TMP_Text remainingAmmo;
+    public TMP_Text gunName;
 
     public GameObject ammoDisplayUI;
 
@@ -24,6 +25,10 @@ public class AmmoDisplay : MonoBehaviour
     public void SetRemainingAmmo(string amount)
     {
         remainingAmmo.text = amount;
+    }
+    public void SetGunName(string amount)
+    {
+        gunName.text = amount;
     }
 
 }

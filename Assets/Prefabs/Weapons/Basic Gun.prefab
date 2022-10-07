@@ -99,12 +99,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e256e9a0d18c9434c8dafbaf85dbdbc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FireInput:
+    m_Name: Fire Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: abde65d8-131d-4541-9948-7220b03522e8
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  ReloadInput:
+    m_Name: Reload Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: be1d841e-fd29-4f02-8964-0549cfe1d06d
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   ID: BasicGun
   GunModel: {fileID: 8708822207045214100, guid: 128dc9196e86e88428bd783a9fbb7130, type: 3}
   shootSpeed: 0.5
   curShootS: 0
-  ammo: 50
-  magazine: 15
+  ammo: -100
+  magazine: -100
   curAmmo: 50
   curMagazine: 15
   firePoint: {fileID: 4092853827896714745}
