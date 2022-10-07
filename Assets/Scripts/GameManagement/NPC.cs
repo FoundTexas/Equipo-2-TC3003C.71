@@ -8,6 +8,7 @@ using GameManagement;
 
 public class NPC : MonoBehaviour
 {
+    public GameObject InputBox;
     public NPC[] Involved;
     PlayerInputs PlayerInput;
     InputAction JumpInput;
@@ -22,7 +23,6 @@ public class NPC : MonoBehaviour
     public bool Locked;
     DialogueManager manager;
 
-    public static bool PossibleDialogue = false;
     public UnityEvent StartConv, EndConv;
 
     Quaternion originalRot;
@@ -47,6 +47,7 @@ public class NPC : MonoBehaviour
     }
     private void Start()
     {
+        ShowInput(false);
         Locked = false;
         originalRot = transform.rotation;
         rot = originalRot;
@@ -55,18 +56,33 @@ public class NPC : MonoBehaviour
     private void Update()
     {
         GetTarget();
-        PossibleDialogue = distance <= MinDist;
-
-        if (!PossibleDialogue)
+        if(distance <= MaxDist)
+        {
+            if (!Locked && interactions.Count > index && distance <= MinDist)
+            {
+                InputBox.transform.LookAt(Camera.main.transform);
+                ShowInput(true);
+                Player.PossibleDialogue = true;
+            }
+            else if(distance > MinDist)
+            {
+                ShowInput(false);
+                Player.PossibleDialogue = false;
+            }
+        }
+        else
         {
             rot = originalRot;
         }
-        if(transform.rotation != rot)
+
+        if (transform.rotation != rot)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, rot, 0.3f);
         }
-        if (!Locked && interactions.Count > index && distance <= MaxDist)
-            manager.ShowInput(PossibleDialogue);
+    }
+    void ShowInput(bool b)
+    {
+        InputBox.SetActive(b);
     }
 
     void InteractionHandler(InputAction.CallbackContext context)
@@ -85,16 +101,20 @@ public class NPC : MonoBehaviour
                             Locked = true;
                             Player.StopMove();
                             Player.canMove = false;
+                            ShowInput(false);
 
-                            Vector3 dir = Player.transform.position - transform.position;
-                            dir.y = 0; // keep the direction strictly horizontal
-                            rot = Quaternion.LookRotation(dir);
-                     
-                            foreach (var npc in Involved)
+                            if (turnRig)
                             {
-                                dir = Player.transform.position - npc.transform.position;
+                                Vector3 dir = Player.transform.position - transform.position;
                                 dir.y = 0; // keep the direction strictly horizontal
-                                npc.rot = Quaternion.LookRotation(dir);
+                                rot = Quaternion.LookRotation(dir);
+
+                                foreach (var npc in Involved)
+                                {
+                                    dir = Player.transform.position - npc.transform.position;
+                                    dir.y = 0; // keep the direction strictly horizontal
+                                    npc.rot = Quaternion.LookRotation(dir);
+                                }
                             }
 
                             Player.transform.LookAt(new Vector3(
@@ -128,7 +148,10 @@ public class NPC : MonoBehaviour
 
     void GetTarget()
     {
-        turnRig.weight = Mathf.Clamp(MaxDist - distance, 0.0f, 1.0f);
+        if (turnRig)
+        {
+            turnRig.weight = Mathf.Clamp(MaxDist - distance, 0.0f, 1.0f);
+        }
         if (Locked)
             return;
 
@@ -148,11 +171,11 @@ public class NPC : MonoBehaviour
 
     void ResetPlayer()
     {
+        Player.canMove = true;
+        Locked = false;
         if (endEvents[index])
         {
             endEvents[index].SetTrigger();
         }
-        Player.canMove = true;
-        Locked = false;
     }
 }

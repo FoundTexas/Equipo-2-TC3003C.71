@@ -56,6 +56,7 @@ public class Move : MonoBehaviour
 
     public bool canMove = true;
     public bool wasGrounded = false;
+    public bool PossibleDialogue = false;
     CharacterController controller;
     Vector3 movDirection;
     private AudioAndVideoManager anim;
@@ -193,7 +194,7 @@ public class Move : MonoBehaviour
     }
     void Jump(InputAction.CallbackContext context)
     {
-        if (!canMove || NPC.PossibleDialogue)
+        if (!canMove || PossibleDialogue)
             return;
         if (wallFound && !controller.isGrounded)
         {

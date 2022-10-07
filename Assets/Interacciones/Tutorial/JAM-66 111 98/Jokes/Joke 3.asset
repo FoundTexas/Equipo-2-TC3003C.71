@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - speakerName: JAM-66 111 98
-    dialogue: Programming is like humman intercourse;
+    dialogue: Why did the Robot go to the shoe shop?
     soundEffect: {fileID: 0}
   - speakerName: JAM-66 111 98
-    dialogue: One mistake and you have to manage it for the rest of your life.
+    dialogue: To get Rebooted! :D
     soundEffect: {fileID: 0}
   buttonsText: 
   Interactions: []

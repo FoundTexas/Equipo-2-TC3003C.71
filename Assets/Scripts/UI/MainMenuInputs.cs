@@ -46,8 +46,7 @@ public class MainMenuInputs : MonoBehaviour
         if (!quit)
         {
             quit = true;
-            Debug.Log("QUIT");
-            //Application.Quit();
+            Application.Quit();
         }
     }
 }
