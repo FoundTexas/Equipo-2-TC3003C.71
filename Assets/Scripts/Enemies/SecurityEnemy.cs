@@ -67,10 +67,10 @@ namespace Enemies
 
         public override void CreateWalkPoint()
         {
-            Debug.Log("Creating Walk Point.");
             if(currentPoint == patrolPoints.Count-1)
                 currentPoint = -1;
-            walkPoint = patrolPoints[currentPoint++].position;
+            currentPoint += 1;
+            walkPoint = patrolPoints[currentPoint].position;
 
             walkPointSet = true;
         }
