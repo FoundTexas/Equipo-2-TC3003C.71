@@ -122,5 +122,9 @@ namespace Player
             else
                 IdleTime = 0;
         }
+
+        public void SendCrouching(bool b){
+            anim.SetBool("Crouching",b);
+        }
     }
 }
