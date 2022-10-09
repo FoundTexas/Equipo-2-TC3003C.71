@@ -5205,6 +5205,8 @@ MonoBehaviour:
   crouchSpeed: 3.5
   crouchHeight: 0.5
   canMove: 1
+  wasGrounded: 0
+  PossibleDialogue: 0
 --- !u!95 &4227884278520534718
 Animator:
   serializedVersion: 4
@@ -7334,6 +7336,14 @@ PrefabInstance:
     - target: {fileID: 5737172475526211280, guid: 9ec17e7945765b44abd8256ef27af3cc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737172475526211281, guid: 9ec17e7945765b44abd8256ef27af3cc, type: 3}
+      propertyPath: ammo
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737172475526211281, guid: 9ec17e7945765b44abd8256ef27af3cc, type: 3}
+      propertyPath: magazine
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 5737172475526211281, guid: 9ec17e7945765b44abd8256ef27af3cc, type: 3}
       propertyPath: PlayerRef

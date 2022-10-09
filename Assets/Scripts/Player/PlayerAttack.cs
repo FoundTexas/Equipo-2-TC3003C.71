@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WeaponSystem;
@@ -39,14 +39,25 @@ namespace Player
         private void CheckCurrentWeapon()
         {
             currentWeapon = playerWeapons.CurrentSelect();
-                if(currentWeapon != null)
+            if (currentWeapon != null)
+            {
+                if (ammoDisplay)
                 {
-                    if (ammoDisplay)
+                    ammoDisplay.SetGunName(currentWeapon.GetID());
+
+                    if (currentWeapon.curMagazine == -100|| currentWeapon.curAmmo == -100)
+                    {
+                        ammoDisplay.SetCurrentAmmo("∞");
+                        ammoDisplay.SetRemainingAmmo("∞");
+                    }
+                    else
                     {
                         ammoDisplay.SetCurrentAmmo(currentWeapon.curMagazine.ToString());
                         ammoDisplay.SetRemainingAmmo(currentWeapon.curAmmo.ToString());
                     }
                 }
+
+            }
         }
 
         /// <summary>

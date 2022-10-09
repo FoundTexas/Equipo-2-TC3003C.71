@@ -76,7 +76,7 @@ namespace Player
         public void IsOnGround(bool grounded)
         {
             if (!anim.GetBool("isGrounded") && grounded)
-                audios.PlayOneShot(land);
+                StepSound("Concrete");
             anim.SetBool("isGrounded", grounded);
         }
 
@@ -121,6 +121,10 @@ namespace Player
             }
             else
                 IdleTime = 0;
+        }
+
+        public void SendCrouching(bool b){
+            anim.SetBool("Crouching",b);
         }
     }
 }

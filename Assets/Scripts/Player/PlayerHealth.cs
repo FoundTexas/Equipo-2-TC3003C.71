@@ -12,6 +12,7 @@ namespace Player
     /// </summary>
     public class PlayerHealth : MonoBehaviour, IDamage
     {
+        public Gradient color;
         public HealthBar healthBar;
         public GameObject explosionFx;
         public GameObject forceField;
