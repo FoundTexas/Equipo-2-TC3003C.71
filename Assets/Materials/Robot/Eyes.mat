@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Eyes
-  m_Shader: {fileID: 4800000, guid: ad9253b5e66f6af4a9ea4d7d48edcd33, type: 3}
+  m_Shader: {fileID: 4800000, guid: 32cb0d3a3587e434c914ce509bcbb62d, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -26,12 +26,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Glossiness: 32
-    - _RimAmount: 0.716
-    - _RimThreshold: 0.1
+    - _Glossiness: 41.94
+    - _RimAmount: 0.32
+    - _RimThreshold: 0.47
     m_Colors:
-    - _AmbientColor: {r: 0.4, g: 0.4, b: 0.4, a: 1}
-    - _Color: {r: 0.5377358, g: 0, b: 0.025782268, a: 1}
+    - _AmbientColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
+    - _Color: {r: 1, g: 0, b: 0.05109501, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecularColor: {r: 0.9, g: 0.9, b: 0.9, a: 1}
   m_BuildTextureStacks: []

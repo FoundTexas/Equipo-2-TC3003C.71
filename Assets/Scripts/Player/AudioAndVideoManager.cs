@@ -76,7 +76,7 @@ namespace Player
         public void IsOnGround(bool grounded)
         {
             if (!anim.GetBool("isGrounded") && grounded)
-                audios.PlayOneShot(land);
+                StepSound("Concrete");
             anim.SetBool("isGrounded", grounded);
         }
 
