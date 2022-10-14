@@ -55,13 +55,10 @@ namespace Enemies
 
             Vector3 distanceToGoal = transform.position - walkPoint;
 
-            timePatrolling += Time.deltaTime;
-
             //Reached the destination, repeat to find a new one
             if(distanceToGoal.magnitude < 1f)
             {
                 walkPointSet = false;
-                timePatrolling = 0f;
             }
         }
 
