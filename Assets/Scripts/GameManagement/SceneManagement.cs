@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 using Collectables;
 using Interfaces;
+using Player;
 
 [Serializable]
 public class jsonbools{
@@ -23,13 +24,18 @@ namespace GameManagement
         InGameEvent[] events;
         public TextMeshProUGUI Amount;
 
+        public float Scenevalue = -20;
+
+        public static float worldMinY = 0;
+
         // ----------------------------------------------------------------------------------------------- Unity Methods
         private void Start()
         {
             collect = FindObjectsOfType<Collectable>();
             events = FindObjectsOfType<InGameEvent>();
-
             FromJson();
+
+            worldMinY = Scenevalue;
         }
 
         // ----------------------------------------------------------------------------------------------- Pivate Methods
