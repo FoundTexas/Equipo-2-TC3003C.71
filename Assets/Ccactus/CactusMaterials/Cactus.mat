@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Cactus
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 32cb0d3a3587e434c914ce509bcbb62d, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -74,6 +74,7 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
+    - _levels: 3
     m_Colors:
     - _Color: {r: 0.0055239704, g: 0.6096202, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

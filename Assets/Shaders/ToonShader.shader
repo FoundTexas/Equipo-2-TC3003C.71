@@ -4,6 +4,7 @@ Shader "Custom/SurfaceLambert"
     {
         _Color ("Color", Color) = (1,1,1,1)
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
+        _levels ("Levels", float) = 2
     }
     SubShader
     {
@@ -25,6 +26,7 @@ Shader "Custom/SurfaceLambert"
         };
 
         fixed4 _Color;
+        float _levels;
 
         void surf (Input IN, inout SurfaceOutput o)
         {
@@ -36,7 +38,8 @@ Shader "Custom/SurfaceLambert"
 
         half4 LightingSimpleLambert(SurfaceOutput s, half3 lightDir, half atten)
         {
-            half NdotL = max(0,dot(s.Normal, lightDir));
+            float mult = _levels;
+            half NdotL =  max(0, round(dot(s.Normal*mult, lightDir))/mult);
             
             half4 color;
 

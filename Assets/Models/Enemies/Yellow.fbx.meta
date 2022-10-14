@@ -3,7 +3,42 @@ guid: aa8ff5cf96174bf42ac0675080b0e9fa
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LAT
+    second: {fileID: 2100000, guid: 486590a7e83f6d4419cbf019103dc11f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: bdd21a247fe0e754dbf3aac463a22313, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: cab950614d103fa4582f689cc6be627c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 2100000, guid: f63d7ecf3c379be4580e721136b451aa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.005
+    second: {fileID: 2100000, guid: b9ed57006eb32f94b9375cdad343ec5e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: iron
+    second: {fileID: 2100000, guid: c25fb62773c188a499adc509a33f751d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: plastic
+    second: {fileID: 2100000, guid: 08566441753707245b951bca7ef35ef8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -16,7 +51,8 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 1
     motionNodeName: 
-    rigImportErrors: 
+    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'LeftLowerLeg' not found\n"
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -79,8 +115,815 @@ ModelImporter:
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
-    human: []
-    skeleton: []
+    human:
+    - boneName: Circle
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Circle.105
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Circle.100
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Circle.112
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: Yellow(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Empty
+      parentName: Yellow(Clone)
+      position: {x: -0, y: 2.1925106, z: 0}
+      rotation: {x: 0.000000081460335, y: 0, z: -0, w: 1}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Circle
+      parentName: Yellow(Clone)
+      position: {x: -0.031296432, y: 3.0298345, z: 0.06126676}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 60.48758, y: 52.08521, z: 60.48758}
+    - name: Circle.007
+      parentName: Circle
+      position: {x: 0.00051740254, y: -0.0127526745, z: -0.0060233306}
+      rotation: {x: 0.73741144, y: 0.014435489, z: 0.015767738, w: 0.6751055}
+      scale: {x: 0.017856557, y: 0.017856555, z: 0.017856559}
+    - name: Circle.006
+      parentName: Circle
+      position: {x: -0.0017435056, y: -0.012720908, z: -0.0060233306}
+      rotation: {x: 0.73741144, y: 0.014435489, z: 0.015767738, w: 0.6751055}
+      scale: {x: 0.017856557, y: 0.017856555, z: 0.017856559}
+    - name: Circle.008
+      parentName: Circle
+      position: {x: -0.00434064, y: -0.012096423, z: -0.006180887}
+      rotation: {x: 0.73628783, y: -0.04317497, z: -0.036982857, w: 0.67427623}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.01785656}
+    - name: Circle.009
+      parentName: Circle
+      position: {x: -0.0066173165, y: -0.011134065, z: -0.0065034055}
+      rotation: {x: 0.73213077, y: -0.089265846, z: -0.0791969, w: 0.67062956}
+      scale: {x: 0.01785656, y: 0.017856555, z: 0.01785656}
+    - name: Circle.010
+      parentName: Circle
+      position: {x: -0.008034418, y: -0.010241484, z: -0.0066895867}
+      rotation: {x: 0.7242696, y: -0.13934618, z: -0.1250764, w: 0.66360533}
+      scale: {x: 0.01785656, y: 0.017856555, z: 0.01785656}
+    - name: Circle.011
+      parentName: Circle
+      position: {x: -0.009653755, y: -0.0089627495, z: -0.006912541}
+      rotation: {x: 0.70432776, y: -0.21887513, z: -0.19796018, w: 0.6456221}
+      scale: {x: 0.017856557, y: 0.017856555, z: 0.01785656}
+    - name: Circle.012
+      parentName: Circle
+      position: {x: -0.010724836, y: -0.007688316, z: -0.007177467}
+      rotation: {x: 0.6636543, y: -0.32178706, z: -0.2923244, w: 0.6087385}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.017856559}
+    - name: Circle.013
+      parentName: Circle
+      position: {x: -0.011788055, y: -0.0061660823, z: -0.007351184}
+      rotation: {x: 0.6636543, y: -0.32178706, z: -0.2923244, w: 0.6087385}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.017856559}
+    - name: Circle.014
+      parentName: Circle
+      position: {x: -0.01256795, y: -0.0046813507, z: -0.0074391603}
+      rotation: {x: 0.5973349, y: -0.4326371, z: -0.39404532, w: 0.54840165}
+      scale: {x: 0.01785656, y: 0.017856555, z: 0.017856559}
+    - name: Circle.015
+      parentName: Circle
+      position: {x: -0.013268426, y: -0.0027589619, z: -0.007543564}
+      rotation: {x: 0.5973349, y: -0.4326371, z: -0.39404532, w: 0.54840165}
+      scale: {x: 0.01785656, y: 0.017856555, z: 0.017856559}
+    - name: Circle.016
+      parentName: Circle
+      position: {x: -0.013683572, y: -0.0007874684, z: -0.007528915}
+      rotation: {x: 0.5973349, y: -0.4326371, z: -0.39404532, w: 0.54840165}
+      scale: {x: 0.01785656, y: 0.017856555, z: 0.017856559}
+    - name: Circle.017
+      parentName: Circle
+      position: {x: -0.013767026, y: 0.0010904669, z: -0.007560215}
+      rotation: {x: 0.5973349, y: -0.4326371, z: -0.39404532, w: 0.54840165}
+      scale: {x: 0.01785656, y: 0.017856555, z: 0.017856559}
+    - name: Circle.018
+      parentName: Circle
+      position: {x: -0.013658527, y: 0.002947536, z: -0.0077427956}
+      rotation: {x: 0.5973349, y: -0.4326371, z: -0.39404532, w: 0.54840165}
+      scale: {x: 0.01785656, y: 0.017856555, z: 0.017856559}
+    - name: Circle.019
+      parentName: Circle
+      position: {x: -0.013228065, y: 0.0049298024, z: -0.007794957}
+      rotation: {x: -0.48403636, y: 0.55650043, z: 0.5078435, w: -0.4450967}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.01785656}
+    - name: Circle.020
+      parentName: Circle
+      position: {x: -0.012571181, y: 0.0067034066, z: -0.007794957}
+      rotation: {x: -0.41365334, y: 0.61063474, z: 0.557651, w: -0.38084316}
+      scale: {x: 0.01785656, y: 0.017856555, z: 0.01785656}
+    - name: Circle.021
+      parentName: Circle
+      position: {x: -0.011601024, y: 0.008477013, z: -0.007899289}
+      rotation: {x: -0.38799918, y: 0.6272484, z: 0.5729508, w: -0.35741216}
+      scale: {x: 0.017856557, y: 0.017856555, z: 0.01785656}
+    - name: Circle.022
+      parentName: Circle
+      position: {x: -0.010552109, y: 0.009918519, z: -0.007951521}
+      rotation: {x: -0.32308128, y: 0.6550884, z: 0.63536775, w: -0.25057024}
+      scale: {x: 0.01785656, y: 0.017856555, z: 0.01785656}
+    - name: Circle.023
+      parentName: Circle
+      position: {x: -0.009480866, y: 0.010958605, z: -0.008045831}
+      rotation: {x: -0.26748013, y: 0.6796888, z: 0.65400577, w: -0.19686037}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.01785656}
+    - name: Circle.024
+      parentName: Circle
+      position: {x: 0.002576228, y: -0.012531415, z: -0.0061209486}
+      rotation: {x: 0.73741144, y: 0.014435489, z: 0.015767738, w: 0.6751055}
+      scale: {x: 0.017856557, y: 0.017856555, z: 0.017856559}
+    - name: Circle.025
+      parentName: Circle
+      position: {x: 0.004641174, y: -0.0119784735, z: -0.006403961}
+      rotation: {x: 0.73741144, y: 0.014435489, z: 0.015767738, w: 0.6751055}
+      scale: {x: 0.017856557, y: 0.017856555, z: 0.017856559}
+    - name: Circle.026
+      parentName: Circle
+      position: {x: 0.0064126235, y: -0.011186615, z: -0.0065926407}
+      rotation: {x: 0.73741144, y: 0.014435489, z: 0.015767738, w: 0.6751055}
+      scale: {x: 0.017856557, y: 0.017856555, z: 0.017856559}
+    - name: Circle.027
+      parentName: Circle
+      position: {x: 0.0081211785, y: -0.010118024, z: -0.0068756435}
+      rotation: {x: 0.7216507, y: 0.15232918, z: 0.14196521, w: 0.6601984}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.017856559}
+    - name: Circle.028
+      parentName: Circle
+      position: {x: 0.009674623, y: -0.008809704, z: -0.0070662783}
+      rotation: {x: 0.7216507, y: 0.15232918, z: 0.14196521, w: 0.6601984}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.017856559}
+    - name: Circle.029
+      parentName: Circle
+      position: {x: 0.011249191, y: -0.0069700894, z: -0.0072864196}
+      rotation: {x: 0.620987, y: -0.3964198, z: 0.6296228, w: 0.2465798}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.01785656}
+    - name: Circle.030
+      parentName: Circle
+      position: {x: 0.012624725, y: -0.00439808, z: -0.0075335405}
+      rotation: {x: 0.7019131, y: -0.22381206, z: 0.6718126, w: 0.07677268}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.017856559}
+    - name: Circle.031
+      parentName: Circle
+      position: {x: 0.013379574, y: -0.002296407, z: -0.0077383085}
+      rotation: {x: 0.7019131, y: -0.22381206, z: 0.6718126, w: 0.07677268}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.017856559}
+    - name: Circle.032
+      parentName: Circle
+      position: {x: 0.013728096, y: -0.00037121132, z: -0.007758884}
+      rotation: {x: 0.7019131, y: -0.22381206, z: 0.6718126, w: 0.07677268}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.017856559}
+    - name: Circle.033
+      parentName: Circle
+      position: {x: 0.013730986, y: 0.0020467055, z: -0.007910204}
+      rotation: {x: 0.714022, y: -0.18151058, z: 0.67519784, w: 0.03653099}
+      scale: {x: 0.017856559, y: 0.017856559, z: 0.01785656}
+    - name: Circle.034
+      parentName: Circle
+      position: {x: 0.013382802, y: 0.00424406, z: -0.007990398}
+      rotation: {x: 0.714022, y: -0.18151058, z: 0.67519784, w: 0.03653099}
+      scale: {x: 0.017856559, y: 0.017856559, z: 0.01785656}
+    - name: Circle.035
+      parentName: Circle
+      position: {x: 0.012710512, y: 0.0063320654, z: -0.008028135}
+      rotation: {x: -0.5617371, y: 0.58093464, z: -0.38904113, w: 0.44228196}
+      scale: {x: 0.017856555, y: 0.017856553, z: 0.01785656}
+    - name: Circle.036
+      parentName: Circle
+      position: {x: 0.01190514, y: 0.007954672, z: -0.008065877}
+      rotation: {x: -0.5617371, y: 0.58093464, z: -0.38904113, w: 0.44228196}
+      scale: {x: 0.017856555, y: 0.017856553, z: 0.01785656}
+    - name: Circle.037
+      parentName: Circle
+      position: {x: 0.010795194, y: 0.009577279, z: -0.0081161875}
+      rotation: {x: 0.6181745, y: -0.52047485, z: 0.3417961, w: -0.4797308}
+      scale: {x: 0.01785656, y: 0.017856555, z: 0.017856559}
+    - name: Circle.038
+      parentName: Circle
+      position: {x: 0.009301626, y: 0.011174731, z: -0.008179083}
+      rotation: {x: 0.6238995, y: -0.51359826, z: 0.33646336, w: -0.4834859}
+      scale: {x: 0.017856559, y: 0.017856553, z: 0.01785656}
+    - name: Circle.039
+      parentName: Circle
+      position: {x: 0.007331828, y: 0.0126650045, z: -0.0082395645}
+      rotation: {x: -0.7226097, y: 0.36175817, z: -0.22034173, w: 0.5462745}
+      scale: {x: 0.01785656, y: 0.017856555, z: 0.01785656}
+    - name: Circle.040
+      parentName: Circle
+      position: {x: 0.005140249, y: 0.013771434, z: -0.008305077}
+      rotation: {x: -0.7226097, y: 0.36175817, z: -0.22034173, w: 0.5462745}
+      scale: {x: 0.01785656, y: 0.017856555, z: 0.01785656}
+    - name: Circle.041
+      parentName: Circle
+      position: {x: 0.0036102778, y: 0.014297861, z: -0.00828537}
+      rotation: {x: -0.76356256, y: 0.26458633, z: -0.1473347, w: 0.57031465}
+      scale: {x: 0.017856559, y: 0.017856553, z: 0.01785656}
+    - name: Circle.042
+      parentName: Circle
+      position: {x: 0.0015480012, y: 0.014690728, z: -0.008300595}
+      rotation: {x: -0.8036948, y: 0.084312215, z: -0.013998998, w: 0.58887196}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.01785656}
+    - name: Circle.043
+      parentName: Circle
+      position: {x: -0.0008749739, y: 0.014754917, z: -0.008286982}
+      rotation: {x: -0.8074032, y: 0.03367483, z: 0.023009053, w: 0.5885888}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.01785656}
+    - name: Circle.044
+      parentName: Circle
+      position: {x: -0.003257112, y: 0.014350401, z: -0.008382267}
+      rotation: {x: -0.80630404, y: -0.053924322, z: 0.08658849, w: 0.5826393}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.017856559}
+    - name: Circle.045
+      parentName: Circle
+      position: {x: -0.0049796347, y: 0.013842564, z: -0.008272738}
+      rotation: {x: -0.80630404, y: -0.053924322, z: 0.08658849, w: 0.5826393}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.017856559}
+    - name: Circle.046
+      parentName: Circle
+      position: {x: -0.00666755, y: 0.013059163, z: -0.008231907}
+      rotation: {x: -0.80630404, y: -0.053924322, z: 0.08658849, w: 0.5826393}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.017856559}
+    - name: Circle.047
+      parentName: Circle
+      position: {x: -0.008192117, y: 0.012101386, z: -0.008150229}
+      rotation: {x: -0.80630404, y: -0.053924322, z: 0.08658849, w: 0.5826393}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.017856559}
+    - name: Circle.048
+      parentName: Circle
+      position: {x: 0.00049378624, y: -0.012579051, z: -0.008010874}
+      rotation: {x: 0.7374114, y: 0.014435484, z: 0.015767736, w: 0.6751055}
+      scale: {x: 0.017506542, y: 0.017506542, z: 0.017506545}
+    - name: Circle.049
+      parentName: Circle
+      position: {x: -0.0017228046, y: -0.012447629, z: -0.008010874}
+      rotation: {x: 0.7374114, y: 0.014435484, z: 0.015767736, w: 0.6751055}
+      scale: {x: 0.017506542, y: 0.017506542, z: 0.017506545}
+    - name: Circle.050
+      parentName: Circle
+      position: {x: -0.004269031, y: -0.011916563, z: -0.008165345}
+      rotation: {x: 0.73628783, y: -0.043174982, z: -0.036982868, w: 0.67427623}
+      scale: {x: 0.017506542, y: 0.017506542, z: 0.017506542}
+    - name: Circle.051
+      parentName: Circle
+      position: {x: -0.006501081, y: -0.010922574, z: -0.008481545}
+      rotation: {x: 0.73213077, y: -0.089265846, z: -0.07919692, w: 0.67062956}
+      scale: {x: 0.017506547, y: 0.017506542, z: 0.017506545}
+    - name: Circle.052
+      parentName: Circle
+      position: {x: -0.007890407, y: -0.010039953, z: -0.008664073}
+      rotation: {x: 0.7242697, y: -0.13934623, z: -0.1250764, w: 0.6636053}
+      scale: {x: 0.017506547, y: 0.017506542, z: 0.017506551}
+    - name: Circle.053
+      parentName: Circle
+      position: {x: -0.009478001, y: -0.008763135, z: -0.008882651}
+      rotation: {x: 0.7043277, y: -0.21887515, z: -0.19796015, w: 0.64562213}
+      scale: {x: 0.017506544, y: 0.017506542, z: 0.017506542}
+    - name: Circle.054
+      parentName: Circle
+      position: {x: -0.010528088, y: -0.007513682, z: -0.009142384}
+      rotation: {x: 0.6636543, y: -0.32178712, z: -0.2923244, w: 0.6087384}
+      scale: {x: 0.017506542, y: 0.017506542, z: 0.01750655}
+    - name: Circle.055
+      parentName: Circle
+      position: {x: -0.011570467, y: -0.0060212887, z: -0.009312696}
+      rotation: {x: 0.6636543, y: -0.32178712, z: -0.2923244, w: 0.6087384}
+      scale: {x: 0.017506542, y: 0.017506542, z: 0.01750655}
+    - name: Circle.056
+      parentName: Circle
+      position: {x: -0.012335074, y: -0.0045656594, z: -0.009398947}
+      rotation: {x: 0.59733486, y: -0.43263713, z: -0.39404544, w: 0.54840165}
+      scale: {x: 0.017506545, y: 0.017506542, z: 0.017506551}
+    - name: Circle.057
+      parentName: Circle
+      position: {x: -0.013021818, y: -0.002680952, z: -0.009501309}
+      rotation: {x: 0.59733486, y: -0.43263713, z: -0.39404544, w: 0.54840165}
+      scale: {x: 0.017506545, y: 0.017506542, z: 0.017506551}
+    - name: Circle.058
+      parentName: Circle
+      position: {x: -0.013428827, y: -0.00074810267, z: -0.009486947}
+      rotation: {x: 0.59733486, y: -0.43263713, z: -0.39404544, w: 0.54840165}
+      scale: {x: 0.017506545, y: 0.017506542, z: 0.017506551}
+    - name: Circle.059
+      parentName: Circle
+      position: {x: -0.013510645, y: 0.0010930221, z: -0.0095176315}
+      rotation: {x: 0.59733486, y: -0.43263713, z: -0.39404544, w: 0.54840165}
+      scale: {x: 0.017506545, y: 0.017506542, z: 0.017506551}
+    - name: Circle.060
+      parentName: Circle
+      position: {x: -0.013404273, y: 0.00291369, z: -0.009696636}
+      rotation: {x: 0.59733486, y: -0.43263713, z: -0.39404544, w: 0.54840165}
+      scale: {x: 0.017506545, y: 0.017506542, z: 0.017506551}
+    - name: Circle.061
+      parentName: Circle
+      position: {x: -0.012982249, y: 0.0048571, z: -0.009747772}
+      rotation: {x: -0.48403633, y: 0.5565005, z: 0.50784343, w: -0.44509673}
+      scale: {x: 0.017506545, y: 0.017506542, z: 0.017506545}
+    - name: Circle.062
+      parentName: Circle
+      position: {x: -0.0123382425, y: 0.0065959394, z: -0.009747772}
+      rotation: {x: -0.4136533, y: 0.61063474, z: 0.557651, w: -0.3808431}
+      scale: {x: 0.017506547, y: 0.017506542, z: 0.017506547}
+    - name: Circle.063
+      parentName: Circle
+      position: {x: -0.011387102, y: 0.008334781, z: -0.009850063}
+      rotation: {x: -0.3879991, y: 0.6272484, z: 0.5729508, w: -0.35741225}
+      scale: {x: 0.017506544, y: 0.017506542, z: 0.017506547}
+    - name: Circle.064
+      parentName: Circle
+      position: {x: -0.010358746, y: 0.009748032, z: -0.00990127}
+      rotation: {x: -0.3230813, y: 0.6550885, z: 0.63536775, w: -0.25057018}
+      scale: {x: 0.017506547, y: 0.01750654, z: 0.017506542}
+    - name: Circle.065
+      parentName: Circle
+      position: {x: -0.009308502, y: 0.01076773, z: -0.009993734}
+      rotation: {x: -0.26748016, y: 0.6796889, z: 0.65400577, w: -0.19686036}
+      scale: {x: 0.017506547, y: 0.01750654, z: 0.017506544}
+    - name: Circle.066
+      parentName: Circle
+      position: {x: 0.0025122555, y: -0.012297789, z: -0.00810658}
+      rotation: {x: 0.7374114, y: 0.014435484, z: 0.015767736, w: 0.6751055}
+      scale: {x: 0.017506542, y: 0.017506542, z: 0.017506545}
+    - name: Circle.067
+      parentName: Circle
+      position: {x: 0.004536725, y: -0.011741998, z: -0.008384046}
+      rotation: {x: 0.7374114, y: 0.014435484, z: 0.015767736, w: 0.6751055}
+      scale: {x: 0.017506542, y: 0.017506542, z: 0.017506545}
+    - name: Circle.068
+      parentName: Circle
+      position: {x: 0.0062734527, y: -0.010956858, z: -0.008569025}
+      rotation: {x: 0.72508556, y: 0.13503622, z: 0.12614419, w: 0.6634032}
+      scale: {x: 0.017506545, y: 0.017506542, z: 0.017506544}
+    - name: Circle.069
+      parentName: Circle
+      position: {x: 0.007948517, y: -0.009895766, z: -0.008846483}
+      rotation: {x: 0.72165066, y: 0.15232915, z: 0.14196524, w: 0.6601985}
+      scale: {x: 0.017506545, y: 0.017506542, z: 0.01750655}
+    - name: Circle.070
+      parentName: Circle
+      position: {x: 0.0094715115, y: -0.008613092, z: -0.009033384}
+      rotation: {x: 0.72165066, y: 0.15232915, z: 0.14196524, w: 0.6601985}
+      scale: {x: 0.017506545, y: 0.017506542, z: 0.01750655}
+    - name: Circle.071
+      parentName: Circle
+      position: {x: 0.011015217, y: -0.006809535, z: -0.009249201}
+      rotation: {x: 0.6209871, y: -0.39641947, z: 0.62962306, w: 0.24657966}
+      scale: {x: 0.017506547, y: 0.017506544, z: 0.017506547}
+    - name: Circle.072
+      parentName: Circle
+      position: {x: 0.012363787, y: -0.004287941, z: -0.009491482}
+      rotation: {x: 0.701913, y: -0.22381105, z: 0.6718131, w: 0.07677198}
+      scale: {x: 0.017506547, y: 0.01750654, z: 0.017506544}
+    - name: Circle.073
+      parentName: Circle
+      position: {x: 0.013103839, y: -0.0022274638, z: -0.009692235}
+      rotation: {x: 0.701913, y: -0.22381105, z: 0.6718131, w: 0.07677198}
+      scale: {x: 0.017506547, y: 0.01750654, z: 0.017506544}
+    - name: Circle.074
+      parentName: Circle
+      position: {x: 0.013445531, y: -0.0003400053, z: -0.00971241}
+      rotation: {x: 0.701913, y: -0.22381105, z: 0.6718131, w: 0.07677198}
+      scale: {x: 0.017506547, y: 0.01750654, z: 0.017506544}
+    - name: Circle.075
+      parentName: Circle
+      position: {x: 0.013448362, y: 0.0020305167, z: -0.009860763}
+      rotation: {x: 0.7140219, y: -0.18150969, z: 0.6751982, w: 0.036529295}
+      scale: {x: 0.017506547, y: 0.01750654, z: 0.01750655}
+    - name: Circle.076
+      parentName: Circle
+      position: {x: 0.0131070055, y: 0.0041847997, z: -0.009939385}
+      rotation: {x: 0.7140219, y: -0.18150969, z: 0.6751982, w: 0.036529295}
+      scale: {x: 0.017506547, y: 0.01750654, z: 0.01750655}
+    - name: Circle.077
+      parentName: Circle
+      position: {x: 0.012447891, y: 0.0062318775, z: -0.009976382}
+      rotation: {x: -0.561737, y: 0.5809349, z: -0.3890411, w: 0.44228184}
+      scale: {x: 0.017506553, y: 0.01750654, z: 0.017506544}
+    - name: Circle.078
+      parentName: Circle
+      position: {x: 0.011658308, y: 0.007822679, z: -0.01001338}
+      rotation: {x: -0.561737, y: 0.5809349, z: -0.3890411, w: 0.44228184}
+      scale: {x: 0.017506553, y: 0.01750654, z: 0.017506544}
+    - name: Circle.079
+      parentName: Circle
+      position: {x: 0.010570118, y: 0.009413479, z: -0.0100627085}
+      rotation: {x: 0.6181744, y: -0.52047485, z: 0.34179622, w: -0.4797309}
+      scale: {x: 0.017506545, y: 0.01750654, z: 0.01750655}
+    - name: Circle.080
+      parentName: Circle
+      position: {x: 0.009105827, y: 0.010979619, z: -0.010124373}
+      rotation: {x: 0.6238995, y: -0.5135982, z: 0.3364634, w: -0.48348597}
+      scale: {x: 0.017506547, y: 0.01750654, z: 0.017506545}
+    - name: Circle.081
+      parentName: Circle
+      position: {x: 0.007174639, y: 0.012440681, z: -0.010183671}
+      rotation: {x: -0.7226097, y: 0.3617582, z: -0.22034179, w: 0.5462745}
+      scale: {x: 0.017506547, y: 0.01750654, z: 0.01750655}
+    - name: Circle.082
+      parentName: Circle
+      position: {x: 0.005026018, y: 0.0135254245, z: -0.010247888}
+      rotation: {x: -0.7226097, y: 0.3617582, z: -0.22034179, w: 0.5462745}
+      scale: {x: 0.017506547, y: 0.01750654, z: 0.01750655}
+    - name: Circle.083
+      parentName: Circle
+      position: {x: 0.0035260369, y: 0.014041533, z: -0.010228579}
+      rotation: {x: -0.76356256, y: 0.26458642, z: -0.14733472, w: 0.5703146}
+      scale: {x: 0.017506547, y: 0.01750654, z: 0.017506545}
+    - name: Circle.084
+      parentName: Circle
+      position: {x: 0.0015041836, y: 0.014426697, z: -0.010243497}
+      rotation: {x: -0.8036948, y: 0.08431221, z: -0.013998994, w: 0.58887196}
+      scale: {x: 0.017506547, y: 0.017506542, z: 0.017506547}
+    - name: Circle.085
+      parentName: Circle
+      position: {x: -0.0008712975, y: 0.014489627, z: -0.010230159}
+      rotation: {x: -0.8074032, y: 0.03367484, z: 0.023009047, w: 0.5885888}
+      scale: {x: 0.017506547, y: 0.01750654, z: 0.017506545}
+    - name: Circle.086
+      parentName: Circle
+      position: {x: -0.003206742, y: 0.014093041, z: -0.010323575}
+      rotation: {x: -0.80630404, y: -0.05392434, z: 0.08658849, w: 0.5826393}
+      scale: {x: 0.017506545, y: 0.017506542, z: 0.017506547}
+    - name: Circle.087
+      parentName: Circle
+      position: {x: -0.004895501, y: 0.01359516, z: -0.0102161905}
+      rotation: {x: -0.80630404, y: -0.05392434, z: 0.08658849, w: 0.5826393}
+      scale: {x: 0.017506545, y: 0.017506542, z: 0.017506547}
+    - name: Circle.088
+      parentName: Circle
+      position: {x: -0.0065503297, y: 0.012827112, z: -0.010176158}
+      rotation: {x: -0.80630404, y: -0.05392434, z: 0.08658849, w: 0.5826393}
+      scale: {x: 0.017506545, y: 0.017506542, z: 0.017506547}
+    - name: Circle.089
+      parentName: Circle
+      position: {x: -0.008045016, y: 0.01188811, z: -0.01009608}
+      rotation: {x: -0.80630404, y: -0.05392434, z: 0.08658849, w: 0.5826393}
+      scale: {x: 0.017506545, y: 0.017506542, z: 0.017506547}
+    - name: Circle.090
+      parentName: Circle
+      position: {x: 0.015619603, y: -0.0019419579, z: 0.00281044}
+      rotation: {x: 0.7900828, y: 0.013039219, z: 0.016696855, w: 0.61263394}
+      scale: {x: 0.017856557, y: 0.017856557, z: 0.017856559}
+    - name: Circle.091
+      parentName: Circle
+      position: {x: 0.015890228, y: -0.0021978028, z: 0.004402523}
+      rotation: {x: 0.7900828, y: 0.013039219, z: 0.016696855, w: 0.61263394}
+      scale: {x: 0.017856557, y: 0.017856557, z: 0.017856559}
+    - name: Circle.092
+      parentName: Circle
+      position: {x: 0.016015006, y: -0.0017899207, z: 0.0055141877}
+      rotation: {x: 0.52491343, y: 0.017449094, z: 0.011216201, w: 0.85090286}
+      scale: {x: 0.017856559, y: 0.017856557, z: 0.017856559}
+    - name: Circle.093
+      parentName: Circle
+      position: {x: 0.01615113, y: 0.0009519318, z: 0.006973548}
+      rotation: {x: 0.06725432, y: 0.018445913, z: -0.00005732076, w: 0.9975654}
+      scale: {x: 0.017856559, y: 0.017856557, z: 0.01785656}
+    - name: Circle.094
+      parentName: Circle
+      position: {x: 0.01621648, y: -0.0007015492, z: 0.006525955}
+      rotation: {x: 0.13377576, y: 0.018468298, z: 0.0019624457, w: 0.99083763}
+      scale: {x: 0.017856557, y: 0.017856557, z: 0.01785656}
+    - name: Circle.095
+      parentName: Circle
+      position: {x: 0.01615113, y: 0.0026283597, z: 0.0067254114}
+      rotation: {x: -0.15212685, y: 0.017894527, z: -0.0063832165, w: 0.9881784}
+      scale: {x: 0.017856555, y: 0.017856555, z: 0.017856559}
+    - name: Circle.096
+      parentName: Circle
+      position: {x: 0.015994549, y: 0.0037535953, z: 0.005984926}
+      rotation: {x: -0.3561957, y: 0.017022114, z: -0.010865641, w: 0.9341932}
+      scale: {x: 0.017856559, y: 0.017856557, z: 0.017856559}
+    - name: Circle.097
+      parentName: Circle
+      position: {x: 0.015889982, y: 0.0045591057, z: 0.0043253135}
+      rotation: {x: -0.6051372, y: 0.014526643, z: -0.015675297, w: 0.7958343}
+      scale: {x: 0.017856557, y: 0.017856555, z: 0.01785656}
+    - name: Circle.098
+      parentName: Circle
+      position: {x: 0.015674455, y: 0.0043454817, z: 0.0030548286}
+      rotation: {x: -0.76383543, y: 0.010655199, z: -0.018106496, w: 0.64506906}
+      scale: {x: 0.017856559, y: 0.017856557, z: 0.01785656}
+    - name: Circle.099
+      parentName: Circle
+      position: {x: 0.015535631, y: 0.0031498559, z: 0.0017429828}
+      rotation: {x: 0.938154, y: -0.003953208, z: 0.018736858, w: -0.34568843}
+      scale: {x: 0.017856559, y: 0.017856557, z: 0.017856559}
+    - name: Circle.100
+      parentName: Circle
+      position: {x: 0.015462745, y: 0.0011814487, z: 0.0011970806}
+      rotation: {x: 0.99182343, y: 0.0020646995, z: 0.018320708, w: -0.12627915}
+      scale: {x: 0.017856557, y: 0.017856557, z: 0.01785656}
+    - name: Circle.101
+      parentName: Circle
+      position: {x: 0.015421518, y: -0.0008715398, z: 0.0018122816}
+      rotation: {x: 0.95540065, y: 0.012594333, z: 0.015922846, w: 0.29461405}
+      scale: {x: 0.017856559, y: 0.017856557, z: 0.01785656}
+    - name: Circle.102
+      parentName: Circle
+      position: {x: -0.01587128, y: -0.0021978025, z: 0.004402523}
+      rotation: {x: 0.74811417, y: 0.014213045, z: 0.015939085, w: 0.6632263}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.01785656}
+    - name: Circle.103
+      parentName: Circle
+      position: {x: -0.015696226, y: -0.0019593856, z: 0.0029719304}
+      rotation: {x: 0.74811417, y: 0.014213045, z: 0.015939085, w: 0.6632263}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.01785656}
+    - name: Circle.104
+      parentName: Circle
+      position: {x: -0.015566702, y: -0.001111097, z: 0.001962552}
+      rotation: {x: 0.92449456, y: 0.008684583, z: 0.017929833, w: 0.3806743}
+      scale: {x: 0.017856559, y: 0.017856557, z: 0.01785656}
+    - name: Circle.105
+      parentName: Circle
+      position: {x: -0.0154543985, y: -0.00011732876, z: 0.001420679}
+      rotation: {x: 0.9830324, y: 0.003813182, z: 0.018395515, w: 0.18246746}
+      scale: {x: 0.017856557, y: 0.017856559, z: 0.017856559}
+    - name: Circle.106
+      parentName: Circle
+      position: {x: -0.015443483, y: 0.0018296076, z: 0.0012472104}
+      rotation: {x: 0.99237925, y: -0.005157115, z: 0.01808707, w: -0.121777296}
+      scale: {x: 0.017856557, y: 0.017856555, z: 0.01785656}
+    - name: Circle.107
+      parentName: Circle
+      position: {x: -0.015532686, y: 0.0033876984, z: 0.0019131899}
+      rotation: {x: 0.9540393, y: -0.009362784, z: 0.017433565, w: -0.29902768}
+      scale: {x: 0.017856557, y: 0.017856557, z: 0.017856559}
+    - name: Circle.108
+      parentName: Circle
+      position: {x: -0.01571016, y: 0.0044121915, z: 0.0032466697}
+      rotation: {x: -0.8587917, y: 0.013546259, z: -0.016071891, w: 0.5118936}
+      scale: {x: 0.017856557, y: 0.017856557, z: 0.017856559}
+    - name: Circle.109
+      parentName: Circle
+      position: {x: -0.015926145, y: 0.0045150183, z: 0.004685173}
+      rotation: {x: -0.71673816, y: 0.017059766, z: -0.012832611, w: 0.6970156}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.017856559}
+    - name: Circle.110
+      parentName: Circle
+      position: {x: -0.016085584, y: 0.0038395314, z: 0.0059002684}
+      rotation: {x: -0.437985, y: 0.018658558, z: -0.006537241, w: 0.89876485}
+      scale: {x: 0.017856557, y: 0.017856557, z: 0.017856559}
+    - name: Circle.111
+      parentName: Circle
+      position: {x: -0.0162312, y: 0.0022432932, z: 0.006853113}
+      rotation: {x: -0.22936188, y: 0.018604299, z: -0.0014580706, w: 0.97316235}
+      scale: {x: 0.017856559, y: 0.017856555, z: 0.017856559}
+    - name: Circle.112
+      parentName: Circle
+      position: {x: -0.016179169, y: 0.00081933936, z: 0.006993022}
+      rotation: {x: -0.032567054, y: 0.018000357, z: 0.0044396245, w: 0.9992976}
+      scale: {x: 0.017856559, y: 0.017856559, z: 0.01785656}
+    - name: Circle.113
+      parentName: Circle
+      position: {x: -0.016175473, y: -0.0004651174, z: 0.006641736}
+      rotation: {x: 0.2158766, y: 0.01656618, z: 0.010822187, w: 0.97622013}
+      scale: {x: 0.017856555, y: 0.017856555, z: 0.017856559}
+    - name: Circle.114
+      parentName: Circle
+      position: {x: -0.016013436, y: -0.0016322766, z: 0.0057565686}
+      rotation: {x: 0.45642534, y: 0.0147341145, z: 0.015088761, w: 0.88951176}
+      scale: {x: 0.017856557, y: 0.017856555, z: 0.01785656}
+    - name: Circle.115
+      parentName: Circle
+      position: {x: 0.0002136635, y: -0.008876854, z: -0.03311821}
+      rotation: {x: 0.7374114, y: 0.014435484, z: 0.015767736, w: 0.6751055}
+      scale: {x: 0.017506542, y: 0.017506542, z: 0.017506545}
+    - name: Circle.116
+      parentName: Circle
+      position: {x: -0.00227958, y: -0.008501268, z: -0.03311423}
+      rotation: {x: 0.7374114, y: 0.014435484, z: 0.015767736, w: 0.6751055}
+      scale: {x: 0.017506542, y: 0.017506542, z: 0.017506545}
+    - name: Circle.117
+      parentName: Circle
+      position: {x: -0.0041142977, y: -0.007638138, z: -0.032996617}
+      rotation: {x: 0.71702105, y: -0.17532048, z: -0.15782823, w: 0.6559221}
+      scale: {x: 0.017506544, y: 0.01750654, z: 0.017506545}
+    - name: Circle.118
+      parentName: Circle
+      position: {x: -0.005698835, y: -0.0063629556, z: -0.03298669}
+      rotation: {x: 0.66465265, y: -0.32520494, z: -0.29353935, w: 0.6052382}
+      scale: {x: 0.017506544, y: 0.017506542, z: 0.017506544}
+    - name: Circle.119
+      parentName: Circle
+      position: {x: -0.007190712, y: -0.0044555576, z: -0.032860234}
+      rotation: {x: 0.66465265, y: -0.32520494, z: -0.29353935, w: 0.6052382}
+      scale: {x: 0.017506544, y: 0.017506542, z: 0.017506544}
+    - name: Circle.120
+      parentName: Circle
+      position: {x: -0.008197528, y: -0.0019887981, z: -0.032805976}
+      rotation: {x: 0.610359, y: -0.42049754, z: -0.37900633, w: 0.5540739}
+      scale: {x: 0.017506544, y: 0.01750654, z: 0.017506544}
+    - name: Circle.121
+      parentName: Circle
+      position: {x: -0.008612144, y: 0.00039708003, z: -0.032630432}
+      rotation: {x: 0.5614202, y: -0.48470613, z: -0.43665293, w: 0.50911844}
+      scale: {x: 0.017506545, y: 0.01750654, z: 0.017506545}
+    - name: Circle.122
+      parentName: Circle
+      position: {x: -0.008462998, y: 0.0033273536, z: -0.03259581}
+      rotation: {x: 0.59361684, y: -0.45187268, z: -0.52805895, w: 0.40568942}
+      scale: {x: 0.017506544, y: 0.01750654, z: 0.017506544}
+    - name: Circle.123
+      parentName: Circle
+      position: {x: -0.007585605, y: 0.0059682876, z: -0.03251254}
+      rotation: {x: -0.45659262, y: 0.5872206, z: 0.61907375, w: -0.25187883}
+      scale: {x: 0.017506544, y: 0.017506542, z: 0.017506544}
+    - name: Circle.124
+      parentName: Circle
+      position: {x: -0.006508367, y: 0.0077710473, z: -0.032276593}
+      rotation: {x: -0.4326193, y: 0.6045048, z: 0.6297747, w: -0.22538476}
+      scale: {x: 0.017506544, y: 0.01750654, z: 0.017506545}
+    - name: Circle.125
+      parentName: Circle
+      position: {x: -0.0049252925, y: 0.0094512645, z: -0.032250382}
+      rotation: {x: -0.38572955, y: 0.63436973, z: 0.6469223, w: -0.1740095}
+      scale: {x: 0.017506545, y: 0.01750654, z: 0.017506544}
+    - name: Circle.126
+      parentName: Circle
+      position: {x: -0.0033053528, y: 0.010492857, z: -0.03219664}
+      rotation: {x: -0.25988883, y: 0.69341224, z: 0.67079556, w: -0.040874563}
+      scale: {x: 0.017506544, y: 0.017506542, z: 0.017506545}
+    - name: Circle.127
+      parentName: Circle
+      position: {x: -0.0016332628, y: 0.011072518, z: -0.032178655}
+      rotation: {x: -0.21618046, y: 0.7078115, z: 0.6725022, w: 0.0031151932}
+      scale: {x: 0.017506545, y: 0.017506542, z: 0.017506544}
+    - name: Circle.128
+      parentName: Circle
+      position: {x: 0.00064849114, y: 0.011191532, z: -0.032175597}
+      rotation: {x: -0.23560292, y: 0.70176756, z: 0.6721228, w: -0.016268373}
+      scale: {x: 0.017506544, y: 0.01750654, z: 0.017506545}
+    - name: Circle.129
+      parentName: Circle
+      position: {x: 0.0023912317, y: 0.010835912, z: -0.032259654}
+      rotation: {x: -0.10413226, y: 0.7322807, z: 0.6640211, w: 0.1095334}
+      scale: {x: 0.017506544, y: 0.017506542, z: 0.017506544}
+    - name: Circle.130
+      parentName: Circle
+      position: {x: 0.004393793, y: 0.00985505, z: -0.032248665}
+      rotation: {x: 0.007127604, y: 0.7400623, z: 0.6401699, w: 0.2060085}
+      scale: {x: 0.017506545, y: 0.01750654, z: 0.017506547}
+    - name: Circle.131
+      parentName: Circle
+      position: {x: 0.006189481, y: 0.008303547, z: -0.032302797}
+      rotation: {x: 0.06742587, y: 0.7375985, z: 0.6217011, w: 0.25473514}
+      scale: {x: 0.017506545, y: 0.01750654, z: 0.017506545}
+    - name: Circle.132
+      parentName: Circle
+      position: {x: 0.0076740477, y: 0.0059022293, z: -0.03247057}
+      rotation: {x: 0.28833133, y: 0.6857439, z: 0.52224404, w: 0.41699094}
+      scale: {x: 0.017506544, y: 0.017506542, z: 0.017506544}
+    - name: Circle.133
+      parentName: Circle
+      position: {x: 0.0084788585, y: 0.0034896587, z: -0.03262478}
+      rotation: {x: 0.36801118, y: 0.6475826, z: 0.4717779, w: 0.47183704}
+      scale: {x: 0.017506544, y: 0.01750654, z: 0.017506545}
+    - name: Circle.134
+      parentName: Circle
+      position: {x: 0.008686253, y: 0.00057981856, z: -0.03277405}
+      rotation: {x: 0.36801118, y: 0.6475826, z: 0.4717779, w: 0.47183704}
+      scale: {x: 0.017506544, y: 0.01750654, z: 0.017506545}
+    - name: Circle.135
+      parentName: Circle
+      position: {x: 0.008334978, y: -0.0016885061, z: -0.032858063}
+      rotation: {x: 0.5641966, y: 0.48384067, z: 0.28355387, w: 0.60595185}
+      scale: {x: 0.017506545, y: 0.01750654, z: 0.017506545}
+    - name: Circle.136
+      parentName: Circle
+      position: {x: 0.0076669035, y: -0.0035673152, z: -0.032962535}
+      rotation: {x: 0.5641966, y: 0.48384067, z: 0.28355387, w: 0.60595185}
+      scale: {x: 0.017506545, y: 0.01750654, z: 0.017506545}
+    - name: Circle.137
+      parentName: Circle
+      position: {x: 0.006731359, y: -0.00518755, z: -0.0329655}
+      rotation: {x: 0.5641966, y: 0.48384067, z: 0.28355387, w: 0.60595185}
+      scale: {x: 0.017506545, y: 0.01750654, z: 0.017506545}
+    - name: Circle.138
+      parentName: Circle
+      position: {x: 0.0054902383, y: -0.0066185133, z: -0.03305757}
+      rotation: {x: 0.6104341, y: 0.42189708, z: 0.21471384, w: 0.63503623}
+      scale: {x: 0.017506544, y: 0.01750654, z: 0.017506545}
+    - name: Circle.139
+      parentName: Circle
+      position: {x: 0.0038567784, y: -0.007836573, z: -0.033103485}
+      rotation: {x: 0.66571146, y: 0.3238724, z: 0.108233236, w: 0.66349113}
+      scale: {x: 0.017506545, y: 0.017506542, z: 0.017506545}
+    - name: Circle.140
+      parentName: Circle
+      position: {x: 0.002293021, y: -0.008517418, z: -0.03310642}
+      rotation: {x: 0.68485045, y: 0.27955452, z: 0.061643295, w: 0.67009646}
+      scale: {x: 0.017506544, y: 0.017506542, z: 0.017506544}
+    - name: Circle.002
+      parentName: Yellow(Clone)
+      position: {x: -1.0384827, y: 3.275497, z: -0.000026911497}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Cube
+      parentName: Yellow(Clone)
+      position: {x: -1.0491028, y: 0.5533309, z: -0.007084147}
+      rotation: {x: -0.7017696, y: -0.086714864, z: 0.08671489, w: 0.70176953}
+      scale: {x: 22.139544, y: 10.9009, z: 22.139545}
+    - name: Cylinder
+      parentName: Yellow(Clone)
+      position: {x: -0.029528115, y: 0.9990543, z: 0.000029429793}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 52.67052, y: 52.67052, z: 12.634148}
+    - name: Cylinder.001
+      parentName: Yellow(Clone)
+      position: {x: -0.018402725, y: 1.0880575, z: 0.000029429793}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 40.46227, y: 40.46227, z: 14.627057}
+    - name: Circle.001
+      parentName: Yellow(Clone)
+      position: {x: -0.114952445, y: 3.9600341, z: 0.20083068}
+      rotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+      scale: {x: 5.8579574, y: 5.8579574, z: 5.8579574}
+    - name: Circle.003
+      parentName: Yellow(Clone)
+      position: {x: 0.071195275, y: 3.9600341, z: 0.19513956}
+      rotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+      scale: {x: 5.8579574, y: 5.8579574, z: 5.8579574}
+    - name: Circle.004
+      parentName: Yellow(Clone)
+      position: {x: 0.2731648, y: 0.87709194, z: 0.27698854}
+      rotation: {x: -0.7799225, y: -0.08114452, z: 0.10342355, w: 0.6119151}
+      scale: {x: 10.006379, y: 10.006379, z: 10.006379}
+    - name: Sphere
+      parentName: Yellow(Clone)
+      position: {x: 0.27924407, y: 0.85328853, z: 0.28232697}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 9.204546, y: 9.204546, z: 8.377067}
+    - name: Circle.005
+      parentName: Yellow(Clone)
+      position: {x: 0.32702926, y: 0.33107477, z: 0.32430375}
+      rotation: {x: -0.70551354, y: -0.17138726, z: -0.047441322, w: 0.68602216}
+      scale: {x: 2.8092997, y: 2.8092997, z: 2.8092997}
+    - name: Cylinder.002
+      parentName: Yellow(Clone)
+      position: {x: -0.7383158, y: 3.7916145, z: 0.0000030398369}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 0.38837704, y: 0.38837704, z: 15.551649}
+    - name: Cylinder.003
+      parentName: Yellow(Clone)
+      position: {x: -0.6900176, y: 3.705368, z: 0.0000030398369}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 0.40504074, y: 0.40504074, z: 16.218908}
+    - name: Plane
+      parentName: Yellow(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.67252684, y: 0.21842091, z: 0.21842092, w: 0.6725268}
+      scale: {x: 543.1148, y: 543.1148, z: 543.11475}
+    - name: Camera
+      parentName: Yellow(Clone)
+      position: {x: -0.1745224, y: 3.9907658, z: 7.0266705}
+      rotation: {x: -0.0002834741, y: -0.9995613, z: 0.027810415, w: -0.010187894}
+      scale: {x: 100.00001, y: 100.000015, z: 100}
+    - name: Plane.001
+      parentName: Yellow(Clone)
+      position: {x: -0.034146797, y: 3.3336565, z: 0.78664297}
+      rotation: {x: 0.020806443, y: 0, z: -0, w: 0.9997835}
+      scale: {x: 33.267754, y: 18.033127, z: 22.866726}
+    - name: Plane.002
+      parentName: Yellow(Clone)
+      position: {x: -0.11965018, y: 3.9616103, z: 0.21973647}
+      rotation: {x: 0.020806441, y: 0, z: -0, w: 0.9997835}
+      scale: {x: 4.776436, y: 3.7676709, z: 4.777558}
+    - name: Plane.003
+      parentName: Yellow(Clone)
+      position: {x: 0.073041394, y: 3.9616103, z: 0.21103385}
+      rotation: {x: 0.020806441, y: 0, z: -0, w: 0.9997835}
+      scale: {x: 4.776436, y: 3.7676709, z: 4.777558}
+    - name: Area
+      parentName: Yellow(Clone)
+      position: {x: -1.5180557, y: 6.130217, z: 2.3246374}
+      rotation: {x: 0.805623, y: -0.16714144, z: 0.28620324, w: 0.49104288}
+      scale: {x: 675.8663, y: 675.8661, z: 675.8662}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
