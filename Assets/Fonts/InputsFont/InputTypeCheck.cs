@@ -8,7 +8,7 @@ public class InputTypeCheck : MonoBehaviour
 {
     public string device;
     private void Update() {
-        device = InputDevice.deviceId;
+        //device = InputDevice.deviceId;
 
 
     }
