@@ -5,6 +5,8 @@ Shader "Custom/SurfaceLambert"
         _Color ("Color", Color) = (1,1,1,1)
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _levels ("Levels", float) = 2
+        _brightness ("Brightness", float) = 0
+        _strength ("Strength", float) = 1
     }
     SubShader
     {
@@ -27,6 +29,8 @@ Shader "Custom/SurfaceLambert"
 
         fixed4 _Color;
         float _levels;
+        float _brightness;
+        float _strength;
 
         void surf (Input IN, inout SurfaceOutput o)
         {
@@ -40,10 +44,13 @@ Shader "Custom/SurfaceLambert"
         {
             float mult = _levels;
             half NdotL =  max(0, round(dot(s.Normal*mult, lightDir))/mult);
-            
             half4 color;
 
             color.rgb = s.Albedo * _LightColor0.rgb * (NdotL * atten);
+            color.rgb += _brightness;
+            
+            float3 intensity = dot(color.rgb, lightDir);
+            color.rgb = lerp(intensity, color.rgb, _strength);
             color.a = s.Alpha;
 
             return color;
