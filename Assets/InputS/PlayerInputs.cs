@@ -92,12 +92,12 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Crouch"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""dea8c08c-87e4-45d1-ac44-cd7d756dc104"",
-                    ""expectedControlType"": ""Double"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""ChangeArm"",
@@ -386,7 +386,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f68df67e-bb7a-4dea-8eb1-200027e5c8e6"",
-                    ""path"": ""<Keyboard>/ctrl"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
