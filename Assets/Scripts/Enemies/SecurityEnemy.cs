@@ -14,20 +14,25 @@ namespace Enemies
         public GameObject pParent;
         public List<Transform> patrolPoints;
         public int currentPoint = 0;
+        public bool capturing = false;
+        public Move playerMove;
+        public Animator playerAnimator;
+        public bool frozenPlayer = false;
         // ----------------------------------------------------------------------------------------------- Unity Methods
         void Awake()
         {
             // Initialize private components
-            player = GameObject.FindWithTag("Player").transform;
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
+            player = GameObject.FindWithTag("Player").transform;
+            playerAnimator = player.GetComponentsInChildren<Animator>()[1];
+            playerMove = player.GetComponent<Move>();
             GameObject manager = GameObject.FindWithTag("Manager");
             if(manager!=null)
                 hitStop = manager.GetComponent<HitStop>();
             foreach(Transform child in pParent.transform)
             {
                 patrolPoints.Add(child);
-                Debug.Log("Added child.");
             }
         }
 
@@ -38,10 +43,20 @@ namespace Enemies
                 if(rayHit.collider.tag == "Prop"){}
                 else if(rayHit.collider.tag == "Player")
                 {
-                    Debug.Log("Target Spotted");
+                    if(!frozenPlayer)
+                    {
+                        playerMove.canMove = false;
+                        playerMove.StopMove();
+                        playerAnimator.SetTrigger("ArmRaise");
+                        capturing = true;
+                        frozenPlayer = true;
+                    }      
                 }
             }
-            Patrolling();
+            if(capturing)
+                Capture();
+            else
+                Patrolling();
             
         }
 
@@ -71,5 +86,12 @@ namespace Enemies
 
             walkPointSet = true;
         }
+
+        public void Capture()
+        {
+            agent.SetDestination(player.position);
+        }
     }
+
+    
 }
