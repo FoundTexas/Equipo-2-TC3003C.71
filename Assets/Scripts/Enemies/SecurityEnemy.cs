@@ -18,6 +18,7 @@ namespace Enemies
         public Move playerMove;
         public Animator playerAnimator;
         public bool frozenPlayer = false;
+        public FadeBlack fade;
         // ----------------------------------------------------------------------------------------------- Unity Methods
         void Awake()
         {
@@ -27,6 +28,7 @@ namespace Enemies
             player = GameObject.FindWithTag("Player").transform;
             playerAnimator = player.GetComponentsInChildren<Animator>()[1];
             playerMove = player.GetComponent<Move>();
+            fade = GameObject.FindWithTag("GameCanvas").GetComponentsInChildren<FadeBlack>()[0];
             GameObject manager = GameObject.FindWithTag("Manager");
             if(manager!=null)
                 hitStop = manager.GetComponent<HitStop>();
@@ -89,7 +91,12 @@ namespace Enemies
 
         public void Capture()
         {
-            agent.SetDestination(player.position);
+            agent.SetDestination(transform.position);
+            Vector3 targetPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+            transform.LookAt(targetPosition);
+            fade.DoFade(true, 0.5f);
+            if(fade.IsFaded())
+                Debug.Log("Die.");
         }
     }
 

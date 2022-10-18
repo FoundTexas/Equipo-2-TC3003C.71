@@ -150,6 +150,7 @@ MonoBehaviour:
   playerMove: {fileID: 0}
   playerAnimator: {fileID: 0}
   frozenPlayer: 0
+  fade: {fileID: 2746278504298003905, guid: 31e301423cff2be4ebb66d2a827438c0, type: 3}
 --- !u!195 &8074820962475953743
 NavMeshAgent:
   m_ObjectHideFlags: 0
