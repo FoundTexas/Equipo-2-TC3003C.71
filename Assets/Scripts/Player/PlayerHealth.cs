@@ -80,7 +80,7 @@ namespace Player
 
             hitStop.HitStopFreeze(10f, 1f);
             gameObject.SetActive(false);
-            sceneLoader.LoadByIndex(1, GameManager.getCheckpoint());
+            sceneLoader.LoadByIndex(GameManager.getSceneIndex(), GameManager.getCheckpoint());
             
             var vfxDuration = 1f;
             Destroy(deathvfx, vfxDuration);

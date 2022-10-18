@@ -34,6 +34,11 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
+    public static int getSceneIndex()
+    {
+        return SceneManager.GetActiveScene().buildIndex;
+    }
+
     public static Vector3 FirstPos(int i)
     {
         inst.CheckPoint = inst.initialPositions[i];
