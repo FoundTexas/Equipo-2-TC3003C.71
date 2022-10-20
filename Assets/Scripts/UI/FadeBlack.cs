@@ -16,13 +16,14 @@ public class FadeBlack : MonoBehaviour
         StartCoroutine(FadeBlackoutSquare());
     }
 
-    public bool IsFaded()   
+    public bool IsFaded()
     {
         Image objectImage = GetComponent<Image>();
         Color objectColor = objectImage.color;
-        return (objectColor.a >= 255);
+        if(objectColor.a >= 1)
+            return true;
+        return false;
     }
-
     public IEnumerator FadeBlackoutSquare()
     {
         Image objectImage = GetComponent<Image>();
@@ -41,7 +42,7 @@ public class FadeBlack : MonoBehaviour
         }
         else
         {
-            while(GetComponent<Image>().color.a < 1)
+            while(GetComponent<Image>().color.a > 1)
             {
                 fadeAmount = objectColor.a - (fadeSpeed * Time.deltaTime);
                 objectColor.a = fadeAmount;

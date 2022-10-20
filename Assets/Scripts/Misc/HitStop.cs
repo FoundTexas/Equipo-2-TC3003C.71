@@ -46,7 +46,7 @@ public class HitStop : MonoBehaviour
         inHitStop = true;
         float original = Time.timeScale;
         Time.timeScale = 0f;
-        //CameraShake.Instance.DoShake(shakeMagnitude,1f,hitStopDuration);
+        CameraShake.Instance.DoShake(shakeMagnitude,1f,hitStopDuration);
         yield return new WaitForSecondsRealtime(hitStopDuration);
 
         Time.timeScale = original;

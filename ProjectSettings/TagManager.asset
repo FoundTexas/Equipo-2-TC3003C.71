@@ -11,8 +11,8 @@ TagManager:
   - SceneLoader
   - Vacuum
   - Concrete
-  - Guard
   - GameCanvas
+  - CinemachineCamera
   layers:
   - Default
   - TransparentFX

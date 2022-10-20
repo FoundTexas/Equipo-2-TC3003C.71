@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using GameManagement;
+using WeaponSystem;
 
 namespace Enemies
 {
@@ -12,6 +14,7 @@ namespace Enemies
     {
         RaycastHit rayHit;
         public GameObject pParent;
+        public GameObject playerObj;
         public List<Transform> patrolPoints;
         public int currentPoint = 0;
         public bool capturing = false;
@@ -19,17 +22,22 @@ namespace Enemies
         public Animator playerAnimator;
         public bool frozenPlayer = false;
         public FadeBlack fade;
+        private SceneLoader sceneLoader;
+        public WeaponManager weapons;
         // ----------------------------------------------------------------------------------------------- Unity Methods
         void Awake()
         {
             // Initialize private components
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
-            player = GameObject.FindWithTag("Player").transform;
+            playerObj = GameObject.FindWithTag("Player");
+            player = playerObj.transform;
+            weapons = playerObj.GetComponentInChildren<WeaponManager>();
             playerAnimator = player.GetComponentsInChildren<Animator>()[1];
             playerMove = player.GetComponent<Move>();
             fade = GameObject.FindWithTag("GameCanvas").GetComponentsInChildren<FadeBlack>()[0];
             GameObject manager = GameObject.FindWithTag("Manager");
+            sceneLoader = GameObject.FindWithTag("SceneLoader").GetComponent<SceneLoader>();
             if(manager!=null)
                 hitStop = manager.GetComponent<HitStop>();
             foreach(Transform child in pParent.transform)
@@ -40,6 +48,9 @@ namespace Enemies
 
         void Update()
         {
+            if(weapons.CurrentSelect().curShootS == weapons.CurrentSelect().shootSpeed)
+                Capture();
+                
             if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayHit))
             {
                 if(rayHit.collider.tag == "Prop"){}
@@ -91,12 +102,28 @@ namespace Enemies
 
         public void Capture()
         {
+            if(!frozenPlayer)
+            {
+                playerMove.canMove = false;
+                playerMove.StopMove();
+                playerAnimator.SetTrigger("ArmRaise");
+                capturing = true;
+                frozenPlayer = true;
+            }
             agent.SetDestination(transform.position);
             Vector3 targetPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
             transform.LookAt(targetPosition);
             fade.DoFade(true, 0.5f);
             if(fade.IsFaded())
-                Debug.Log("Die.");
+                sceneLoader.LoadByIndex(GameManager.getSceneIndex(), GameManager.getCheckpoint());
+        }
+
+        void OnTriggerEnter(Collider col)
+        {
+            if(col.tag == "Player")
+            {
+                Capture();
+            }
         }
     }
 

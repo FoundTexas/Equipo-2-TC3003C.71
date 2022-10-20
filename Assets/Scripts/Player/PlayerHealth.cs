@@ -52,8 +52,6 @@ namespace Player
         {
             if(collision.gameObject.tag == "Enemy" && invFrames <= 0)
                 TakeDamage(1);
-            if(collision.gameObject.tag == "Guard")
-                TakeDamage(100);
         } 
 
         // ----------------------------------------------------------------------------------------------- Public Methods
