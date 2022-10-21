@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager inst;
     public static string eventRef = "";
+    public static bool isOnline = false;
     static InGameEvent tmpevent;
     public static bool saved;
     public Vector3 CheckPoint;

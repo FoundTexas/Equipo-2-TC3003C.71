@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    [SerializeField] Transform Player;
+    [SerializeField] public Transform Player;
     void Update()
     {
         transform.position = Player.position;

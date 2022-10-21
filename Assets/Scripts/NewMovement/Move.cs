@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Player;
+using PlanetCrashUI;
+using Photon.Pun;
 
 [RequireComponent(typeof(CharacterController))]
 public class Move : MonoBehaviour
@@ -10,6 +12,7 @@ public class Move : MonoBehaviour
     PlayerInputs PlayerInput;
     InputAction MoveValue, JumpInput, AimInput, CrouchInput;
 
+    public GameObject playerOnlinePrefab;
     [Header("Camera movement")]
     // Variables needed for camera turning
     public float turnTime = 0.1f;
@@ -61,6 +64,7 @@ public class Move : MonoBehaviour
     public bool PossibleDialogue = false;
     CharacterController controller;
     Vector3 movDirection;
+    PhotonView view;
     private AudioAndVideoManager anim;
 
     // ------------------------------------- Unity Methods
@@ -94,6 +98,7 @@ public class Move : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         anim = GetComponent<AudioAndVideoManager>();
+        view = GetComponent<PhotonView>();
         cam = Camera.main.transform;
         jumpParticles.SetActive(false);
         SeedMod = speed;
@@ -101,7 +106,17 @@ public class Move : MonoBehaviour
 
         StartCoroutine(SetFirstPos());
     }
-
+    public void CreateOnlinePlayer()
+    {
+        if(GameManager.isOnline && !view)
+        {
+            GameObject player = PhotonNetwork.Instantiate(playerOnlinePrefab.name, transform.position, Quaternion.identity);
+            player.GetComponent<Move>().canMove = true;
+            FindObjectOfType<FollowPlayer>().Player = player.transform;
+            FindObjectOfType<MiniMap>().player = player.gameObject;
+            Destroy(gameObject);
+        }
+    }
     IEnumerator SetFirstPos()
     {
         yield return new WaitForEndOfFrame();
@@ -109,6 +124,10 @@ public class Move : MonoBehaviour
     }
     private void LateUpdate()
     {
+        if(view)
+            if(!view.IsMine)
+                return;
+
         SendAnimationVals();
         wallFound = Physics.Raycast(transform.position, transform.forward, out wallHit, wallDistance, wallMask);
         Physics.Raycast(transform.position, transform.up, out upHit, 1.6f, wallMask);
