@@ -3070,6 +3070,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: SecurityEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 7891210549258560463, guid: 561e6f4d54f582d49ad878aa7f963931, type: 3}
+      propertyPath: m_Size.x
+      value: 25.324821
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891210549258560463, guid: 561e6f4d54f582d49ad878aa7f963931, type: 3}
+      propertyPath: m_Size.y
+      value: 3.2829251
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891210549258560463, guid: 561e6f4d54f582d49ad878aa7f963931, type: 3}
+      propertyPath: m_Size.z
+      value: 35.356323
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891210549258560463, guid: 561e6f4d54f582d49ad878aa7f963931, type: 3}
+      propertyPath: m_Center.x
+      value: -0.12286568
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891210549258560463, guid: 561e6f4d54f582d49ad878aa7f963931, type: 3}
+      propertyPath: m_Center.y
+      value: 0.6414616
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891210549258560463, guid: 561e6f4d54f582d49ad878aa7f963931, type: 3}
+      propertyPath: m_Center.z
+      value: 5.1173706
+      objectReference: {fileID: 0}
     - target: {fileID: 8074820962475953740, guid: 561e6f4d54f582d49ad878aa7f963931, type: 3}
       propertyPath: pParent
       value: 
@@ -9013,11 +9037,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4221337932887527354, guid: e2896c50585ad3c46ab4c01f32ca1df7, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.24325314
+      value: -0.24325319
       objectReference: {fileID: 0}
     - target: {fileID: 4221337932887527354, guid: e2896c50585ad3c46ab4c01f32ca1df7, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.068459794
+      value: 0.0684598
       objectReference: {fileID: 0}
     - target: {fileID: 4634568243680381196, guid: e2896c50585ad3c46ab4c01f32ca1df7, type: 3}
       propertyPath: m_Lens.m_SensorSize.x
