@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using GameManagement;
 using Player;
 using PlanetCrashUI;
 using Photon.Pun;
@@ -103,20 +104,33 @@ public class Move : MonoBehaviour
         jumpParticles.SetActive(false);
         SeedMod = speed;
         originalHeight = controller.height; //transform.localScale.y;
+        FindObjectOfType<MiniMap>().player = this.gameObject;
 
         StartCoroutine(SetFirstPos());
     }
-    public void CreateOnlinePlayer()
+    // public void CreateOnlinePlayer()
+    // {
+    //     GameObject player = this.gameObject;
+    //     if(GameManager.isOnline && !view)
+    //     {
+    //         player = PhotonNetwork.Instantiate(playerOnlinePrefab.name, transform.position, Quaternion.identity);
+    //         FindObjectOfType<FollowPlayer>().Player = player.transform;
+    //         FindObjectOfType<MiniMap>().player = player.gameObject;
+    //         Destroy(gameObject);
+    //     }
+    //     player.GetComponent<Move>().canMove = true;
+    // }
+
+    public void setCam(SceneManagement sm)
     {
-        if(GameManager.isOnline && !view)
+        view = GetComponent<PhotonView>();
+        if (!GameManager.isOnline || GameManager.isOnline  && view.IsMine)
         {
-            GameObject player = PhotonNetwork.Instantiate(playerOnlinePrefab.name, transform.position, Quaternion.identity);
-            player.GetComponent<Move>().canMove = true;
-            FindObjectOfType<FollowPlayer>().Player = player.transform;
-            FindObjectOfType<MiniMap>().player = player.gameObject;
-            Destroy(gameObject);
+            sm.SetCam(this.transform);
+            print("Move set cam");
         }
     }
+
     IEnumerator SetFirstPos()
     {
         yield return new WaitForEndOfFrame();

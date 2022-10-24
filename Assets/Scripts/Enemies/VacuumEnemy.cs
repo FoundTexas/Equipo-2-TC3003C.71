@@ -14,7 +14,10 @@ namespace Enemies
         void Awake()
         {
             // Initialize private components
-            player = GameObject.FindWithTag("Player").transform;
+            GameObject _player = GameObject.FindWithTag("Player");
+            if(_player)
+                player = _player.transform;
+            
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
             GameObject manager = GameObject.FindWithTag("Manager");

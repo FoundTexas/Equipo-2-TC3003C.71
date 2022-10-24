@@ -33,6 +33,8 @@ namespace Player
             
             // Establish original values
             playerHP = maxHP;
+            if(!healthBar)
+                healthBar = FindObjectOfType<HealthBar>();
             healthBar.SetMaxHealth(maxHP);
         }
 

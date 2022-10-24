@@ -9,4 +9,8 @@ public class FollowPlayer : MonoBehaviour
     {
         transform.position = Player.position;
     }
+    public void setFollow(Transform target)
+    {
+        Player = target;
+    }
 }

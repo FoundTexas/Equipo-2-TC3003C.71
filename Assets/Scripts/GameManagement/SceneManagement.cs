@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 using Collectables;
 using Interfaces;
+using Cinemachine;
 using Player;
 
 [Serializable]
@@ -23,6 +24,7 @@ namespace GameManagement
         public Collectable[] collect;
         InGameEvent[] events;
         public TextMeshProUGUI Amount;
+        public CinemachineFreeLook cam;
 
         public float Scenevalue = -20;
 
@@ -46,6 +48,24 @@ namespace GameManagement
         }
         // ----------------------------------------------------------------------------------------------- Public Methods
 
+        public void SetCam(Transform target)
+        {
+            print(cam);
+            if (cam)
+            {
+                FollowPlayer[] follows = FindObjectsOfType<FollowPlayer>();
+
+                foreach(var follow in follows)
+                {
+                    follow.setFollow(target);
+                }
+
+                print(target.name);
+                cam.Follow = target;
+                cam.LookAt = target;
+            }
+        }
+        
         void UpdateValues()
         {
             for (int i = 0; i < collect.Length; i++)
