@@ -23,9 +23,12 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
+        PhotonNetwork.JoinLobby();
+    }
+    public override void OnJoinedLobby()
+    {
         mainPanel.SetActive(false);
         onlinePanel.SetActive(true);
-        //PhotonNetwork.JoinLobby();
     }
 
     public void OnClickCreate()
