@@ -94,10 +94,14 @@ public class Move : MonoBehaviour
     }
     private void OnDisable()
     {
-        MoveValue.Disable();
-        JumpInput.Disable();
-        AimInput.Disable();
-        CrouchInput.Disable();
+        view = GetComponent<PhotonView>();
+        if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+        {
+            MoveValue.Disable();
+            JumpInput.Disable();
+            AimInput.Disable();
+            CrouchInput.Disable();
+        }
     }
     void Start()
     {

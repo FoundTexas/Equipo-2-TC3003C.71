@@ -1243,6 +1243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d152bdb88269da44caf68e033e709d84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  view: {fileID: 1268163560541054327}
   color:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameManagement;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 namespace Player
 {
@@ -12,6 +13,7 @@ namespace Player
     /// </summary>
     public class PlayerHealth : MonoBehaviour, IDamage
     {
+        public PhotonView view;
         public Gradient color;
         public HealthBar healthBar;
         public GameObject explosionFx;
@@ -25,36 +27,49 @@ namespace Player
         // ----------------------------------------------------------------------------------------------- Unity Methods
         void Start()
         {
-            // Initialize private components
-            GameObject manager = GameObject.FindWithTag("Manager");
-            if(manager != null)
-                hitStop = manager.GetComponent<HitStop>();
-            sceneLoader = GameObject.FindWithTag("SceneLoader").GetComponent<SceneLoader>();
-            
-            // Establish original values
-            playerHP = maxHP;
-            if(!healthBar)
-                healthBar = FindObjectOfType<HealthBar>();
-            healthBar.SetMaxHealth(maxHP);
+            view = GetComponent<PhotonView>();
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            {
+                // Initialize private components
+                GameObject manager = GameObject.FindWithTag("Manager");
+                if (manager != null)
+                    hitStop = manager.GetComponent<HitStop>();
+                sceneLoader = GameObject.FindWithTag("SceneLoader").GetComponent<SceneLoader>();
+
+                // Establish original values
+                playerHP = maxHP;
+                if (!healthBar)
+                    healthBar = FindObjectOfType<HealthBar>();
+                healthBar.SetMaxHealth(maxHP);
+            }
         }
 
         void Update()
         {
-            invFrames -= Time.deltaTime;
-            if(invFrames <= 0)
-                forceField.SetActive(false);
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            {
+                invFrames -= Time.deltaTime;
+                if (invFrames <= 0)
+                    forceField.SetActive(false);
+            }
         }
 
         void OnCollisionEnter(Collision collision)
         {
-            if(collision.gameObject.tag == "Enemy" && invFrames <= 0)
-                TakeDamage(1);
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            {
+                if (collision.gameObject.tag == "Enemy" && invFrames <= 0)
+                    TakeDamage(1);
+            }
         }   
 
         void OnTriggerEnter(Collider collision)
         {
-            if(collision.gameObject.tag == "Enemy" && invFrames <= 0)
-                TakeDamage(1);
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            {
+                if (collision.gameObject.tag == "Enemy" && invFrames <= 0)
+                    TakeDamage(1);
+            }
         } 
 
         // ----------------------------------------------------------------------------------------------- Public Methods
@@ -64,8 +79,11 @@ namespace Player
         /// <param name="amount"> float value to be added to the player's health. </param>
         public void AddHealth(float amount)
         {
-            playerHP += amount;
-            healthBar.SetHealth(playerHP);
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            {
+                playerHP += amount;
+                healthBar.SetHealth(playerHP);
+            }
         }
 
         // ----------------------------------------------------------------------------------------------- Interface IDamage
@@ -74,17 +92,20 @@ namespace Player
         /// </summary>
         public void Die()
         {
-            // Create death effects
-            Vector3 vfxPos = transform.position;
-            vfxPos.y = transform.position.y + 1;
-            GameObject deathvfx = Instantiate(explosionFx, vfxPos, Quaternion.identity);
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            {
+                // Create death effects
+                Vector3 vfxPos = transform.position;
+                vfxPos.y = transform.position.y + 1;
+                GameObject deathvfx = Instantiate(explosionFx, vfxPos, Quaternion.identity);
 
-            hitStop.HitStopFreeze(10f, 1f);
-            gameObject.SetActive(false);
+                hitStop.HitStopFreeze(10f, 1f);
+                gameObject.SetActive(false);
 
-            sceneLoader.LoadByIndex(SceneManager.GetActiveScene().buildIndex, GameManager.getCheckpoint());
-            //var vfxDuration = 1f;
-            //Destroy(deathvfx, vfxDuration);
+                sceneLoader.LoadByIndex(SceneManager.GetActiveScene().buildIndex, GameManager.getCheckpoint());
+                //var vfxDuration = 1f;
+                //Destroy(deathvfx, vfxDuration);
+            }
         }
 
         /// <summary>
@@ -93,15 +114,18 @@ namespace Player
         /// <param name="dmg"> Amount of damage taken. </param>
         public virtual void TakeDamage(float dmg)
         {
-            invFrames = 2f;
-            playerHP -= dmg;
-            healthBar.SetHealth(playerHP);
-            if (playerHP <= -1)
-                Die();
-            else
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
             {
-                forceField.SetActive(true);
-                hitStop.HitStopFreeze(2f, 0.2f);
+                invFrames = 2f;
+                playerHP -= dmg;
+                healthBar.SetHealth(playerHP);
+                if (playerHP <= -1)
+                    Die();
+                else
+                {
+                    forceField.SetActive(true);
+                    hitStop.HitStopFreeze(2f, 0.2f);
+                }
             }
         }
 
