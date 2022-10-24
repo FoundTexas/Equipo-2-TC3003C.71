@@ -1,4 +1,5 @@
 using Interfaces;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -125,6 +126,34 @@ namespace GameManagement
             }
 
             LoadByIndex(i);
+        }
+        public void LoadOnline()
+        {
+            int i = 1;
+            if (PlayerPrefs.HasKey("Loader.1"))
+            {
+                i = PlayerPrefs.GetInt("Loader.1");
+            }
+
+            if (SceneManager.GetSceneByBuildIndex(i) == null) { return; }
+
+            if (!loading)
+            {
+                loading = true;
+                GameManager.FirstPos(i);
+                LoadOnline(i);
+            }
+        }
+        /// <summary>
+        /// Loading Async method.
+        /// </summary>
+        /// <param name="index"> Scene index int. </param>
+        IEnumerator LoadOnline(int index)
+        {
+
+            anim.SetTrigger("FadeIn");
+            yield return new WaitForSeconds(1);
+            PhotonNetwork.LoadLevel(index);
         }
         public void RestartGame()
         {
