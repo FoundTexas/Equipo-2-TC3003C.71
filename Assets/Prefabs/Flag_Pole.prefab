@@ -10331,9 +10331,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ae580288376a94b9b2d476699dd176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  others: []
   anim: {fileID: 3765160682861932960}
   pos: {x: 0, y: 0, z: 0}
   collected: 0
+  saver: 1
   selected: {r: 1, g: 0, b: 0, a: 0.59607846}
   deselected: {r: 1, g: 1, b: 1, a: 0.2901961}
   render: {fileID: 3765160682861421920}

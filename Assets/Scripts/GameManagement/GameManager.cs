@@ -56,6 +56,44 @@ public class GameManager : MonoBehaviour
         inst.CheckPoint = newPos;
     }
 
+    public static GameObject GetLocalPlayer()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject player in players)
+        {
+            if (player.GetComponent<Photon.Pun.PhotonView>().IsMine)
+            {
+                return player;
+            }
+            else if (!isOnline)
+            {
+                return player;
+            }
+        }
+
+        return null;
+    }
+
+    public static GameObject GetClosestTarget(Vector3 pos)
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        GameObject result = null;
+        float distance = Mathf.Infinity;
+
+        foreach (GameObject player in players)
+        {
+            float newDistance = Vector3.Distance(pos, player.transform.position);
+            if (newDistance <= distance)
+            {
+                distance = Mathf.Abs(newDistance);
+                result = player;
+            }
+        }
+
+        return result;
+    }
+
     public static void SetEventReference(string val)
     {
         eventRef = val;
