@@ -22,13 +22,20 @@ public class TimelineManager : MonoBehaviour
         {
             played = true;
             player = GameManager.GetLocalPlayer().GetComponent<Move>();
-            player.canMove = false;
-            player.StopMove();
+            if (player)
+            {
+                player.canMove = false;
+                player.StopMove();
+            }
         }
         else if (director.time <= 0 && played)
         {
             played = false;
-            player.canMove = true;
+            player = GameManager.GetLocalPlayer().GetComponent<Move>();
+            if (player)
+            {
+                player.canMove = true;
+            }
         }
     }
 }

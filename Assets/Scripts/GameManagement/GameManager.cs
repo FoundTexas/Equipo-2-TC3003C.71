@@ -60,13 +60,16 @@ public class GameManager : MonoBehaviour
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
+        if (players.Length == 1)
+            return players[0];
+
         foreach (GameObject player in players)
         {
-            if (player.GetComponent<Photon.Pun.PhotonView>().IsMine)
+            if (!isOnline)
             {
                 return player;
             }
-            else if (!isOnline)
+            else if (player.GetComponent<Photon.Pun.PhotonView>().IsMine)
             {
                 return player;
             }

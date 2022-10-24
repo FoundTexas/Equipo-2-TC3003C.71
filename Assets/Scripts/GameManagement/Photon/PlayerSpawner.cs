@@ -11,17 +11,21 @@ public class PlayerSpawner : MonoBehaviour
 
     void Start()
     {
-        GameObject g;
+        GameObject g = null;
         if (GameManager.isOnline)
         {
             g = PhotonNetwork.Instantiate(
                 player.name, transform.position, Quaternion.identity);
         }
-        else
+        else if (!GameManager.isOnline)
         {
             g = Instantiate(player, transform.position, Quaternion.identity);
         }
-        g.GetComponent<Move>().setCam(sm);
+
+        if (g)
+        {
+            g.GetComponent<Move>().setCam(sm);
+        }
 
     }
 }

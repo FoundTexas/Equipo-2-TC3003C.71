@@ -76,17 +76,21 @@ public class Move : MonoBehaviour
     }
     private void OnEnable()
     {
-        MoveValue = PlayerInput.Game.WASD;
-        MoveValue.Enable();
-        JumpInput = PlayerInput.Game.Jump;
-        JumpInput.Enable();
-        AimInput = PlayerInput.Game.Aim;
-        AimInput.Enable();
-        CrouchInput = PlayerInput.Game.Crouch;
-        CrouchInput.Enable();
+        view = GetComponent<PhotonView>();
+        if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+        {
+            MoveValue = PlayerInput.Game.WASD;
+            MoveValue.Enable();
+            JumpInput = PlayerInput.Game.Jump;
+            JumpInput.Enable();
+            AimInput = PlayerInput.Game.Aim;
+            AimInput.Enable();
+            CrouchInput = PlayerInput.Game.Crouch;
+            CrouchInput.Enable();
 
-        JumpInput.performed += Jump;
-        CrouchInput.performed += CheckCrouch;
+            JumpInput.performed += Jump;
+            CrouchInput.performed += CheckCrouch;
+        }
     }
     private void OnDisable()
     {
@@ -97,16 +101,20 @@ public class Move : MonoBehaviour
     }
     void Start()
     {
-        controller = GetComponent<CharacterController>();
-        anim = GetComponent<AudioAndVideoManager>();
         view = GetComponent<PhotonView>();
-        cam = Camera.main.transform;
-        jumpParticles.SetActive(false);
-        SeedMod = speed;
-        originalHeight = controller.height; //transform.localScale.y;
-        FindObjectOfType<MiniMap>().player = this.gameObject;
+        if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+        {
+            controller = GetComponent<CharacterController>();
+            anim = GetComponent<AudioAndVideoManager>();
+            
+            cam = Camera.main.transform;
+            jumpParticles.SetActive(false);
+            SeedMod = speed;
+            originalHeight = controller.height; //transform.localScale.y;
+            FindObjectOfType<MiniMap>().player = this.gameObject;
 
-        StartCoroutine(SetFirstPos());
+            StartCoroutine(SetFirstPos());
+        }
     }
     // public void CreateOnlinePlayer()
     // {
@@ -138,32 +146,32 @@ public class Move : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if(view)
-            if(!view.IsMine)
-                return;
-
-        SendAnimationVals();
-        wallFound = Physics.Raycast(transform.position, transform.forward, out wallHit, wallDistance, wallMask);
-        Physics.Raycast(transform.position, transform.up, out upHit, 1.6f, wallMask);
-
-        movDirection = new Vector3(
-            movDirection.x,
-            movDirection.y,
-            movDirection.z);
-        JumpHold();
-        Aim();
-        WASD();
-
-        if (!controller.isGrounded)
+        if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
         {
-            movDirection.y = movDirection.y - gravity * gravityModifier * Time.deltaTime;
+
+            SendAnimationVals();
+            wallFound = Physics.Raycast(transform.position, transform.forward, out wallHit, wallDistance, wallMask);
+            Physics.Raycast(transform.position, transform.up, out upHit, 1.6f, wallMask);
+
+            movDirection = new Vector3(
+                movDirection.x,
+                movDirection.y,
+                movDirection.z);
+            JumpHold();
+            Aim();
+            WASD();
+
+            if (!controller.isGrounded)
+            {
+                movDirection.y = movDirection.y - gravity * gravityModifier * Time.deltaTime;
+            }
+            movDirection.y = Mathf.Clamp(movDirection.y, -gravity * gravityModifier * 2, jumpForce * 100);
+
+            controller.Move(movDirection * Time.deltaTime);
+
+            wasGrounded = controller.isGrounded;
+            ResetMovement();
         }
-        movDirection.y = Mathf.Clamp(movDirection.y, -gravity * gravityModifier * 2, jumpForce * 100);
-
-        controller.Move(movDirection * Time.deltaTime);
-
-        wasGrounded = controller.isGrounded;
-        ResetMovement();
     }
 
     void SendAnimationVals()
