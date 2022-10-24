@@ -25,7 +25,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     {
         mainPanel.SetActive(false);
         onlinePanel.SetActive(true);
-        PhotonNetwork.JoinLobby();
+        //PhotonNetwork.JoinLobby();
     }
 
     public void OnClickCreate()
