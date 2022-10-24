@@ -24,6 +24,7 @@ namespace Enemies
         public FadeBlack fade;
         private SceneLoader sceneLoader;
         public WeaponManager weapons;
+        public GameObject conductor;
         // ----------------------------------------------------------------------------------------------- Unity Methods
         void Awake()
         {
@@ -48,6 +49,12 @@ namespace Enemies
 
         void Update()
         {
+            conductor = GameObject.FindWithTag("Enemy");
+            if(conductor != null)
+            {
+                Destroy(gameObject);
+                return;
+            } 
             if(weapons.CurrentSelect().curShootS == weapons.CurrentSelect().shootSpeed)
                 Capture();
                 
