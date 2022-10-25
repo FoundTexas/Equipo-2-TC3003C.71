@@ -41,7 +41,7 @@ namespace Enemies
         void Awake()
         {
             // Initialize private components
-            player = GameObject.FindWithTag("Player").transform;
+            //player = GameObject.FindWithTag("Player").transform;
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
             GameObject manager = GameObject.FindWithTag("Manager");
@@ -54,6 +54,7 @@ namespace Enemies
 
         void Update()
         {
+            player = GameManager.GetClosestTarget(transform.position).transform;
             //Check sight and attack range
             playerInSights = Physics.CheckSphere(transform.position, sightRange, isPlayer);
             playerInRange = Physics.CheckSphere(transform.position, attackRange, isPlayer);
