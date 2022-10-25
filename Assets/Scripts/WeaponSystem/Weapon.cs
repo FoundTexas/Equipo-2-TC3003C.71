@@ -116,8 +116,8 @@ namespace WeaponSystem
             {
                 if (WeaponManager.hasWeapon)
                 {
-                    if (FireInput.IsPressed()) { Shoot(); }
-                    if (ReloadInput.IsPressed()) { Reolad(); }
+                    if (FireInput.IsPressed()) { view.RPC("Shoot", RpcTarget.All); }
+                    if (ReloadInput.IsPressed()) { view.RPC("Reload", RpcTarget.All); }
                 }
                 //Debug.DrawRay(RayOut.position, PlayerRef.transform.forward * distance, Color.red);
             }
@@ -144,6 +144,7 @@ namespace WeaponSystem
         /// <summary>
         /// Void that triggers the reload animation on the weapon.
         /// </summary>
+        [PunRPC]
         public void Reolad()
         {
             if (curAmmo > 0)
@@ -155,7 +156,6 @@ namespace WeaponSystem
         /// <summary>
         /// Reload event triggered via animation to check the amount of ammo and fills current magazine.
         /// </summary>
-        [PunRPC]
         public void ReoladEvent()
         {
             if (curAmmo > 0)
@@ -179,7 +179,6 @@ namespace WeaponSystem
         /// Method that visualize the shoot given the present parameters rendering a trail 
         /// and or spawning a projectile if given the prefabs.
         /// </summary>
-        [PunRPC]
         public void PlayShootAnimation()
         {
             particles.Play();

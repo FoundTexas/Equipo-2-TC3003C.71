@@ -37,7 +37,6 @@ namespace WeaponSystem
             // ----------------------------------------------------------------------------------------------- Private Methods
 
             // Coroutine that handels the movement of the fired trail over time and distance.
-            [PunRPC]
             IEnumerator SpawnTrail(TrailRenderer trail, Vector3 vec, bool obama)
             {
                 float time = 0;
@@ -92,7 +91,6 @@ namespace WeaponSystem
                 return direction;
             }
 
-            [PunRPC]
             public void ShootRay()
             {
                 if (BulletTrail)
