@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using Player;
 using Interfaces;
+using Photon.Pun;
 
 namespace WeaponSystem
 {
@@ -18,7 +19,12 @@ namespace WeaponSystem
     /// </summary>
     public class WeaponManager : MonoBehaviour, ISave
     {
+
         public static bool hasWeapon = true;
+
+        //ref photon
+        public PhotonView view;
+
 
         PlayerInputs PlayerInput;
         InputAction SwapInput, ToggleInput;
@@ -46,41 +52,53 @@ namespace WeaponSystem
         }
         private void OnEnable()
         {
-            SwapInput = PlayerInput.Game.ChangeArm;
-            SwapInput.Enable();
-            ToggleInput = PlayerInput.Game.ToggleArm;
-            ToggleInput.Enable();
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            {
+                SwapInput = PlayerInput.Game.ChangeArm;
+                SwapInput.Enable();
+                ToggleInput = PlayerInput.Game.ToggleArm;
+                ToggleInput.Enable();
 
-            ToggleInput.performed += ToggleWeaponInput;
-            SwapInput.performed += Scroll;
+                ToggleInput.performed += ToggleWeaponInput;
+                SwapInput.performed += Scroll;
+            }
         }
         private void OnDisable()
         {
-            SwapInput.Disable();
-            ToggleInput.Disable();
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            {
+                SwapInput.Disable();
+                ToggleInput.Disable();
+            }
         }
         void Start()
         {
-            FromJson();
-            audios = GetComponentInParent<AudioAndVideoManager>();
-            Cursor.lockState = CursorLockMode.Confined;
-            for (int i = 0; i < weapons.Count; i++)
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
             {
-                weaponDictionary.Add(weapons[i].GetID(), i);
-                weapons[i].gameObject.SetActive(false);
-            }
+                FromJson();
+                audios = GetComponentInParent<AudioAndVideoManager>();
+                Cursor.lockState = CursorLockMode.Confined;
+                for (int i = 0; i < weapons.Count; i++)
+                {
+                    weaponDictionary.Add(weapons[i].GetID(), i);
+                    weapons[i].gameObject.SetActive(false);
+                }
 
-            ToggleWeapon();
+                ToggleWeapon();
 
-            if (unlocked.unlock.Count > 0)
-            {
-                selected = weapons[weaponDictionary[unlocked.unlock[0]]];
-                selected.gameObject.SetActive(true);
+                if (unlocked.unlock.Count > 0)
+                {
+                    selected = weapons[weaponDictionary[unlocked.unlock[0]]];
+                    selected.gameObject.SetActive(true);
+                }
             }
         }
         private void LateUpdate()
         {
-            transform.localPosition = pos;
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            {
+                transform.localPosition = pos;
+            }
         }
         // ----------------------------------------------------------------------------------------------- Private Methods
         /// <summary>
@@ -125,20 +143,23 @@ namespace WeaponSystem
         }
         public void ToggleWeapon()
         {
-            hasWeapon = !hasWeapon;
-            if (hasWeapon)
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
             {
-                this.transform.parent = hand;
-                pos = Vector3.zero;
-                transform.localRotation = Quaternion.Euler(-65, 48, 54);
+                hasWeapon = !hasWeapon;
+                if (hasWeapon)
+                {
+                    this.transform.parent = hand;
+                    pos = Vector3.zero;
+                    transform.localRotation = Quaternion.Euler(-65, 48, 54);
+                }
+                else if (!hasWeapon)
+                {
+                    this.transform.parent = torso;
+                    pos = Vector3.zero;
+                    transform.rotation = Quaternion.Euler(0, 0, 0);
+                }
+                audios.GunValue(hasWeapon, selected.select);
             }
-            else if (!hasWeapon)
-            {
-                this.transform.parent = torso;
-                pos = Vector3.zero;
-                transform.rotation = Quaternion.Euler(0, 0, 0);
-            }
-            audios.GunValue(hasWeapon, selected.select);
         }
         /// <summary>
         /// This Function is in charge og changing between the unlocked weapons
@@ -146,11 +167,14 @@ namespace WeaponSystem
         /// <param name="i"> Weapon index relative to the unlocked weapons. </param>
         public void ChangeWeapon(int i)
         {
-            if (unlocked.unlock.Count >= i)
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
             {
-                selected.gameObject.SetActive(false);
-                selected = weapons[weaponDictionary[unlocked.unlock[i]]];
-                selected.gameObject.SetActive(true);
+                if (unlocked.unlock.Count >= i)
+                {
+                    selected.gameObject.SetActive(false);
+                    selected = weapons[weaponDictionary[unlocked.unlock[i]]];
+                    selected.gameObject.SetActive(true);
+                }
             }
         }
         /// <summary>
@@ -159,23 +183,26 @@ namespace WeaponSystem
         /// <param name="weapon"> Weapon Id given to the function. </param>
         public void UnlockWeapon(string weapon)
         {
-            if (unlocked.unlock.Contains(weapon) == false)
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
             {
-                unlocked.unlock.Add(weapon);
-            }
-            else if (unlocked.unlock.Contains(weapon))
-            {
-                weapons[weaponDictionary[weapon]].AddAmmo();
-            }
+                if (unlocked.unlock.Contains(weapon) == false)
+                {
+                    unlocked.unlock.Add(weapon);
+                }
+                else if (unlocked.unlock.Contains(weapon))
+                {
+                    weapons[weaponDictionary[weapon]].AddAmmo();
+                }
 
-            if (!hasWeapon)
-            {
-                selected = weapons[weaponDictionary[weapon]];
-                ChangeWeapon(GetSelectedIndex());
-                ToggleWeapon();
-            }
+                if (!hasWeapon)
+                {
+                    selected = weapons[weaponDictionary[weapon]];
+                    ChangeWeapon(GetSelectedIndex());
+                    ToggleWeapon();
+                }
 
-            Save();
+                Save();
+            }
         }
         /// <summary>
         /// This method gets the current selected weapon (can be Null) and returns the reference.

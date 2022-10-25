@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
+using Photon.Pun;
 
 namespace WeaponSystem
 {
@@ -12,6 +13,7 @@ namespace WeaponSystem
     [RequireComponent(typeof(AudioSource))]
     public class Weapon : MonoBehaviour
     {
+        public PhotonView view;
         public PlayerInputs PlayerInput;
         public InputAction FireInput, ReloadInput;
 
@@ -70,47 +72,62 @@ namespace WeaponSystem
         }
         private void OnEnable()
         {
-            FireInput = PlayerInput.Game.Fire;
-            FireInput.Enable();
-            ReloadInput = PlayerInput.Game.Reload;
-            ReloadInput.Enable();
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            {
+                FireInput = PlayerInput.Game.Fire;
+                FireInput.Enable();
+                ReloadInput = PlayerInput.Game.Reload;
+                ReloadInput.Enable();
+            }
         }
         private void OnDisable()
         {
-            FireInput.Disable();
-            ReloadInput.Disable();
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            {
+                FireInput.Disable();
+                ReloadInput.Disable();
+            }
         }
         private void Start()
         {
-            Debug.Log("start1");
-            source = GetComponent<AudioSource>();
-            anim = GetComponent<Animator>();
-            canReload = true;
-            curMagazine = magazine;
-            curAmmo = ammo;
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            {
+                Debug.Log("start1");
+                source = GetComponent<AudioSource>();
+                anim = GetComponent<Animator>();
+                canReload = true;
+                curMagazine = magazine;
+                curAmmo = ammo;
 
-            if (PlayerRef)
-            {
-                RayOut = PlayerRef.transform.GetChild(0);
-            }
-            if (firePoint.TryGetComponent<ParticleSystem>(out particles) == false)
-            {
-                particles = firePoint.gameObject.AddComponent<ParticleSystem>();
-                particles.Stop();
+                if (PlayerRef)
+                {
+                    RayOut = PlayerRef.transform.GetChild(0);
+                }
+                if (firePoint.TryGetComponent<ParticleSystem>(out particles) == false)
+                {
+                    particles = firePoint.gameObject.AddComponent<ParticleSystem>();
+                    particles.Stop();
+                }
             }
         }
         private void Update()
         {
-            if (WeaponManager.hasWeapon)
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
             {
-                if(FireInput.IsPressed()) { Shoot(); }
-                if (ReloadInput.IsPressed()) { Reolad(); }
+                if (WeaponManager.hasWeapon)
+                {
+                    if (FireInput.IsPressed()) { Shoot(); }
+                    if (ReloadInput.IsPressed()) { Reolad(); }
+                }
+                //Debug.DrawRay(RayOut.position, PlayerRef.transform.forward * distance, Color.red);
             }
-            //Debug.DrawRay(RayOut.position, PlayerRef.transform.forward * distance, Color.red);
         }
         private void FixedUpdate()
         {
-            if (curShootS > 0) { curShootS -= Time.deltaTime; }
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            {
+                if (curShootS > 0) { curShootS -= Time.deltaTime; }
+            }
         }
 
         // ----------------------------------------------------------------------------------------------- Public Methods
@@ -163,6 +180,7 @@ namespace WeaponSystem
         /// </summary>
         public void PlayShootAnimation()
         {
+
             particles.Play();
             source.PlayOneShot(sound);
         }
@@ -174,22 +192,25 @@ namespace WeaponSystem
         /// </summary>
         public virtual void Shoot()
         {
-            if (curMagazine > 0 || curMagazine == -100)
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
             {
-                if (curShootS <= 0)
+                if (curMagazine > 0 || curMagazine == -100)
                 {
-                    curShootS = shootSpeed;
-                    PlayShootAnimation();
-
-                    if (curMagazine != -100)
+                    if (curShootS <= 0)
                     {
-                        curMagazine--;
+                        curShootS = shootSpeed;
+                        PlayShootAnimation();
+
+                        if (curMagazine != -100)
+                        {
+                            curMagazine--;
+                        }
                     }
                 }
-            }
-            else
-            {
-                Reolad();
+                else
+                {
+                    Reolad();
+                }
             }
         }
     }

@@ -123,18 +123,21 @@ namespace WeaponSystem
             /// </summary>
             public override void Shoot()
             {
-                if (curMagazine > 0 || curMagazine == -100)
+                if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
                 {
-                    if (curShootS <= 0)
+                    if (curMagazine > 0 || curMagazine == -100)
                     {
-                        curShootS = shootSpeed;
-                        PlayShootAnimation();
-                        ShootRay();
+                        if (curShootS <= 0)
+                        {
+                            curShootS = shootSpeed;
+                            PlayShootAnimation();
+                            ShootRay();
+                        }
                     }
-                }
-                else
-                {
-                    Reolad();
+                    else
+                    {
+                        Reolad();
+                    }
                 }
             }
         }

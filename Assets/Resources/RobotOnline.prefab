@@ -1496,6 +1496,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 6976157116825555533}
   - {fileID: 8851097037110466614}
+  - {fileID: 6533524134270548997}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -18304,6 +18305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e256e9a0d18c9434c8dafbaf85dbdbc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  view: {fileID: 1268163560541054327}
   FireInput:
     m_Name: Fire Input
     m_Type: 0
@@ -18713,6 +18715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c4a1162bbc6b3f43bccf91b31e2d906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  view: {fileID: 1268163560541054327}
   FireInput:
     m_Name: Fire Input
     m_Type: 0
@@ -19937,6 +19940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b274c588c9bcba4d95334df1db50f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  view: {fileID: 1268163560541054327}
   FireInput:
     m_Name: Fire Input
     m_Type: 0
@@ -25365,6 +25369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69ae8baef82436d4b9028a6812039165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  view: {fileID: 1268163560541054327}
   weapons:
   - {fileID: 6303266923256524616}
   - {fileID: 1494754881095077005}
