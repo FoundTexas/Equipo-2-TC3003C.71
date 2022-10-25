@@ -44,6 +44,7 @@ namespace Player
             }
         }
 
+        [PunRPC]
         void Update()
         {
             if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
@@ -70,13 +71,14 @@ namespace Player
                 if (collision.gameObject.tag == "Enemy" && invFrames <= 0)
                     TakeDamage(1);
             }
-        } 
+        }
 
         // ----------------------------------------------------------------------------------------------- Public Methods
         /// <summary>
         /// Method that adds health with a specific value to the player.
         /// </summary>
         /// <param name="amount"> float value to be added to the player's health. </param>
+        [PunRPC]
         public void AddHealth(float amount)
         {
             if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
@@ -90,6 +92,7 @@ namespace Player
         /// <summary>
         /// Interface Abstract method in charge of the death routine of the assigned Object.
         /// </summary>
+        [PunRPC]
         public void Die()
         {
             if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
@@ -112,6 +115,7 @@ namespace Player
         /// Interface Abstract method that handels when an object takes damage.
         /// </summary>
         /// <param name="dmg"> Amount of damage taken. </param>
+        [PunRPC]
         public virtual void TakeDamage(float dmg)
         {
             if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
