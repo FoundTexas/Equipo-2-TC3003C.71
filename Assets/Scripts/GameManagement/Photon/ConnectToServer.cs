@@ -42,6 +42,6 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         GameManager.isOnline = true;
-        FindObjectOfType<SceneLoader>().LoadByIndex(1);
+        FindObjectOfType<SceneLoader>().LoadOnline();
     }
 }
