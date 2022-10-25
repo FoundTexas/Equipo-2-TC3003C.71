@@ -14,28 +14,40 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     public GameObject onlinePanel;
     [Header("Lobby")]
     public Text roomName;
+    bool load = false;
 
     public void OnClickConnect()
     {
-        infoText.text = "Connecting...";
-        PhotonNetwork.ConnectUsingSettings();
+        if (!load)
+        {
+            load = true;
+            infoText.text = "Connecting...";
+            PhotonNetwork.ConnectUsingSettings();
+        }
     }
 
     public override void OnConnectedToMaster()
     {
+        infoText.text = "Master...";
         PhotonNetwork.JoinLobby();
     }
     public override void OnJoinedLobby()
     {
+        infoText.text = "Lobby!";
         mainPanel.SetActive(false);
         onlinePanel.SetActive(true);
     }
 
     public void OnClickCreate()
     {
-        if(roomName.text.Length >= 1)
+        if (load)
         {
-            PhotonNetwork.JoinOrCreateRoom(roomName.text, new RoomOptions(){MaxPlayers = 4}, TypedLobby.Default);
+            if (roomName.text.Length >= 1)
+            {
+                load = false;
+                PhotonNetwork.JoinOrCreateRoom(roomName.text, new RoomOptions() { MaxPlayers = 4 }, TypedLobby.Default);
+                infoText.text = "JoinOrCreateRoom...";
+            }
         }
     }
 

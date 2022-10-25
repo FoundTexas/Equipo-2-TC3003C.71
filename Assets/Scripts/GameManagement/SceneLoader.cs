@@ -135,26 +135,15 @@ namespace GameManagement
                 i = PlayerPrefs.GetInt("Loader.1");
             }
 
-            if (SceneManager.GetSceneByBuildIndex(i) == null) { return; }
-
             if (!loading)
             {
                 loading = true;
                 GameManager.FirstPos(i);
-                LoadOnline(i);
+                anim.SetTrigger("FadeIn");
+                PhotonNetwork.LoadLevel(i);
             }
         }
-        /// <summary>
-        /// Loading Async method.
-        /// </summary>
-        /// <param name="index"> Scene index int. </param>
-        IEnumerator LoadOnline(int index)
-        {
 
-            anim.SetTrigger("FadeIn");
-            yield return new WaitForSeconds(1);
-            PhotonNetwork.LoadLevel(index);
-        }
         public void RestartGame()
         {
             if (!loading)
