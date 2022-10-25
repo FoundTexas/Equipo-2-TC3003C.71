@@ -1496,7 +1496,6 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 6976157116825555533}
   - {fileID: 8851097037110466614}
-  - {fileID: 6533524134270548997}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -6957,6 +6956,7 @@ GameObject:
   - component: {fileID: 8023475438729750935}
   - component: {fileID: 1378286718733042696}
   - component: {fileID: 6533524134270548997}
+  - component: {fileID: 4640494931983331663}
   m_Layer: 2
   m_Name: Sphere
   m_TagString: Untagged
@@ -7045,6 +7045,29 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 1
   m_UseLocal: 1
+--- !u!114 &4640494931983331663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2507200820708592872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 6533524134270548997}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2535358446035981563
 GameObject:
   m_ObjectHideFlags: 0
@@ -18250,6 +18273,7 @@ GameObject:
   - component: {fileID: 2156207617879085524}
   - component: {fileID: 1816392268262265136}
   - component: {fileID: 9166353688554501926}
+  - component: {fileID: 4263524372693174367}
   m_Layer: 2
   m_Name: Basic Gun
   m_TagString: Untagged
@@ -18305,7 +18329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e256e9a0d18c9434c8dafbaf85dbdbc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  view: {fileID: 1268163560541054327}
+  view: {fileID: 4263524372693174367}
   FireInput:
     m_Name: Fire Input
     m_Type: 0
@@ -18442,6 +18466,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4263524372693174367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6041437327551225880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &6075142172178463099
 GameObject:
   m_ObjectHideFlags: 0
@@ -18680,6 +18726,7 @@ GameObject:
   - component: {fileID: 6303266923256524614}
   - component: {fileID: 566689727017089036}
   - component: {fileID: 2464090760292723321}
+  - component: {fileID: 2043266068473513444}
   m_Layer: 2
   m_Name: Grappling Hook
   m_TagString: Untagged
@@ -18715,7 +18762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c4a1162bbc6b3f43bccf91b31e2d906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  view: {fileID: 1268163560541054327}
+  view: {fileID: 2043266068473513444}
   FireInput:
     m_Name: Fire Input
     m_Type: 0
@@ -18971,6 +19018,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2043266068473513444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6303266923256524621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &6504925538348852518
 GameObject:
   m_ObjectHideFlags: 0
@@ -19788,6 +19857,7 @@ GameObject:
   - component: {fileID: 4598418308201530439}
   - component: {fileID: 1494754881095077005}
   - component: {fileID: 8807396228186742019}
+  - component: {fileID: 664453801184913296}
   m_Layer: 2
   m_Name: Sound Shotgun
   m_TagString: Untagged
@@ -19940,7 +20010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b274c588c9bcba4d95334df1db50f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  view: {fileID: 1268163560541054327}
+  view: {fileID: 664453801184913296}
   FireInput:
     m_Name: Fire Input
     m_Type: 0
@@ -20076,6 +20146,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &664453801184913296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8031087488843551494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &8088046802185379359
 GameObject:
   m_ObjectHideFlags: 0

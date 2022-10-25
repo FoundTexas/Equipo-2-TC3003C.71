@@ -116,10 +116,29 @@ namespace WeaponSystem
             {
                 if (WeaponManager.hasWeapon)
                 {
-                    if (FireInput.IsPressed()) { Shoot(); }
-                    if (ReloadInput.IsPressed()) { Reolad(); }
+                    if (FireInput.IsPressed())
+                    {
+                        if (!GameManager.isOnline)
+                        {
+                            PunRPCShoot();
+                        }
+                        else if (GameManager.isOnline)
+                        {
+                            view.RPC("PunRPCShoot", RpcTarget.All);
+                        }
+                    }
+                    if (ReloadInput.IsPressed())
+                    {
+                        if (!GameManager.isOnline)
+                        {
+                            PunRPCReload();
+                        }
+                        else if (GameManager.isOnline)
+                        {
+                            view.RPC("PunRPCReload", RpcTarget.All);
+                        }
+                    }
                 }
-                //Debug.DrawRay(RayOut.position, PlayerRef.transform.forward * distance, Color.red);
             }
         }
         private void FixedUpdate()
@@ -144,7 +163,8 @@ namespace WeaponSystem
         /// <summary>
         /// Void that triggers the reload animation on the weapon.
         /// </summary>
-        public void Reolad()
+        [PunRPC]
+        public void PunRPCReload()
         {
             if (curAmmo > 0)
             {
@@ -173,14 +193,13 @@ namespace WeaponSystem
                 canReload = true;
             }
         }
-        
+
         /// <summary>
         /// Method that visualize the shoot given the present parameters rendering a trail 
         /// and or spawning a projectile if given the prefabs.
         /// </summary>
         public void PlayShootAnimation()
         {
-
             particles.Play();
             source.PlayOneShot(sound);
         }
@@ -190,7 +209,8 @@ namespace WeaponSystem
         /// <summary>
         /// This Virtual Method handels the shooting for all weapons and can be overrided.
         /// </summary>
-        public virtual void Shoot()
+        [PunRPC]
+        public virtual void PunRPCShoot()
         {
             if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
             {
@@ -209,7 +229,7 @@ namespace WeaponSystem
                 }
                 else
                 {
-                    Reolad();
+                    PunRPCReload();
                 }
             }
         }

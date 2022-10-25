@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Interfaces;
+using Photon.Pun;
 
 namespace WeaponSystem
 {
@@ -97,7 +98,10 @@ namespace WeaponSystem
                     Vector3 dir = Direction();
                     RaycastHit HitGun = GetRay(dir);
 
-                    TrailRenderer trail = Instantiate(BulletTrail, RayOut.position, Quaternion.identity);
+                    TrailRenderer trail = GameManager.isOnline ? 
+                    PhotonNetwork.Instantiate(BulletTrail.name, transform.position, Quaternion.identity).GetComponent<TrailRenderer>() : 
+                    Instantiate(BulletTrail, RayOut.position, Quaternion.identity);
+
 
                     if (HitGun.transform)
                     {
@@ -121,7 +125,8 @@ namespace WeaponSystem
             /// <summary>
             /// This Virtual Method handels the shooting for all weapons and can be overrided.
             /// </summary>
-            public override void Shoot()
+            [PunRPC]
+            public override void PunRPCShoot()
             {
                 if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
                 {
@@ -136,7 +141,7 @@ namespace WeaponSystem
                     }
                     else
                     {
-                        Reolad();
+                        PunRPCReload();
                     }
                 }
             }

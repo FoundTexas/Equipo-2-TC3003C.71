@@ -11,7 +11,7 @@ namespace Player
     /// <summary>
     /// Class that manages the player movement behaviour.
     /// </summary>
-    public class PlayerHealth : MonoBehaviour, IDamage
+    public class PlayerHealth : MonoBehaviourPunCallbacks, IDamage
     {
         public PhotonView view;
         public Gradient color;
@@ -46,7 +46,23 @@ namespace Player
 
         void Update()
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            if (!GameManager.isOnline)
+            {
+                PunRPCResetShield();
+            }
+            else if (GameManager.isOnline)
+            {
+                if (view.IsMine)
+                {
+                    view.RPC("PunRPCResetShield", RpcTarget.All);
+                }
+            }
+        }
+
+        [PunRPC]
+        void PunRPCResetShield()
+        {
+            if (view.IsMine)
             {
                 invFrames -= Time.deltaTime;
                 if (invFrames <= 0)
@@ -61,7 +77,7 @@ namespace Player
                 if (collision.gameObject.tag == "Enemy" && invFrames <= 0)
                     TakeDamage(1);
             }
-        }   
+        }
 
         void OnTriggerEnter(Collider collision)
         {
@@ -70,20 +86,30 @@ namespace Player
                 if (collision.gameObject.tag == "Enemy" && invFrames <= 0)
                     TakeDamage(1);
             }
-        } 
+        }
 
         // ----------------------------------------------------------------------------------------------- Public Methods
         /// <summary>
         /// Method that adds health with a specific value to the player.
         /// </summary>
-        /// <param name="amount"> float value to be added to the player's health. </param>
+        /// <param name="amount"> float value to be added to the player's health. </param>(
         public void AddHealth(float amount)
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            if (!GameManager.isOnline)
             {
-                playerHP += amount;
-                healthBar.SetHealth(playerHP);
+                AddHealthRPC(amount);
             }
+            else if (GameManager.isOnline && view.IsMine)
+            {
+                view.RPC("AddHealthRPC", RpcTarget.All, amount);
+            }
+        }
+
+        [PunRPC]
+        void AddHealthRPC(float amount)
+        {
+            playerHP += amount;
+            healthBar.SetHealth(playerHP);
         }
 
         // ----------------------------------------------------------------------------------------------- Interface IDamage
@@ -92,20 +118,30 @@ namespace Player
         /// </summary>
         public void Die()
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            if (!GameManager.isOnline)
             {
-                // Create death effects
-                Vector3 vfxPos = transform.position;
-                vfxPos.y = transform.position.y + 1;
-                GameObject deathvfx = Instantiate(explosionFx, vfxPos, Quaternion.identity);
-
-                hitStop.HitStopFreeze(10f, 1f);
-                gameObject.SetActive(false);
-
-                sceneLoader.LoadByIndex(SceneManager.GetActiveScene().buildIndex, GameManager.getCheckpoint());
-                //var vfxDuration = 1f;
-                //Destroy(deathvfx, vfxDuration);
+                DieRPC();
             }
+            else if (GameManager.isOnline && view.IsMine)
+            {
+                view.RPC("DieRPC", RpcTarget.All);
+            }
+        }
+
+        [PunRPC]
+        void DieRPC()
+        {
+            // Create death effects
+            Vector3 vfxPos = transform.position;
+            vfxPos.y = transform.position.y + 1;
+            GameObject deathvfx = Instantiate(explosionFx, vfxPos, Quaternion.identity);
+
+            hitStop.HitStopFreeze(10f, 1f);
+            gameObject.SetActive(false);
+
+            sceneLoader.LoadByIndex(SceneManager.GetActiveScene().buildIndex, GameManager.getCheckpoint());
+            //var vfxDuration = 1f;
+            //Destroy(deathvfx, vfxDuration);
         }
 
         /// <summary>
@@ -114,18 +150,28 @@ namespace Player
         /// <param name="dmg"> Amount of damage taken. </param>
         public virtual void TakeDamage(float dmg)
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            if (!GameManager.isOnline)
             {
-                invFrames = 2f;
-                playerHP -= dmg;
-                healthBar.SetHealth(playerHP);
-                if (playerHP <= -1)
-                    Die();
-                else
-                {
-                    forceField.SetActive(true);
-                    hitStop.HitStopFreeze(2f, 0.2f);
-                }
+                TakeDamageRPC(dmg);
+            }
+            else if (GameManager.isOnline && view.IsMine)
+            {
+                view.RPC("TakeDamageRPC", RpcTarget.All, dmg);
+            }
+        }
+
+        [PunRPC]
+        void TakeDamageRPC(float dmg)
+        {
+            invFrames = 2f;
+            playerHP -= dmg;
+            healthBar.SetHealth(playerHP);
+            if (playerHP <= -1)
+                Die();
+            else
+            {
+                forceField.SetActive(true);
+                hitStop.HitStopFreeze(2f, 0.2f);
             }
         }
 
