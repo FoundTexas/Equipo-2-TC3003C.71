@@ -155,6 +155,7 @@ namespace WeaponSystem
         /// <summary>
         /// Reload event triggered via animation to check the amount of ammo and fills current magazine.
         /// </summary>
+        [PunRPC]
         public void ReoladEvent()
         {
             if (curAmmo > 0)
@@ -173,14 +174,14 @@ namespace WeaponSystem
                 canReload = true;
             }
         }
-        
+
         /// <summary>
         /// Method that visualize the shoot given the present parameters rendering a trail 
         /// and or spawning a projectile if given the prefabs.
         /// </summary>
+        [PunRPC]
         public void PlayShootAnimation()
         {
-
             particles.Play();
             source.PlayOneShot(sound);
         }

@@ -1,5 +1,6 @@
 using Collectables;
 using Interfaces;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +31,7 @@ namespace Props
         /// <summary>
         /// Interface Abstract method in charge of the death routine of the assigned Object.
         /// </summary>
+        [PunRPC]
         public void Die()
         {
             GetComponent<Dropper>().Spawn();
@@ -40,6 +42,7 @@ namespace Props
         /// Interface Abstract method that handels when an object takes damage.
         /// </summary>
         /// <param name="dmg"> Amount of damage taken. </param>
+        [PunRPC]
         public void TakeDamage(float dmg)
         {
             hp -= dmg;

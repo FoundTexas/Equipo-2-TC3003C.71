@@ -2,6 +2,7 @@ using Interfaces;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using Photon.Pun;
 
 namespace WeaponSystem
 {
@@ -97,6 +98,7 @@ namespace WeaponSystem
                 joint.massScale = massScale;
             }
             // Void that handels the line renderer to set the rope visualization.
+            [PunRPC]
             void DrawRope()
             {
                 if (!entity) return;
