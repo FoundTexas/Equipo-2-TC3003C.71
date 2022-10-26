@@ -98,7 +98,10 @@ namespace WeaponSystem
                     Vector3 dir = Direction();
                     RaycastHit HitGun = GetRay(dir);
 
-                    TrailRenderer trail = Instantiate(BulletTrail, RayOut.position, Quaternion.identity);
+                    TrailRenderer trail = GameManager.isOnline ? 
+                    PhotonNetwork.Instantiate(BulletTrail.name, transform.position, Quaternion.identity).GetComponent<TrailRenderer>() : 
+                    Instantiate(BulletTrail, RayOut.position, Quaternion.identity);
+
 
                     if (HitGun.transform)
                     {
