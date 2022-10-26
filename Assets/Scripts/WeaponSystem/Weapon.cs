@@ -116,10 +116,29 @@ namespace WeaponSystem
             {
                 if (WeaponManager.hasWeapon)
                 {
-                    if (FireInput.IsPressed()) { view.RPC("Shoot", RpcTarget.All); }
-                    if (ReloadInput.IsPressed()) { view.RPC("Reload", RpcTarget.All); }
+                    if (FireInput.IsPressed())
+                    {
+                        if (!GameManager.isOnline)
+                        {
+                            PunRPCShoot();
+                        }
+                        else if (GameManager.isOnline)
+                        {
+                            view.RPC("PunRPCShoot", RpcTarget.All);
+                        }
+                    }
+                    if (ReloadInput.IsPressed())
+                    {
+                        if (!GameManager.isOnline)
+                        {
+                            PunRPCReload();
+                        }
+                        else if (GameManager.isOnline)
+                        {
+                            view.RPC("PunRPCReload", RpcTarget.All);
+                        }
+                    }
                 }
-                //Debug.DrawRay(RayOut.position, PlayerRef.transform.forward * distance, Color.red);
             }
         }
         private void FixedUpdate()
@@ -145,7 +164,7 @@ namespace WeaponSystem
         /// Void that triggers the reload animation on the weapon.
         /// </summary>
         [PunRPC]
-        public void Reolad()
+        public void PunRPCReload()
         {
             if (curAmmo > 0)
             {
@@ -190,7 +209,8 @@ namespace WeaponSystem
         /// <summary>
         /// This Virtual Method handels the shooting for all weapons and can be overrided.
         /// </summary>
-        public virtual void Shoot()
+        [PunRPC]
+        public virtual void PunRPCShoot()
         {
             if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
             {
@@ -209,7 +229,7 @@ namespace WeaponSystem
                 }
                 else
                 {
-                    Reolad();
+                    PunRPCReload();
                 }
             }
         }

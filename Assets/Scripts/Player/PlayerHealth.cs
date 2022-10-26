@@ -48,18 +48,21 @@ namespace Player
         {
             if (!GameManager.isOnline)
             {
-                ResetShield();
+                PunRPCResetShield();
             }
             else if (GameManager.isOnline)
             {
-                view.RPC("ResetShied", RpcTarget.AllBuffered);
+                if (view.IsMine)
+                {
+                    view.RPC("PunRPCResetShield", RpcTarget.All);
+                }
             }
         }
 
         [PunRPC]
-        void ResetShield()
+        void PunRPCResetShield()
         {
-            if(view.IsMine)
+            if (view.IsMine)
             {
                 invFrames -= Time.deltaTime;
                 if (invFrames <= 0)
@@ -74,7 +77,7 @@ namespace Player
                 if (collision.gameObject.tag == "Enemy" && invFrames <= 0)
                     TakeDamage(1);
             }
-        }   
+        }
 
         void OnTriggerEnter(Collider collision)
         {

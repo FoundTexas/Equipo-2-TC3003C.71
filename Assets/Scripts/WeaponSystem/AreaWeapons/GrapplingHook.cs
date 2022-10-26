@@ -62,9 +62,16 @@ namespace WeaponSystem
                     Debug.DrawLine(transform.position + Vector3.up, transform.position + Vector3.right * radius, Color.magenta);
                     Debug.DrawLine(transform.position + Vector3.up, transform.position + Vector3.forward * radius, Color.magenta);
 
-                    if (WeaponManager.hasWeapon)
+                    if (ReloadInput.IsPressed())
                     {
-                        if (ReloadInput.IsPressed()) { Reolad(); }
+                        if (!GameManager.isOnline)
+                        {
+                            PunRPCReload();
+                        }
+                        else if (GameManager.isOnline)
+                        {
+                            view.RPC("PunRPCReload", RpcTarget.All);
+                        }
                     }
                     else
                     {
@@ -129,7 +136,20 @@ namespace WeaponSystem
             }
             void Inputshoot(InputAction.CallbackContext context)
             {
-                Shoot();
+                if (WeaponManager.hasWeapon)
+                {
+                    if (FireInput.IsPressed())
+                    {
+                        if (!GameManager.isOnline)
+                        {
+                            PunRPCShoot();
+                        }
+                        else if (GameManager.isOnline)
+                        {
+                            view.RPC("PunRPCShoot", RpcTarget.All);
+                        }
+                    }
+                }
             }
 
             // Void that handels when the hook is stopped.
@@ -144,7 +164,8 @@ namespace WeaponSystem
             /// <summary>
             /// Overrided Shoot Method for GrapplingHook.
             /// </summary>
-            public override void Shoot()
+            [PunRPC]
+            public override void PunRPCShoot()
             {
                 if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
                 {
@@ -173,7 +194,7 @@ namespace WeaponSystem
                     }
                     else
                     {
-                        Reolad();
+                        PunRPCReload();
                     }
                 }
             }

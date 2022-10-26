@@ -122,7 +122,8 @@ namespace WeaponSystem
             /// <summary>
             /// This Virtual Method handels the shooting for all weapons and can be overrided.
             /// </summary>
-            public override void Shoot()
+            [PunRPC]
+            public override void PunRPCShoot()
             {
                 if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
                 {
@@ -137,7 +138,7 @@ namespace WeaponSystem
                     }
                     else
                     {
-                        Reolad();
+                        PunRPCReload();
                     }
                 }
             }
