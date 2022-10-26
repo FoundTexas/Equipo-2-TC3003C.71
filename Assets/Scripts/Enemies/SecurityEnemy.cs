@@ -25,6 +25,7 @@ namespace Enemies
         private SceneLoader sceneLoader;
         public WeaponManager weapons;
         public GameObject conductor;
+        public float viewRange = 30f;
         // ----------------------------------------------------------------------------------------------- Unity Methods
         void Awake()
         {
@@ -58,7 +59,7 @@ namespace Enemies
             if(weapons.CurrentSelect().curShootS == weapons.CurrentSelect().shootSpeed)
                 Capture();
                 
-            if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayHit))
+            if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayHit, viewRange))
             {
                 if(rayHit.collider.tag == "Prop"){}
                 else if(rayHit.collider.tag == "Player")
