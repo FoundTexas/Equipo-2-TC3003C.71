@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 336870631830943012}
   - component: {fileID: 33128618182718912}
   - component: {fileID: 7383022070613283798}
+  - component: {fileID: 3638386520710281757}
   m_Layer: 2
   m_Name: Basic Gun
   m_TagString: Untagged
@@ -99,11 +100,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e256e9a0d18c9434c8dafbaf85dbdbc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  view: {fileID: 0}
   FireInput:
     m_Name: Fire Input
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: abde65d8-131d-4541-9948-7220b03522e8
+    m_Id: 6965fda3-ce29-4e58-9558-a697ee03fef7
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
@@ -112,14 +114,14 @@ MonoBehaviour:
     m_Name: Reload Input
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: be1d841e-fd29-4f02-8964-0549cfe1d06d
+    m_Id: 785dcfbd-70c6-4e52-9a3b-d054d90fc7a4
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
   ID: BasicGun
   GunModel: {fileID: 8708822207045214100, guid: 128dc9196e86e88428bd783a9fbb7130, type: 3}
-  shootSpeed: 0.5
+  shootSpeed: 0.55
   curShootS: 0
   ammo: -100
   magazine: -100
@@ -235,6 +237,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3638386520710281757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5374995939001763048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &7685907713582772394
 PrefabInstance:
   m_ObjectHideFlags: 0
