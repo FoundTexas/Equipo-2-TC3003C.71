@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace WeaponSystem
 {
@@ -31,7 +32,8 @@ namespace WeaponSystem
             /// <summary>
             /// This Virtual Method handels the shooting for all weapons and can be overrided.
             /// </summary>
-            public override void Shoot()
+            [PunRPC]
+            public override void PunRPCShoot()
             {
                 if (curMagazine > 0)
                 {
@@ -52,7 +54,7 @@ namespace WeaponSystem
                 }
                 else
                 {
-                    Reolad();
+                    PunRPCReload();
                 }
             }
         }
