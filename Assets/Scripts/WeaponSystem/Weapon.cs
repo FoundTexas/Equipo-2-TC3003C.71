@@ -14,6 +14,7 @@ namespace WeaponSystem
     public class Weapon : MonoBehaviour
     {
         public PhotonView view;
+        public PhotonView fatherview;
         public PlayerInputs PlayerInput;
         public InputAction FireInput, ReloadInput;
 
@@ -72,7 +73,7 @@ namespace WeaponSystem
         }
         private void OnEnable()
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
                 FireInput = PlayerInput.Game.Fire;
                 FireInput.Enable();
@@ -82,7 +83,7 @@ namespace WeaponSystem
         }
         private void OnDisable()
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
                 FireInput.Disable();
                 ReloadInput.Disable();
@@ -90,42 +91,34 @@ namespace WeaponSystem
         }
         private void Start()
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            source = GetComponent<AudioSource>();
+            anim = GetComponent<Animator>();
+            if (PlayerRef)
             {
-                Debug.Log("start1");
-                source = GetComponent<AudioSource>();
-                anim = GetComponent<Animator>();
-                canReload = true;
-                curMagazine = magazine;
-                curAmmo = ammo;
-
-                if (PlayerRef)
-                {
-                    RayOut = PlayerRef.transform.GetChild(0);
-                }
-                if (firePoint.TryGetComponent<ParticleSystem>(out particles) == false)
-                {
-                    particles = firePoint.gameObject.AddComponent<ParticleSystem>();
-                    particles.Stop();
-                }
+                RayOut = PlayerRef.transform.GetChild(0);
             }
+            if (firePoint.TryGetComponent<ParticleSystem>(out particles) == false)
+            {
+                particles = firePoint.gameObject.AddComponent<ParticleSystem>();
+                particles.Stop();
+            }
+
+            canReload = true;
+            curMagazine = magazine;
+            curAmmo = ammo;
+
         }
         private void Update()
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
                 if (WeaponManager.hasWeapon)
                 {
                     if (FireInput.IsPressed())
                     {
-                        if (!GameManager.isOnline)
-                        {
-                            PunRPCShoot();
-                        }
-                        else if (GameManager.isOnline)
-                        {
-                            view.RPC("PunRPCShoot", RpcTarget.All);
-                        }
+
+                        PunRPCShoot();
+
                     }
                     if (ReloadInput.IsPressed())
                     {
@@ -143,7 +136,7 @@ namespace WeaponSystem
         }
         private void FixedUpdate()
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
                 if (curShootS > 0) { curShootS -= Time.deltaTime; }
             }
@@ -198,7 +191,8 @@ namespace WeaponSystem
         /// Method that visualize the shoot given the present parameters rendering a trail 
         /// and or spawning a projectile if given the prefabs.
         /// </summary>
-        public void PlayShootAnimation()
+        [PunRPC]
+        public void PunRPCPlayShootAnimation()
         {
             particles.Play();
             source.PlayOneShot(sound);
@@ -209,17 +203,16 @@ namespace WeaponSystem
         /// <summary>
         /// This Virtual Method handels the shooting for all weapons and can be overrided.
         /// </summary>
-        [PunRPC]
         public virtual void PunRPCShoot()
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
                 if (curMagazine > 0 || curMagazine == -100)
                 {
                     if (curShootS <= 0)
                     {
                         curShootS = shootSpeed;
-                        PlayShootAnimation();
+                        PunRPCPlayShootAnimation();
 
                         if (curMagazine != -100)
                         {

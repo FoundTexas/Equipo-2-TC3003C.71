@@ -40,7 +40,7 @@ namespace WeaponSystem
                     if (curShootS <= 0)
                     {
                         curShootS = shootSpeed;
-                        PlayShootAnimation();
+                        PunRPCPlayShootAnimation();
 
                         if (projectile)
                         {

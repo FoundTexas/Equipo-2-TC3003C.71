@@ -46,14 +46,15 @@ namespace Player
 
         void Update()
         {
-            if (!GameManager.isOnline)
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
             {
-                PunRPCResetShield();
-            }
-            else if (GameManager.isOnline)
-            {
-                if (view.IsMine)
+                if (!GameManager.isOnline)
                 {
+                    PunRPCResetShield();
+                }
+                else if (GameManager.isOnline)
+                {
+
                     view.RPC("PunRPCResetShield", RpcTarget.All);
                 }
             }
@@ -62,12 +63,11 @@ namespace Player
         [PunRPC]
         void PunRPCResetShield()
         {
-            if (view.IsMine)
-            {
-                invFrames -= Time.deltaTime;
-                if (invFrames <= 0)
-                    forceField.SetActive(false);
-            }
+
+            invFrames -= Time.deltaTime;
+            if (invFrames <= 0)
+                forceField.SetActive(false);
+
         }
 
         void OnCollisionEnter(Collision collision)
@@ -116,7 +116,7 @@ namespace Player
         /// <summary>
         /// Interface Abstract method in charge of the death routine of the assigned Object.
         /// </summary>
-        public void Die()
+        public void PunRPCDie()
         {
             if (!GameManager.isOnline)
             {
@@ -167,7 +167,16 @@ namespace Player
             playerHP -= dmg;
             healthBar.SetHealth(playerHP);
             if (playerHP <= -1)
-                Die();
+            {
+                if (GameManager.isOnline)
+                {
+                    view.RPC("PunRPCDie", RpcTarget.All);
+                }
+                else if (!GameManager.isOnline)
+                {
+                    PunRPCDie();
+                }
+            }
             else
             {
                 forceField.SetActive(true);

@@ -73,32 +73,37 @@ namespace WeaponSystem
         }
         void Start()
         {
+
+            FromJson();
+            audios = GetComponentInParent<AudioAndVideoManager>();
+            Cursor.lockState = CursorLockMode.Confined;
+            for (int i = 0; i < weapons.Count; i++)
+            {
+                weaponDictionary.Add(weapons[i].GetID(), i);
+                weapons[i].gameObject.SetActive(false);
+            }
+
             if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
             {
-                FromJson();
-                audios = GetComponentInParent<AudioAndVideoManager>();
-                Cursor.lockState = CursorLockMode.Confined;
-                for (int i = 0; i < weapons.Count; i++)
+                if (!GameManager.isOnline)
                 {
-                    weaponDictionary.Add(weapons[i].GetID(), i);
-                    weapons[i].gameObject.SetActive(false);
+                    PunRPCToggleWeapon();
                 }
-
-                ToggleWeapon();
-
-                if (unlocked.unlock.Count > 0)
+                else if (GameManager.isOnline)
                 {
-                    selected = weapons[weaponDictionary[unlocked.unlock[0]]];
-                    selected.gameObject.SetActive(true);
+                    view.RPC("PunRPCToggleWeapon", RpcTarget.All);
                 }
+            }
+
+            if (unlocked.unlock.Count > 0)
+            {
+                selected = weapons[weaponDictionary[unlocked.unlock[0]]];
+                selected.gameObject.SetActive(true);
             }
         }
         private void LateUpdate()
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
-            {
-                transform.localPosition = pos;
-            }
+            transform.localPosition = pos;
         }
         // ----------------------------------------------------------------------------------------------- Private Methods
         /// <summary>
@@ -117,7 +122,14 @@ namespace WeaponSystem
                     selectedIndex = 0;
                 }
 
-                ChangeWeapon(selectedIndex);
+                if (!GameManager.isOnline)
+                {
+                    PunRPCChangeWeapon(selectedIndex);
+                }
+                else if (GameManager.isOnline)
+                {
+                    view.RPC("PunRPCChangeWeapon", RpcTarget.All, selectedIndex);
+                }
             }
         }
         /// <summary>
@@ -138,43 +150,47 @@ namespace WeaponSystem
         {
             if (unlocked.unlock.Count != 0)
             {
-                ToggleWeapon();
+                if (!GameManager.isOnline)
+                {
+                    PunRPCToggleWeapon();
+                }
+                else if (GameManager.isOnline)
+                {
+                    view.RPC("PunRPCToggleWeapon", RpcTarget.All);
+                }
             }
         }
-        public void ToggleWeapon()
+
+        [PunRPC]
+        void PunRPCToggleWeapon()
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            hasWeapon = !hasWeapon;
+            if (hasWeapon)
             {
-                hasWeapon = !hasWeapon;
-                if (hasWeapon)
-                {
-                    this.transform.parent = hand;
-                    pos = Vector3.zero;
-                    transform.localRotation = Quaternion.Euler(-65, 48, 54);
-                }
-                else if (!hasWeapon)
-                {
-                    this.transform.parent = torso;
-                    pos = Vector3.zero;
-                    transform.rotation = Quaternion.Euler(0, 0, 0);
-                }
-                audios.GunValue(hasWeapon, selected.select);
+                this.transform.parent = hand;
+                pos = Vector3.zero;
+                transform.localRotation = Quaternion.Euler(-65, 48, 54);
             }
+            else if (!hasWeapon)
+            {
+                this.transform.parent = torso;
+                pos = Vector3.zero;
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            audios.GunValue(hasWeapon, selected.select);
         }
         /// <summary>
         /// This Function is in charge og changing between the unlocked weapons
         /// </summary>
         /// <param name="i"> Weapon index relative to the unlocked weapons. </param>
-        public void ChangeWeapon(int i)
+        [PunRPC]
+        public void PunRPCChangeWeapon(int i)
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            if (unlocked.unlock.Count >= i)
             {
-                if (unlocked.unlock.Count >= i)
-                {
-                    selected.gameObject.SetActive(false);
-                    selected = weapons[weaponDictionary[unlocked.unlock[i]]];
-                    selected.gameObject.SetActive(true);
-                }
+                selected.gameObject.SetActive(false);
+                selected = weapons[weaponDictionary[unlocked.unlock[i]]];
+                selected.gameObject.SetActive(true);
             }
         }
         /// <summary>
@@ -197,8 +213,24 @@ namespace WeaponSystem
                 if (!hasWeapon)
                 {
                     selected = weapons[weaponDictionary[weapon]];
-                    ChangeWeapon(GetSelectedIndex());
-                    ToggleWeapon();
+
+                    if (!GameManager.isOnline)
+                    {
+                        PunRPCChangeWeapon(GetSelectedIndex());
+                    }
+                    else if (GameManager.isOnline)
+                    {
+                        view.RPC("PunRPCChangeWeapon", RpcTarget.All, GetSelectedIndex());
+                    }
+
+                    if (!GameManager.isOnline)
+                    {
+                        PunRPCToggleWeapon();
+                    }
+                    else if (GameManager.isOnline)
+                    {
+                        view.RPC("PunRPCToggleWeapon", RpcTarget.All);
+                    }
                 }
 
                 Save();

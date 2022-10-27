@@ -26,7 +26,7 @@ namespace WeaponSystem
             [Tooltip("Particle system instantiated on when hitting a wall")]
             [SerializeField] ParticleSystem ImpactParticleSystem;
             [Tooltip("Trail left by the the bullet while it moves in the shooted direction")]
-            [SerializeField] TrailRenderer BulletTrail;
+            [SerializeField] GameObject BulletTrail;
 
 
             [Header("RayCaast Bullet Stats")]
@@ -91,16 +91,18 @@ namespace WeaponSystem
                 return direction;
             }
 
-            public void ShootRay()
+            [PunRPC]
+            public void PunRPCShootRay()
             {
                 if (BulletTrail)
                 {
                     Vector3 dir = Direction();
                     RaycastHit HitGun = GetRay(dir);
 
-                    TrailRenderer trail = GameManager.isOnline ? 
-                    PhotonNetwork.Instantiate(BulletTrail.name, transform.position, Quaternion.identity).GetComponent<TrailRenderer>() : 
-                    Instantiate(BulletTrail, RayOut.position, Quaternion.identity);
+                    TrailRenderer trail = //GameManager.isOnline ? 
+                    //PhotonNetwork.Instantiate(BulletTrail.name, RayOut.position, Quaternion.identity).GetComponent<TrailRenderer>() : 
+                    //Instantiate(BulletTrail, RayOut.position, Quaternion.identity).GetComponent<TrailRenderer>();
+                    Instantiate(BulletTrail, RayOut.position, Quaternion.identity).GetComponent<TrailRenderer>();
 
 
                     if (HitGun.transform)
@@ -125,7 +127,6 @@ namespace WeaponSystem
             /// <summary>
             /// This Virtual Method handels the shooting for all weapons and can be overrided.
             /// </summary>
-            [PunRPC]
             public override void PunRPCShoot()
             {
                 if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
@@ -135,8 +136,25 @@ namespace WeaponSystem
                         if (curShootS <= 0)
                         {
                             curShootS = shootSpeed;
-                            PlayShootAnimation();
-                            ShootRay();
+                            if (!GameManager.isOnline)
+                            {
+                                PunRPCShootRay();
+                            }
+                            else if (GameManager.isOnline)
+                            {
+                                view.RPC("PunRPCShootRay", RpcTarget.All);
+                            }
+                            
+                            if (!GameManager.isOnline)
+                            {
+                                PunRPCPlayShootAnimation();
+                            }
+                            else if (GameManager.isOnline)
+                            {
+                                view.RPC("PunRPCPlayShootAnimation", RpcTarget.All);
+                            }
+                            
+
                         }
                     }
                     else

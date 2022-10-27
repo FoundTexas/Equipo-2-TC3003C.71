@@ -58,6 +58,12 @@ MonoBehaviour:
   - RPCResetShield
   - PunRPCReload
   - PunRPCShoot
+  - PunRPCPlayShootAnimation
+  - PunRPCShootRay
+  - PunRPCChangeWeapon
+  - PunRPCToggleWeapon
+  - PunRPCDie
+  - PunRPCupdateVisuals
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

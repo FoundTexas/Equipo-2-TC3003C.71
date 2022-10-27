@@ -174,7 +174,7 @@ namespace WeaponSystem
                         if (curShootS <= 0)
                         {
                             curShootS = shootSpeed;
-                            PlayShootAnimation();
+                            PunRPCPlayShootAnimation();
                             entity = GetNearest(transform.position + Vector3.up);
 
                             if (entity)

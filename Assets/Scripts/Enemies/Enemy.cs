@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Photon.Pun;
 
 namespace Enemies
 {
@@ -139,7 +140,8 @@ namespace Enemies
         /// <summary>
         /// Interface Abstract method in charge of the death routine of the assigned Object.
         /// </summary>
-        public void Die()
+         [PunRPC]
+        public void PunRPCDie()
         {
             GameObject deathvfx;
             Vector3 vfxpos = this.transform.position;
@@ -165,7 +167,7 @@ namespace Enemies
             render.material.color = new Color(hp / maxHp, 1, hp / maxHp);
             CameraShake.Instance.DoShake(0.5f, 1f, 0.1f);
             if (hp < 0)
-                Die();
+                PunRPCDie();
         }
 
         /// <summary>
