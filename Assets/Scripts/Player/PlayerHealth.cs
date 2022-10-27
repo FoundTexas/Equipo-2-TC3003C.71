@@ -54,7 +54,7 @@ namespace Player
             {
                 if (view.IsMine)
                 {
-                    view.RPC("PunRPCResetShield", RpcTarget.All);
+                    view.RPC("PunRPCResetShield", RpcTarget.MasterClient);
                 }
             }
         }
