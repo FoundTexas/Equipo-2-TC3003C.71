@@ -92,24 +92,20 @@ namespace WeaponSystem
         {
             source = GetComponent<AudioSource>();
             anim = GetComponent<Animator>();
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            if (PlayerRef)
             {
-                Debug.Log("start1");
-                
-                canReload = true;
-                curMagazine = magazine;
-                curAmmo = ammo;
-
-                if (PlayerRef)
-                {
-                    RayOut = PlayerRef.transform.GetChild(0);
-                }
-                if (firePoint.TryGetComponent<ParticleSystem>(out particles) == false)
-                {
-                    particles = firePoint.gameObject.AddComponent<ParticleSystem>();
-                    particles.Stop();
-                }
+                RayOut = PlayerRef.transform.GetChild(0);
             }
+            if (firePoint.TryGetComponent<ParticleSystem>(out particles) == false)
+            {
+                particles = firePoint.gameObject.AddComponent<ParticleSystem>();
+                particles.Stop();
+            }
+
+            canReload = true;
+            curMagazine = magazine;
+            curAmmo = ammo;
+
         }
         private void Update()
         {
