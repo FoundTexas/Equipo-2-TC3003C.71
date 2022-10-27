@@ -138,20 +138,22 @@ namespace WeaponSystem
                             curShootS = shootSpeed;
                             if (!GameManager.isOnline)
                             {
-                                PunRPCPlayShootAnimation();
-                            }
-                            else if (GameManager.isOnline)
-                            {
-                                view.RPC("PunRPCPlayShootAnimation", RpcTarget.All);
-                            }
-                            if (!GameManager.isOnline)
-                            {
                                 PunRPCShootRay();
                             }
                             else if (GameManager.isOnline)
                             {
                                 view.RPC("PunRPCShootRay", RpcTarget.All);
                             }
+                            
+                            if (!GameManager.isOnline)
+                            {
+                                PunRPCPlayShootAnimation();
+                            }
+                            else if (GameManager.isOnline)
+                            {
+                                view.RPC("PunRPCPlayShootAnimation", RpcTarget.All);
+                            }
+                            
 
                         }
                     }

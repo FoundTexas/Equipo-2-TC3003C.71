@@ -90,11 +90,12 @@ namespace WeaponSystem
         }
         private void Start()
         {
+            source = GetComponent<AudioSource>();
+            anim = GetComponent<Animator>();
             if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
             {
                 Debug.Log("start1");
-                source = GetComponent<AudioSource>();
-                anim = GetComponent<Animator>();
+                
                 canReload = true;
                 curMagazine = magazine;
                 curAmmo = ammo;
