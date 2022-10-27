@@ -83,13 +83,16 @@ namespace WeaponSystem
                 weapons[i].gameObject.SetActive(false);
             }
 
-            if (!GameManager.isOnline)
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
             {
-                PunRPCToggleWeapon();
-            }
-            else if (GameManager.isOnline)
-            {
-                view.RPC("PunRPCToggleWeapon", RpcTarget.All);
+                if (!GameManager.isOnline)
+                {
+                    PunRPCToggleWeapon();
+                }
+                else if (GameManager.isOnline)
+                {
+                    view.RPC("PunRPCToggleWeapon", RpcTarget.All);
+                }
             }
 
             if (unlocked.unlock.Count > 0)
@@ -100,7 +103,7 @@ namespace WeaponSystem
         }
         private void LateUpdate()
         {
-                transform.localPosition = pos;
+            transform.localPosition = pos;
         }
         // ----------------------------------------------------------------------------------------------- Private Methods
         /// <summary>
