@@ -18313,6 +18313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 4263524372693174367}
+  fatherview: {fileID: 1268163560541054327}
   FireInput:
     m_Name: Fire Input
     m_Type: 0
@@ -18769,6 +18770,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 2043266068473513444}
+  fatherview: {fileID: 1268163560541054327}
   FireInput:
     m_Name: Fire Input
     m_Type: 0
@@ -20040,6 +20042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 664453801184913296}
+  fatherview: {fileID: 1268163560541054327}
   FireInput:
     m_Name: Fire Input
     m_Type: 0

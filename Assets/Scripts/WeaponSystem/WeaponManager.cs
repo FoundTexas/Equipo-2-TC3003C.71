@@ -93,13 +93,15 @@ namespace WeaponSystem
                 {
                     view.RPC("PunRPCToggleWeapon", RpcTarget.All);
                 }
+
+                if (unlocked.unlock.Count > 0)
+                {
+                    selected = weapons[weaponDictionary[unlocked.unlock[0]]];
+                    selected.gameObject.SetActive(true);
+                }
             }
 
-            if (unlocked.unlock.Count > 0)
-            {
-                selected = weapons[weaponDictionary[unlocked.unlock[0]]];
-                selected.gameObject.SetActive(true);
-            }
+           
         }
         private void LateUpdate()
         {
