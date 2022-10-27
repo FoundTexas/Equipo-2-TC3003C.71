@@ -18347,7 +18347,7 @@ MonoBehaviour:
   distance: 30
   dmg: 10
   PlayerRef: {fileID: 1578475230906901960}
-  RayOut: {fileID: 0}
+  RayOut: {fileID: 7634513537359211152}
   BulletSpreadVariance: {x: 0.1, y: 0.1, z: 0.1}
   ImpactParticleSystem: {fileID: 1952829162161550246, guid: dc17e0b860f437541809d9f2653f0c27, type: 3}
   BulletTrail: {fileID: 5111957209854044782, guid: 97700d8afa1a790408a805fab56667bb, type: 3}
@@ -18804,7 +18804,7 @@ MonoBehaviour:
   distance: 6
   dmg: 10
   PlayerRef: {fileID: 1578475230906901960}
-  RayOut: {fileID: 0}
+  RayOut: {fileID: 7634513537359211152}
   areaMasks:
     serializedVersion: 2
     m_Bits: 1088
@@ -20076,7 +20076,7 @@ MonoBehaviour:
   distance: 2
   dmg: 5
   PlayerRef: {fileID: 1578475230906901960}
-  RayOut: {fileID: 0}
+  RayOut: {fileID: 7634513537359211152}
   areaMasks:
     serializedVersion: 2
     m_Bits: 1536
@@ -25518,6 +25518,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 8062322865626927880}
+  fatherview: {fileID: 1268163560541054327}
   weapons:
   - {fileID: 6303266923256524616}
   - {fileID: 1494754881095077005}

@@ -24,6 +24,7 @@ namespace WeaponSystem
 
         //ref photon
         public PhotonView view;
+        public PhotonView fatherview;
 
 
         PlayerInputs PlayerInput;
@@ -52,7 +53,7 @@ namespace WeaponSystem
         }
         private void OnEnable()
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
                 SwapInput = PlayerInput.Game.ChangeArm;
                 SwapInput.Enable();
@@ -65,7 +66,7 @@ namespace WeaponSystem
         }
         private void OnDisable()
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
                 SwapInput.Disable();
                 ToggleInput.Disable();
@@ -76,14 +77,14 @@ namespace WeaponSystem
 
             FromJson();
             audios = GetComponentInParent<AudioAndVideoManager>();
-            Cursor.lockState = CursorLockMode.Confined;
+            //Cursor.lockState = CursorLockMode.Confined;
             for (int i = 0; i < weapons.Count; i++)
             {
                 weaponDictionary.Add(weapons[i].GetID(), i);
                 weapons[i].gameObject.SetActive(false);
             }
 
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
                 if (!GameManager.isOnline)
                 {
@@ -93,15 +94,13 @@ namespace WeaponSystem
                 {
                     view.RPC("PunRPCToggleWeapon", RpcTarget.All);
                 }
-
-                if (unlocked.unlock.Count > 0)
-                {
-                    selected = weapons[weaponDictionary[unlocked.unlock[0]]];
-                    selected.gameObject.SetActive(true);
-                }
+            }
+            if (unlocked.unlock.Count > 0)
+            {
+                selected = weapons[weaponDictionary[unlocked.unlock[0]]];
+                selected.gameObject.SetActive(true);
             }
 
-           
         }
         private void LateUpdate()
         {
@@ -113,24 +112,27 @@ namespace WeaponSystem
         /// </summary>
         void Scroll(InputAction.CallbackContext callbackContext)
         {
-            if (unlocked.unlock.Count > 0)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
-
-                int selectedIndex = GetSelectedIndex();
-                selectedIndex++;
-
-                if (selectedIndex >= unlocked.unlock.Count)
+                if (unlocked.unlock.Count > 0)
                 {
-                    selectedIndex = 0;
-                }
 
-                if (!GameManager.isOnline)
-                {
-                    PunRPCChangeWeapon(selectedIndex);
-                }
-                else if (GameManager.isOnline)
-                {
-                    view.RPC("PunRPCChangeWeapon", RpcTarget.All, selectedIndex);
+                    int selectedIndex = GetSelectedIndex();
+                    selectedIndex++;
+
+                    if (selectedIndex >= unlocked.unlock.Count)
+                    {
+                        selectedIndex = 0;
+                    }
+
+                    if (!GameManager.isOnline)
+                    {
+                        PunRPCChangeWeapon(selectedIndex);
+                    }
+                    else if (GameManager.isOnline)
+                    {
+                        view.RPC("PunRPCChangeWeapon", RpcTarget.All, selectedIndex);
+                    }
                 }
             }
         }
@@ -150,21 +152,24 @@ namespace WeaponSystem
         /// </summary>
         public void ToggleWeaponInput(InputAction.CallbackContext context)
         {
-            if (unlocked.unlock.Count != 0)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
-                if (!GameManager.isOnline)
+                if (unlocked.unlock.Count != 0)
                 {
-                    PunRPCToggleWeapon();
-                }
-                else if (GameManager.isOnline)
-                {
-                    view.RPC("PunRPCToggleWeapon", RpcTarget.All);
+                    if (!GameManager.isOnline)
+                    {
+                        PunRPCToggleWeapon();
+                    }
+                    else if (GameManager.isOnline)
+                    {
+                        view.RPC("PunRPCToggleWeapon", RpcTarget.All);
+                    }
                 }
             }
         }
 
         [PunRPC]
-        void PunRPCToggleWeapon()
+        public void PunRPCToggleWeapon()
         {
             hasWeapon = !hasWeapon;
             if (hasWeapon)
@@ -201,7 +206,7 @@ namespace WeaponSystem
         /// <param name="weapon"> Weapon Id given to the function. </param>
         public void UnlockWeapon(string weapon)
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
                 if (unlocked.unlock.Contains(weapon) == false)
                 {

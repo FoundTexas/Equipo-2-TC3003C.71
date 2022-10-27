@@ -93,10 +93,7 @@ namespace WeaponSystem
         {
             source = GetComponent<AudioSource>();
             anim = GetComponent<Animator>();
-            if (PlayerRef)
-            {
-                RayOut = PlayerRef.transform.GetChild(0);
-            }
+
             if (firePoint.TryGetComponent<ParticleSystem>(out particles) == false)
             {
                 particles = firePoint.gameObject.AddComponent<ParticleSystem>();
@@ -212,7 +209,14 @@ namespace WeaponSystem
                     if (curShootS <= 0)
                     {
                         curShootS = shootSpeed;
-                        PunRPCPlayShootAnimation();
+                        if (!GameManager.isOnline)
+                        {
+                            PunRPCPlayShootAnimation();
+                        }
+                        else if (GameManager.isOnline)
+                        {
+                            view.RPC("PunRPCPlayShootAnimation", RpcTarget.All);
+                        }
 
                         if (curMagazine != -100)
                         {
