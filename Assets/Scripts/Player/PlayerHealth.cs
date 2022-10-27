@@ -52,10 +52,8 @@ namespace Player
             }
             else if (GameManager.isOnline)
             {
-                if (view.IsMine)
-                {
-                    view.RPC("PunRPCResetShield", RpcTarget.AllViaServer);
-                }
+
+                view.RPC("PunRPCResetShield", RpcTarget.All);
             }
         }
 
