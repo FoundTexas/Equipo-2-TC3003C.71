@@ -14,6 +14,7 @@ namespace WeaponSystem
     public class Weapon : MonoBehaviour
     {
         public PhotonView view;
+        public PhotonView fatherview;
         public PlayerInputs PlayerInput;
         public InputAction FireInput, ReloadInput;
 
@@ -72,7 +73,7 @@ namespace WeaponSystem
         }
         private void OnEnable()
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
                 FireInput = PlayerInput.Game.Fire;
                 FireInput.Enable();
@@ -82,7 +83,7 @@ namespace WeaponSystem
         }
         private void OnDisable()
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
                 FireInput.Disable();
                 ReloadInput.Disable();
@@ -109,7 +110,7 @@ namespace WeaponSystem
         }
         private void Update()
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
                 if (WeaponManager.hasWeapon)
                 {
@@ -135,7 +136,7 @@ namespace WeaponSystem
         }
         private void FixedUpdate()
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
                 if (curShootS > 0) { curShootS -= Time.deltaTime; }
             }
@@ -204,7 +205,7 @@ namespace WeaponSystem
         /// </summary>
         public virtual void PunRPCShoot()
         {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
                 if (curMagazine > 0 || curMagazine == -100)
                 {
