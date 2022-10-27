@@ -91,7 +91,8 @@ namespace WeaponSystem
                 return direction;
             }
 
-            public void ShootRay()
+            [PunRPC]
+            public void PunRPCShootRay()
             {
                 if (BulletTrail)
                 {
@@ -126,7 +127,6 @@ namespace WeaponSystem
             /// <summary>
             /// This Virtual Method handels the shooting for all weapons and can be overrided.
             /// </summary>
-            [PunRPC]
             public override void PunRPCShoot()
             {
                 if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
@@ -136,8 +136,23 @@ namespace WeaponSystem
                         if (curShootS <= 0)
                         {
                             curShootS = shootSpeed;
-                            PlayShootAnimation();
-                            ShootRay();
+                            if (!GameManager.isOnline)
+                            {
+                                PunRPCPlayShootAnimation();
+                            }
+                            else if (GameManager.isOnline)
+                            {
+                                view.RPC("PunRPCPlayShootAnimation", RpcTarget.All);
+                            }
+                            if (!GameManager.isOnline)
+                            {
+                                PunRPCShootRay();
+                            }
+                            else if (GameManager.isOnline)
+                            {
+                                view.RPC("PunRPCShootRay", RpcTarget.All);
+                            }
+
                         }
                     }
                     else

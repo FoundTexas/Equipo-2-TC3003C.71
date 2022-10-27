@@ -118,14 +118,9 @@ namespace WeaponSystem
                 {
                     if (FireInput.IsPressed())
                     {
-                        if (!GameManager.isOnline)
-                        {
-                            PunRPCShoot();
-                        }
-                        else if (GameManager.isOnline)
-                        {
-                            view.RPC("PunRPCShoot", RpcTarget.All);
-                        }
+
+                        PunRPCShoot();
+
                     }
                     if (ReloadInput.IsPressed())
                     {
@@ -198,7 +193,8 @@ namespace WeaponSystem
         /// Method that visualize the shoot given the present parameters rendering a trail 
         /// and or spawning a projectile if given the prefabs.
         /// </summary>
-        public void PlayShootAnimation()
+        [PunRPC]
+        public void PunRPCPlayShootAnimation()
         {
             particles.Play();
             source.PlayOneShot(sound);
@@ -209,7 +205,6 @@ namespace WeaponSystem
         /// <summary>
         /// This Virtual Method handels the shooting for all weapons and can be overrided.
         /// </summary>
-        [PunRPC]
         public virtual void PunRPCShoot()
         {
             if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
@@ -219,7 +214,7 @@ namespace WeaponSystem
                     if (curShootS <= 0)
                     {
                         curShootS = shootSpeed;
-                        PlayShootAnimation();
+                        PunRPCPlayShootAnimation();
 
                         if (curMagazine != -100)
                         {

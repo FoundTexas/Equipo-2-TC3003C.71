@@ -84,7 +84,7 @@ namespace WeaponSystem
                 {
                     if (curShootS <= 0)
                     {
-                        PlayShootAnimation();
+                        PunRPCPlayShootAnimation();
                         Explode(PlayerRef.transform.forward * distance);
                         curMagazine--;
                     }
