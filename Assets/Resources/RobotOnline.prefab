@@ -18366,7 +18366,7 @@ MonoBehaviour:
   RayOut: {fileID: 0}
   BulletSpreadVariance: {x: 0.1, y: 0.1, z: 0.1}
   ImpactParticleSystem: {fileID: 1952829162161550246, guid: dc17e0b860f437541809d9f2653f0c27, type: 3}
-  BulletTrail: {fileID: 3958543375046743312, guid: 97700d8afa1a790408a805fab56667bb, type: 3}
+  BulletTrail: {fileID: 5111957209854044782, guid: 97700d8afa1a790408a805fab56667bb, type: 3}
   rayMasks:
     serializedVersion: 2
     m_Bits: 1673

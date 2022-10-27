@@ -26,7 +26,7 @@ namespace WeaponSystem
             [Tooltip("Particle system instantiated on when hitting a wall")]
             [SerializeField] ParticleSystem ImpactParticleSystem;
             [Tooltip("Trail left by the the bullet while it moves in the shooted direction")]
-            [SerializeField] TrailRenderer BulletTrail;
+            [SerializeField] GameObject BulletTrail;
 
 
             [Header("RayCaast Bullet Stats")]
@@ -98,9 +98,10 @@ namespace WeaponSystem
                     Vector3 dir = Direction();
                     RaycastHit HitGun = GetRay(dir);
 
-                    TrailRenderer trail = GameManager.isOnline ? 
-                    PhotonNetwork.Instantiate(BulletTrail.name, transform.position, Quaternion.identity).GetComponent<TrailRenderer>() : 
-                    Instantiate(BulletTrail, RayOut.position, Quaternion.identity);
+                    TrailRenderer trail = //GameManager.isOnline ? 
+                    //PhotonNetwork.Instantiate(BulletTrail.name, RayOut.position, Quaternion.identity).GetComponent<TrailRenderer>() : 
+                    //Instantiate(BulletTrail, RayOut.position, Quaternion.identity).GetComponent<TrailRenderer>();
+                    Instantiate(BulletTrail, RayOut.position, Quaternion.identity).GetComponent<TrailRenderer>();
 
 
                     if (HitGun.transform)
