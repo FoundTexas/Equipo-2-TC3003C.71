@@ -1,4 +1,4 @@
-Shader "Custom/ScrollingUnlit"
+Shader "Custom/ScrollingUnlitReverse"
 {
     Properties
     {
@@ -46,7 +46,7 @@ Shader "Custom/ScrollingUnlit"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                float2 translation = frac(i.uv + float2(-0.5, 0) * _Time.y * 0.1);
+                float2 translation = frac(i.uv + float2(0.5, 0) * _Time.y * 0.1);
                 fixed4 col = tex2D(_MainTex, translation); 
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
