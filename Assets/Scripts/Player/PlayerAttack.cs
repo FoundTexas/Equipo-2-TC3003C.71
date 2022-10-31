@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using WeaponSystem;
+using Photon.Pun;
 
 namespace Player
 {
     /// <summary>
     /// Class that contains the player attack behaviour, including weapons and melee attack info.
     /// </summary>
-    public class PlayerAttack : MonoBehaviour
+    public class PlayerAttack : MonoBehaviourPunCallbacks
     {
+        public PhotonView view;
         [Tooltip("Minimum time to use melee attack again")]
         [Min(0)] public float meleeCoolDownTime = 0.8f; 
         public WeaponManager playerWeapons;
@@ -23,6 +25,7 @@ namespace Player
         {
             // Initialize private components
             animator = GetComponent<Animator>();
+            view = GetComponent<PhotonView>();
         }
 
         void Update()
@@ -38,25 +41,27 @@ namespace Player
         /// </summary>
         private void CheckCurrentWeapon()
         {
-            currentWeapon = playerWeapons.CurrentSelect();
-            if (currentWeapon != null)
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
             {
-                if (ammoDisplay)
+                currentWeapon = playerWeapons.CurrentSelect();
+                if (currentWeapon != null)
                 {
-                    ammoDisplay.SetGunName(currentWeapon.GetID());
+                    if (ammoDisplay)
+                    {
+                        ammoDisplay.SetGunName(currentWeapon.GetID());
 
-                    if (currentWeapon.curMagazine == -100|| currentWeapon.curAmmo == -100)
-                    {
-                        ammoDisplay.SetCurrentAmmo("∞");
-                        ammoDisplay.SetRemainingAmmo("∞");
-                    }
-                    else
-                    {
-                        ammoDisplay.SetCurrentAmmo(currentWeapon.curMagazine.ToString());
-                        ammoDisplay.SetRemainingAmmo(currentWeapon.curAmmo.ToString());
+                        if (currentWeapon.curMagazine == -100|| currentWeapon.curAmmo == -100)
+                        {
+                            ammoDisplay.SetCurrentAmmo("∞");
+                            ammoDisplay.SetRemainingAmmo("∞");
+                        }
+                        else
+                        {
+                            ammoDisplay.SetCurrentAmmo(currentWeapon.curMagazine.ToString());
+                            ammoDisplay.SetRemainingAmmo(currentWeapon.curAmmo.ToString());
+                        }
                     }
                 }
-
             }
         }
 
