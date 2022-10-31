@@ -240,7 +240,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 57343
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2099,7 +2099,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 57343
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -6526,7 +6526,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 57343
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -11587,7 +11587,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 57343
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -16701,7 +16701,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 57343
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -22121,11 +22121,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4221337932887527354, guid: e2896c50585ad3c46ab4c01f32ca1df7, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.24325319
+      value: -0.24325314
       objectReference: {fileID: 0}
     - target: {fileID: 4221337932887527354, guid: e2896c50585ad3c46ab4c01f32ca1df7, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0684598
+      value: 0.068459794
       objectReference: {fileID: 0}
     - target: {fileID: 4634568243680381196, guid: e2896c50585ad3c46ab4c01f32ca1df7, type: 3}
       propertyPath: m_Lens.m_SensorSize.x
