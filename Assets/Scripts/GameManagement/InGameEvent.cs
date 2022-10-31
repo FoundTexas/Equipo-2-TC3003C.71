@@ -2,6 +2,7 @@ using Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -15,6 +16,7 @@ namespace GameManagement
     }
     public class InGameEvent : MonoBehaviour
     {
+        public PhotonView pv;
         public InGameEventVals values;
         public bool multiscene = false;
         public int index;
@@ -68,18 +70,29 @@ namespace GameManagement
         {
             if (Setted)
             {
-                values.Triggered = true;
-                if (multiscene)
-                {
-                    string sname = SceneManager.GetActiveScene().name;
-                    GameManager.SetEventReference(sname + "e" + index + "1");
+                if(GameManager.isOnline){
+                    pv.RPC("PunRPCTrigger", RpcTarget.All);
                 }
-                TriggerEvent.Invoke();
+                else if(!GameManager.isOnline){
+                    PunRPCTrigger();
+                }
             }
             else if (!Setted)
             {
                 Hitted = true;
             }
+        }
+
+        [PunRPC]
+        void PunRPCTrigger()
+        {
+            values.Triggered = true;
+            if (multiscene)
+            {
+                string sname = SceneManager.GetActiveScene().name;
+                GameManager.SetEventReference(sname + "e" + index + "1");
+            }
+            TriggerEvent.Invoke();
         }
 
     }
