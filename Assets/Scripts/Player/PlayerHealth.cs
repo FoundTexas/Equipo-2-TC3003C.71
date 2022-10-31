@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameManagement;
+using UnityEngine.SceneManagement;
 
 namespace Player
 {
@@ -11,6 +12,7 @@ namespace Player
     /// </summary>
     public class PlayerHealth : MonoBehaviour, IDamage
     {
+        public Gradient color;
         public HealthBar healthBar;
         public GameObject explosionFx;
         public GameObject forceField;
@@ -82,6 +84,7 @@ namespace Player
             
             var vfxDuration = 1f;
             Destroy(deathvfx, vfxDuration);
+
         }
 
         /// <summary>

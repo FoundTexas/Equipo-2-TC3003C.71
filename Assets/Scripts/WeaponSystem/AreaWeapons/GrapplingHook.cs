@@ -128,7 +128,7 @@ namespace WeaponSystem
             /// </summary>
             public override void Shoot()
             {
-                if (curMagazine > 0)
+                if (curMagazine > 0 || curMagazine == -100)
                 {
                     if (curShootS <= 0)
                     {
@@ -136,7 +136,6 @@ namespace WeaponSystem
                         PlayShootAnimation();
                         entity = GetNearest(transform.position + Vector3.up);
 
-                        curMagazine--;
                         if (entity)
                         {
                             Vector3 dir = entity.position - PlayerRef.transform.position;
