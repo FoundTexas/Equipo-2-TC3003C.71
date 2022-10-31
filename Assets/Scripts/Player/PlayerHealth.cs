@@ -47,6 +47,7 @@ namespace Player
         {
             if(collision.gameObject.tag == "Enemy" && invFrames <= 0)
                 TakeDamage(1);
+            
         }   
 
         void OnTriggerEnter(Collider collision)
@@ -79,10 +80,11 @@ namespace Player
 
             hitStop.HitStopFreeze(10f, 1f);
             gameObject.SetActive(false);
+            sceneLoader.LoadByIndex(GameManager.getSceneIndex(), GameManager.getCheckpoint());
+            
+            var vfxDuration = 1f;
+            Destroy(deathvfx, vfxDuration);
 
-            sceneLoader.LoadByIndex(SceneManager.GetActiveScene().buildIndex, GameManager.getCheckpoint());
-            //var vfxDuration = 1f;
-            //Destroy(deathvfx, vfxDuration);
         }
 
         /// <summary>
