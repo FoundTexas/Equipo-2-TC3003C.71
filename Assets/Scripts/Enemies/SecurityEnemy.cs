@@ -56,7 +56,7 @@ namespace Enemies
                 Destroy(gameObject);
                 return;
             } 
-            if(weapons.CurrentSelect().curShootS == weapons.CurrentSelect().shootSpeed)
+            if(weapons.CurrentSelect().curShootS >= weapons.CurrentSelect().shootSpeed)
                 Capture();
                 
             if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayHit, viewRange))

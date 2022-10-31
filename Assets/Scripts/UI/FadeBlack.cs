@@ -7,19 +7,20 @@ public class FadeBlack : MonoBehaviour
 {
     public bool fadeToBlack;
     public float fadeSpeed;
+    private Image objectImage;
+    private Color objectColor;
 
     public void DoFade(bool fadeToBlack, float fadeSpeed)
     {
         this.fadeToBlack = fadeToBlack;
         this.fadeSpeed = fadeSpeed;
-        gameObject.SetActive(true);
         StartCoroutine(FadeBlackoutSquare());
     }
 
     public bool IsFaded()
     {
-        Image objectImage = GetComponent<Image>();
-        Color objectColor = objectImage.color;
+        objectImage = GetComponent<Image>();
+        objectColor = objectImage.color;
         if(objectColor.a >= 1)
             return true;
         return false;
