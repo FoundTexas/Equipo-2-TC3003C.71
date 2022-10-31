@@ -22278,11 +22278,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4221337932887527354, guid: e2896c50585ad3c46ab4c01f32ca1df7, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.24325314
+      value: -0.24325319
       objectReference: {fileID: 0}
     - target: {fileID: 4221337932887527354, guid: e2896c50585ad3c46ab4c01f32ca1df7, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.068459794
+      value: 0.0684598
       objectReference: {fileID: 0}
     - target: {fileID: 4634568243680381196, guid: e2896c50585ad3c46ab4c01f32ca1df7, type: 3}
       propertyPath: m_Lens.m_SensorSize.x
@@ -22909,7 +22909,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2474517096932674676, guid: adaf29cd02960b543b1f58968ec167f7, type: 3}
       propertyPath: CheckPoint.z
-      value: 306
+      value: -124
       objectReference: {fileID: 0}
     - target: {fileID: 2474517096932674676, guid: adaf29cd02960b543b1f58968ec167f7, type: 3}
       propertyPath: initialPositions.Array.size
@@ -22917,7 +22917,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2474517096932674676, guid: adaf29cd02960b543b1f58968ec167f7, type: 3}
       propertyPath: initialPositions.Array.data[0].z
-      value: 306
+      value: -124
       objectReference: {fileID: 0}
     - target: {fileID: 2474517096932674676, guid: adaf29cd02960b543b1f58968ec167f7, type: 3}
       propertyPath: initialPositions.Array.data[1].x
