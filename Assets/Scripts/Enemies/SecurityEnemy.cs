@@ -87,7 +87,11 @@ namespace Enemies
                 CreateWalkPoint();
 
             if(walkPointSet)
+            {
                 agent.SetDestination(walkPoint);
+                animator.SetTrigger("Jump");
+            }
+                
 
             Vector3 distanceToGoal = transform.position - walkPoint;
 
