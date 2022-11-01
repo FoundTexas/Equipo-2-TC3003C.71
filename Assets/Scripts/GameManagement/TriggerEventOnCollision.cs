@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Photon.Pun;
 
 namespace GameManagement
 {
@@ -14,10 +15,13 @@ namespace GameManagement
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
-            {
-                SetTrigger();
-            }
+            //if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
+            //{
+                if (other.CompareTag("Player"))
+                {
+                    SetTrigger();
+                }
+            //}
         }
     }
 }

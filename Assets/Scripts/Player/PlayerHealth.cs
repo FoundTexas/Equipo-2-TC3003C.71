@@ -63,11 +63,9 @@ namespace Player
         [PunRPC]
         void PunRPCResetShield()
         {
-
             invFrames -= Time.deltaTime;
             if (invFrames <= 0)
                 forceField.SetActive(false);
-
         }
 
         void OnCollisionEnter(Collision collision)

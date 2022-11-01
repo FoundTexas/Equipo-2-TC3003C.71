@@ -25,12 +25,14 @@ namespace GameManagement
         [Tooltip("Set of instructions that affect other game objects")]
         public UnityEvent TriggerEvent;
 
-        void Start() {
+        void Start()
+        {
             pv = GetComponent<PhotonView>();
         }
 
         public void SetEnded(bool b) { values.Ended = b; }
         public void SetActive(bool b) { values.Active = b; }
+
 
         public void StartVals()
         {
@@ -74,30 +76,18 @@ namespace GameManagement
         {
             if (Setted)
             {
-                if(GameManager.isOnline){
-                    pv.RPC("PunRPCTrigger", RpcTarget.All);
+                values.Triggered = true;
+                if (multiscene)
+                {
+                    string sname = SceneManager.GetActiveScene().name;
+                    GameManager.SetEventReference(sname + "e" + index + "1");
                 }
-                else if(!GameManager.isOnline){
-                    PunRPCTrigger();
-                }
+                TriggerEvent.Invoke();
             }
             else if (!Setted)
             {
                 Hitted = true;
             }
         }
-
-        [PunRPC]
-        public void PunRPCTrigger()
-        {
-            values.Triggered = true;
-            if (multiscene)
-            {
-                string sname = SceneManager.GetActiveScene().name;
-                GameManager.SetEventReference(sname + "e" + index + "1");
-            }
-            TriggerEvent.Invoke();
-        }
-
     }
 }
