@@ -26,9 +26,9 @@ public class BossSpawner : MonoBehaviour
     }
 
     [PunRPC]
-    public void PunRPCSetting(bool someValue)
+    public void PunRPCSetting()
     {
-        spawned = someValue;
+        spawned = true;
     }
 
     void CallSetting()
@@ -36,7 +36,7 @@ public class BossSpawner : MonoBehaviour
         if (GameManager.isOnline)
         {
             PhotonView PV = GetComponent<PhotonView>();
-            PV.RPC("Setting", RpcTarget.All, true);
+            PV.RPC("Setting", RpcTarget.All);
         }
         else if (!GameManager.isOnline)
         {
