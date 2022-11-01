@@ -26,6 +26,10 @@ namespace Enemies
         public WeaponManager weapons;
         public GameObject conductor;
         public float viewRange = 30f;
+        public float jumpDelay = 2f;
+        public float jumpTimer = 0f;
+        public bool willSleep = false;
+        public bool asleep = false;
         // ----------------------------------------------------------------------------------------------- Unity Methods
         void Awake()
         {
@@ -50,6 +54,17 @@ namespace Enemies
 
         void Update()
         {
+            if(asleep && !capturing)
+                return;
+            jumpTimer += Time.deltaTime;
+            if(this.animator.GetCurrentAnimatorStateInfo(0).IsName("Jump_CactusPal"))
+                    agent.Resume();
+            else
+            {
+                agent.Stop();
+                agent.velocity = Vector3.zero;
+            }
+
             conductor = GameObject.FindWithTag("Enemy");
             if(conductor != null)
             {
@@ -89,7 +104,12 @@ namespace Enemies
             if(walkPointSet)
             {
                 agent.SetDestination(walkPoint);
-                animator.SetTrigger("Jump");
+                if(jumpTimer >= jumpDelay)
+                {
+                    animator.SetTrigger("Jump");
+                    jumpTimer = 0f;
+                }
+                
             }
                 
 
@@ -99,6 +119,8 @@ namespace Enemies
             if(distanceToGoal.magnitude < 1f)
             {
                 walkPointSet = false;
+                if(willSleep)
+                    asleep = true;
             }
         }
 
