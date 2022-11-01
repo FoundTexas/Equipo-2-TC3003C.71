@@ -9,6 +9,8 @@ public class TimelineManager : MonoBehaviour
     Move player;
     bool played;
 
+    public static bool enemiesCanMove;
+
     void Start()
     {
         played = false;
@@ -20,6 +22,7 @@ public class TimelineManager : MonoBehaviour
     {
         if (director.time > 0 && !played)
         {
+            enemiesCanMove = false;
             played = true;
             player = GameManager.GetLocalPlayer().GetComponent<Move>();
             if (player)
@@ -30,6 +33,7 @@ public class TimelineManager : MonoBehaviour
         }
         else if (director.time <= 0 && played)
         {
+            enemiesCanMove = true;
             played = false;
             player = GameManager.GetLocalPlayer().GetComponent<Move>();
             if (player)

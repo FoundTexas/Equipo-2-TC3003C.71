@@ -38,7 +38,6 @@ namespace GameManagement
         {
             collect = FindObjectsOfType<Collectable>();
             events = FindObjectsOfType<InGameEvent>();
-            myview = GameManager.GetLocalPlayer().GetComponent<PhotonView>();
 
             FromJson();
 
