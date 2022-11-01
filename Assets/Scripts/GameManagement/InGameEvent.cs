@@ -25,6 +25,10 @@ namespace GameManagement
         [Tooltip("Set of instructions that affect other game objects")]
         public UnityEvent TriggerEvent;
 
+        void Start() {
+            pv = GetComponent<PhotonView>();
+        }
+
         public void SetEnded(bool b) { values.Ended = b; }
         public void SetActive(bool b) { values.Active = b; }
 
@@ -84,7 +88,7 @@ namespace GameManagement
         }
 
         [PunRPC]
-        void PunRPCTrigger()
+        public void PunRPCTrigger()
         {
             values.Triggered = true;
             if (multiscene)

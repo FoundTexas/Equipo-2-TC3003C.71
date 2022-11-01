@@ -106,7 +106,7 @@ namespace Player
         }
 
         [PunRPC]
-        void AddHealthRPC(float amount)
+        public void AddHealthRPC(float amount)
         {
             playerHP += amount;
             healthBar.SetHealth(playerHP);
@@ -129,7 +129,7 @@ namespace Player
         }
 
         [PunRPC]
-        void DieRPC()
+        public void DieRPC()
         {
             // Create death effects
             Vector3 vfxPos = transform.position;
