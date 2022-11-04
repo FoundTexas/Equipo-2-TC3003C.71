@@ -94,11 +94,13 @@ namespace GameManagement
                 {
                     if (PhotonNetwork.IsMasterClient)
                     {
+                        TriggerEvent.Invoke();
                         pv.RPC("PunRPCSetTrigger", RpcTarget.All);
                     }
                 }
                 else if (!GameManager.isOnline)
                 {
+                    TriggerEvent.Invoke();
                     PunRPCSetTrigger();
                 }
             }
@@ -116,7 +118,6 @@ namespace GameManagement
                 string sname = SceneManager.GetActiveScene().name;
                 GameManager.SetEventReference(sname + "e" + index + "1");
             }
-            TriggerEvent.Invoke();
         }
     }
 }
