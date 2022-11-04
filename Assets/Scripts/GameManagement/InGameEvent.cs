@@ -36,6 +36,20 @@ namespace GameManagement
 
         public void StartVals()
         {
+            if (GameManager.isOnline)
+            {
+                PhotonView pv = GetComponent<PhotonView>();
+                pv.RPC("PunRPCstartVals", RpcTarget.All);
+            }
+            else if (!GameManager.isOnline)
+            {
+                PunRPCstartVals();
+            }
+        }
+
+        [PunRPC]
+        public void PunRPCstartVals()
+        {
             if (values.Ended && values.Triggered)
             {
                 if (values.Persistent)
@@ -76,18 +90,33 @@ namespace GameManagement
         {
             if (Setted)
             {
-                values.Triggered = true;
-                if (multiscene)
+                if (GameManager.isOnline)
                 {
-                    string sname = SceneManager.GetActiveScene().name;
-                    GameManager.SetEventReference(sname + "e" + index + "1");
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        pv.RPC("PunRPCSetTrigger", RpcTarget.All);
+                    }
                 }
-                TriggerEvent.Invoke();
+                else if (!GameManager.isOnline)
+                {
+                    PunRPCSetTrigger();
+                }
             }
             else if (!Setted)
             {
                 Hitted = true;
             }
+        }
+        [PunRPC]
+        public void PunRPCSetTrigger()
+        {
+            values.Triggered = true;
+            if (multiscene)
+            {
+                string sname = SceneManager.GetActiveScene().name;
+                GameManager.SetEventReference(sname + "e" + index + "1");
+            }
+            TriggerEvent.Invoke();
         }
     }
 }

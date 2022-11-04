@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Linq;
 using GameManagement;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class GameManager : MonoBehaviour
 {
@@ -108,31 +109,34 @@ public class GameManager : MonoBehaviour
     }
     public static void SaveGame()
     {
-        saved = false;
-        var saves = FindObjectsOfType<MonoBehaviour>().OfType<ISave>();
-        foreach (ISave save in saves)
+        if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
         {
-            bool isSaved = false;
-
-            while (!isSaved)
+            saved = false;
+            var saves = FindObjectsOfType<MonoBehaviour>().OfType<ISave>();
+            foreach (ISave save in saves)
             {
-                isSaved = save.Save();
+                bool isSaved = false;
+
+                while (!isSaved)
+                {
+                    isSaved = save.Save();
+                }
             }
+            if (eventRef != "")
+            {
+                string s = PlayerPrefs.GetString(eventRef);
+
+                GameObject newObj = new GameObject("Name");
+
+                tmpevent = Instantiate(newObj, Vector3.zero, Quaternion.identity).AddComponent<InGameEvent>();
+                JsonUtility.FromJsonOverwrite(s, tmpevent);
+
+                tmpevent.values.Ended = true;
+
+                PlayerPrefs.SetString(eventRef, JsonUtility.ToJson(tmpevent));
+                Destroy(tmpevent);
+            }
+            saved = true;
         }
-        if (eventRef !="")
-        {
-            string s = PlayerPrefs.GetString(eventRef);
-
-            GameObject newObj = new GameObject("Name");
-
-            tmpevent = Instantiate(newObj, Vector3.zero, Quaternion.identity).AddComponent<InGameEvent>();
-            JsonUtility.FromJsonOverwrite(s, tmpevent);
-
-            tmpevent.values.Ended = true;
-            
-            PlayerPrefs.SetString(eventRef, JsonUtility.ToJson(tmpevent));
-            Destroy(tmpevent);
-        }
-        saved = true;
     }
 }

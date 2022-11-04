@@ -105,9 +105,11 @@ namespace GameManagement
                 Debug.Log(PlayerPrefs.HasKey(sname + "c" + i + "1"));
             }
 
-            //foreach(var e in events)
             if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
             {
+
+                //foreach(var e in events)
+
                 for (int i = 0; i < events.ToList().Count; i++)
                 {
                     InGameEvent e = events[i];

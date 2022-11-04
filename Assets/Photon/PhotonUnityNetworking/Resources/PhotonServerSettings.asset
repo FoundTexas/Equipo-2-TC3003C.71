@@ -66,6 +66,8 @@ MonoBehaviour:
   - PunRPCupdateVisuals
   - PunRPCTrigger
   - PunRPCSetting
+  - PunRPCstartVals
+  - PunRPCSetTrigger
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
