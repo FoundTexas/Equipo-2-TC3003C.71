@@ -64,7 +64,17 @@ namespace Enemies
 
             //Set appropriate state based on current position of player in comparison to enemy
             if(!playerInSights && !playerInRange)
-                Patrolling();
+            {
+                if (GameManager.isOnline)
+                {
+                    PhotonView pv = GetComponent<PhotonView>();
+                    pv.RPC("PunRPCPatrolling", RpcTarget.All);
+                }
+                else if (!GameManager.isOnline)
+                {
+                    PunRPCPatrolling();
+                }
+            }
             else if(playerInSights && !playerInRange)
                 Chasing();
             else if(playerInSights && playerInRange)
@@ -72,7 +82,8 @@ namespace Enemies
             }
         }
 
-        public virtual void Patrolling()
+        [PunRPC]
+        public virtual void PunRPCPatrolling()
         {
             if(!walkPointSet)
                 CreateWalkPoint();

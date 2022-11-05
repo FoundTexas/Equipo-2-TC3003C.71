@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Photon.Pun;
 
 namespace Enemies
 {
@@ -15,19 +16,27 @@ namespace Enemies
         {
             // Initialize private components
             GameObject _player = GameObject.FindWithTag("Player");
-            if(_player)
+            if (_player)
                 player = _player.transform;
-            
+
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
             GameObject manager = GameObject.FindWithTag("Manager");
-            if(manager!=null)
+            if (manager != null)
                 hitStop = manager.GetComponent<HitStop>();
         }
 
         void Update()
         {
-            Patrolling();
+            if (GameManager.isOnline)
+            {
+                PhotonView pv = GetComponent<PhotonView>();
+                pv.RPC("PunRPCPatrolling", RpcTarget.All);
+            }
+            else if (!GameManager.isOnline)
+            {
+                PunRPCPatrolling();
+            }
         }
     }
 }
