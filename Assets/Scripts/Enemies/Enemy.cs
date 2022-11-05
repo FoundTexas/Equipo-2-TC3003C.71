@@ -46,49 +46,42 @@ namespace Enemies
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
             GameObject manager = GameObject.FindWithTag("Manager");
-            if(manager!=null)
+            if (manager != null)
                 hitStop = manager.GetComponent<HitStop>();
-            
+
             // Establish original values
             maxHp = hp;
         }
 
         void Update()
         {
-            if(TimelineManager.enemiesCanMove)
+            if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
             {
-            player = GameManager.GetClosestTarget(transform.position).transform;
-            //Check sight and attack range
-            playerInSights = Physics.CheckSphere(transform.position, sightRange, isPlayer);
-            playerInRange = Physics.CheckSphere(transform.position, attackRange, isPlayer);
+                if (TimelineManager.enemiesCanMove)
+                {
+                    player = GameManager.GetClosestTarget(transform.position).transform;
+                    //Check sight and attack range
+                    playerInSights = Physics.CheckSphere(transform.position, sightRange, isPlayer);
+                    playerInRange = Physics.CheckSphere(transform.position, attackRange, isPlayer);
 
-            //Set appropriate state based on current position of player in comparison to enemy
-            if(!playerInSights && !playerInRange)
-            {
-                if (GameManager.isOnline)
-                {
-                    PhotonView pv = GetComponent<PhotonView>();
-                    pv.RPC("PunRPCPatrolling", RpcTarget.All);
+                    //Set appropriate state based on current position of player in comparison to enemy
+                    if (!playerInSights && !playerInRange)
+                    {
+                        Patrolling();
+                    }
+                    else if (playerInSights && !playerInRange)
+                        Chasing();
+                    else if (playerInSights && playerInRange)
+                        Attacking();
                 }
-                else if (!GameManager.isOnline)
-                {
-                    PunRPCPatrolling();
-                }
-            }
-            else if(playerInSights && !playerInRange)
-                Chasing();
-            else if(playerInSights && playerInRange)
-                Attacking();
             }
         }
-
-        [PunRPC]
-        public virtual void PunRPCPatrolling()
+        public virtual void Patrolling()
         {
-            if(!walkPointSet)
+            if (!walkPointSet)
                 CreateWalkPoint();
 
-            if(walkPointSet)
+            if (walkPointSet)
                 agent.SetDestination(walkPoint);
 
             Vector3 distanceToGoal = transform.position - walkPoint;
@@ -96,18 +89,18 @@ namespace Enemies
             timePatrolling += Time.deltaTime;
 
             //Reached the destination, repeat to find a new one
-            if(distanceToGoal.magnitude < 1f || timePatrolling >= 3f)
+            if (distanceToGoal.magnitude < 1f || timePatrolling >= 3f)
             {
                 walkPointSet = false;
                 timePatrolling = 0f;
             }
-            
+
         }
 
         public void Chasing()
         {
-            if(this.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-                agent.SetDestination(player.position);    
+            if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+                agent.SetDestination(player.position);
         }
 
         public virtual void Attacking()
@@ -121,7 +114,7 @@ namespace Enemies
             Vector3 targetPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
             transform.LookAt(targetPosition);
 
-            if(!hasAttacked)
+            if (!hasAttacked)
             {
                 animator.SetTrigger("Attack");
                 hasAttacked = true;
@@ -138,11 +131,11 @@ namespace Enemies
 
             walkPoint = new Vector3(transform.position.x + randX, transform.position.y, transform.position.z + randZ);
 
-            if(Physics.Raycast(walkPoint, -transform.up, 2f, isGround))
+            if (Physics.Raycast(walkPoint, -transform.up, 2f, isGround))
             {
                 walkPointSet = true;
             }
-                
+
         }
 
         public void ResetAttack()
@@ -154,7 +147,7 @@ namespace Enemies
         /// <summary>
         /// Interface Abstract method in charge of the death routine of the assigned Object.
         /// </summary>
-         [PunRPC]
+        [PunRPC]
         public void PunRPCDie()
         {
             GameObject deathvfx;
@@ -163,7 +156,7 @@ namespace Enemies
             deathvfx = Instantiate(explosionfx, vfxpos, Quaternion.identity);
 
             Destroy(this.gameObject);
-            if(hitStop != null)
+            if (hitStop != null)
                 hitStop.HitStopFreeze(3f, 0.2f);
 
             var vfxDuration = 1f;

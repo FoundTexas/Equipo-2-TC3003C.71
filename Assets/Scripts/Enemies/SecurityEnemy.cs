@@ -94,21 +94,11 @@ namespace Enemies
                 Capture();
             else
             {
-                if (GameManager.isOnline)
-                {
-                    PhotonView pv = GetComponent<PhotonView>();
-                    pv.RPC("PunRPCPatrolling", RpcTarget.All);
-                }
-                else if (!GameManager.isOnline)
-                {
-                    PunRPCPatrolling();
-                }
+                Patrolling();
             }
 
         }
-
-        [PunRPC]
-        public override void PunRPCPatrolling()
+        public override void Patrolling()
         {
             if (!walkPointSet)
                 CreateWalkPoint();
