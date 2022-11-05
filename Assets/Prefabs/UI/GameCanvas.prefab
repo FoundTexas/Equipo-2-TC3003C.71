@@ -1876,11 +1876,11 @@ MonoBehaviour:
   settingsMenu: {fileID: 987296853724830719}
   quitMenu: {fileID: 3445805269008877011}
   miniMap: {fileID: 987296852236729964}
-  plane: {fileID: 0}
+  plane: {fileID: 4930526235862786806}
   player: {fileID: 0}
   playerMove: {fileID: 0}
   mainCamera: {fileID: 0}
-  pauseCamera: {fileID: 0}
+  pauseCamera: {fileID: 4276877111946279781}
 --- !u!1 &987296852737815611
 GameObject:
   m_ObjectHideFlags: 0
@@ -3142,7 +3142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &987296853482657852
 RectTransform:
   m_ObjectHideFlags: 0

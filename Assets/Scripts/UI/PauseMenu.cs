@@ -41,6 +41,7 @@ namespace PlanetCrashUI
             sceneLoader = FindObjectOfType<SceneLoader>();
             player = GameObject.FindWithTag("Player");
             playerMove = player.GetComponent<Move>();
+            mainCamera = Camera.main;
             AudioListener.volume = 0.5f;
         }
 
@@ -57,9 +58,9 @@ namespace PlanetCrashUI
         /// </summary>
         void Pause()
         {
-            mainCamera.gameObject.SetActive(false);
             pauseCamera.gameObject.SetActive(true);
-            plane.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 4;
+            pauseCamera.gameObject.tag = "MainCamera";
+            plane.transform.position = pauseCamera.transform.position + pauseCamera.transform.forward * 4;
             plane.SetActive(true);
             pauseMenu.SetActive(true);
             miniMap.SetActive(false);
@@ -74,6 +75,8 @@ namespace PlanetCrashUI
         /// </summary>
         public void Resume()
         {
+            pauseCamera.gameObject.SetActive(false);
+            pauseCamera.gameObject.tag = "Untagged";
             playerMove.canMove = true;
             mainCamera.gameObject.SetActive(true);
             pauseCamera.gameObject.SetActive(false);
