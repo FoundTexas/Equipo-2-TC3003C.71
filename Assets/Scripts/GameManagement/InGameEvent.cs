@@ -95,7 +95,8 @@ namespace GameManagement
                     if (PhotonNetwork.IsMasterClient)
                     {
                         TriggerEvent.Invoke();
-                        pv.RPC("PunRPCSetTrigger", RpcTarget.All);
+                        PunRPCSetTrigger();
+                        //pv.RPC("PunRPCSetTrigger", RpcTarget.All);
                     }
                 }
                 else if (!GameManager.isOnline)
