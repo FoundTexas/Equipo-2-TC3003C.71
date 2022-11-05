@@ -58,10 +58,10 @@ namespace Enemies
                 return;
             jumpTimer += Time.deltaTime;
             if(this.animator.GetCurrentAnimatorStateInfo(0).IsName("Jump_CactusPal"))
-                    agent.Resume();
+                    agent.isStopped = false;
             else
             {
-                agent.Stop();
+                agent.isStopped = true;
                 agent.velocity = Vector3.zero;
             }
 
@@ -71,8 +71,9 @@ namespace Enemies
                 Destroy(gameObject);
                 return;
             } 
-            if(weapons.CurrentSelect().curShootS >= weapons.CurrentSelect().shootSpeed)
-                Capture();
+            if(weapons.CurrentSelect() != null)
+                if(weapons.CurrentSelect().curShootS >= weapons.CurrentSelect().shootSpeed)
+                    Capture();
                 
             if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayHit, viewRange))
             {
@@ -158,6 +159,11 @@ namespace Enemies
             {
                 Capture();
             }
+        }
+
+        public override void TakeDamage(float dmg)
+        {
+            return;
         }
     }
 

@@ -14,10 +14,17 @@ namespace PlanetCrashUI
 
         [Tooltip("Reference to the settingsMenu GameObject")]
         public GameObject settingsMenu;
+        [Tooltip("Reference to the quitMenu GameObject")]
+        public GameObject quitMenu;
         [Tooltip("Reference to the miniMap GameObject")]
         public GameObject miniMap;
+        public GameObject plane;
 
         SceneLoader sceneLoader;
+        public GameObject player;
+        public Move playerMove;
+        public Camera mainCamera;
+        public Camera pauseCamera;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
         private void OnEnable()
@@ -32,6 +39,8 @@ namespace PlanetCrashUI
         void Start()
         {
             sceneLoader = FindObjectOfType<SceneLoader>();
+            player = GameObject.FindWithTag("Player");
+            playerMove = player.GetComponent<Move>();
             AudioListener.volume = 0.5f;
         }
 
@@ -48,9 +57,14 @@ namespace PlanetCrashUI
         /// </summary>
         void Pause()
         {
+            mainCamera.gameObject.SetActive(false);
+            pauseCamera.gameObject.SetActive(true);
+            plane.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 4;
+            plane.SetActive(true);
             pauseMenu.SetActive(true);
             miniMap.SetActive(false);
-            Time.timeScale = 0f;
+            playerMove.canMove = false;
+            playerMove.StopMove();
             isPaused = true;
 
             FindObjectOfType<EventSystemUpdater>().OnPause(true);
@@ -60,8 +74,13 @@ namespace PlanetCrashUI
         /// </summary>
         public void Resume()
         {
+            playerMove.canMove = true;
+            mainCamera.gameObject.SetActive(true);
+            pauseCamera.gameObject.SetActive(false);
+            plane.SetActive(false);
             pauseMenu.SetActive(false);
             settingsMenu.SetActive(false);
+            quitMenu.SetActive(false);
             Time.timeScale = 1f;
             isPaused = false;
             miniMap.SetActive(true);
