@@ -60,7 +60,8 @@ namespace PlanetCrashUI
         {
             pauseCamera.gameObject.SetActive(true);
             pauseCamera.gameObject.tag = "MainCamera";
-            plane.transform.position = pauseCamera.transform.position + pauseCamera.transform.forward * 4;
+            pauseCamera.transform.position = player.transform.position;
+            plane.transform.position = pauseCamera.transform.position + pauseCamera.transform.forward * 3;
             plane.SetActive(true);
             pauseMenu.SetActive(true);
             miniMap.SetActive(false);
