@@ -38,7 +38,6 @@ namespace GameManagement
         {
             if (GameManager.isOnline)
             {
-                PhotonView pv = GetComponent<PhotonView>();
                 pv.RPC("PunRPCstartVals", RpcTarget.All);
             }
             else if (!GameManager.isOnline)

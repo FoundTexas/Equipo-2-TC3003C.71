@@ -15,33 +15,21 @@ public class BossSpawner : MonoBehaviour
             return;
 
         CallSetting();
-
-        TriggerEventOnDead g = null;
-        if (GameManager.isOnline)
-        {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                g = PhotonNetwork.Instantiate(
-                    boss.name, transform.position, transform.rotation)
-                    .GetComponent<TriggerEventOnDead>();
-            }
-        }
-        else if (!GameManager.isOnline)
-        {
-            g = Instantiate(boss, transform.position, transform.rotation)
-            .GetComponent<TriggerEventOnDead>();
-        }
-        
-        if(g)
-        {
-            g.GameEvent = KillBossEvent;
-        }
     }
 
     [PunRPC]
     public void PunRPCSetting()
     {
         spawned = true;
+
+        TriggerEventOnDead g = null;
+        g = Instantiate(boss, transform.position, transform.rotation)
+        .GetComponent<TriggerEventOnDead>();
+        
+        if(g)
+        {
+            g.GameEvent = KillBossEvent;
+        }
     }
 
     void CallSetting()

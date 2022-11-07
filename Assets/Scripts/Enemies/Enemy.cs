@@ -41,6 +41,7 @@ namespace Enemies
         // ----------------------------------------------------------------------------------------------- Unity Methods
         void Awake()
         {
+            
             // Initialize private components
             //player = GameObject.FindWithTag("Player").transform;
             agent = GetComponent<NavMeshAgent>();

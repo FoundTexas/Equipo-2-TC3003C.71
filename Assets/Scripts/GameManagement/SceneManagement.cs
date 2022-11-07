@@ -25,7 +25,7 @@ namespace GameManagement
     {
         PhotonView myview;
         public Collectable[] collect;
-        InGameEvent[] events;
+        public InGameEvent[] events;
         public TextMeshProUGUI Amount;
         public CinemachineFreeLook cam;
 
