@@ -1637,7 +1637,7 @@ MonoBehaviour:
   settingsMenu: {fileID: 987296853724830719}
   quitMenu: {fileID: 3445805269008877011}
   miniMap: {fileID: 987296852236729964}
-  plane: {fileID: 4930526235862786806}
+  background: {fileID: 4930526235862786806}
   player: {fileID: 0}
   playerMove: {fileID: 0}
   mainCamera: {fileID: 0}
@@ -4324,7 +4324,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4718098338161883583
 RectTransform:
   m_ObjectHideFlags: 0

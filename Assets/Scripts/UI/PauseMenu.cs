@@ -18,7 +18,7 @@ namespace PlanetCrashUI
         public GameObject quitMenu;
         [Tooltip("Reference to the miniMap GameObject")]
         public GameObject miniMap;
-        public GameObject plane;
+        public GameObject background;
 
         SceneLoader sceneLoader;
         public GameObject player;
@@ -61,8 +61,8 @@ namespace PlanetCrashUI
             pauseCamera.gameObject.SetActive(true);
             pauseCamera.gameObject.tag = "MainCamera";
             pauseCamera.transform.position = player.transform.position;
-            plane.transform.position = pauseCamera.transform.position + pauseCamera.transform.forward * 3;
-            plane.SetActive(true);
+            background.transform.position = pauseCamera.transform.position + pauseCamera.transform.forward * 3;
+            background.SetActive(true);
             pauseMenu.SetActive(true);
             miniMap.SetActive(false);
             playerMove.canMove = false;
@@ -81,7 +81,7 @@ namespace PlanetCrashUI
             playerMove.canMove = true;
             mainCamera.gameObject.SetActive(true);
             pauseCamera.gameObject.SetActive(false);
-            plane.SetActive(false);
+            background.SetActive(false);
             pauseMenu.SetActive(false);
             settingsMenu.SetActive(false);
             quitMenu.SetActive(false);

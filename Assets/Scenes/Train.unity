@@ -28619,11 +28619,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4221337932887527354, guid: e2896c50585ad3c46ab4c01f32ca1df7, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.24325319
+      value: -0.24325314
       objectReference: {fileID: 0}
     - target: {fileID: 4221337932887527354, guid: e2896c50585ad3c46ab4c01f32ca1df7, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0684598
+      value: 0.068459794
       objectReference: {fileID: 0}
     - target: {fileID: 4634568243680381196, guid: e2896c50585ad3c46ab4c01f32ca1df7, type: 3}
       propertyPath: m_Lens.m_SensorSize.x
@@ -29912,6 +29912,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4930526235862786806, guid: 31e301423cff2be4ebb66d2a827438c0, type: 3}
   m_PrefabInstance: {fileID: 3984651463526204956}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1157040891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157040886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c234f0d1d69a73242ac1c6ecfcee9cde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 5
 --- !u!1 &1161055860
 GameObject:
   m_ObjectHideFlags: 0
@@ -68219,6 +68232,10 @@ PrefabInstance:
     - target: {fileID: 987296853746447268, guid: 31e301423cff2be4ebb66d2a827438c0, type: 3}
       propertyPath: color.m_NumColorKeys
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718098338161883583, guid: 31e301423cff2be4ebb66d2a827438c0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31e301423cff2be4ebb66d2a827438c0, type: 3}
