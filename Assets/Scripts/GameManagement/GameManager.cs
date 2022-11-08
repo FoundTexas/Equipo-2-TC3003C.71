@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
 
         foreach (GameObject player in players)
         {
+            Debug.Log(player.name);
             if (!isOnline)
             {
                 return player;
