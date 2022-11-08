@@ -15,13 +15,13 @@ namespace GameManagement
 
         private void OnTriggerEnter(Collider other)
         {
-            //if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
-            //{
+            if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
+            {
                 if (other.CompareTag("Player"))
                 {
                     SetTrigger();
                 }
-            //}
+            }
         }
     }
 }

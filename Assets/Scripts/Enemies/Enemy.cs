@@ -101,14 +101,12 @@ namespace Enemies
 
         public void Chasing()
         {
-            Debug.Log("Chasing");
             if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
                 agent.SetDestination(player.position);
         }
 
         public virtual void Attacking()
         {
-            Debug.Log("Attacking");
             //Stop enemy movement and look at player
             agent.SetDestination(transform.position);
 
