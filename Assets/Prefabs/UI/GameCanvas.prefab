@@ -2114,7 +2114,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 987296852563506236}
-        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_TargetAssemblyTypeName: PlanetCrashUI.SettingsMenu, Assembly-CSharp
         m_MethodName: SetSensitivity
         m_Mode: 0
         m_Arguments:
@@ -4106,7 +4106,7 @@ MonoBehaviour:
       - m_Target: {fileID: 987296852563506236}
         m_TargetAssemblyTypeName: PlanetCrashUI.SettingsMenu, Assembly-CSharp
         m_MethodName: SetVolume
-        m_Mode: 4
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
