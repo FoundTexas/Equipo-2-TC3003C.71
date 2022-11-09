@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.PostProcessing;
 
 namespace PlanetCrashUI {
     public class SettingsMenu : MonoBehaviour
@@ -13,14 +14,18 @@ namespace PlanetCrashUI {
 
         [Tooltip("Reference to the pause menu GameObject")]
         public GameObject pauseMenu;
+        public PostProcessProfile brightness;
+        public PostProcessLayer layer;
+        public AutoExposure exposure;
 
-        new GameObject camera;
+        public GameObject camera;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
 
         void Start()
         {
-            camera = GameObject.Find("ThirdPersonCamera");
+            brightness.TryGetSettings(out exposure);
+            camera = GameObject.FindWithTag("CinemachineCamera");
             AudioListener.volume = 0.5f;
         }
 
@@ -37,10 +42,10 @@ namespace PlanetCrashUI {
         /// <summary>
         /// Void in charge of handeling the game brightness.
         /// </summary>
-        /// <param name="gamma"> Amount of brightness (0f to 1f). </param>
-        public void SetBrightness(float gamma)
+        /// <param name="value"> Amount of brightness (0.1f to 2f). </param>
+        public void SetBrightness(float value)
         {
-            RenderSettings.ambientSkyColor = new Color(gamma, gamma, gamma, 0f);
+            exposure.keyValue.value = value;
         }
         /// <summary>
         /// Void that changes the mouse sensitivity.
@@ -48,6 +53,7 @@ namespace PlanetCrashUI {
         /// <param name="sensFactor"> amount to be changed. </param>
         public void SetSensitivity(float sensFactor)
         {
+            camera = GameObject.FindWithTag("CinemachineCamera");
             if (camera != null)
             {
                 var sens = camera.GetComponent<CameraSensitivity>();
@@ -56,8 +62,9 @@ namespace PlanetCrashUI {
 
         }
         /// <summary>
-        /// Void that quits the application.
+        /// Void that changes the mouse sensitivity.
         /// </summary>
+        /// <param name="sensFactor"> amount to be changed. </param>
         public void QuitGame()
         {
             Application.Quit();

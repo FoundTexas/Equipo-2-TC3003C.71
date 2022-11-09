@@ -25,6 +25,8 @@ namespace PlanetCrashUI
         public Move playerMove;
         public Camera mainCamera;
         public Camera pauseCamera;
+        public EventSystemUpdater updater;
+        public GameObject resumeButton;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
         private void OnEnable()
@@ -38,6 +40,7 @@ namespace PlanetCrashUI
         }
         void Start()
         {
+            brightness.TryGetSettings(out exposure);
             sceneLoader = FindObjectOfType<SceneLoader>();
             player = GameObject.FindWithTag("Player");
             playerMove = player.GetComponent<Move>();
@@ -58,6 +61,7 @@ namespace PlanetCrashUI
         /// </summary>
         void Pause()
         {
+            updater.UpdateSelected(resumeButton);
             pauseCamera.gameObject.SetActive(true);
             pauseCamera.gameObject.tag = "MainCamera";
             pauseCamera.transform.position = player.transform.position;
