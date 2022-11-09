@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class TimelineAnimController : MonoBehaviour
 {
@@ -12,6 +13,21 @@ public class TimelineAnimController : MonoBehaviour
 
     public void play(AnimationClip a)
     {
-        anim.Play(a.name);
+        if (GameManager.isOnline)
+        {
+            PhotonView PV = GetComponent<PhotonView>();
+            PV.RPC("PunRPCSetting", RpcTarget.All, a.name);
+        }
+        else if (!GameManager.isOnline)
+        {
+            PunRPCPlay(a.name);
+        }
+        //anim.Play(a.name);
+    }
+
+    [PunRPC]
+    public void PunRPCPlay(string a)
+    {
+        anim.Play(a);
     }
 }
