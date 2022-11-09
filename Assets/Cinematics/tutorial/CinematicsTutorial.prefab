@@ -49,11 +49,11 @@ PlayableDirector:
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
-  - key: {fileID: 3504660672091518084, guid: 333b32c43e12dff4aae5afa4b27b7e1d, type: 2}
+  - key: {fileID: 6336553197505682117, guid: 333b32c43e12dff4aae5afa4b27b7e1d, type: 2}
     value: {fileID: 0}
-  - key: {fileID: -6968182987804694171, guid: 333b32c43e12dff4aae5afa4b27b7e1d, type: 2}
+  - key: {fileID: 8133851309923458552, guid: 333b32c43e12dff4aae5afa4b27b7e1d, type: 2}
     value: {fileID: 0}
-  - key: {fileID: 5635302034964636451, guid: 333b32c43e12dff4aae5afa4b27b7e1d, type: 2}
+  - key: {fileID: 6566724709172366774, guid: 333b32c43e12dff4aae5afa4b27b7e1d, type: 2}
     value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
@@ -5016,7 +5016,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1041279605567518535}
   - component: {fileID: 1855981057}
-  - component: {fileID: 243997460612150931}
+  - component: {fileID: 1855981058}
   m_Layer: 0
   m_Name: Final
   m_TagString: Untagged
@@ -5060,19 +5060,17 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: -4208003377098976865, guid: 20766e1bf794b674293554561b844819, type: 2}
     value: {fileID: 0}
-  - key: {fileID: 8048412080694346627, guid: 20766e1bf794b674293554561b844819, type: 2}
-    value: {fileID: 0}
   - key: {fileID: -9200366076917626179, guid: 20766e1bf794b674293554561b844819, type: 2}
     value: {fileID: 0}
   - key: {fileID: 6836755986776805178, guid: 20766e1bf794b674293554561b844819, type: 2}
-    value: {fileID: 1855981058}
+    value: {fileID: 7888118028882230981}
   - key: {fileID: -3762608545516098473, guid: 20766e1bf794b674293554561b844819, type: 2}
     value: {fileID: 0}
   - key: {fileID: -6383115395161627108, guid: 20766e1bf794b674293554561b844819, type: 2}
     value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
---- !u!114 &243997460612150931
+--- !u!114 &1855981058
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5081,9 +5079,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1311546467741026344}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 736e297823d7f5e4bacd3e1aeb8f19f2, type: 3}
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 1
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &3343359284615021115
 GameObject:
   m_ObjectHideFlags: 0
@@ -5132,7 +5140,6 @@ GameObject:
   - component: {fileID: 3343359285129895134}
   - component: {fileID: 2488831999565238057}
   - component: {fileID: 1794097003}
-  - component: {fileID: 354630560}
   m_Layer: 0
   m_Name: Inicio
   m_TagString: Untagged
@@ -5184,8 +5191,6 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: -4450449006969948846, guid: 7b3ca6b93886cfb4aa74362c7fdc353d, type: 2}
     value: {fileID: 1794097003}
-  - key: {fileID: 6425041493739177370, guid: 7b3ca6b93886cfb4aa74362c7fdc353d, type: 2}
-    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
 --- !u!82 &2488831999565238057
@@ -5304,18 +5309,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &354630560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3343359285129895104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 736e297823d7f5e4bacd3e1aeb8f19f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3555658179657202975
 GameObject:
   m_ObjectHideFlags: 0
@@ -5787,7 +5780,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6710806962624202484, guid: 6741a774aee8ff849b4d4022d84f2eb2, type: 3}
---- !u!95 &1855981058
+--- !u!95 &7888118028882230981
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0

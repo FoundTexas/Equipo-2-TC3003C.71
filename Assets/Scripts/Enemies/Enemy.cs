@@ -38,10 +38,12 @@ namespace Enemies
         [SerializeField] private Renderer render;
         private float maxHp;
 
+        PhotonView pv;
+
         // ----------------------------------------------------------------------------------------------- Unity Methods
         void Awake()
         {
-            
+            pv = GetComponent<PhotonView>();
             // Initialize private components
             //player = GameObject.FindWithTag("Player").transform;
             agent = GetComponent<NavMeshAgent>();
@@ -62,8 +64,8 @@ namespace Enemies
 
             if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
             {
-                if (TimelineManager.enemiesCanMove)
-                {
+                //if (TimelineManager.enemiesCanMove)
+                //{
                     //Check sight and attack range
                     playerInSights = Physics.CheckSphere(transform.position, sightRange, isPlayer);
                     playerInRange = Physics.CheckSphere(transform.position, attackRange, isPlayer);
@@ -77,7 +79,7 @@ namespace Enemies
                         Chasing();
                     else if (playerInSights && playerInRange)
                         Attacking();
-                }
+                //}
             }
         }
         public virtual void Patrolling()
@@ -177,9 +179,18 @@ namespace Enemies
         {
             hp -= dmg;
             //render.material.color = new Color(hp / maxHp, 1, hp / maxHp);
-            CameraShake.Instance.DoShake(0.5f, 1f, 0.1f);
+            //CameraShake.Instance.DoShake(0.5f, 1f, 0.1f);
             if (hp < 0)
-                PunRPCDie();
+            {
+                if (GameManager.isOnline)
+                {
+                    pv.RPC("PunRPCDie", RpcTarget.All);
+                }
+                else if (!GameManager.isOnline)
+                {
+                    PunRPCDie();
+                }
+            }
         }
 
         /// <summary>
