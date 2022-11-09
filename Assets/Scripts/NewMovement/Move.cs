@@ -139,7 +139,6 @@ public class Move : MonoBehaviour
         if (!GameManager.isOnline || GameManager.isOnline  && view.IsMine)
         {
             sm.SetCam(this.transform);
-            print("Move set cam");
         }
     }
 

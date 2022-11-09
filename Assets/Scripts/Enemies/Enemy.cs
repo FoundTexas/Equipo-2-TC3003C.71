@@ -56,11 +56,14 @@ namespace Enemies
 
         void Update()
         {
+            player = GameManager.GetClosestTarget(transform.position).transform;
+            Debug.Log(GameManager.isOnline);
+            Debug.Log(TimelineManager.enemiesCanMove);
+
             if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
             {
                 if (TimelineManager.enemiesCanMove)
                 {
-                    player = GameManager.GetClosestTarget(transform.position).transform;
                     //Check sight and attack range
                     playerInSights = Physics.CheckSphere(transform.position, sightRange, isPlayer);
                     playerInRange = Physics.CheckSphere(transform.position, attackRange, isPlayer);

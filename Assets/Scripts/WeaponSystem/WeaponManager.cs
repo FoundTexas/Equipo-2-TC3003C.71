@@ -256,7 +256,7 @@ namespace WeaponSystem
         public void FromJson()
         {
             string s = JsonUtility.ToJson(unlocked);
-            Debug.Log(s);
+            //Debug.Log(s);
 
             if (PlayerPrefs.HasKey("WeaponManager.1"))
             {
@@ -269,7 +269,7 @@ namespace WeaponSystem
             }
 
             JsonUtility.FromJsonOverwrite(s, unlocked);
-            Debug.Log(JsonUtility.ToJson(this));
+            //Debug.Log(JsonUtility.ToJson(this));
         }
 
         public bool Save()
@@ -277,7 +277,7 @@ namespace WeaponSystem
             string s = JsonUtility.ToJson(unlocked);
             PlayerPrefs.SetString("WeaponManager.1", s);
 
-            Debug.Log("Saving: " + this.name);
+            //Debug.Log("Saving: " + this.name);
 
             return true;
         }

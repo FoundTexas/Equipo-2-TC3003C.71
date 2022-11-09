@@ -54,7 +54,6 @@ namespace GameManagement
 
         public void SetCam(Transform target)
         {
-            print(cam);
             if (cam)
             {
                 FollowPlayer[] follows = FindObjectsOfType<FollowPlayer>();
@@ -63,8 +62,7 @@ namespace GameManagement
                 {
                     follow.setFollow(target);
                 }
-
-                print(target.name);
+                
                 cam.Follow = target;
                 cam.LookAt = target;
             }
@@ -124,9 +122,9 @@ namespace GameManagement
                     }
                     JsonUtility.FromJsonOverwrite(tmps, e.values);
 
-                    Debug.Log(JsonUtility.ToJson(e.gameObject.name));
-                    Debug.Log(JsonUtility.ToJson(e.values));
-                    Debug.Log(PlayerPrefs.HasKey(sname + "e" + i + "1"));
+                    //Debug.Log(JsonUtility.ToJson(e.gameObject.name));
+                    //Debug.Log(JsonUtility.ToJson(e.values));
+                    //Debug.Log(PlayerPrefs.HasKey(sname + "e" + i + "1"));
                     e.StartVals();
                 }
             }
@@ -143,8 +141,8 @@ namespace GameManagement
                 string tmps = JsonUtility.ToJson(e);
 
                 PlayerPrefs.SetString(sname + "c" + i + "1", tmps);
-                Debug.Log("Saving: " + e.name);
-                Debug.Log(tmps);
+                //Debug.Log("Saving: " + e.name);
+                //Debug.Log(tmps);
             }
 
             for (int i = 0; i < events.Length; i++)
@@ -154,10 +152,10 @@ namespace GameManagement
 
                 PlayerPrefs.SetString(sname + "e" + i + "1", tmps);
 
-                Debug.Log("Saving: " + e.name);
-                Debug.Log(tmps);
+                //Debug.Log("Saving: " + e.name);
+                //Debug.Log(tmps);
             }
-            Debug.Log("Saving: " + this.name);
+            //Debug.Log("Saving: " + this.name);
 
             FromJson();
 

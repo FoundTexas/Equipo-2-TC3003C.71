@@ -9,10 +9,11 @@ public class TimelineManager : MonoBehaviour
     Move player;
     bool played;
 
-    public static bool enemiesCanMove;
+    public static bool enemiesCanMove = true;
 
     void Start()
     {
+        enemiesCanMove = true;
         played = false;
         director = GetComponent<PlayableDirector>();
     }
@@ -20,7 +21,7 @@ public class TimelineManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (director.time > 0 && !played)
+        if (director.time > 1 && !played)
         {
             enemiesCanMove = false;
             played = true;
@@ -41,5 +42,7 @@ public class TimelineManager : MonoBehaviour
                 player.canMove = true;
             }
         }
+
+        Debug.Log(this.name + ": " + director.time);
     }
 }
