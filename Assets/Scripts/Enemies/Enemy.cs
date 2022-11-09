@@ -79,7 +79,6 @@ namespace Enemies
         }
         public virtual void Patrolling()
         {
-            Debug.Log("Patrolling");
             if (!walkPointSet)
                 CreateWalkPoint();
 

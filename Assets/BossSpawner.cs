@@ -41,7 +41,7 @@ public class BossSpawner : MonoBehaviour
         }
         else if (!GameManager.isOnline)
         {
-            spawned = true;
+            PunRPCSetting();
         }
     }
 }

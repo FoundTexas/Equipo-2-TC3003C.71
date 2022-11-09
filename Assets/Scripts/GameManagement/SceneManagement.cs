@@ -100,9 +100,6 @@ namespace GameManagement
                     PlayerPrefs.SetString(sname + "c" + i + "1", tmps);
                 }
                 JsonUtility.FromJsonOverwrite(tmps, c);
-
-                Debug.Log(JsonUtility.ToJson(c));
-                Debug.Log(PlayerPrefs.HasKey(sname + "c" + i + "1"));
             }
 
             if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
@@ -126,6 +123,8 @@ namespace GameManagement
                         PlayerPrefs.SetString(sname + "e" + i + "1", tmps);
                     }
                     JsonUtility.FromJsonOverwrite(tmps, e.values);
+
+                    Debug.Log(JsonUtility.ToJson(e.gameObject.name));
                     Debug.Log(JsonUtility.ToJson(e.values));
                     Debug.Log(PlayerPrefs.HasKey(sname + "e" + i + "1"));
                     e.StartVals();

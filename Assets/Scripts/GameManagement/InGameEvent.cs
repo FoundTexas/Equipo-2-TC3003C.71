@@ -87,36 +87,25 @@ namespace GameManagement
         /// </summary>
         public void SetTrigger()
         {
-            if (Setted)
+            if (PhotonNetwork.IsMasterClient || !GameManager.isOnline)
             {
-                if (GameManager.isOnline)
+
+                if (Setted)
                 {
-                    if (PhotonNetwork.IsMasterClient)
-                    {
-                        TriggerEvent.Invoke();
-                        PunRPCSetTrigger();
-                        //pv.RPC("PunRPCSetTrigger", RpcTarget.All);
-                    }
-                }
-                else if (!GameManager.isOnline)
-                {
+
                     TriggerEvent.Invoke();
-                    PunRPCSetTrigger();
+                    values.Triggered = true;
+                    if (multiscene)
+                    {
+                        string sname = SceneManager.GetActiveScene().name;
+                        GameManager.SetEventReference(sname + "e" + index + "1");
+                    }
+
                 }
-            }
-            else if (!Setted)
-            {
-                Hitted = true;
-            }
-        }
-        [PunRPC]
-        public void PunRPCSetTrigger()
-        {
-            values.Triggered = true;
-            if (multiscene)
-            {
-                string sname = SceneManager.GetActiveScene().name;
-                GameManager.SetEventReference(sname + "e" + index + "1");
+                else if (!Setted)
+                {
+                    Hitted = true;
+                }
             }
         }
     }
