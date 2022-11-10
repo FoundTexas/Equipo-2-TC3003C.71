@@ -45,7 +45,8 @@ namespace PlanetCrashUI {
         /// <param name="value"> Amount of brightness (0.1f to 2f). </param>
         public void SetBrightness(float value)
         {
-            exposure.keyValue.value = value;
+            if(exposure != null)
+                exposure.keyValue.value = value;
         }
         /// <summary>
         /// Void that changes the mouse sensitivity.

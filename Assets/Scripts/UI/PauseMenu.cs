@@ -16,6 +16,8 @@ namespace PlanetCrashUI
         public GameObject settingsMenu;
         [Tooltip("Reference to the quitMenu GameObject")]
         public GameObject quitMenu;
+        [Tooltip("Reference to the confirmMenu GameObject")]
+        public GameObject confirmMenu;
         [Tooltip("Reference to the miniMap GameObject")]
         public GameObject miniMap;
         public GameObject background;
@@ -89,6 +91,7 @@ namespace PlanetCrashUI
             pauseMenu.SetActive(false);
             settingsMenu.SetActive(false);
             quitMenu.SetActive(false);
+            confirmMenu.SetActive(false);
             Time.timeScale = 1f;
             isPaused = false;
             miniMap.SetActive(true);
