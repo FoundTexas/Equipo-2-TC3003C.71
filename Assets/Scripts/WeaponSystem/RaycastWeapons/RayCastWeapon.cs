@@ -123,15 +123,13 @@ namespace WeaponSystem
             /// </summary>
             public override void Shoot()
             {
-                if (curMagazine > 0)
+                if (curMagazine > 0 || curMagazine == -100)
                 {
                     if (curShootS <= 0)
                     {
                         curShootS = shootSpeed;
                         PlayShootAnimation();
                         ShootRay();
-
-                        curMagazine--;
                     }
                 }
                 else

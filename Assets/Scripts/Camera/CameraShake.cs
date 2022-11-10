@@ -12,7 +12,7 @@ public class CameraShake : MonoBehaviour
     public CinemachineFreeLook cmFreeCam; 
     public float shakeDuration;
 
-    private void Awake()
+    private void Start()
     {
         Instance = this;
         cmFreeCam = GetComponent<CinemachineFreeLook>();

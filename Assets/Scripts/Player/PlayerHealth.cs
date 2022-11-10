@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameManagement;
+using UnityEngine.SceneManagement;
 
 namespace Player
 {
@@ -11,6 +12,7 @@ namespace Player
     /// </summary>
     public class PlayerHealth : MonoBehaviour, IDamage
     {
+        public Gradient color;
         public HealthBar healthBar;
         public GameObject explosionFx;
         public GameObject forceField;
@@ -45,6 +47,7 @@ namespace Player
         {
             if(collision.gameObject.tag == "Enemy" && invFrames <= 0)
                 TakeDamage(1);
+            
         }   
 
         void OnTriggerEnter(Collider collision)
@@ -77,10 +80,11 @@ namespace Player
 
             hitStop.HitStopFreeze(10f, 1f);
             gameObject.SetActive(false);
-            sceneLoader.LoadByIndex(1, GameManager.getCheckpoint());
+            sceneLoader.LoadByIndex(GameManager.getSceneIndex(), GameManager.getCheckpoint());
             
             var vfxDuration = 1f;
             Destroy(deathvfx, vfxDuration);
+
         }
 
         /// <summary>

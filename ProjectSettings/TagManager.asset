@@ -11,6 +11,8 @@ TagManager:
   - SceneLoader
   - Vacuum
   - Concrete
+  - GameCanvas
+  - CinemachineCamera
   layers:
   - Default
   - TransparentFX
@@ -28,7 +30,7 @@ TagManager:
   - Marker
   - playerRagDoll
   - BackgroundMenu
-  - 
+  - Postprocessing
   - 
   - 
   - 

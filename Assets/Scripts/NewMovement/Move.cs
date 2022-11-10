@@ -53,19 +53,24 @@ public class Move : MonoBehaviour
     [Tooltip("Height the player will have when crouching")]
     [Min(0)] public float crouchHeight = 0.5f;
     private float originalHeight = 1;
+    private RaycastHit upHit;
+    bool crouching = false;
 
     public bool canMove = true;
-    bool wasGrounded = false;
+    public bool wasGrounded = false;
+    public bool PossibleDialogue = false;
     CharacterController controller;
     Vector3 movDirection;
     private AudioAndVideoManager anim;
 
     // ------------------------------------- Unity Methods
 
-    private void Awake() {
+    private void Awake()
+    {
         PlayerInput = new PlayerInputs();
     }
-    private void OnEnable() {
+    private void OnEnable()
+    {
         MoveValue = PlayerInput.Game.WASD;
         MoveValue.Enable();
         JumpInput = PlayerInput.Game.Jump;
@@ -76,8 +81,10 @@ public class Move : MonoBehaviour
         CrouchInput.Enable();
 
         JumpInput.performed += Jump;
+        CrouchInput.performed += CheckCrouch;
     }
-    private void OnDisable() {
+    private void OnDisable()
+    {
         MoveValue.Disable();
         JumpInput.Disable();
         AimInput.Disable();
@@ -90,7 +97,7 @@ public class Move : MonoBehaviour
         cam = Camera.main.transform;
         jumpParticles.SetActive(false);
         SeedMod = speed;
-        originalHeight = transform.localScale.y;
+        originalHeight = controller.height; //transform.localScale.y;
 
         StartCoroutine(SetFirstPos());
     }
@@ -100,10 +107,12 @@ public class Move : MonoBehaviour
         yield return new WaitForEndOfFrame();
         transform.position = GameManager.getCheckpoint();
     }
-    void Update()
+    private void LateUpdate()
     {
         SendAnimationVals();
         wallFound = Physics.Raycast(transform.position, transform.forward, out wallHit, wallDistance, wallMask);
+        Physics.Raycast(transform.position, transform.up, out upHit, 1.6f, wallMask);
+
         movDirection = new Vector3(
             movDirection.x,
             movDirection.y,
@@ -111,33 +120,36 @@ public class Move : MonoBehaviour
         JumpHold();
         Aim();
         WASD();
-        CheckCrouch();
 
-        if (!controller.isGrounded) {
+        if (!controller.isGrounded)
+        {
             movDirection.y = movDirection.y - gravity * gravityModifier * Time.deltaTime;
         }
         movDirection.y = Mathf.Clamp(movDirection.y, -gravity * gravityModifier * 2, jumpForce * 100);
 
         controller.Move(movDirection * Time.deltaTime);
-    }
 
-    private void LateUpdate()
-    {
         wasGrounded = controller.isGrounded;
         ResetMovement();
     }
 
     void SendAnimationVals()
     {
-        if (!canMove)
-            return;
-
         anim.IsOnGround(controller.isGrounded);
-        anim.SetIfMovement(Mathf.Abs(MoveValue.ReadValue<Vector2>().x) + Mathf.Abs(MoveValue.ReadValue<Vector2>().y));
+        anim.SendCrouching(crouching);
+
+        if (canMove)
+        {
+            anim.SetIfMovement(Mathf.Abs(MoveValue.ReadValue<Vector2>().x) + Mathf.Abs(MoveValue.ReadValue<Vector2>().y));
+        }
+        else if (!canMove)
+        {
+            anim.SetIfMovement(0.01f);
+        }
         anim.IsOnWall(wallFound);
     }
 
-    void SetTargetAngle(Vector2 mov)
+    public void SetTargetAngle(Vector2 mov)
     {
         targetAngle = Mathf.Atan2(mov.x, mov.y) * Mathf.Rad2Deg + cam.eulerAngles.y;
         resultAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnVelocity, mov.magnitude == 0 ? 0 : turnTime);
@@ -151,7 +163,8 @@ public class Move : MonoBehaviour
 
     void WASD()
     {
-        if (!canMove) {
+        if (!canMove)
+        {
             curSpeed = 0;
             return;
         }
@@ -192,9 +205,8 @@ public class Move : MonoBehaviour
     }
     void Jump(InputAction.CallbackContext context)
     {
-        if (!canMove)
+        if (!canMove || PossibleDialogue)
             return;
-
         if (wallFound && !controller.isGrounded)
         {
             if (context.performed)
@@ -210,13 +222,17 @@ public class Move : MonoBehaviour
             curJumpTime = 0;
             if (context.performed)
             {
+                if (crouching)
+                {
+                    crouchtoggle();
+                }
                 anim.SetIfMovement(1);
                 movDirection.y = jumpForce;
                 jumpParticles.SetActive(true);
             }
         }
-        
     }
+
     void JumpHold()
     {
         gravityModifier = 1;
@@ -264,23 +280,53 @@ public class Move : MonoBehaviour
     /// <summary>
     /// This method checks if the player can crouch when holding crouch key.
     /// </summary>
-    void CheckCrouch()
+    void CheckCrouch(InputAction.CallbackContext context)
     {
-        if (CrouchInput.ReadValue<float>() > 0.1f)
+        crouchtoggle();
+    }
+
+    void crouchtoggle()
+    {
+        Physics.Raycast(transform.position, transform.up, out upHit, 2f, wallMask);
+
+        Debug.DrawRay(transform.position, transform.up, upHit.transform? Color.green : Color.red, 1);
+
+        Debug.Log(upHit);
+
+        curSpeed = 0;
+        crouching = !crouching;
+
+        if (!controller.isGrounded)
         {
-            transform.localScale = new Vector3(transform.localScale.x,
-                                                crouchHeight,
-                                                transform.localScale.z);
+            crouching = false;
+        }
+
+        if (crouching)
+        {
+            controller.height = crouchHeight;
+            //transform.localScale = new Vector3(transform.localScale.x,
+            //                                  crouchHeight,
+            //                                transform.localScale.z);
             SeedMod = crouchSpeed;
         }
-        else if (CrouchInput.ReadValue<float>() <= 0.1f)
+        else if (!crouching)
         {
-            transform.localScale = new Vector3(transform.localScale.x,
-                                                originalHeight,
-                                                transform.localScale.z);
-            SeedMod = speed;
+            if (upHit.transform)
+            {
+                SeedMod = crouchSpeed;
+                crouching = true;
+            }
+            else
+            {
+                SeedMod = speed;
+                controller.height = originalHeight;
+                //transform.localScale = new Vector3(transform.localScale.x,
+                //                                  originalHeight,
+                //                                transform.localScale.z);
+            }
         }
     }
+
     public void StopMove()
     {
         movDirection = Quaternion.Euler(0f, targetAngle, 0f) * new Vector3(
@@ -310,11 +356,13 @@ public class Move : MonoBehaviour
         canMove = true;
     }
 
-    public void AddForce(float force, Vector3 dir, float time){
+    public void AddForce(float force, Vector3 dir, float time)
+    {
         movDirection = dir * force;
         StartCoroutine(ForceRoutine(time));
     }
-    IEnumerator ForceRoutine(float time){
+    IEnumerator ForceRoutine(float time)
+    {
         canMove = false;
         yield return new WaitForSeconds(time);
         canMove = true;
