@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using GameManagement;
 using WeaponSystem;
-using Photon.Pun;
 
 namespace Enemies
 {
@@ -45,9 +44,9 @@ namespace Enemies
             fade = GameObject.FindWithTag("GameCanvas").GetComponentsInChildren<FadeBlack>()[0];
             GameObject manager = GameObject.FindWithTag("Manager");
             sceneLoader = GameObject.FindWithTag("SceneLoader").GetComponent<SceneLoader>();
-            if (manager != null)
+            if(manager!=null)
                 hitStop = manager.GetComponent<HitStop>();
-            foreach (Transform child in pParent.transform)
+            foreach(Transform child in pParent.transform)
             {
                 patrolPoints.Add(child);
             }
@@ -55,11 +54,11 @@ namespace Enemies
 
         void Update()
         {
-            if (asleep && !capturing)
+            if(asleep && !capturing)
                 return;
             jumpTimer += Time.deltaTime;
-            if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("Jump_CactusPal"))
-                agent.isStopped = false;
+            if(this.animator.GetCurrentAnimatorStateInfo(0).IsName("Jump_CactusPal"))
+                    agent.isStopped = false;
             else
             {
                 agent.isStopped = true;
@@ -67,68 +66,68 @@ namespace Enemies
             }
 
             conductor = GameObject.FindWithTag("Enemy");
-            if (conductor != null)
+            if(conductor != null)
             {
                 Destroy(gameObject);
                 return;
-            }
-            if (weapons.CurrentSelect().curShootS >= weapons.CurrentSelect().shootSpeed)
-                Capture();
-
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayHit, viewRange))
+            } 
+            if(weapons.CurrentSelect() != null)
+                if(weapons.CurrentSelect().curShootS >= weapons.CurrentSelect().shootSpeed)
+                    Capture();
+                
+            if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayHit, viewRange))
             {
-                if (rayHit.collider.tag == "Prop") { }
-                else if (rayHit.collider.tag == "Player")
+                if(rayHit.collider.tag == "Prop"){}
+                else if(rayHit.collider.tag == "Player")
                 {
-                    if (!frozenPlayer)
+                    if(!frozenPlayer)
                     {
                         playerMove.canMove = false;
                         playerMove.StopMove();
                         playerAnimator.SetTrigger("ArmRaise");
                         capturing = true;
                         frozenPlayer = true;
-                    }
+                    }      
                 }
             }
-            if (capturing)
+            if(capturing)
                 Capture();
             else
-            {
                 Patrolling();
-            }
-
+            
         }
+
         public override void Patrolling()
         {
-            if (!walkPointSet)
+            if(!walkPointSet)
                 CreateWalkPoint();
 
-            if (walkPointSet)
+            if(walkPointSet)
             {
                 agent.SetDestination(walkPoint);
-                if (jumpTimer >= jumpDelay)
+                if(jumpTimer >= jumpDelay)
                 {
                     animator.SetTrigger("Jump");
                     jumpTimer = 0f;
                 }
-
+                
             }
-
+                
 
             Vector3 distanceToGoal = transform.position - walkPoint;
 
             //Reached the destination, repeat to find a new one
-            if (distanceToGoal.magnitude < 1f)
+            if(distanceToGoal.magnitude < 1f)
             {
                 walkPointSet = false;
-                if (willSleep)
+                if(willSleep)
                     asleep = true;
             }
         }
 
         public override void CreateWalkPoint()
         {
-            if (currentPoint == patrolPoints.Count - 1)
+            if(currentPoint == patrolPoints.Count-1)
                 currentPoint = -1;
             currentPoint += 1;
             walkPoint = patrolPoints[currentPoint].position;
@@ -138,7 +137,7 @@ namespace Enemies
 
         public void Capture()
         {
-            if (!frozenPlayer)
+            if(!frozenPlayer)
             {
                 playerMove.canMove = false;
                 playerMove.StopMove();
@@ -150,18 +149,23 @@ namespace Enemies
             Vector3 targetPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
             transform.LookAt(targetPosition);
             fade.DoFade(true, 0.5f);
-            if (fade.IsFaded())
+            if(fade.IsFaded())
                 sceneLoader.LoadByIndex(GameManager.getSceneIndex(), GameManager.getCheckpoint());
         }
 
         void OnTriggerEnter(Collider col)
         {
-            if (col.tag == "Player")
+            if(col.tag == "Player")
             {
                 Capture();
             }
         }
+
+        public override void TakeDamage(float dmg)
+        {
+            return;
+        }
     }
 
-
+    
 }
