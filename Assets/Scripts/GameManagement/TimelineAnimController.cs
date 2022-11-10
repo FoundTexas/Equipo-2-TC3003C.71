@@ -13,16 +13,16 @@ public class TimelineAnimController : MonoBehaviour
 
     public void play(AnimationClip a)
     {
-        if (GameManager.isOnline)
-        {
-            PhotonView PV = GetComponent<PhotonView>();
-            PV.RPC("PunRPCSetting", RpcTarget.All, a.name);
-        }
-        else if (!GameManager.isOnline)
-        {
-            PunRPCPlay(a.name);
-        }
-        //anim.Play(a.name);
+        // if (GameManager.isOnline)
+        // {
+        //     PhotonView PV = GetComponent<PhotonView>();
+        //     PV.RPC("PunRPCSetting", RpcTarget.All, a.name);
+        // }
+        // else if (!GameManager.isOnline)
+        // {
+        //     PunRPCPlay(a.name);
+        // }
+        anim.Play(a.name);
     }
 
     [PunRPC]

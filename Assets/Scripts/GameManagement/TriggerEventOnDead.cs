@@ -25,7 +25,7 @@ namespace GameManagement
             {
                 if (GameEvent)
                 {
-                    GameEvent.SetTrigger();
+                    GameEvent.PunRPCSetTrigger();
                 }
             }
         }

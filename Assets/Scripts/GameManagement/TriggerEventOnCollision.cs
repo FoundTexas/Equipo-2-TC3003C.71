@@ -19,7 +19,7 @@ namespace GameManagement
             {
                 if (other.CompareTag("Player"))
                 {
-                    SetTrigger();
+                    pv.RPC("PunRPCSetTrigger", RpcTarget.All);
                 }
             }
         }

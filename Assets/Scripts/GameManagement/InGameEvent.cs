@@ -20,7 +20,7 @@ namespace GameManagement
         public InGameEventVals values;
         public bool multiscene = false;
         public int index;
-        bool Hitted = false, Setted = false;
+        public bool Hitted = false, Setted = false;
 
         [Tooltip("Set of instructions that affect other game objects")]
         public UnityEvent TriggerEvent;
@@ -39,6 +39,7 @@ namespace GameManagement
             if (GameManager.isOnline)
             {
                 pv.RPC("PunRPCstartVals", RpcTarget.All);
+                pv.RPC("PunRPCSetSetted", RpcTarget.All);
             }
             else if (!GameManager.isOnline)
             {
@@ -72,27 +73,34 @@ namespace GameManagement
                 this.gameObject.SetActive(values.Active);
             }
 
-            Setted = true;
-
             if (Hitted)
             {
-                SetTrigger();
+                print(PhotonNetwork.IsMasterClient + " InGameEvent trigger");
+                PunRPCSetTrigger();
             }
         }
+
+        [PunRPC]
+        public void PunRPCSetSetted()
+        {
+            Setted = true;
+        }
+
 
         // ----------------------------------------------------------------------------------------------- Public Methods
 
         /// <summary>
         /// Void in charge of instantiate the UnityEvent.
         /// </summary>
-        public void SetTrigger()
+        [PunRPC]
+        public void PunRPCSetTrigger()
         {
-            if (PhotonNetwork.IsMasterClient || !GameManager.isOnline)
-            {
-
+            // if (PhotonNetwork.IsMasterClient || !GameManager.isOnline)
+            // {
                 if (Setted)
                 {
 
+                    print("invoke");
                     TriggerEvent.Invoke();
                     values.Triggered = true;
                     if (multiscene)
@@ -104,9 +112,10 @@ namespace GameManagement
                 }
                 else if (!Setted)
                 {
+                    print("activated");
                     Hitted = true;
                 }
-            }
+            // }
         }
     }
 }

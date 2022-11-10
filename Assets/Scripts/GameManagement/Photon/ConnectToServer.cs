@@ -45,7 +45,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
             if (roomName.text.Length >= 1)
             {
                 load = false;
-                PhotonNetwork.JoinOrCreateRoom(roomName.text, new RoomOptions() { MaxPlayers = 4 }, TypedLobby.Default);
+                PhotonNetwork.JoinOrCreateRoom(roomName.text, new RoomOptions() { MaxPlayers = 4, }, TypedLobby.Default);
                 infoText.text = "JoinOrCreateRoom...";
             }
         }

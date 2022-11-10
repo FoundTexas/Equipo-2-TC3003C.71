@@ -20,6 +20,9 @@ public class BossSpawner : MonoBehaviour
     [PunRPC]
     public void PunRPCSetting()
     {
+        if (spawned)
+            return;
+        
         spawned = true;
 
         TriggerEventOnDead g = null;

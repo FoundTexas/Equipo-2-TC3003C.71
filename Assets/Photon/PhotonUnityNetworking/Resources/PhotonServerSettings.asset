@@ -70,6 +70,9 @@ MonoBehaviour:
   - PunRPCSetTrigger
   - PunRPCPatrolling
   - PunRPCPlay
+  - SetTrigger
+  - SetSetted
+  - PunRPCSetSetted
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

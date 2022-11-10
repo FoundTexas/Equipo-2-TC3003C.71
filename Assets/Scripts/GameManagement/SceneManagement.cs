@@ -122,10 +122,27 @@ namespace GameManagement
                     }
                     JsonUtility.FromJsonOverwrite(tmps, e.values);
 
+                    // var hash = PhotonNetwork.CurrentRoom.CustomProperties;
+                    // hash.Add(sname + "e" + i + "1", tmps);
+                    PhotonNetwork.CurrentRoom.CustomProperties[sname + "e" + i + "1"] = tmps;
                     //Debug.Log(JsonUtility.ToJson(e.gameObject.name));
                     //Debug.Log(JsonUtility.ToJson(e.values));
                     //Debug.Log(PlayerPrefs.HasKey(sname + "e" + i + "1"));
                     e.StartVals();
+                }
+            }
+            else if (!PhotonNetwork.IsMasterClient)
+            {
+                for (int i = 0; i < events.ToList().Count; i++)
+                {
+                    InGameEvent e = events[i];
+                    e.index = i;
+                    e.Setted = true;
+                    string tmps = JsonUtility.ToJson(e.values);
+                    // string eventName = sname + "e" + i + "1";
+                    // tmps = PhotonNetwork.CurrentRoom.CustomProperties[eventName].ToString();
+                    PlayerPrefs.SetString(sname + "e" + i + "1", tmps);
+                    print(tmps);
                 }
             }
             ChangeUI();

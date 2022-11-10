@@ -11,7 +11,7 @@ namespace Enemies
     /// <summary>
     /// Main class of the enemy that manages its behaviour.
     /// </summary>
-    public class Enemy : MonoBehaviour, IDamage
+    public class Enemy : MonoBehaviourPun, IPunObservable, IDamage
     {
         [Header("Enemy calculations")]
         public NavMeshAgent agent;
@@ -47,6 +47,9 @@ namespace Enemies
             // Initialize private components
             //player = GameObject.FindWithTag("Player").transform;
             agent = GetComponent<NavMeshAgent>();
+            if(!PhotonNetwork.IsMasterClient)
+                agent.enabled = false;
+            
             animator = GetComponent<Animator>();
             GameObject manager = GameObject.FindWithTag("Manager");
             if (manager != null)
@@ -58,27 +61,25 @@ namespace Enemies
 
         void Update()
         {
-            player = GameManager.GetClosestTarget(transform.position).transform;
-            Debug.Log(GameManager.isOnline);
-            Debug.Log(TimelineManager.enemiesCanMove);
 
             if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
             {
+                player = GameManager.GetClosestTarget(transform.position).transform;
                 //if (TimelineManager.enemiesCanMove)
                 //{
                     //Check sight and attack range
-                    playerInSights = Physics.CheckSphere(transform.position, sightRange, isPlayer);
-                    playerInRange = Physics.CheckSphere(transform.position, attackRange, isPlayer);
+                playerInSights = Physics.CheckSphere(transform.position, sightRange, isPlayer);
+                playerInRange = Physics.CheckSphere(transform.position, attackRange, isPlayer);
 
-                    //Set appropriate state based on current position of player in comparison to enemy
-                    if (!playerInSights && !playerInRange)
-                    {
-                        Patrolling();
-                    }
-                    else if (playerInSights && !playerInRange)
-                        Chasing();
-                    else if (playerInSights && playerInRange)
-                        Attacking();
+                //Set appropriate state based on current position of player in comparison to enemy
+                if (!playerInSights && !playerInRange)
+                {
+                    Patrolling();
+                }
+                else if (playerInSights && !playerInRange)
+                    Chasing();
+                else if (playerInSights && playerInRange)
+                    Attacking();
                 //}
             }
         }
@@ -150,6 +151,32 @@ namespace Enemies
             hasAttacked = false;
         }
 
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if(this.gameObject.name.Contains("HammerEnemy"))
+            {
+                if (stream.IsWriting)
+                {
+                    stream.SendNext(this.gameObject.transform.position);
+                    stream.SendNext(this.gameObject.transform.rotation);
+
+                    stream.SendNext(hasAttacked);
+                }
+                else
+                {
+
+                    this.gameObject.transform.position = (Vector3)stream.ReceiveNext();
+                    this.gameObject.transform.rotation = (Quaternion)stream.ReceiveNext();
+                
+                    hasAttacked = (bool)stream.ReceiveNext();
+                    print(this.gameObject.transform.position);
+                    if (hasAttacked)
+                    {
+                        animator.SetTrigger("Attack");
+                    }
+                }
+            }
+        }
         // ----------------------------------------------------------------------------------------------- Interface IDamage
         /// <summary>
         /// Interface Abstract method in charge of the death routine of the assigned Object.
