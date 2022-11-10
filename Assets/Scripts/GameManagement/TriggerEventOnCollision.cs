@@ -16,6 +16,7 @@ namespace GameManagement
         {
             if (other.CompareTag("Player"))
             {
+                Debug.Log("impact");
                 SetTrigger();
             }
         }
