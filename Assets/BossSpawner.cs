@@ -8,10 +8,15 @@ public class BossSpawner : MonoBehaviour
 {
     public GameObject boss;
     public InGameEvent KillBossEvent;
-    bool spawned = false;
+    // bool spawned = false;
+
+    void Start()
+    {
+        boss.SetActive(false);
+    }
     public void Spawn()
     {
-        if (spawned)
+        if (boss.activeSelf)
             return;
 
         CallSetting();
@@ -20,14 +25,13 @@ public class BossSpawner : MonoBehaviour
     [PunRPC]
     public void PunRPCSetting()
     {
-        if (spawned)
+        if (boss.activeSelf)
             return;
         
-        spawned = true;
+        boss.SetActive(true);
 
         TriggerEventOnDead g = null;
-        g = Instantiate(boss, transform.position, transform.rotation)
-        .GetComponent<TriggerEventOnDead>();
+        g = boss.GetComponent<TriggerEventOnDead>();
         
         if(g)
         {

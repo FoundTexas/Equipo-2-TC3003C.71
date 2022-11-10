@@ -59,10 +59,10 @@ namespace Enemies
                 return;
             jumpTimer += Time.deltaTime;
             if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("Jump_CactusPal"))
-                agent.Resume();
+                agent.isStopped = false;
             else
             {
-                agent.Stop();
+                agent.isStopped = true;
                 agent.velocity = Vector3.zero;
             }
 
