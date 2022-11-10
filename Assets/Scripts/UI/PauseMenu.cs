@@ -14,10 +14,21 @@ namespace PlanetCrashUI
 
         [Tooltip("Reference to the settingsMenu GameObject")]
         public GameObject settingsMenu;
+        [Tooltip("Reference to the quitMenu GameObject")]
+        public GameObject quitMenu;
+        [Tooltip("Reference to the confirmMenu GameObject")]
+        public GameObject confirmMenu;
         [Tooltip("Reference to the miniMap GameObject")]
         public GameObject miniMap;
+        public GameObject background;
 
         SceneLoader sceneLoader;
+        public GameObject player;
+        public Move playerMove;
+        public Camera mainCamera;
+        public Camera pauseCamera;
+        public EventSystemUpdater updater;
+        public GameObject resumeButton;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
         private void OnEnable()
@@ -31,7 +42,11 @@ namespace PlanetCrashUI
         }
         void Start()
         {
+            brightness.TryGetSettings(out exposure);
             sceneLoader = FindObjectOfType<SceneLoader>();
+            player = GameObject.FindWithTag("Player");
+            playerMove = player.GetComponent<Move>();
+            mainCamera = Camera.main;
             AudioListener.volume = 0.5f;
         }
 
@@ -48,9 +63,16 @@ namespace PlanetCrashUI
         /// </summary>
         void Pause()
         {
+            updater.UpdateSelected(resumeButton);
+            pauseCamera.gameObject.SetActive(true);
+            pauseCamera.gameObject.tag = "MainCamera";
+            pauseCamera.transform.position = player.transform.position;
+            background.transform.position = pauseCamera.transform.position + pauseCamera.transform.forward * 3;
+            background.SetActive(true);
             pauseMenu.SetActive(true);
             miniMap.SetActive(false);
-            Time.timeScale = 0f;
+            playerMove.canMove = false;
+            playerMove.StopMove();
             isPaused = true;
 
             FindObjectOfType<EventSystemUpdater>().OnPause(true);
@@ -60,8 +82,16 @@ namespace PlanetCrashUI
         /// </summary>
         public void Resume()
         {
+            pauseCamera.gameObject.SetActive(false);
+            pauseCamera.gameObject.tag = "Untagged";
+            playerMove.canMove = true;
+            mainCamera.gameObject.SetActive(true);
+            pauseCamera.gameObject.SetActive(false);
+            background.SetActive(false);
             pauseMenu.SetActive(false);
             settingsMenu.SetActive(false);
+            quitMenu.SetActive(false);
+            confirmMenu.SetActive(false);
             Time.timeScale = 1f;
             isPaused = false;
             miniMap.SetActive(true);
