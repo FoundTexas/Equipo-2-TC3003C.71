@@ -75,7 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3463,6 +3463,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 778eaebdee849eb45bdc01d1ffbef93c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  infoText: {fileID: 0}
+  mainPanel: {fileID: 0}
+  onlinePanel: {fileID: 0}
+  roomName: {fileID: 0}
 --- !u!1 &987296853554513586
 GameObject:
   m_ObjectHideFlags: 0
@@ -5118,6 +5122,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 778eaebdee849eb45bdc01d1ffbef93c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  infoText: {fileID: 0}
+  mainPanel: {fileID: 0}
+  onlinePanel: {fileID: 0}
+  roomName: {fileID: 0}
 --- !u!1 &3547399011590202599
 GameObject:
   m_ObjectHideFlags: 0
@@ -7363,6 +7371,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 778eaebdee849eb45bdc01d1ffbef93c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  infoText: {fileID: 0}
+  mainPanel: {fileID: 0}
+  onlinePanel: {fileID: 0}
+  roomName: {fileID: 0}
 --- !u!1 &9162450765525512458
 GameObject:
   m_ObjectHideFlags: 0
