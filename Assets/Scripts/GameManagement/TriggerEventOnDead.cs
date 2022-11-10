@@ -23,7 +23,10 @@ namespace GameManagement
             }
             else if (!isApplicationQuitting)
             {
-                GameEvent.SetTrigger();
+                if (GameEvent)
+                {
+                    GameEvent.PunRPCSetTrigger();
+                }
             }
         }
 

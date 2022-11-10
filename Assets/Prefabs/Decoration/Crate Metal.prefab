@@ -18,6 +18,8 @@ GameObject:
   - component: {fileID: 7305104606798228845}
   - component: {fileID: 8302158448567463509}
   - component: {fileID: 7176299622745458134}
+  - component: {fileID: 7986865234055846740}
+  - component: {fileID: 4923926429825867190}
   m_Layer: 10
   m_Name: Crate Metal
   m_TagString: Untagged
@@ -190,3 +192,42 @@ MonoBehaviour:
   dropCurrency: 0.41
   EnergyPrefab: {fileID: 3137065535578657644, guid: 048d1d3ebeace6149ae6e54a11454d80, type: 3}
   CurrencyPrefab: {fileID: 9084417241935925860, guid: 6d3eb26499d18d94fb49f1bda0a74c49, type: 3}
+--- !u!114 &7986865234055846740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 4923926429825867190}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &4923926429825867190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3

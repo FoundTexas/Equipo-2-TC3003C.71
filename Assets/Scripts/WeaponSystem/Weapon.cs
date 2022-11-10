@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
+using Photon.Pun;
 
 namespace WeaponSystem
 {
@@ -12,6 +13,8 @@ namespace WeaponSystem
     [RequireComponent(typeof(AudioSource))]
     public class Weapon : MonoBehaviour
     {
+        public PhotonView view;
+        public PhotonView fatherview;
         public PlayerInputs PlayerInput;
         public InputAction FireInput, ReloadInput;
 
@@ -70,47 +73,70 @@ namespace WeaponSystem
         }
         private void OnEnable()
         {
-            FireInput = PlayerInput.Game.Fire;
-            FireInput.Enable();
-            ReloadInput = PlayerInput.Game.Reload;
-            ReloadInput.Enable();
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
+            {
+                FireInput = PlayerInput.Game.Fire;
+                FireInput.Enable();
+                ReloadInput = PlayerInput.Game.Reload;
+                ReloadInput.Enable();
+            }
         }
         private void OnDisable()
         {
-            FireInput.Disable();
-            ReloadInput.Disable();
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
+            {
+                FireInput.Disable();
+                ReloadInput.Disable();
+            }
         }
         private void Start()
         {
-            Debug.Log("start1");
             source = GetComponent<AudioSource>();
             anim = GetComponent<Animator>();
-            canReload = true;
-            curMagazine = magazine;
-            curAmmo = ammo;
 
-            if (PlayerRef)
-            {
-                RayOut = PlayerRef.transform.GetChild(0);
-            }
             if (firePoint.TryGetComponent<ParticleSystem>(out particles) == false)
             {
                 particles = firePoint.gameObject.AddComponent<ParticleSystem>();
                 particles.Stop();
             }
+
+            canReload = true;
+            curMagazine = magazine;
+            curAmmo = ammo;
+
         }
         private void Update()
         {
-            if (WeaponManager.hasWeapon)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
-                if(FireInput.IsPressed()) { Shoot(); }
-                if (ReloadInput.IsPressed()) { Reolad(); }
+                if (WeaponManager.hasWeapon)
+                {
+                    if (FireInput.IsPressed())
+                    {
+
+                        PunRPCShoot();
+
+                    }
+                    if (ReloadInput.IsPressed())
+                    {
+                        if (!GameManager.isOnline)
+                        {
+                            PunRPCReload();
+                        }
+                        else if (GameManager.isOnline)
+                        {
+                            view.RPC("PunRPCReload", RpcTarget.All);
+                        }
+                    }
+                }
             }
-            //Debug.DrawRay(RayOut.position, PlayerRef.transform.forward * distance, Color.red);
         }
         private void FixedUpdate()
         {
-            if (curShootS > 0) { curShootS -= Time.deltaTime; }
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
+            {
+                if (curShootS > 0) { curShootS -= Time.deltaTime; }
+            }
         }
 
         // ----------------------------------------------------------------------------------------------- Public Methods
@@ -127,7 +153,8 @@ namespace WeaponSystem
         /// <summary>
         /// Void that triggers the reload animation on the weapon.
         /// </summary>
-        public void Reolad()
+        [PunRPC]
+        public void PunRPCReload()
         {
             if (curAmmo > 0)
             {
@@ -156,12 +183,13 @@ namespace WeaponSystem
                 canReload = true;
             }
         }
-        
+
         /// <summary>
         /// Method that visualize the shoot given the present parameters rendering a trail 
         /// and or spawning a projectile if given the prefabs.
         /// </summary>
-        public void PlayShootAnimation()
+        [PunRPC]
+        public void PunRPCPlayShootAnimation()
         {
             particles.Play();
             source.PlayOneShot(sound);
@@ -172,24 +200,34 @@ namespace WeaponSystem
         /// <summary>
         /// This Virtual Method handels the shooting for all weapons and can be overrided.
         /// </summary>
-        public virtual void Shoot()
+        public virtual void PunRPCShoot()
         {
-            if (curMagazine > 0 || curMagazine == -100)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
-                if (curShootS <= 0)
+                if (curMagazine > 0 || curMagazine == -100)
                 {
-                    curShootS = shootSpeed;
-                    PlayShootAnimation();
-
-                    if (curMagazine != -100)
+                    if (curShootS <= 0)
                     {
-                        curMagazine--;
+                        curShootS = shootSpeed;
+                        if (!GameManager.isOnline)
+                        {
+                            PunRPCPlayShootAnimation();
+                        }
+                        else if (GameManager.isOnline)
+                        {
+                            view.RPC("PunRPCPlayShootAnimation", RpcTarget.All);
+                        }
+
+                        if (curMagazine != -100)
+                        {
+                            curMagazine--;
+                        }
                     }
                 }
-            }
-            else
-            {
-                Reolad();
+                else
+                {
+                    PunRPCReload();
+                }
             }
         }
     }

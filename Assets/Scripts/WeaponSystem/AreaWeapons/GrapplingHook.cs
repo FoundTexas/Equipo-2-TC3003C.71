@@ -2,6 +2,7 @@ using Interfaces;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using Photon.Pun;
 
 namespace WeaponSystem
 {
@@ -27,41 +28,63 @@ namespace WeaponSystem
 
             private void Awake()
             {
-                lr = GetComponent<LineRenderer>();
-                PlayerInput = new PlayerInputs();
+                if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+                {
+                    lr = GetComponent<LineRenderer>();
+                    PlayerInput = new PlayerInputs();
+                }
             }
             private void OnEnable()
             {
-                ReloadInput = PlayerInput.Game.Reload;
-                ReloadInput.Enable();
-                FireInput = PlayerInput.Game.Fire;
-                FireInput.Enable();
-                FireInput.canceled += StopGrapple;
-                FireInput.performed += Inputshoot;
+                if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+                {
+                    ReloadInput = PlayerInput.Game.Reload;
+                    ReloadInput.Enable();
+                    FireInput = PlayerInput.Game.Fire;
+                    FireInput.Enable();
+                    FireInput.canceled += StopGrapple;
+                    FireInput.performed += Inputshoot;
+                }
             }
             private void OnDisable()
             {
-                FireInput.Disable();
+                if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+                {
+                    FireInput.Disable();
+                }
             }
             void Update() //Overrided
             {
-                Debug.DrawLine(transform.position + Vector3.up, transform.position + Vector3.up * radius, Color.magenta);
-                Debug.DrawLine(transform.position + Vector3.up, transform.position + Vector3.left * radius, Color.magenta);
-                Debug.DrawLine(transform.position + Vector3.up, transform.position + Vector3.right * radius, Color.magenta);
-                Debug.DrawLine(transform.position + Vector3.up, transform.position + Vector3.forward * radius, Color.magenta);
+                if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+                {
+                    Debug.DrawLine(transform.position + Vector3.up, transform.position + Vector3.up * radius, Color.magenta);
+                    Debug.DrawLine(transform.position + Vector3.up, transform.position + Vector3.left * radius, Color.magenta);
+                    Debug.DrawLine(transform.position + Vector3.up, transform.position + Vector3.right * radius, Color.magenta);
+                    Debug.DrawLine(transform.position + Vector3.up, transform.position + Vector3.forward * radius, Color.magenta);
 
-                if (WeaponManager.hasWeapon)
-                {
-                    if (ReloadInput.IsPressed()) { Reolad(); }
-                }
-                else
-                {
-                    StopGrappleAuto();
+                    if (ReloadInput.IsPressed())
+                    {
+                        if (!GameManager.isOnline)
+                        {
+                            PunRPCReload();
+                        }
+                        else if (GameManager.isOnline)
+                        {
+                            view.RPC("PunRPCReload", RpcTarget.All);
+                        }
+                    }
+                    else
+                    {
+                        StopGrappleAuto();
+                    }
                 }
             }
             private void LateUpdate()
             {
-                DrawRope();
+                if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+                {
+                    DrawRope();
+                }
             }
 
             // ----------------------------------------------------------------------------------------------- Private Methods
@@ -82,15 +105,17 @@ namespace WeaponSystem
                 joint.massScale = massScale;
             }
             // Void that handels the line renderer to set the rope visualization.
+            [PunRPC]
             void DrawRope()
             {
                 if (!entity) return;
 
-                if(lr.positionCount == 0) return;
+                if (lr.positionCount == 0) return;
 
                 float dist = Vector3.Distance(PlayerRef.transform.position, entity.position);
 
-                if (dist > radius*1.3f || dist <= 1){
+                if (dist > radius * 1.3f || dist <= 1)
+                {
                     StopGrappleAuto();
                     return;
                 }
@@ -111,7 +136,20 @@ namespace WeaponSystem
             }
             void Inputshoot(InputAction.CallbackContext context)
             {
-                Shoot();
+                if (WeaponManager.hasWeapon)
+                {
+                    if (FireInput.IsPressed())
+                    {
+                        if (!GameManager.isOnline)
+                        {
+                            PunRPCShoot();
+                        }
+                        else if (GameManager.isOnline)
+                        {
+                            view.RPC("PunRPCShoot", RpcTarget.All);
+                        }
+                    }
+                }
             }
 
             // Void that handels when the hook is stopped.
@@ -126,34 +164,38 @@ namespace WeaponSystem
             /// <summary>
             /// Overrided Shoot Method for GrapplingHook.
             /// </summary>
-            public override void Shoot()
+            [PunRPC]
+            public override void PunRPCShoot()
             {
-                if (curMagazine > 0 || curMagazine == -100)
+                if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
                 {
-                    if (curShootS <= 0)
+                    if (curMagazine > 0 || curMagazine == -100)
                     {
-                        curShootS = shootSpeed;
-                        PlayShootAnimation();
-                        entity = GetNearest(transform.position + Vector3.up);
-
-                        if (entity)
+                        if (curShootS <= 0)
                         {
-                            Vector3 dir = entity.position - PlayerRef.transform.position;
-                            Debug.Log(dir);
-                            PlayerRef.GetComponent<Move>().AddForce(explosionForce,dir.normalized*5 + PlayerRef.transform.forward +Vector3.up,1);
-                            if (entity.GetComponent<IDamage>() != null)
+                            curShootS = shootSpeed;
+                            PunRPCPlayShootAnimation();
+                            entity = GetNearest(transform.position + Vector3.up);
+
+                            if (entity)
                             {
-                                entity.GetComponent<IDamage>().TakeDamage(dmg);
+                                Vector3 dir = entity.position - PlayerRef.transform.position;
+                                Debug.Log(dir);
+                                PlayerRef.GetComponent<Move>().AddForce(explosionForce, dir.normalized * 5 + PlayerRef.transform.forward + Vector3.up, 1);
+                                if (entity.GetComponent<IDamage>() != null)
+                                {
+                                    entity.GetComponent<IDamage>().TakeDamage(dmg);
+                                }
+                                //joint = PlayerRef.AddComponent<SpringJoint>();
+                                lr.positionCount = 2;
+                                Debug.Log(entity.name);
                             }
-                            //joint = PlayerRef.AddComponent<SpringJoint>();
-                            lr.positionCount = 2;
-                            Debug.Log(entity.name);
                         }
                     }
-                }
-                else
-                {
-                    Reolad();
+                    else
+                    {
+                        PunRPCReload();
+                    }
                 }
             }
         }

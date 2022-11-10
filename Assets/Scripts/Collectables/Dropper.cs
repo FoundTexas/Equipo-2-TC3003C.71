@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,6 +37,7 @@ namespace Collectables
         /// <summary>
         /// Method responsable of spawnning an Energy o Ammo collectable base on probability.
         /// </summary>
+        [PunRPC]
         public void Spawn()
         {
             if (isApplicationQuitting)

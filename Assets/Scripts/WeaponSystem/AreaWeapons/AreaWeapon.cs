@@ -3,6 +3,7 @@ using Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace WeaponSystem
 {
@@ -76,13 +77,14 @@ namespace WeaponSystem
             /// <summary>
             /// Overrided Shoot Method for GrapplingHook.
             /// </summary>
-            public override void Shoot()
+            [PunRPC]
+            public override void PunRPCShoot()
             {
                 if (curMagazine > 0)
                 {
                     if (curShootS <= 0)
                     {
-                        PlayShootAnimation();
+                        PunRPCPlayShootAnimation();
                         Explode(PlayerRef.transform.forward * distance);
                         curMagazine--;
                     }

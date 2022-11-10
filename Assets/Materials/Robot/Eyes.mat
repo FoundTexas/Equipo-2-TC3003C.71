@@ -29,7 +29,9 @@ Material:
     - _Glossiness: 41.94
     - _RimAmount: 0.32
     - _RimThreshold: 0.47
-    - _levels: 3.55
+    - _brightness: 0
+    - _levels: 1.92
+    - _strength: 1
     - _uv: 0
     m_Colors:
     - _AmbientColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}

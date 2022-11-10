@@ -76,6 +76,9 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
+    - _brightness: 0
+    - _levels: 3.99
+    - _strength: 1
     m_Colors:
     - _AmbientColor: {r: 0.4, g: 0.4, b: 0.4, a: 1}
     - _Color: {r: 0.6037736, g: 0.4245283, b: 0, a: 1}

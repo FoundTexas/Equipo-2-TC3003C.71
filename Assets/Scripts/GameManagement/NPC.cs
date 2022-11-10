@@ -175,7 +175,7 @@ public class NPC : MonoBehaviour
         Locked = false;
         if (endEvents[index])
         {
-            endEvents[index].SetTrigger();
+            endEvents[index].PunRPCSetTrigger();
         }
     }
 }

@@ -4,14 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameManagement;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 namespace Player
 {
     /// <summary>
     /// Class that manages the player movement behaviour.
     /// </summary>
-    public class PlayerHealth : MonoBehaviour, IDamage
+    public class PlayerHealth : MonoBehaviourPunCallbacks, IDamage
     {
+        public PhotonView view;
         public Gradient color;
         public HealthBar healthBar;
         public GameObject explosionFx;
@@ -25,43 +27,84 @@ namespace Player
         // ----------------------------------------------------------------------------------------------- Unity Methods
         void Start()
         {
-            // Initialize private components
-            GameObject manager = GameObject.FindWithTag("Manager");
-            if(manager != null)
-                hitStop = manager.GetComponent<HitStop>();
-            sceneLoader = GameObject.FindWithTag("SceneLoader").GetComponent<SceneLoader>();
-            
-            // Establish original values
-            playerHP = maxHP;
-            healthBar.SetMaxHealth(maxHP);
+            view = GetComponent<PhotonView>();
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            {
+                // Initialize private components
+                GameObject manager = GameObject.FindWithTag("Manager");
+                if (manager != null)
+                    hitStop = manager.GetComponent<HitStop>();
+                sceneLoader = GameObject.FindWithTag("SceneLoader").GetComponent<SceneLoader>();
+
+                // Establish original values
+                playerHP = maxHP;
+                if (!healthBar)
+                    healthBar = FindObjectOfType<HealthBar>();
+                healthBar.SetMaxHealth(maxHP);
+            }
         }
 
         void Update()
         {
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            {
+                if (!GameManager.isOnline)
+                {
+                    PunRPCResetShield();
+                }
+                else if (GameManager.isOnline)
+                {
+
+                    view.RPC("PunRPCResetShield", RpcTarget.All);
+                }
+            }
+        }
+
+        [PunRPC]
+        void PunRPCResetShield()
+        {
             invFrames -= Time.deltaTime;
-            if(invFrames <= 0)
+            if (invFrames <= 0)
                 forceField.SetActive(false);
         }
 
         void OnCollisionEnter(Collision collision)
         {
-            if(collision.gameObject.tag == "Enemy" && invFrames <= 0)
-                TakeDamage(1);
-            
-        }   
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            {
+                if (collision.gameObject.tag == "Enemy" && invFrames <= 0)
+                    TakeDamage(1);
+            }
+        }
 
         void OnTriggerEnter(Collider collision)
         {
-            if(collision.gameObject.tag == "Enemy" && invFrames <= 0)
-                TakeDamage(1);
-        } 
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            {
+                if (collision.gameObject.tag == "Enemy" && invFrames <= 0)
+                    TakeDamage(1);
+            }
+        }
 
         // ----------------------------------------------------------------------------------------------- Public Methods
         /// <summary>
         /// Method that adds health with a specific value to the player.
         /// </summary>
-        /// <param name="amount"> float value to be added to the player's health. </param>
+        /// <param name="amount"> float value to be added to the player's health. </param>(
         public void AddHealth(float amount)
+        {
+            if (!GameManager.isOnline)
+            {
+                AddHealthRPC(amount);
+            }
+            else if (GameManager.isOnline && view.IsMine)
+            {
+                view.RPC("AddHealthRPC", RpcTarget.All, amount);
+            }
+        }
+
+        [PunRPC]
+        public void AddHealthRPC(float amount)
         {
             playerHP += amount;
             healthBar.SetHealth(playerHP);
@@ -71,7 +114,20 @@ namespace Player
         /// <summary>
         /// Interface Abstract method in charge of the death routine of the assigned Object.
         /// </summary>
-        public void Die()
+        public void PunRPCDie()
+        {
+            if (!GameManager.isOnline)
+            {
+                DieRPC();
+            }
+            else if (GameManager.isOnline && view.IsMine)
+            {
+                view.RPC("DieRPC", RpcTarget.All);
+            }
+        }
+
+        [PunRPC]
+        public void DieRPC()
         {
             // Create death effects
             Vector3 vfxPos = transform.position;
@@ -93,11 +149,33 @@ namespace Player
         /// <param name="dmg"> Amount of damage taken. </param>
         public virtual void TakeDamage(float dmg)
         {
+            if (!GameManager.isOnline)
+            {
+                TakeDamageRPC(dmg);
+            }
+            else if (GameManager.isOnline && view.IsMine)
+            {
+                view.RPC("TakeDamageRPC", RpcTarget.All, dmg);
+            }
+        }
+
+        [PunRPC]
+        void TakeDamageRPC(float dmg)
+        {
             invFrames = 2f;
             playerHP -= dmg;
             healthBar.SetHealth(playerHP);
             if (playerHP <= -1)
-                Die();
+            {
+                if (GameManager.isOnline)
+                {
+                    view.RPC("PunRPCDie", RpcTarget.All);
+                }
+                else if (!GameManager.isOnline)
+                {
+                    PunRPCDie();
+                }
+            }
             else
             {
                 forceField.SetActive(true);
