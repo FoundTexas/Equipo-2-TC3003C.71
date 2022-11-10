@@ -11,7 +11,7 @@ namespace Enemies
     /// <summary>
     /// Main class of the enemy that manages its behaviour.
     /// </summary>
-    public class Enemy : MonoBehaviourPun, IPunObservable, IDamage
+    public class Enemy : MonoBehaviourPun, IDamage//, IPunObservable
     {
         [Header("Enemy calculations")]
         public NavMeshAgent agent;
@@ -41,22 +41,25 @@ namespace Enemies
         PhotonView pv;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
-        void Awake()
+        void Start()
         {
-            pv = GetComponent<PhotonView>();
-            // Initialize private components
-            //player = GameObject.FindWithTag("Player").transform;
-            agent = GetComponent<NavMeshAgent>();
-            if(!PhotonNetwork.IsMasterClient)
-                agent.enabled = false;
-            
-            animator = GetComponent<Animator>();
-            GameObject manager = GameObject.FindWithTag("Manager");
-            if (manager != null)
-                hitStop = manager.GetComponent<HitStop>();
+            if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
+            {
+                pv = GetComponent<PhotonView>();
+                // Initialize private components
+                //player = GameObject.FindWithTag("Player").transform;
+                agent = GetComponent<NavMeshAgent>();
+                if (!PhotonNetwork.IsMasterClient && GameManager.isOnline)
+                    agent.enabled = false;
 
-            // Establish original values
-            maxHp = hp;
+                animator = GetComponent<Animator>();
+                GameObject manager = GameObject.FindWithTag("Manager");
+                if (manager != null)
+                    hitStop = manager.GetComponent<HitStop>();
+
+                // Establish original values
+                maxHp = hp;
+            }
         }
 
         void Update()
@@ -67,13 +70,14 @@ namespace Enemies
                 player = GameManager.GetClosestTarget(transform.position).transform;
                 //if (TimelineManager.enemiesCanMove)
                 //{
-                    //Check sight and attack range
+                //Check sight and attack range
                 playerInSights = Physics.CheckSphere(transform.position, sightRange, isPlayer);
                 playerInRange = Physics.CheckSphere(transform.position, attackRange, isPlayer);
 
                 //Set appropriate state based on current position of player in comparison to enemy
                 if (!playerInSights && !playerInRange)
                 {
+                    Debug.Log("patroll");
                     Patrolling();
                 }
                 else if (playerInSights && !playerInRange)
@@ -106,6 +110,7 @@ namespace Enemies
 
         public void Chasing()
         {
+            player = GameManager.GetClosestTarget(transform.position).transform;
             if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
                 agent.SetDestination(player.position);
         }
@@ -153,7 +158,7 @@ namespace Enemies
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
-            if(this.gameObject.name.Contains("HammerEnemy"))
+            if (this.gameObject.name.Contains("HammerEnemy"))
             {
                 if (stream.IsWriting)
                 {
@@ -167,7 +172,7 @@ namespace Enemies
 
                     this.gameObject.transform.position = (Vector3)stream.ReceiveNext();
                     this.gameObject.transform.rotation = (Quaternion)stream.ReceiveNext();
-                
+
                     hasAttacked = (bool)stream.ReceiveNext();
                     print(this.gameObject.transform.position);
                     if (hasAttacked)

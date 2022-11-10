@@ -44,6 +44,7 @@ namespace GameManagement
             else if (!GameManager.isOnline)
             {
                 PunRPCstartVals();
+                PunRPCSetSetted();
             }
         }
 
