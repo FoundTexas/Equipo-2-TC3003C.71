@@ -22,7 +22,7 @@ public class Waves : MonoBehaviour
     {
         for (int i = 1; i < 4; i++)
         {
-            for (int j = 0; j <= 360; j+=20)
+            for (int j = 0; j <= 360; j+=45/2)
             {
                 GameObject spawn = Instantiate(spawner, transform.position, Quaternion.identity, transform);
                 spawn.transform.Rotate(0,j,0);
@@ -37,7 +37,6 @@ public class Waves : MonoBehaviour
         isStarted = true;
         StartPoints();
         rounds = 0;
-        StartRound();
     }
 
     private void FixedUpdate()
@@ -74,6 +73,7 @@ public class Waves : MonoBehaviour
         {
             isEnded = true;
             endEvent.SetEnded(true);
+            GameManager.SaveGame();
 
         }
     }
