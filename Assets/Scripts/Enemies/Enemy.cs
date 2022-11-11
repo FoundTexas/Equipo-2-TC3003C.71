@@ -56,8 +56,6 @@ namespace Enemies
             // Initialize private components
             //player = GameObject.FindWithTag("Player").transform;
             agent = GetComponent<NavMeshAgent>();
-            if (!PhotonNetwork.IsMasterClient && GameManager.isOnline)
-                agent.enabled = false;
         }
 
         void Update()
@@ -208,7 +206,10 @@ namespace Enemies
 
             GetComponent<Dropper>().Spawn();
             Destroy(deathvfx, 1);
-            Destroy(this.gameObject);
+            if(GameManager.isOnline)
+                PhotonNetwork.Destroy(pv);
+            else if(!GameManager.isOnline)
+                Destroy(this.gameObject);
         }
 
         /// <summary>
