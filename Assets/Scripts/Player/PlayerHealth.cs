@@ -114,20 +114,7 @@ namespace Player
         /// <summary>
         /// Interface Abstract method in charge of the death routine of the assigned Object.
         /// </summary>
-        public void PunRPCDie()
-        {
-            if (!GameManager.isOnline)
-            {
-                DieRPC();
-            }
-            else if (GameManager.isOnline && view.IsMine)
-            {
-                view.RPC("DieRPC", RpcTarget.All);
-            }
-        }
-
-        [PunRPC]
-        public void DieRPC()
+        public void Die()
         {
             // Create death effects
             Vector3 vfxPos = transform.position;
@@ -136,6 +123,7 @@ namespace Player
 
             hitStop.HitStopFreeze(10f, 1f);
             gameObject.SetActive(false);
+
             sceneLoader.LoadByIndex(GameManager.getSceneIndex(), GameManager.getCheckpoint());
             
             var vfxDuration = 1f;
@@ -167,14 +155,7 @@ namespace Player
             healthBar.SetHealth(playerHP);
             if (playerHP <= -1)
             {
-                if (GameManager.isOnline)
-                {
-                    view.RPC("PunRPCDie", RpcTarget.All);
-                }
-                else if (!GameManager.isOnline)
-                {
-                    PunRPCDie();
-                }
+                Die();
             }
             else
             {

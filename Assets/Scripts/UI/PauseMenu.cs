@@ -102,6 +102,7 @@ namespace PlanetCrashUI
         /// </summary>
         public void LoadMenu()
         {
+            ConnectToServer.DisconectFromEvereywhere();
             Time.timeScale = 1f;
             sceneLoader.LoadByIndex(0);
         }

@@ -49,17 +49,45 @@ public class GameManager : MonoBehaviour
 
     public static Vector3 getCheckpoint()
     {
-        if (inst.CheckPoint == Vector3.zero)
+        Vector3 pos = Vector3.zero;
+        if (PhotonNetwork.IsMasterClient || !isOnline)
         {
-            return FirstPos(SceneManager.GetActiveScene().buildIndex);
+            pos = inst.CheckPoint;
+            if (inst.CheckPoint == Vector3.zero)
+            {
+                pos = FirstPos(SceneManager.GetActiveScene().buildIndex);
+            }
+            if (isOnline)
+            {
+                PhotonNetwork.CurrentRoom.CustomProperties["CheckPoint"] = JsonUtility.ToJson(pos);
+            }
+        }
+        else if (!PhotonNetwork.IsMasterClient && isOnline)
+        {
+            string json = PhotonNetwork.CurrentRoom.CustomProperties["CheckPoint"].ToString();
+            if(json != "")
+            {
+                pos = JsonUtility.FromJson<Vector3>(json);
+            }
+            else
+            {
+                pos = FirstPos(SceneManager.GetActiveScene().buildIndex);
+            }
         }
 
-        return inst.CheckPoint;
+        return pos;
     }
 
     public static void setCheckPoint(Vector3 newPos)
     {
-        inst.CheckPoint = newPos;
+        if (PhotonNetwork.IsMasterClient || !isOnline)
+        {
+            inst.CheckPoint = newPos;
+            if (isOnline)
+            {
+                PhotonNetwork.CurrentRoom.CustomProperties["CheckPoint"] = JsonUtility.ToJson(newPos);
+            }
+        }
     }
 
     public static GameObject GetLocalPlayer()

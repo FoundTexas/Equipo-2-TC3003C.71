@@ -66,4 +66,10 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
         onlinePanel.SetActive(false);
         load = false;
     }
+
+    public static void DisconectFromEvereywhere()
+    {
+        PhotonNetwork.Disconnect();
+        GameManager.isOnline = false;
+    }
 }
