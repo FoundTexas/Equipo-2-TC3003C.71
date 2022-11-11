@@ -206,7 +206,7 @@ namespace Enemies
 
             GetComponent<Dropper>().Spawn();
             Destroy(deathvfx, 1);
-            if(GameManager.isOnline)
+            if(GameManager.isOnline || PhotonNetwork.IsMasterClient)
                 PhotonNetwork.Destroy(pv);
             else if(!GameManager.isOnline)
                 Destroy(this.gameObject);

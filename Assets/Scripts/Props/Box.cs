@@ -42,7 +42,11 @@ namespace Props
         {
             GetComponent<Dropper>().Spawn();
             Instantiate(ExplosiveCrate, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            
+            if(GameManager.isOnline || PhotonNetwork.IsMasterClient)
+                PhotonNetwork.Destroy(pv);
+            else if(!GameManager.isOnline)
+                Destroy(this.gameObject);
         }
         /// <summary>
         /// Interface Abstract method that handels when an object takes damage.
