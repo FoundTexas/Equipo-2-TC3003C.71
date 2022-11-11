@@ -44,23 +44,20 @@ namespace Enemies
         // ----------------------------------------------------------------------------------------------- Unity Methods
         void Start()
         {
-            if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
-            {
-                pv = GetComponent<PhotonView>();
-                // Initialize private components
-                //player = GameObject.FindWithTag("Player").transform;
-                agent = GetComponent<NavMeshAgent>();
-                if (!PhotonNetwork.IsMasterClient && GameManager.isOnline)
-                    agent.enabled = false;
+            pv = GetComponent<PhotonView>();
+            // Establish original values
+            maxHp = hp;
+            animator = GetComponent<Animator>();
+            GameObject manager = GameObject.FindWithTag("Manager");
+            if (manager != null)
+                hitStop = manager.GetComponent<HitStop>();
 
-                animator = GetComponent<Animator>();
-                GameObject manager = GameObject.FindWithTag("Manager");
-                if (manager != null)
-                    hitStop = manager.GetComponent<HitStop>();
 
-                // Establish original values
-                maxHp = hp;
-            }
+            // Initialize private components
+            //player = GameObject.FindWithTag("Player").transform;
+            agent = GetComponent<NavMeshAgent>();
+            if (!PhotonNetwork.IsMasterClient && GameManager.isOnline)
+                agent.enabled = false;
         }
 
         void Update()
@@ -68,7 +65,7 @@ namespace Enemies
             if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
             {
                 dazeTime -= Time.deltaTime;
-                if(dazeTime > 0f)
+                if (dazeTime > 0f)
                     return;
                 player = GameManager.GetClosestTarget(transform.position).transform;
                 //if (TimelineManager.enemiesCanMove)
@@ -160,13 +157,13 @@ namespace Enemies
 
         public void OnTriggerEnter(Collider col)
         {
-            if(col.gameObject.tag == "Player")
+            if (col.gameObject.tag == "Player")
                 dazeTime = 1f;
         }
 
         public void OnCollisionEnter(Collision col)
         {
-            if(col.gameObject.tag == "Player")
+            if (col.gameObject.tag == "Player")
                 dazeTime = 1f;
         }
 
@@ -222,7 +219,6 @@ namespace Enemies
         /// <param name="dmg"> Amount of damage taken. </param>
         public virtual void TakeDamage(float dmg)
         {
-            hp -= dmg;
             //render.material.color = new Color(hp / maxHp, 1, hp / maxHp);
             //CameraShake.Instance.DoShake(0.5f, 1f, 0.1f);
 
@@ -238,9 +234,9 @@ namespace Enemies
         [PunRPC]
         void TakeDamageRPC(float dmg)
         {
-            hp -= dmg;
+            maxHp -= dmg;
 
-            if (hp <= 0)
+            if (maxHp <= 0)
             {
                 Die();
             }

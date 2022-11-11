@@ -29,16 +29,15 @@ namespace Player
         void Start()
         {
             view = GetComponent<PhotonView>();
+            playerHP = maxHP;
             sceneLoader = GameObject.FindWithTag("SceneLoader").GetComponent<SceneLoader>();
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
-            {
-                // Initialize private components
-                GameObject manager = GameObject.FindWithTag("Manager");
-                if (manager != null)
+            GameObject manager = GameObject.FindWithTag("Manager");
+            if (manager != null)
                     hitStop = manager.GetComponent<HitStop>();
 
+            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+            {
                 // Establish original values
-                playerHP = maxHP;
                 if (!healthBar)
                     healthBar = FindObjectOfType<HealthBar>();
                 healthBar.SetMaxHealth(maxHP);

@@ -129,7 +129,7 @@ namespace WeaponSystem
             /// </summary>
             public override void PunRPCShoot()
             {
-                if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+                if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
                 {
                     if (curMagazine > 0 || curMagazine == -100)
                     {
