@@ -232,7 +232,7 @@ namespace Enemies
             }
         }
         [PunRPC]
-        void TakeDamageRPC(float dmg)
+        public void TakeDamageRPC(float dmg)
         {
             maxHp -= dmg;
 
