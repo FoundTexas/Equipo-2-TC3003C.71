@@ -10,7 +10,7 @@ public class RagDollHandler : MonoBehaviour
     CapsuleCollider AnimatedColider;
     [SerializeField] Animator anim;
 
-    public bool startvalue = true;
+    public bool startvalue = false;
 
     // Start is called before the first frame update
     void Start()

@@ -37,6 +37,7 @@ namespace Enemies
         [SerializeField] private float hp = 20;
         [SerializeField] private Renderer render;
         private float maxHp;
+        public float dazeTime = 0f;
 
         PhotonView pv;
 
@@ -64,9 +65,11 @@ namespace Enemies
 
         void Update()
         {
-
             if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
             {
+                dazeTime -= Time.deltaTime;
+                if(dazeTime > 0f)
+                    return;
                 player = GameManager.GetClosestTarget(transform.position).transform;
                 //if (TimelineManager.enemiesCanMove)
                 //{
@@ -153,6 +156,18 @@ namespace Enemies
         public void ResetAttack()
         {
             hasAttacked = false;
+        }
+
+        public void OnTriggerEnter(Collider col)
+        {
+            if(col.gameObject.tag == "Player")
+                dazeTime = 1f;
+        }
+
+        public void OnCollisionEnter(Collision col)
+        {
+            if(col.gameObject.tag == "Player")
+                dazeTime = 1f;
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

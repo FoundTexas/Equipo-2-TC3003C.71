@@ -22,6 +22,7 @@ namespace Player
         private float playerHP;
         private float invFrames = 0f; // Invincivility frames after getting hit
         private HitStop hitStop;
+        private Move playerMove;
         private SceneLoader sceneLoader;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
@@ -41,6 +42,7 @@ namespace Player
                 if (!healthBar)
                     healthBar = FindObjectOfType<HealthBar>();
                 healthBar.SetMaxHealth(maxHP);
+                playerMove = GetComponent<Move>();
             }
         }
 
@@ -68,21 +70,18 @@ namespace Player
                 forceField.SetActive(false);
         }
 
-        void OnCollisionEnter(Collision collision)
-        {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
-            {
-                if (collision.gameObject.tag == "Enemy" && invFrames <= 0)
-                    TakeDamage(1);
-            }
-        }
-
         void OnTriggerEnter(Collider collision)
         {
             if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
             {
                 if (collision.gameObject.tag == "Enemy" && invFrames <= 0)
+                {
+                    Vector3 dir = transform.position - collision.transform.position;
+                    dir = dir.normalized + Vector3.up;
+                    playerMove.AddForce(15f, dir, 0.5f);
                     TakeDamage(1);
+                }
+                    
             }
         }
 
