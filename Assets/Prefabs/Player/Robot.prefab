@@ -4860,6 +4860,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 0}
+  fatherview: {fileID: 0}
   weapons:
   - {fileID: 2416626296868315644}
   - {fileID: 7083679167059624505}
@@ -5399,6 +5400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35990ff35b68a764f9b51c26b45f8dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  view: {fileID: 0}
   meleeCoolDownTime: 0.8
   playerWeapons: {fileID: 6946794206860832595}
   ammoDisplay: {fileID: 0}
@@ -7418,6 +7420,10 @@ PrefabInstance:
       propertyPath: view
       value: 
       objectReference: {fileID: 6759532659887444057}
+    - target: {fileID: 33128618182718912, guid: 74c6e2fa02fd1754cb8a5a191a3b4162, type: 3}
+      propertyPath: RayOut
+      value: 
+      objectReference: {fileID: 2234659054837064740}
     - target: {fileID: 33128618182718912, guid: 74c6e2fa02fd1754cb8a5a191a3b4162, type: 3}
       propertyPath: PlayerRef
       value: 
