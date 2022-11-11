@@ -15,11 +15,16 @@ namespace GameManagement
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
+            if (other.CompareTag("Player"))
             {
-                if (other.CompareTag("Player"))
+                if (GameManager.isOnline || PhotonNetwork.IsMasterClient)
                 {
+
                     pv.RPC("PunRPCSetTrigger", RpcTarget.All);
+                }
+                else if (!GameManager.isOnline)
+                {
+                    PunRPCSetTrigger();
                 }
             }
         }

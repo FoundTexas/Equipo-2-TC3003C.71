@@ -7,16 +7,18 @@ using GameManagement;
 public class BossSpawner : MonoBehaviour
 {
     public GameObject boss;
+    public bool spawned;
     public InGameEvent KillBossEvent;
     // bool spawned = false;
 
     void Start()
     {
         boss.SetActive(false);
+        spawned = false;
     }
     public void Spawn()
     {
-        if (boss.activeSelf)
+        if (spawned)
             return;
 
         CallSetting();
@@ -25,8 +27,10 @@ public class BossSpawner : MonoBehaviour
     [PunRPC]
     public void PunRPCSetting()
     {
-        if (boss.activeSelf)
+
+        if (spawned)
             return;
+        spawned = true;
         
         boss.SetActive(true);
 

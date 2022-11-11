@@ -62,7 +62,7 @@ namespace GameManagement
                 {
                     follow.setFollow(target);
                 }
-                
+
                 cam.Follow = target;
                 cam.LookAt = target;
             }
@@ -124,14 +124,17 @@ namespace GameManagement
 
                     // var hash = PhotonNetwork.CurrentRoom.CustomProperties;
                     // hash.Add(sname + "e" + i + "1", tmps);
-                    PhotonNetwork.CurrentRoom.CustomProperties[sname + "e" + i + "1"] = tmps;
+                    if (GameManager.isOnline)
+                    {
+                        PhotonNetwork.CurrentRoom.CustomProperties[sname + "e" + i + "1"] = tmps;
+                    }
                     //Debug.Log(JsonUtility.ToJson(e.gameObject.name));
                     //Debug.Log(JsonUtility.ToJson(e.values));
                     //Debug.Log(PlayerPrefs.HasKey(sname + "e" + i + "1"));
                     e.StartVals();
                 }
             }
-            else if (!PhotonNetwork.IsMasterClient)
+            else if (!PhotonNetwork.IsMasterClient && GameManager.isOnline)
             {
                 for (int i = 0; i < events.ToList().Count; i++)
                 {

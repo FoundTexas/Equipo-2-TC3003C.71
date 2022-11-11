@@ -77,7 +77,6 @@ namespace Enemies
                 //Set appropriate state based on current position of player in comparison to enemy
                 if (!playerInSights && !playerInRange)
                 {
-                    Debug.Log("patroll");
                     Patrolling();
                 }
                 else if (playerInSights && !playerInRange)
