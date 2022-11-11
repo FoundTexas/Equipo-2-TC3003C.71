@@ -199,18 +199,16 @@ namespace Enemies
         /// </summary>
         public void Die()
         {
-            GameObject deathvfx;
             Vector3 vfxpos = this.transform.position;
             vfxpos.y = this.transform.position.y + 1;
-            deathvfx = Instantiate(explosionfx, vfxpos, Quaternion.identity);
+            GameObject deathvfx = Instantiate(explosionfx, vfxpos, Quaternion.identity);
 
-            Destroy(this.gameObject);
             if (hitStop != null)
                 hitStop.HitStopFreeze(3f, 0.2f);
 
-            var vfxDuration = 1f;
             GetComponent<Dropper>().Spawn();
-            Destroy(deathvfx, vfxDuration);
+            Destroy(deathvfx, 1);
+            Destroy(this.gameObject);
         }
 
         /// <summary>

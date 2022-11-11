@@ -185,7 +185,9 @@ namespace WeaponSystem
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }
             if(selected != null)
-                audios.GunValue(hasWeapon, selected.select);
+                if(audios)
+                    if(unlocked.unlock.Contains(selected.GetID()))
+                        audios.GunValue(hasWeapon, selected.select);
         }
         /// <summary>
         /// This Function is in charge og changing between the unlocked weapons
