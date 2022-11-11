@@ -38,8 +38,7 @@ namespace Props
         /// <summary>
         /// Interface Abstract method in charge of the death routine of the assigned Object.
         /// </summary>
-        [PunRPC]
-        public void PunRPCDie()
+        public void Die()
         {
             GetComponent<Dropper>().Spawn();
             Instantiate(ExplosiveCrate, transform.position, Quaternion.identity);
@@ -49,32 +48,30 @@ namespace Props
         /// Interface Abstract method that handels when an object takes damage.
         /// </summary>
         /// <param name="dmg"> Amount of damage taken. </param>
-
         public void TakeDamage(float dmg)
         {
-            hp -= dmg;
-
             if (GameManager.isOnline)
             {
                 pv.RPC("PunRPCupdateVisuals", RpcTarget.All);
+                pv.RPC("TakeDamageRPC", RpcTarget.All, dmg);
             }
             else if (!GameManager.isOnline)
             {
                 PunRPCupdateVisuals();
-            }
-
-            if (hp < 0)
-            {
-                if (GameManager.isOnline)
-                {
-                    pv.RPC("PunRPCDie", RpcTarget.All);
-                }
-                else if (!GameManager.isOnline)
-                {
-                    PunRPCDie();
-                }
+                TakeDamageRPC(dmg);
             }
         }
+        [PunRPC]
+        void TakeDamageRPC(float dmg)
+        {
+            hp -= dmg;
+
+            if (hp <= 0)
+            {
+                Die();
+            }
+        }
+        
         /// <summary>
         /// Interface Abstract method that starts the freezing of an object.
         /// </summary>

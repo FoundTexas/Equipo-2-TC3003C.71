@@ -200,8 +200,7 @@ namespace Enemies
         /// <summary>
         /// Interface Abstract method in charge of the death routine of the assigned Object.
         /// </summary>
-        [PunRPC]
-        public void PunRPCDie()
+        public void Die()
         {
             GameObject deathvfx;
             Vector3 vfxpos = this.transform.position;
@@ -226,16 +225,24 @@ namespace Enemies
             hp -= dmg;
             //render.material.color = new Color(hp / maxHp, 1, hp / maxHp);
             //CameraShake.Instance.DoShake(0.5f, 1f, 0.1f);
-            if (hp < 0)
+
+            if (GameManager.isOnline)
             {
-                if (GameManager.isOnline)
-                {
-                    pv.RPC("PunRPCDie", RpcTarget.All);
-                }
-                else if (!GameManager.isOnline)
-                {
-                    PunRPCDie();
-                }
+                pv.RPC("TakeDamageRPC", RpcTarget.All, dmg);
+            }
+            else if (!GameManager.isOnline)
+            {
+                TakeDamageRPC(dmg);
+            }
+        }
+        [PunRPC]
+        void TakeDamageRPC(float dmg)
+        {
+            hp -= dmg;
+
+            if (hp <= 0)
+            {
+                Die();
             }
         }
 
