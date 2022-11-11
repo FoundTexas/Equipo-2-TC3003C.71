@@ -50,6 +50,13 @@ namespace Enemies
 
         void Update()
         {
+            conductor = GameObject.FindWithTag("Enemy");
+            if(conductor != null)
+            {
+                Destroy(gameObject);
+                return;
+            } 
+            
             playerObj = GameManager.GetClosestTarget(transform.position);
             player = playerObj.transform;
             playerAnimator = player.GetComponentsInChildren<Animator>()[1];
@@ -73,13 +80,6 @@ namespace Enemies
                 agent.isStopped = true;
                 agent.velocity = Vector3.zero;
             }
-
-            conductor = GameObject.FindWithTag("Enemy");
-            if(conductor != null)
-            {
-                Destroy(gameObject);
-                return;
-            } 
                 
             if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayHit, viewRange))
             {
