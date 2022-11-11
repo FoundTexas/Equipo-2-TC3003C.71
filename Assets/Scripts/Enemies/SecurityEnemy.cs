@@ -57,7 +57,7 @@ namespace Enemies
                 return;
             } 
             
-            playerObj = GameManager.GetClosestTarget(transform.position);
+            playerObj = GameManager.GetClosestTarget(transform);
             player = playerObj.transform;
             playerAnimator = player.GetComponentsInChildren<Animator>()[1];
             playerMove = player.GetComponent<Move>();
@@ -69,7 +69,7 @@ namespace Enemies
                 capturing = true;
                 frozenPlayer = true;
             }
-            playerObj = GameManager.GetClosestTarget(transform.position);
+            playerObj = GameManager.GetClosestTarget(transform);
             if(asleep && !capturing)
                 return;
             jumpTimer += Time.deltaTime;

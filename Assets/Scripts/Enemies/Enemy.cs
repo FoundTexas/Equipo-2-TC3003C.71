@@ -65,7 +65,10 @@ namespace Enemies
                 dazeTime -= Time.deltaTime;
                 if (dazeTime > 0f)
                     return;
-                player = GameManager.GetClosestTarget(transform.position).transform;
+
+                player = GameManager.GetClosestTarget(transform).transform;
+                if(player == null)
+                    player = transform;
                 //if (TimelineManager.enemiesCanMove)
                 //{
                 //Check sight and attack range
@@ -107,7 +110,6 @@ namespace Enemies
 
         public void Chasing()
         {
-            player = GameManager.GetClosestTarget(transform.position).transform;
             if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
                 agent.SetDestination(player.position);
         }
@@ -120,7 +122,6 @@ namespace Enemies
             //Find the player's current position
             //Keep enemy's current position in Y axis to prevent tilt
             //Rotate enemy to face player
-            player = GameManager.GetClosestTarget(transform.position).transform;
             Vector3 targetPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
             transform.LookAt(targetPosition);
 

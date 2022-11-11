@@ -33,7 +33,7 @@ namespace Player
             sceneLoader = GameObject.FindWithTag("SceneLoader").GetComponent<SceneLoader>();
             GameObject manager = GameObject.FindWithTag("Manager");
             if (manager != null)
-                    hitStop = manager.GetComponent<HitStop>();
+                hitStop = manager.GetComponent<HitStop>();
 
             if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
             {
@@ -80,7 +80,7 @@ namespace Player
                     playerMove.AddForce(15f, dir, 0.5f);
                     TakeDamage(1);
                 }
-                    
+
             }
         }
 
@@ -122,8 +122,6 @@ namespace Player
             hitStop.HitStopFreeze(10f, 1f);
             gameObject.SetActive(false);
 
-            sceneLoader.LoadByIndex(GameManager.getSceneIndex(), GameManager.getCheckpoint());
-            
             var vfxDuration = 1f;
             Destroy(deathvfx, vfxDuration);
 
@@ -135,7 +133,7 @@ namespace Player
         /// <param name="dmg"> Amount of damage taken. </param>
         public virtual void TakeDamage(float dmg)
         {
-            healthBar.SetHealth(playerHP-dmg);
+            healthBar.SetHealth(playerHP - dmg);
             if (!GameManager.isOnline)
             {
                 TakeDamageRPC(dmg);
@@ -143,6 +141,10 @@ namespace Player
             else if (GameManager.isOnline && view.IsMine)
             {
                 view.RPC("TakeDamageRPC", RpcTarget.All, dmg);
+            }
+            if (playerHP <= -1)
+            {
+                sceneLoader.LoadByIndex(GameManager.getSceneIndex(), GameManager.getCheckpoint());
             }
         }
 

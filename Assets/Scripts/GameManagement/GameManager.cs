@@ -113,15 +113,15 @@ public class GameManager : MonoBehaviour
         return null;
     }
 
-    public static GameObject GetClosestTarget(Vector3 pos)
+    public static GameObject GetClosestTarget(Transform pos)
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        GameObject result = null;
+        GameObject result = pos.gameObject;
         float distance = Mathf.Infinity;
 
         foreach (GameObject player in players)
         {
-            float newDistance = Vector3.Distance(pos, player.transform.position);
+            float newDistance = Vector3.Distance(pos.position, player.transform.position);
             if (newDistance <= distance)
             {
                 distance = Mathf.Abs(newDistance);
