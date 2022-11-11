@@ -56,4 +56,14 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
         GameManager.isOnline = true;
         FindObjectOfType<SceneLoader>().LoadOnline();
     }
+
+    public void OnClickDisconnect()
+    {
+        PhotonNetwork.Disconnect();
+        infoText.text = "";
+        GameManager.isOnline = false;
+        mainPanel.SetActive(true);
+        onlinePanel.SetActive(false);
+        load = false;
+    }
 }
