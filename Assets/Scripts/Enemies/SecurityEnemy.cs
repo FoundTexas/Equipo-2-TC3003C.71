@@ -30,17 +30,13 @@ namespace Enemies
         public float jumpTimer = 0f;
         public bool willSleep = false;
         public bool asleep = false;
+        public GameObject bullet;
         // ----------------------------------------------------------------------------------------------- Unity Methods
         void Awake()
         {
             // Initialize private components
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
-            playerObj = GameObject.FindWithTag("Player");
-            player = playerObj.transform;
-            weapons = playerObj.GetComponentInChildren<WeaponManager>();
-            playerAnimator = player.GetComponentsInChildren<Animator>()[1];
-            playerMove = player.GetComponent<Move>();
             fade = GameObject.FindWithTag("GameCanvas").GetComponentsInChildren<FadeBlack>()[0];
             GameObject manager = GameObject.FindWithTag("Manager");
             sceneLoader = GameObject.FindWithTag("SceneLoader").GetComponent<SceneLoader>();
@@ -54,6 +50,26 @@ namespace Enemies
 
         void Update()
         {
+            conductor = GameObject.FindWithTag("Enemy");
+            if(conductor != null)
+            {
+                Destroy(gameObject);
+                return;
+            } 
+            
+            playerObj = GameManager.GetClosestTarget(transform.position);
+            player = playerObj.transform;
+            playerAnimator = player.GetComponentsInChildren<Animator>()[1];
+            playerMove = player.GetComponent<Move>();
+            if(GameObject.FindWithTag("Bullet") != null && !capturing)
+            {
+                playerMove.canMove = false;
+                playerMove.StopMove();
+                playerAnimator.SetTrigger("ArmRaise");
+                capturing = true;
+                frozenPlayer = true;
+            }
+            playerObj = GameManager.GetClosestTarget(transform.position);
             if(asleep && !capturing)
                 return;
             jumpTimer += Time.deltaTime;
@@ -64,16 +80,6 @@ namespace Enemies
                 agent.isStopped = true;
                 agent.velocity = Vector3.zero;
             }
-
-            conductor = GameObject.FindWithTag("Enemy");
-            if(conductor != null)
-            {
-                Destroy(gameObject);
-                return;
-            } 
-            if(weapons.CurrentSelect() != null)
-                if(weapons.CurrentSelect().curShootS >= weapons.CurrentSelect().shootSpeed)
-                    Capture();
                 
             if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayHit, viewRange))
             {
