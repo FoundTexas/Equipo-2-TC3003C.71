@@ -29,13 +29,13 @@ namespace Player
         void Start()
         {
             view = GetComponent<PhotonView>();
+            sceneLoader = GameObject.FindWithTag("SceneLoader").GetComponent<SceneLoader>();
             if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
             {
                 // Initialize private components
                 GameObject manager = GameObject.FindWithTag("Manager");
                 if (manager != null)
                     hitStop = manager.GetComponent<HitStop>();
-                sceneLoader = GameObject.FindWithTag("SceneLoader").GetComponent<SceneLoader>();
 
                 // Establish original values
                 playerHP = maxHP;
@@ -136,6 +136,7 @@ namespace Player
         /// <param name="dmg"> Amount of damage taken. </param>
         public virtual void TakeDamage(float dmg)
         {
+            healthBar.SetHealth(playerHP-dmg);
             if (!GameManager.isOnline)
             {
                 TakeDamageRPC(dmg);
@@ -151,7 +152,6 @@ namespace Player
         {
             invFrames = 2f;
             playerHP -= dmg;
-            healthBar.SetHealth(playerHP);
             if (playerHP <= -1)
             {
                 Die();
