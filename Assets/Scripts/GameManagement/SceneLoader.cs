@@ -44,6 +44,20 @@ namespace GameManagement
                 Load(index);
             }
         }
+
+        public void EndScene()
+        {
+            int i = SceneManager.GetActiveScene().buildIndex;
+            PlayerPrefs.SetInt("Loader.1", i);
+            if(GameManager.isOnline)
+            {
+                LoadOnline(2);
+            }
+            else
+            {
+                LoadByIndex(2);
+            }
+        }
         /// <summary>
         /// Method that start Loading scene routine by its index.
         /// </summary>
@@ -127,12 +141,16 @@ namespace GameManagement
 
             LoadByIndex(i);
         }
-        public void LoadOnline()
+        public void LoadOnline(int sceneIndex = -1)
         {
             int i = 1;
             if (PlayerPrefs.HasKey("Loader.1"))
             {
                 i = PlayerPrefs.GetInt("Loader.1");
+            }
+            if(sceneIndex != -1)
+            {
+                i = sceneIndex;
             }
 
             if (!loading)
