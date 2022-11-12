@@ -31,6 +31,7 @@ public class PlayerSpawner : MonoBehaviour
 
     public void respawnPlayer(PlayerHealth p)
     {
+        Debug.Log("Respawn");
         StartCoroutine(respawn(p));
     }
 
@@ -41,11 +42,14 @@ public class PlayerSpawner : MonoBehaviour
         if (others.Length > 0)
         {
             transform.position = GameManager.getCheckpoint();
-            gameObject.SetActive(true);
+            p.gameObject.SetActive(true);
         }
         else
         {
-            p.sceneLoader.LoadOnline();
+            transform.position = GameManager.getCheckpoint();
+            p.gameObject.SetActive(true);
+
+            //p.sceneLoader.LoadOnline();
         }
     }
 }
