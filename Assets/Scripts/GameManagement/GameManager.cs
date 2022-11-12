@@ -50,14 +50,14 @@ public class GameManager : MonoBehaviour
     public static Vector3 getCheckpoint()
     {
         Vector3 pos = Vector3.zero;
-        if (PhotonNetwork.IsMasterClient || !isOnline)
+        if (PhotonNetwork.IsMasterClient && isOnline || !isOnline)
         {
             pos = inst.CheckPoint;
             if (inst.CheckPoint == Vector3.zero)
             {
                 pos = FirstPos(SceneManager.GetActiveScene().buildIndex);
             }
-            if (isOnline)
+            if (isOnline && PhotonNetwork.IsMasterClient)
             {
                 var hash = PhotonNetwork.CurrentRoom.CustomProperties;
                 hash.Add("CheckPoint", JsonUtility.ToJson(pos));
@@ -86,7 +86,9 @@ public class GameManager : MonoBehaviour
             inst.CheckPoint = newPos;
             if (isOnline)
             {
-                PhotonNetwork.CurrentRoom.CustomProperties["CheckPoint"] = JsonUtility.ToJson(newPos);
+                var hash = PhotonNetwork.CurrentRoom.CustomProperties;
+                hash.Add("CheckPoint", JsonUtility.ToJson(newPos));
+                PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
             }
         }
     }
