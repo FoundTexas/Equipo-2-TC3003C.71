@@ -208,7 +208,7 @@ namespace Enemies
             GetComponent<Dropper>().Spawn();
             Destroy(deathvfx, 1);
 
-            if (GameManager.isOnline || PhotonNetwork.IsMasterClient)
+            if (GameManager.isOnline && PhotonNetwork.IsMasterClient)
                 PhotonNetwork.Destroy(pv);
             else if (!GameManager.isOnline)
                 Destroy(this.gameObject);
@@ -220,19 +220,16 @@ namespace Enemies
         /// <param name="dmg"> Amount of damage taken. </param>
         public virtual void TakeDamage(float dmg)
         {
-            if (GameManager.isOnline || PhotonNetwork.IsMasterClient)
-            {
-                //render.material.color = new Color(hp / maxHp, 1, hp / maxHp);
-                //CameraShake.Instance.DoShake(0.5f, 1f, 0.1f);
+            //render.material.color = new Color(hp / maxHp, 1, hp / maxHp);
+            //CameraShake.Instance.DoShake(0.5f, 1f, 0.1f);
 
-                if (GameManager.isOnline)
-                {
-                    pv.RPC("TakeDamageRPC", RpcTarget.All, dmg);
-                }
-                else if (!GameManager.isOnline)
-                {
-                    TakeDamageRPC(dmg);
-                }
+            if (GameManager.isOnline)
+            {
+                pv.RPC("TakeDamageRPC", RpcTarget.All, dmg);
+            }
+            else if (!GameManager.isOnline)
+            {
+                TakeDamageRPC(dmg);
             }
         }
         [PunRPC]

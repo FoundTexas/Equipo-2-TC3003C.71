@@ -76,7 +76,6 @@ public class GameManager : MonoBehaviour
                 pos = FirstPos(SceneManager.GetActiveScene().buildIndex);
             }
         }
-
         return pos;
     }
 
