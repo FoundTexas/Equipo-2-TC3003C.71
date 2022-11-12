@@ -59,7 +59,9 @@ public class GameManager : MonoBehaviour
             }
             if (isOnline)
             {
-                PhotonNetwork.CurrentRoom.CustomProperties["CheckPoint"] = JsonUtility.ToJson(pos);
+                var hash = PhotonNetwork.CurrentRoom.CustomProperties;
+                hash.Add("CheckPoint", JsonUtility.ToJson(pos));
+                PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
             }
         }
         else if (!PhotonNetwork.IsMasterClient && isOnline)
