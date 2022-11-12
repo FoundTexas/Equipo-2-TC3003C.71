@@ -127,11 +127,24 @@ namespace Enemies
 
             if (!hasAttacked)
             {
-                animator.SetTrigger("Attack");
+                if (!GameManager.isOnline)
+                {
+                    PunRPCAttackTrigger();
+                }
+                else if (GameManager.isOnline)
+                {
+                    pv.RPC("PunRPCAttackTrigger", RpcTarget.All);
+                }
                 hasAttacked = true;
                 Invoke(nameof(ResetAttack), attackSpeed);
             }
 
+        }
+
+        [PunRPC]
+        public void PunRPCAttackTrigger()
+        {
+            animator.SetTrigger("Attack");
         }
 
         public virtual void CreateWalkPoint()
