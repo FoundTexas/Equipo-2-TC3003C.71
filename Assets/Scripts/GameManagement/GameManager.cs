@@ -60,7 +60,16 @@ public class GameManager : MonoBehaviour
             if (isOnline && PhotonNetwork.IsMasterClient)
             {
                 var hash = PhotonNetwork.CurrentRoom.CustomProperties;
-                hash.Add("CheckPoint", JsonUtility.ToJson(pos));
+
+                if(hash.ContainsKey("CheckPoint"))
+                {
+                    hash["CheckPoint"] = JsonUtility.ToJson(pos);
+                }
+                else if(!hash.ContainsKey("CheckPoint"))
+                {
+                    hash.Add("CheckPoint", JsonUtility.ToJson(pos));
+                }
+                
                 PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
             }
         }
@@ -87,7 +96,15 @@ public class GameManager : MonoBehaviour
             if (isOnline)
             {
                 var hash = PhotonNetwork.CurrentRoom.CustomProperties;
-                hash.Add("CheckPoint", JsonUtility.ToJson(newPos));
+                if(hash.ContainsKey("CheckPoint"))
+                {
+                    hash["CheckPoint"] = JsonUtility.ToJson(newPos);
+                }
+                else if(!hash.ContainsKey("CheckPoint"))
+                {
+                    hash.Add("CheckPoint", JsonUtility.ToJson(newPos));
+                }
+                
                 PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
             }
         }
