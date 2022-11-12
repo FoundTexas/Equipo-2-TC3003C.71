@@ -411,4 +411,10 @@ public class Move : MonoBehaviour
         yield return new WaitForSeconds(time);
         canMove = true;
     }
+
+    public void Respawned()
+    {
+        StopAllCoroutines();
+        canMove = true;
+    }
 }

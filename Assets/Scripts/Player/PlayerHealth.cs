@@ -29,6 +29,7 @@ namespace Player
         void Start()
         {
             view = GetComponent<PhotonView>();
+            playerMove = GetComponent<Move>();
             playerHP = maxHP;
             sceneLoader = GameObject.FindWithTag("SceneLoader").GetComponent<SceneLoader>();
             GameObject manager = GameObject.FindWithTag("Manager");
@@ -41,7 +42,6 @@ namespace Player
                 if (!healthBar)
                     healthBar = FindObjectOfType<HealthBar>();
                 healthBar.SetMaxHealth(maxHP);
-                playerMove = GetComponent<Move>();
             }
         }
 
@@ -108,8 +108,9 @@ namespace Player
             healthBar.SetHealth(playerHP);
         }
 
-        void respawn()
+        IEnumerator respawn()
         {
+            yield return new WaitForSeconds(2);
             GameObject[] others = GameObject.FindGameObjectsWithTag("Player");
             if (others.Length > 0)
             {
