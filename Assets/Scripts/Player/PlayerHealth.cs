@@ -18,7 +18,7 @@ namespace Player
         public HealthBar healthBar;
         public GameObject explosionFx;
         public GameObject forceField;
-        [Min(0)] public float maxHP = 6;
+        [Min(0)] public float maxHP = 4;
         private float playerHP;
         private float invFrames = 0f; // Invincivility frames after getting hit
         private HitStop hitStop;
@@ -108,6 +108,28 @@ namespace Player
             healthBar.SetHealth(playerHP);
         }
 
+        void respawn()
+        {
+            GameObject[] others = GameObject.FindGameObjectsWithTag("Player");
+            if (others.Length > 0)
+            {
+                playerHP = maxHP;
+               
+                if (view.IsMine)
+                {
+                    healthBar.SetMaxHealth(maxHP);
+                }
+
+                transform.position = GameManager.getCheckpoint();
+                gameObject.SetActive(true);
+            }
+            else
+            {
+                sceneLoader.LoadOnline();
+            }
+
+        }
+
         // ----------------------------------------------------------------------------------------------- Interface IDamage
         /// <summary>
         /// Interface Abstract method in charge of the death routine of the assigned Object.
@@ -122,6 +144,11 @@ namespace Player
             hitStop.HitStopFreeze(10f, 1f);
             gameObject.SetActive(false);
 
+            if (!GameManager.isOnline)
+                sceneLoader.LoadByIndex(GameManager.getSceneIndex(), GameManager.getCheckpoint());
+            else if (GameManager.isOnline)
+                respawn();
+
             var vfxDuration = 1f;
             Destroy(deathvfx, vfxDuration);
 
@@ -133,7 +160,9 @@ namespace Player
         /// <param name="dmg"> Amount of damage taken. </param>
         public virtual void TakeDamage(float dmg)
         {
-            healthBar.SetHealth(playerHP - dmg);
+            if (healthBar)
+                healthBar.SetHealth(playerHP - dmg);
+
             if (!GameManager.isOnline)
             {
                 TakeDamageRPC(dmg);
@@ -141,10 +170,6 @@ namespace Player
             else if (GameManager.isOnline && view.IsMine)
             {
                 view.RPC("TakeDamageRPC", RpcTarget.All, dmg);
-            }
-            if (playerHP <= -1)
-            {
-                sceneLoader.LoadByIndex(GameManager.getSceneIndex(), GameManager.getCheckpoint());
             }
         }
 
