@@ -148,7 +148,7 @@ namespace Player
             if (!GameManager.isOnline)
                 sceneLoader.LoadByIndex(GameManager.getSceneIndex(), GameManager.getCheckpoint());
             else if (GameManager.isOnline)
-                respawn();
+                StartCoroutine(respawn());
 
             var vfxDuration = 1f;
             Destroy(deathvfx, vfxDuration);
