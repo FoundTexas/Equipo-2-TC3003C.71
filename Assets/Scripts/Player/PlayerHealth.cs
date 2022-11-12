@@ -23,9 +23,20 @@ namespace Player
         private float invFrames = 0f; // Invincivility frames after getting hit
         private HitStop hitStop;
         private Move playerMove;
-        private SceneLoader sceneLoader;
+        public SceneLoader sceneLoader;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
+        private void OnEnable() 
+        {
+            view = GetComponent<PhotonView>();
+            if (view.IsMine)
+            {
+                 if (!healthBar)
+                    healthBar = FindObjectOfType<HealthBar>();
+
+                healthBar.SetMaxHealth(maxHP);
+            }
+        }
         void Start()
         {
             view = GetComponent<PhotonView>();
@@ -108,29 +119,6 @@ namespace Player
             healthBar.SetHealth(playerHP);
         }
 
-        IEnumerator respawn()
-        {
-            yield return new WaitForSeconds(2);
-            GameObject[] others = GameObject.FindGameObjectsWithTag("Player");
-            if (others.Length > 0)
-            {
-                playerHP = maxHP;
-               
-                if (view.IsMine)
-                {
-                    healthBar.SetMaxHealth(maxHP);
-                }
-
-                transform.position = GameManager.getCheckpoint();
-                gameObject.SetActive(true);
-            }
-            else
-            {
-                sceneLoader.LoadOnline();
-            }
-
-        }
-
         // ----------------------------------------------------------------------------------------------- Interface IDamage
         /// <summary>
         /// Interface Abstract method in charge of the death routine of the assigned Object.
@@ -143,13 +131,16 @@ namespace Player
             GameObject deathvfx = Instantiate(explosionFx, vfxPos, Quaternion.identity);
 
             hitStop.HitStopFreeze(10f, 1f);
-            gameObject.SetActive(false);
 
             if (!GameManager.isOnline)
                 sceneLoader.LoadByIndex(GameManager.getSceneIndex(), GameManager.getCheckpoint());
             else if (GameManager.isOnline && view.IsMine)
-                StartCoroutine(respawn());
+            {
+                playerHP = maxHP;
+                FindObjectOfType<PlayerSpawner>().respawnPlayer(this);
+            }
 
+            gameObject.SetActive(false);
             var vfxDuration = 1f;
             Destroy(deathvfx, vfxDuration);
 

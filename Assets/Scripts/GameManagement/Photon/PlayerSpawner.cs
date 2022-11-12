@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using GameManagement;
+using Player;
 
 public class PlayerSpawner : MonoBehaviour
 {
@@ -26,6 +27,25 @@ public class PlayerSpawner : MonoBehaviour
         {
             g.GetComponent<Move>().setCam(sm);
         }
+    }
 
+    public void respawnPlayer(PlayerHealth p)
+    {
+        StartCoroutine(respawn(p));
+    }
+
+    IEnumerator respawn(PlayerHealth p)
+    {
+        yield return new WaitForSeconds(2);
+        GameObject[] others = GameObject.FindGameObjectsWithTag("Player");
+        if (others.Length > 0)
+        {
+            transform.position = GameManager.getCheckpoint();
+            gameObject.SetActive(true);
+        }
+        else
+        {
+            p.sceneLoader.LoadOnline();
+        }
     }
 }
