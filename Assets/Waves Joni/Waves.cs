@@ -89,19 +89,21 @@ public class Waves : MonoBehaviour
                 SpawnerW spawnerW = points.GetComponent<SpawnerW>();
                 if (spawnerW.GetSpawnBool())
                 {
-                    if (currentEnemies < numEnemy[rounds])
+                    if (currentEnemies < numEnemy[rounds] && !allSpawned)
                     {
                         StartCoroutine(SpawnEnemies_(points, timeRandom));
                         currentEnemies++;
+                        if (currentEnemies == numEnemy[rounds]) { allSpawned = true; }
                         yield return new WaitForSeconds(timeRandom + .5f);
 
                     }
-                    //if (currentEnemies == numEnemy[rounds]) { allSpawned = true; }
-
+                    else if (allSpawned)
+                    {
+                        break;
+                    }
                 }
             }
         }
-
         rounds++;
         isStarted = true;
     }
