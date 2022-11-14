@@ -26,16 +26,56 @@ public class EnemyWaves : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (Vector3.Distance(transform.position, playerTransform.position) <= chaseRadius)
+        if (playerTransform2)
         {
-            destPos = playerTransform.position;
-            //print("player in sight");
-        }else if(Vector3.Distance(transform.position, playerTransform.position) >= chaseRadius)
+            if (Vector3.Distance(transform.position, playerTransform.position) < Vector3.Distance(transform.position, playerTransform2.position))
+            {
+                if (Vector3.Distance(transform.position, playerTransform.position) <= chaseRadius)
+                {
+                    destPos = SetPlayerDest(playerTransform);
+                    //print("player in sight");
+                }
+                else if (Vector3.Distance(transform.position, playerTransform.position) >= chaseRadius)
+                {
+                    //print("player out of sight");
+                    destPos = mapCenter.position;
+                }
+                
+            }
+            else
+            {
+                if (Vector3.Distance(transform.position, playerTransform2.position) <= chaseRadius)
+                {
+                    destPos = SetPlayerDest(playerTransform2);
+                    //print("player in sight");
+                }
+                else if (Vector3.Distance(transform.position, playerTransform2.position) >= chaseRadius)
+                {
+                    //print("player out of sight");
+                    destPos = mapCenter.position;
+                }
+            }
+        }
+        else
         {
-            //print("player out of sight");
-            destPos = mapCenter.position;
+            if (Vector3.Distance(transform.position, playerTransform.position) <= chaseRadius)
+            {
+                destPos = SetPlayerDest(playerTransform);
+                //print("player in sight");
+            }
+            else if (Vector3.Distance(transform.position, playerTransform.position) >= chaseRadius)
+            {
+                //print("player out of sight");
+                destPos = mapCenter.position;
+            }
         }
         enemyAgent.SetDestination(destPos);
+
+    }
+
+   private Vector3 SetPlayerDest(Transform playerTransform)
+    {
+        return playerTransform.position;
     }
 
 }
