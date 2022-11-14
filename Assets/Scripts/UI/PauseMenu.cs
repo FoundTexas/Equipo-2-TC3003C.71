@@ -58,7 +58,7 @@ namespace PlanetCrashUI
         /// <summary>
         /// Method that handels how the game is paused.
         /// </summary>
-        void Pause()
+        public void Pause()
         {
             player = GameManager.GetLocalPlayer();
             playerMove = player.GetComponent<Move>();
