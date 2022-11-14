@@ -29,10 +29,10 @@ public class EnemyWaves : MonoBehaviour
         if (Vector3.Distance(transform.position, playerTransform.position) <= chaseRadius)
         {
             destPos = playerTransform.position;
-            print("player in sight");
+            //print("player in sight");
         }else if(Vector3.Distance(transform.position, playerTransform.position) >= chaseRadius)
         {
-            print("player out of sight");
+            //print("player out of sight");
             destPos = mapCenter.position;
         }
         enemyAgent.SetDestination(destPos);

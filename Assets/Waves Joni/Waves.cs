@@ -87,6 +87,7 @@ public class Waves : MonoBehaviour
     }
     private IEnumerator SpawnEnemies()
     {
+        int currentEnem = 0;
         while (currentEnemies < numEnemy[rounds])
         {
             foreach (Transform points in spawnPoints)
@@ -98,17 +99,23 @@ public class Waves : MonoBehaviour
                     SpawnerW spawnerW = points.GetComponent<SpawnerW>();
                     if (spawnerW.GetSpawnBool())
                     {
-                        if (currentEnemies < numEnemy[rounds] && !allSpawned)
+                        if (currentEnemies < numEnemy[rounds])
                         {
                             StartCoroutine(SpawnEnemies_(points, timeRandom));
                             currentEnemies++;
-                            if (currentEnemies == numEnemy[rounds]) { allSpawned = true; }
+                            currentEnem++;
+                            if (currentEnem == numEnemy[rounds]) {allSpawned = true; }
                             yield return new WaitForSeconds(timeRandom + .5f);
-
                         }
                         else if (allSpawned)
                         {
-                            break;
+                            Debug.Log("all");
+                            if (currentEnemies == 0)
+                            {
+                                allSpawned = false;
+                                break;
+                            }
+                           
                         }
                     }
                 }

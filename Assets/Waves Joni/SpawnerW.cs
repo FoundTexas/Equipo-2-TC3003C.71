@@ -11,15 +11,11 @@ public class SpawnerW : MonoBehaviour
     {
         layerMask = LayerMask.GetMask("Obstacle");
         isSpawnable = true;
-        Ray ray = new Ray(transform.position - new Vector3(5, 0, 0), transform.right);
-        Ray ray_ = new Ray(transform.position - new Vector3(0, 0, 5), transform.forward);
-        RaycastHit hitData;
-        RaycastHit hitData_;
-        Debug.DrawRay(transform.position, transform.right * 10, Color.red);
-        if (Physics.Raycast(ray, out hitData, 10, layerMask) || Physics.Raycast(ray_, out hitData_, 10, layerMask))
+        if (Physics.CheckSphere(transform.position, 1))
         {
             isSpawnable = false;
         }
+        
     }
     private void Update()
     {

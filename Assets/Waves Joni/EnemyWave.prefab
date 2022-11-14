@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4986679600767641226}
   - component: {fileID: 1736496633054738354}
   - component: {fileID: 4877956225226853925}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: EnemyWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
