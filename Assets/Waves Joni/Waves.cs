@@ -17,6 +17,7 @@ public class Waves : MonoBehaviour
     public List<int> numEnemy = new List<int>();
     bool isStarted = true;
     bool isEnded = false;
+    bool allSpawned = false;
 
     void StartPoints()
     {
@@ -33,6 +34,7 @@ public class Waves : MonoBehaviour
 
     private void OnEnable()
     {
+        allSpawned = false;
         isEnded = false;
         isStarted = true;
         StartPoints();
@@ -66,7 +68,7 @@ public class Waves : MonoBehaviour
             {
                 isStarted = false;
                 currentEnemies = 0;
-                SpawnEnemies();
+                StartCoroutine(SpawnEnemies());
             }
         }
         else if (!isEnded)
@@ -77,29 +79,34 @@ public class Waves : MonoBehaviour
 
         }
     }
-    private void SpawnEnemies()
+    private IEnumerator SpawnEnemies()
     {
-        while (currentEnemies < numEnemy[rounds]) { 
-           
+        while (currentEnemies < numEnemy[rounds])
+        {
             foreach (Transform points in transform)
             {
+                float timeRandom = Random.Range(1f, 10f);
                 SpawnerW spawnerW = points.GetComponent<SpawnerW>();
                 if (spawnerW.GetSpawnBool())
                 {
                     if (currentEnemies < numEnemy[rounds])
                     {
-                        spawnedEnemies.Add(Instantiate(EnemyToSpawn, points.position, Quaternion.identity));
+                        StartCoroutine(SpawnEnemies_(points, timeRandom));
                         currentEnemies++;
+                        yield return new WaitForSeconds(timeRandom + .5f);
+
                     }
+                    //if (currentEnemies == numEnemy[rounds]) { allSpawned = true; }
+
                 }
             }
         }
+
         rounds++;
         isStarted = true;
     }
-    private IEnumerator SpawnEnemies_(Transform points)
+    private IEnumerator SpawnEnemies_(Transform points, float timeRandom)
     {
-        float timeRandom = Random.Range(1f, 10f);
         yield return new WaitForSeconds(timeRandom);
         spawnedEnemies.Add(Instantiate(EnemyToSpawn, points.position, Quaternion.identity));
     }
