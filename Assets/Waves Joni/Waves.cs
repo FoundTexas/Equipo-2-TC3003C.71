@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using GameManagement;
 
 public class Waves : MonoBehaviour
@@ -82,7 +81,6 @@ public class Waves : MonoBehaviour
             isEnded = true;
             endEvent.SetEnded(true);
             GameManager.SaveGame();
-
         }
     }
     private IEnumerator SpawnEnemies()
@@ -92,7 +90,7 @@ public class Waves : MonoBehaviour
         {
             foreach (Transform points in spawnPoints)
             {
-                float timeRandom = Random.Range(1f, 7f);
+                float timeRandom = Random.Range(1f, 5f);
                 int skipInt = ((int)Random.Range(1f, 10f));
                 if (skipInt > 8)
                 {
@@ -115,7 +113,6 @@ public class Waves : MonoBehaviour
                                 allSpawned = false;
                                 break;
                             }
-                           
                         }
                     }
                 }
