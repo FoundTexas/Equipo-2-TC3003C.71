@@ -14,6 +14,7 @@ public class Waves : MonoBehaviour
     public int currentEnemies;
     public InGameEvent endEvent;
     public List<GameObject> spawnedEnemies = new List<GameObject>();
+    public List<Transform> spawnPoints = new List<Transform>();
     public List<int> numEnemy = new List<int>();
     bool isStarted = true;
     bool isEnded = false;
@@ -30,6 +31,11 @@ public class Waves : MonoBehaviour
                 spawn.transform.localPosition += spawn.transform.forward * i * 5;
             }
         }
+        foreach (Transform spawnPoint in transform)
+        {
+            spawnPoints.Add(spawnPoint);
+        }
+        spawnPoints.Reverse();
     }
 
     private void OnEnable()
@@ -83,23 +89,27 @@ public class Waves : MonoBehaviour
     {
         while (currentEnemies < numEnemy[rounds])
         {
-            foreach (Transform points in transform)
+            foreach (Transform points in spawnPoints)
             {
-                float timeRandom = Random.Range(1f, 10f);
-                SpawnerW spawnerW = points.GetComponent<SpawnerW>();
-                if (spawnerW.GetSpawnBool())
+                float timeRandom = Random.Range(1f, 7f);
+                int skipInt = ((int)Random.Range(1f, 10f));
+                if (skipInt > 8)
                 {
-                    if (currentEnemies < numEnemy[rounds] && !allSpawned)
+                    SpawnerW spawnerW = points.GetComponent<SpawnerW>();
+                    if (spawnerW.GetSpawnBool())
                     {
-                        StartCoroutine(SpawnEnemies_(points, timeRandom));
-                        currentEnemies++;
-                        if (currentEnemies == numEnemy[rounds]) { allSpawned = true; }
-                        yield return new WaitForSeconds(timeRandom + .5f);
+                        if (currentEnemies < numEnemy[rounds] && !allSpawned)
+                        {
+                            StartCoroutine(SpawnEnemies_(points, timeRandom));
+                            currentEnemies++;
+                            if (currentEnemies == numEnemy[rounds]) { allSpawned = true; }
+                            yield return new WaitForSeconds(timeRandom + .5f);
 
-                    }
-                    else if (allSpawned)
-                    {
-                        break;
+                        }
+                        else if (allSpawned)
+                        {
+                            break;
+                        }
                     }
                 }
             }
