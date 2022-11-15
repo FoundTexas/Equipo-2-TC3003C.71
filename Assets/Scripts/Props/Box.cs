@@ -54,7 +54,7 @@ namespace Props
         /// <param name="dmg"> Amount of damage taken. </param>
         public void TakeDamage(float dmg)
         {
-            if (GameManager.isOnline)
+            if (GameManager.isOnline && PhotonNetwork.IsMasterClient)
             {
                 pv.RPC("PunRPCupdateVisuals", RpcTarget.All);
                 pv.RPC("TakeDamageRPC", RpcTarget.All, dmg);
