@@ -13,15 +13,20 @@ public class LevelSelectUI : MonoBehaviour
     public GameObject canvas;
     public GameObject pauseMenu;
     public GameObject pauseCamera;
+    public GameObject background;
+    public EventSystemUpdater events;
+    public GameObject firstButton;
+    public GameObject resumeButton;
+    
     private void OnEnable()
-        {
-            pauseInput.Enable();
-            pauseInput.performed += PuseInput;
-        }
-        private void OnDisable()
-        {
-            pauseInput.Disable();
-        }
+    {
+        pauseInput.Enable();
+        pauseInput.performed += PuseInput;
+    }
+    private void OnDisable()
+    {
+        pauseInput.Disable();
+    }
     void OnTriggerEnter(Collider col)
     {
         if(col.gameObject.tag == "Player" && (!GameManager.isOnline || PhotonNetwork.IsMasterClient))
@@ -29,8 +34,10 @@ public class LevelSelectUI : MonoBehaviour
             if(levelSelectMenu.activeInHierarchy == false)
             {
                 canvas.GetComponent<PauseMenu>().Pause();
+                events.UpdateSelected(firstButton);
                 pauseMenu.SetActive(false);
                 pauseCamera.SetActive(false);
+                background.SetActive(false);
                 levelSelectMenu.SetActive(true);
                 menuCamera.SetActive(true);
             }                 
@@ -46,6 +53,7 @@ public class LevelSelectUI : MonoBehaviour
     {
         levelSelectMenu.SetActive(false);
         menuCamera.SetActive(false);
+        events.UpdateSelected(resumeButton);
         canvas.GetComponent<PauseMenu>().Resume();
     }
 
