@@ -185,7 +185,7 @@ namespace GameManagement
 
                     GameManager.FirstPos(0);
                     anim.SetTrigger("FadeIn");
-                    PhotonNetwork.LoadLevel(sceneIndex);
+                    PhotonNetwork.LoadLevel(sceneName);
                 }
             }
             else
