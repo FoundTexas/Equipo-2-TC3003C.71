@@ -18,26 +18,38 @@ namespace Player
         public HealthBar healthBar;
         public GameObject explosionFx;
         public GameObject forceField;
-        [Min(0)] public float maxHP = 6;
+        [Min(0)] public float maxHP = 4;
         private float playerHP;
         private float invFrames = 0f; // Invincivility frames after getting hit
         private HitStop hitStop;
-        private SceneLoader sceneLoader;
+        private Move playerMove;
+        public SceneLoader sceneLoader;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
+        private void OnEnable() 
+        {
+            view = GetComponent<PhotonView>();
+            if (view.IsMine)
+            {
+                 if (!healthBar)
+                    healthBar = FindObjectOfType<HealthBar>();
+
+                healthBar.SetMaxHealth(maxHP);
+            }
+        }
         void Start()
         {
             view = GetComponent<PhotonView>();
+            playerMove = GetComponent<Move>();
+            playerHP = maxHP;
             sceneLoader = GameObject.FindWithTag("SceneLoader").GetComponent<SceneLoader>();
+            GameObject manager = GameObject.FindWithTag("Manager");
+            if (manager != null)
+                hitStop = manager.GetComponent<HitStop>();
+
             if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
             {
-                // Initialize private components
-                GameObject manager = GameObject.FindWithTag("Manager");
-                if (manager != null)
-                    hitStop = manager.GetComponent<HitStop>();
-
                 // Establish original values
-                playerHP = maxHP;
                 if (!healthBar)
                     healthBar = FindObjectOfType<HealthBar>();
                 healthBar.SetMaxHealth(maxHP);
@@ -68,21 +80,18 @@ namespace Player
                 forceField.SetActive(false);
         }
 
-        void OnCollisionEnter(Collision collision)
-        {
-            if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
-            {
-                if (collision.gameObject.tag == "Enemy" && invFrames <= 0)
-                    TakeDamage(1);
-            }
-        }
-
         void OnTriggerEnter(Collider collision)
         {
             if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
             {
                 if (collision.gameObject.tag == "Enemy" && invFrames <= 0)
+                {
+                    Vector3 dir = transform.position - collision.transform.position;
+                    dir = dir.normalized + Vector3.up;
+                    playerMove.AddForce(15f, dir, 0.5f);
                     TakeDamage(1);
+                }
+
             }
         }
 
@@ -135,9 +144,16 @@ namespace Player
             GameObject deathvfx = Instantiate(explosionFx, vfxPos, Quaternion.identity);
 
             hitStop.HitStopFreeze(10f, 1f);
+
+            if (!GameManager.isOnline)
+                sceneLoader.LoadByIndex(GameManager.getSceneIndex(), GameManager.getCheckpoint());
+            else if (GameManager.isOnline && view.IsMine)
+            {
+                playerHP = maxHP;
+                FindObjectOfType<PlayerSpawner>().respawnPlayer(this);
+            }
+
             gameObject.SetActive(false);
-            sceneLoader.LoadByIndex(GameManager.getSceneIndex(), GameManager.getCheckpoint());
-            
             var vfxDuration = 1f;
             Destroy(deathvfx, vfxDuration);
 
@@ -149,7 +165,9 @@ namespace Player
         /// <param name="dmg"> Amount of damage taken. </param>
         public virtual void TakeDamage(float dmg)
         {
-            healthBar.SetHealth(playerHP-dmg);
+            if (healthBar)
+                healthBar.SetHealth(playerHP - dmg);
+
             if (!GameManager.isOnline)
             {
                 TakeDamageRPC(dmg);
@@ -167,14 +185,7 @@ namespace Player
             playerHP -= dmg;
             if (playerHP <= -1)
             {
-                if (GameManager.isOnline)
-                {
-                    view.RPC("PunRPCDie", RpcTarget.All);
-                }
-                else if (!GameManager.isOnline)
-                {
-                    PunRPCDie();
-                }
+                Die();
             }
             else
             {

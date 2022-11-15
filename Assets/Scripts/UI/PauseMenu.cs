@@ -42,11 +42,9 @@ namespace PlanetCrashUI
         }
         void Start()
         {
+            isPaused = false;
             brightness.TryGetSettings(out exposure);
             sceneLoader = FindObjectOfType<SceneLoader>();
-            player = GameObject.FindWithTag("Player");
-            playerMove = player.GetComponent<Move>();
-            mainCamera = Camera.main;
             AudioListener.volume = 0.5f;
         }
 
@@ -61,8 +59,11 @@ namespace PlanetCrashUI
         /// <summary>
         /// Method that handels how the game is paused.
         /// </summary>
-        void Pause()
+        public void Pause()
         {
+            player = GameManager.GetLocalPlayer();
+            playerMove = player.GetComponent<Move>();
+            mainCamera = Camera.main;
             updater.UpdateSelected(resumeButton);
             pauseCamera.gameObject.SetActive(true);
             pauseCamera.gameObject.tag = "MainCamera";
@@ -82,6 +83,8 @@ namespace PlanetCrashUI
         /// </summary>
         public void Resume()
         {
+            player = GameManager.GetLocalPlayer();
+            playerMove = player.GetComponent<Move>();
             pauseCamera.gameObject.SetActive(false);
             pauseCamera.gameObject.tag = "Untagged";
             playerMove.canMove = true;
@@ -102,6 +105,7 @@ namespace PlanetCrashUI
         /// </summary>
         public void LoadMenu()
         {
+            ConnectToServer.DisconectFromEvereywhere();
             Time.timeScale = 1f;
             sceneLoader.LoadByIndex(0);
         }

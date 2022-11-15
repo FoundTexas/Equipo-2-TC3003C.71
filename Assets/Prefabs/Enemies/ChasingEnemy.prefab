@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4385377375402668872}
   - component: {fileID: 3877079744909840754}
   - component: {fileID: 291311373717343488}
+  - component: {fileID: 2552754140770907855}
   m_Layer: 9
   m_Name: ChasingEnemy
   m_TagString: Enemy
@@ -153,9 +154,12 @@ MonoBehaviour:
   playerInSights: 0
   playerInRange: 0
   animator: {fileID: 291311373717343488}
+  hitStop: {fileID: 0}
+  explosionfx: {fileID: 0}
+  timePatrolling: 0
   hp: 20
   render: {fileID: 1662378209446626909}
-  hitStop: {fileID: 0}
+  dazeTime: 0
 --- !u!95 &291311373717343488
 Animator:
   serializedVersion: 4
@@ -176,3 +180,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!136 &2552754140770907855
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15646738230349973}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.6
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}

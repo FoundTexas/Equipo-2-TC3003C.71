@@ -56,4 +56,31 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
         GameManager.isOnline = true;
         FindObjectOfType<SceneLoader>().LoadOnline();
     }
+
+    public void OnClickDisconnect()
+    {
+        PhotonNetwork.Disconnect();
+        infoText.text = "";
+        GameManager.isOnline = false;
+        mainPanel.SetActive(true);
+        onlinePanel.SetActive(false);
+        load = false;
+    }
+
+    public static void DisconectFromEvereywhere()
+    {
+        // if(!PhotonNetwork.IsMasterClient)
+        //     return;
+        // PhotonNetwork.CurrentRoom.IsOpen = false;
+        // PhotonNetwork.CurrentRoom.EmptyRoomTtl = 0;
+        // PhotonNetwork.CurrentRoom.PlayerTtl = 0;
+        
+        // foreach(var player in PhotonNetwork.PlayerListOthers)
+        // {
+        //     PhotonNetwork.CloseConnection(player);
+        // }
+    
+        PhotonNetwork.Disconnect();
+        GameManager.isOnline = false;
+    }
 }

@@ -10,6 +10,7 @@ namespace Optimization_Module
     /// </summary>
     public class RenderObject : MonoBehaviour
     {
+        public bool canDestroy = false;
         bool isApplicationQuitting = false;
         Renderer render;
 
@@ -22,14 +23,17 @@ namespace Optimization_Module
         }
         private void OnDestroy()
         {
-            if (isApplicationQuitting)
-            {
-                return;
-            }
-            else  if (!isApplicationQuitting)
-            {
-                FindObjectOfType<RadarVFC>().RemoveSceneObj(this);
-            }
+            // if (canDestroy)
+            // {
+            //     if (isApplicationQuitting)
+            //     {
+            //         return;
+            //     }
+            //     else if (!isApplicationQuitting)
+            //     {
+            //         FindObjectOfType<RadarVFC>().RemoveSceneObj(this);
+            //     }
+            // }
         }
         void OnApplicationQuit()
         {

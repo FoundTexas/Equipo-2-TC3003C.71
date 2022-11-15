@@ -79,6 +79,7 @@ public class Move : MonoBehaviour
         view = GetComponent<PhotonView>();
         if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
         {
+            PhotonNetwork.EnableCloseConnection = true;
             MoveValue = PlayerInput.Game.WASD;
             MoveValue.Enable();
             JumpInput = PlayerInput.Game.Jump;
@@ -409,6 +410,12 @@ public class Move : MonoBehaviour
     {
         canMove = false;
         yield return new WaitForSeconds(time);
+        canMove = true;
+    }
+
+    public void Respawned()
+    {
+        StopAllCoroutines();
         canMove = true;
     }
 }

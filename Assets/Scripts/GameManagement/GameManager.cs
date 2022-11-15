@@ -49,17 +49,107 @@ public class GameManager : MonoBehaviour
 
     public static Vector3 getCheckpoint()
     {
-        if (inst.CheckPoint == Vector3.zero)
+        Vector3 pos = Vector3.zero;
+        if (PhotonNetwork.IsMasterClient && isOnline || !isOnline)
         {
-            return FirstPos(SceneManager.GetActiveScene().buildIndex);
-        }
+            pos = inst.CheckPoint;
+            if (inst.CheckPoint == Vector3.zero)
+            {
+                pos = FirstPos(SceneManager.GetActiveScene().buildIndex);
+            }
+            if (isOnline && PhotonNetwork.IsMasterClient)
+            {
+                var hash = PhotonNetwork.CurrentRoom.CustomProperties;
 
-        return inst.CheckPoint;
+                if(hash.ContainsKey("CheckPoint"))
+                {
+                    hash["CheckPoint"] = JsonUtility.ToJson(pos);
+                }
+                else if(!hash.ContainsKey("CheckPoint"))
+                {
+                    hash.Add("CheckPoint", JsonUtility.ToJson(pos));
+                }
+                
+                PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
+            }
+        }
+        else if (!PhotonNetwork.IsMasterClient && isOnline)
+        {
+            string json = PhotonNetwork.CurrentRoom.CustomProperties["CheckPoint"].ToString();
+            if(json != "")
+            {
+                pos = JsonUtility.FromJson<Vector3>(json);
+            }
+            else
+            {
+                pos = FirstPos(SceneManager.GetActiveScene().buildIndex);
+            }
+        }
+        return pos;
     }
 
     public static void setCheckPoint(Vector3 newPos)
     {
-        inst.CheckPoint = newPos;
+        if (PhotonNetwork.IsMasterClient || !isOnline)
+        {
+            inst.CheckPoint = newPos;
+            if (isOnline)
+            {
+                var hash = PhotonNetwork.CurrentRoom.CustomProperties;
+                if(hash.ContainsKey("CheckPoint"))
+                {
+                    hash["CheckPoint"] = JsonUtility.ToJson(newPos);
+                }
+                else if(!hash.ContainsKey("CheckPoint"))
+                {
+                    hash.Add("CheckPoint", JsonUtility.ToJson(newPos));
+                }
+                
+                PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
+            }
+        }
+    }
+
+    public static GameObject GetLocalPlayer()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        if (players.Length == 1)
+            return players[0];
+
+        foreach (GameObject player in players)
+        {
+            Debug.Log(player.name);
+            if (!isOnline)
+            {
+                return player;
+            }
+            else if (player.GetComponent<Photon.Pun.PhotonView>().IsMine)
+            {
+                return player;
+            }
+        }
+
+        return null;
+    }
+
+    public static GameObject GetClosestTarget(Transform pos)
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        GameObject result = pos.gameObject;
+        float distance = Mathf.Infinity;
+
+        foreach (GameObject player in players)
+        {
+            float newDistance = Vector3.Distance(pos.position, player.transform.position);
+            if (newDistance <= distance)
+            {
+                distance = Mathf.Abs(newDistance);
+                result = player;
+            }
+        }
+
+        return result;
     }
 
     public static GameObject GetLocalPlayer()

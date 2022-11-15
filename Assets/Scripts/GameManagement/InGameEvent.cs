@@ -39,12 +39,10 @@ namespace GameManagement
             if (GameManager.isOnline)
             {
                 pv.RPC("PunRPCstartVals", RpcTarget.All);
-                pv.RPC("PunRPCSetSetted", RpcTarget.All);
             }
             else if (!GameManager.isOnline)
             {
                 PunRPCstartVals();
-                PunRPCSetSetted();
             }
         }
 
@@ -72,13 +70,25 @@ namespace GameManagement
             else if (values.Ended == false)
             {
                 this.gameObject.SetActive(values.Active);
+                values.Triggered = false;
             }
+
+            if (GameManager.isOnline)
+            {
+                pv.RPC("PunRPCSetSetted", RpcTarget.All);
+            }
+            else if (!GameManager.isOnline)
+            {
+                PunRPCSetSetted();
+            }
+            
 
             if (Hitted)
             {
                 print(PhotonNetwork.IsMasterClient + " InGameEvent trigger");
                 PunRPCSetTrigger();
             }
+
         }
 
         [PunRPC]

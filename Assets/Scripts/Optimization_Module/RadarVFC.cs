@@ -22,6 +22,7 @@ namespace Optimization_Module
         }
         void Update()
         {
+            SceneObjs.RemoveAll(x => x == null);
             foreach (RenderObject render in SceneObjs)
             {
                 render.SetRender(Frustum(render.gameObject));

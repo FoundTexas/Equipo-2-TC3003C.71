@@ -38,8 +38,12 @@ namespace Player
         /// <param name="floor"> string containing the name of the type of floor (material) </param>
         public void StepSound(string floor)
         {
-            int sound_index = ground[floor];
-            audios.PlayOneShot(Random.Range(0,2) == 0? step[sound_index] : step2[sound_index]);
+            if(ground.ContainsKey(floor))
+            {
+                int sound_index = ground[floor];
+                audios.PlayOneShot(Random.Range(0,2) == 0? step[sound_index] : step2[sound_index]);
+            }
+            
         }
 
         /// <summary>

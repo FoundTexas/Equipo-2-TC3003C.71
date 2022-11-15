@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class CheckPoint : MonoBehaviour
 {
@@ -36,22 +37,26 @@ public class CheckPoint : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (PhotonNetwork.IsMasterClient || !GameManager.isOnline)
         {
-            GameManager.setCheckPoint(pos);
-            collected = true;
-
-            foreach(var cp in others)
+            if (other.gameObject.CompareTag("Player"))
             {
-                if (cp.gameObject != this.gameObject)
+                Debug.Log("Check");
+                GameManager.setCheckPoint(pos);
+                collected = true;
+
+                foreach (var cp in others)
                 {
-                    cp.disableval();
+                    if (cp.gameObject != this.gameObject)
+                    {
+                        cp.disableval();
+                    }
                 }
-            }
 
-            if (saver)
-            {
-                GameManager.SaveGame();
+                if (saver)
+                {
+                    GameManager.SaveGame();
+                }
             }
         }
     }
