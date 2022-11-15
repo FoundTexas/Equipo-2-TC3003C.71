@@ -84,17 +84,6 @@ namespace WeaponSystem
                 weapons[i].gameObject.SetActive(false);
             }
 
-            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
-            {
-                if (!GameManager.isOnline)
-                {
-                    PunRPCToggleWeapon();
-                }
-                else if (GameManager.isOnline)
-                {
-                    view.RPC("PunRPCToggleWeapon", RpcTarget.All);
-                }
-            }
             if (unlocked.unlock.Count > 0)
             {
                 selected = weapons[weaponDictionary[unlocked.unlock[0]]];
