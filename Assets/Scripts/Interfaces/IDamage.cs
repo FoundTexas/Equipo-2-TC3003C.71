@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace Interfaces
 {
@@ -12,7 +13,8 @@ namespace Interfaces
         /// <summary>
         /// Interface Abstract method used to give and object a dead routine.
         /// </summary>
-        public void Die();
+        [PunRPC]
+        public void PunRPCDie();
         /// <summary>
         /// Interface Abstract method that handels when an object takes damage.
         /// </summary>

@@ -1,4 +1,5 @@
 using Interfaces;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -41,6 +42,20 @@ namespace GameManagement
                 int index = SceneManager.GetSceneByName(name).buildIndex;
                 GameManager.FirstPos(index);
                 Load(index);
+            }
+        }
+
+        public void EndScene()
+        {
+            int i = SceneManager.GetActiveScene().buildIndex;
+            PlayerPrefs.SetInt("Loader.1", i);
+            if(GameManager.isOnline)
+            {
+                LoadOnline(2);
+            }
+            else
+            {
+                LoadByIndex(2);
             }
         }
         /// <summary>
@@ -126,6 +141,27 @@ namespace GameManagement
 
             LoadByIndex(i);
         }
+        public void LoadOnline(int sceneIndex = -1)
+        {
+            int i = 1;
+            if (PlayerPrefs.HasKey("Loader.1"))
+            {
+                i = PlayerPrefs.GetInt("Loader.1");
+            }
+            if(sceneIndex != -1)
+            {
+                i = sceneIndex;
+            }
+
+            if (!loading)
+            {
+                loading = true;
+                GameManager.FirstPos(i);
+                anim.SetTrigger("FadeIn");
+                PhotonNetwork.LoadLevel(i);
+            }
+        }
+
         public void RestartGame()
         {
             if (!loading)

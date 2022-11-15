@@ -1,5 +1,6 @@
 using Collectables;
 using Interfaces;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace Props
 {
     public class Box : MonoBehaviour, IDamage
     {
+        PhotonView pv;
         [Header("Box Stats")]
 
         [Tooltip("The max amount of hit points of the box")]
@@ -21,8 +23,14 @@ namespace Props
 
         private void Start()
         {
+            pv = GetComponent<PhotonView>();
             hp = maxhp;
             render = GetComponent<Renderer>();
+        }
+        [PunRPC]
+        void PunRPCupdateVisuals()
+        {
+            render.material.color = new Color(1, hp / maxhp, hp / maxhp);
         }
 
         // ----------------------------------------------------------------------------------------------- Interface IDamage
@@ -30,7 +38,8 @@ namespace Props
         /// <summary>
         /// Interface Abstract method in charge of the death routine of the assigned Object.
         /// </summary>
-        public void Die()
+        [PunRPC]
+        public void PunRPCDie()
         {
             GetComponent<Dropper>().Spawn();
             Instantiate(ExplosiveCrate, transform.position, Quaternion.identity);
@@ -40,14 +49,30 @@ namespace Props
         /// Interface Abstract method that handels when an object takes damage.
         /// </summary>
         /// <param name="dmg"> Amount of damage taken. </param>
+
         public void TakeDamage(float dmg)
         {
             hp -= dmg;
-            render.material.color = new Color(1, hp / maxhp, hp / maxhp);
+
+            if (GameManager.isOnline)
+            {
+                pv.RPC("PunRPCupdateVisuals", RpcTarget.All);
+            }
+            else if (!GameManager.isOnline)
+            {
+                PunRPCupdateVisuals();
+            }
 
             if (hp < 0)
             {
-                Die();
+                if (GameManager.isOnline)
+                {
+                    pv.RPC("PunRPCDie", RpcTarget.All);
+                }
+                else if (!GameManager.isOnline)
+                {
+                    PunRPCDie();
+                }
             }
         }
         /// <summary>

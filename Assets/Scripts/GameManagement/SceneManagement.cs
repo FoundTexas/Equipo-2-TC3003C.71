@@ -8,10 +8,13 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 using Collectables;
 using Interfaces;
+using Cinemachine;
 using Player;
+using Photon.Pun;
 
 [Serializable]
-public class jsonbools{
+public class jsonbools
+{
     public bool[] Values;
 }
 
@@ -20,9 +23,11 @@ namespace GameManagement
     [Serializable]
     public class SceneManagement : MonoBehaviour, ISave
     {
+        PhotonView myview;
         public Collectable[] collect;
-        InGameEvent[] events;
+        public InGameEvent[] events;
         public TextMeshProUGUI Amount;
+        public CinemachineFreeLook cam;
 
         public float Scenevalue = -20;
 
@@ -33,6 +38,7 @@ namespace GameManagement
         {
             collect = FindObjectsOfType<Collectable>();
             events = FindObjectsOfType<InGameEvent>();
+
             FromJson();
 
             worldMinY = Scenevalue;
@@ -45,6 +51,22 @@ namespace GameManagement
                 + " / " + collect.ToList().Count;
         }
         // ----------------------------------------------------------------------------------------------- Public Methods
+
+        public void SetCam(Transform target)
+        {
+            if (cam)
+            {
+                FollowPlayer[] follows = FindObjectsOfType<FollowPlayer>();
+
+                foreach (var follow in follows)
+                {
+                    follow.setFollow(target);
+                }
+                
+                cam.Follow = target;
+                cam.LookAt = target;
+            }
+        }
 
         void UpdateValues()
         {
@@ -76,31 +98,52 @@ namespace GameManagement
                     PlayerPrefs.SetString(sname + "c" + i + "1", tmps);
                 }
                 JsonUtility.FromJsonOverwrite(tmps, c);
-
-                Debug.Log(JsonUtility.ToJson(c));
-                Debug.Log(PlayerPrefs.HasKey(sname + "c" + i + "1"));
             }
 
-            //foreach(var e in events)
-            for (int i = 0; i < events.ToList().Count; i++)
+            if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
             {
-                InGameEvent e = events [i];
-                e.index = i;
-                string tmps = JsonUtility.ToJson(e.values);
 
-                if (PlayerPrefs.HasKey(sname + "e" + i + "1"))
+                //foreach(var e in events)
+
+                for (int i = 0; i < events.ToList().Count; i++)
                 {
-                    tmps = PlayerPrefs.GetString(sname + "e" + i + "1");
+                    InGameEvent e = events[i];
+                    e.index = i;
+                    string tmps = JsonUtility.ToJson(e.values);
+
+                    if (PlayerPrefs.HasKey(sname + "e" + i + "1"))
+                    {
+                        tmps = PlayerPrefs.GetString(sname + "e" + i + "1");
+                    }
+                    else
+                    {
+                        tmps = JsonUtility.ToJson(e.values);
+                        PlayerPrefs.SetString(sname + "e" + i + "1", tmps);
+                    }
+                    JsonUtility.FromJsonOverwrite(tmps, e.values);
+
+                    // var hash = PhotonNetwork.CurrentRoom.CustomProperties;
+                    // hash.Add(sname + "e" + i + "1", tmps);
+                    PhotonNetwork.CurrentRoom.CustomProperties[sname + "e" + i + "1"] = tmps;
+                    //Debug.Log(JsonUtility.ToJson(e.gameObject.name));
+                    //Debug.Log(JsonUtility.ToJson(e.values));
+                    //Debug.Log(PlayerPrefs.HasKey(sname + "e" + i + "1"));
+                    e.StartVals();
                 }
-                else
+            }
+            else if (!PhotonNetwork.IsMasterClient)
+            {
+                for (int i = 0; i < events.ToList().Count; i++)
                 {
-                    tmps = JsonUtility.ToJson(e.values);
+                    InGameEvent e = events[i];
+                    e.index = i;
+                    e.Setted = true;
+                    string tmps = JsonUtility.ToJson(e.values);
+                    // string eventName = sname + "e" + i + "1";
+                    // tmps = PhotonNetwork.CurrentRoom.CustomProperties[eventName].ToString();
                     PlayerPrefs.SetString(sname + "e" + i + "1", tmps);
+                    print(tmps);
                 }
-                JsonUtility.FromJsonOverwrite(tmps, e.values);
-                Debug.Log(JsonUtility.ToJson(e.values));
-                Debug.Log(PlayerPrefs.HasKey(sname + "e" + i + "1"));
-                e.StartVals();
             }
             ChangeUI();
         }
@@ -115,21 +158,21 @@ namespace GameManagement
                 string tmps = JsonUtility.ToJson(e);
 
                 PlayerPrefs.SetString(sname + "c" + i + "1", tmps);
-                Debug.Log("Saving: " + e.name);
-                Debug.Log(tmps);
+                //Debug.Log("Saving: " + e.name);
+                //Debug.Log(tmps);
             }
 
             for (int i = 0; i < events.Length; i++)
             {
                 InGameEvent e = events[i];
                 string tmps = JsonUtility.ToJson(e.values);
-                
+
                 PlayerPrefs.SetString(sname + "e" + i + "1", tmps);
 
-                Debug.Log("Saving: " + e.name);
-                Debug.Log(tmps);
+                //Debug.Log("Saving: " + e.name);
+                //Debug.Log(tmps);
             }
-            Debug.Log("Saving: " + this.name);
+            //Debug.Log("Saving: " + this.name);
 
             FromJson();
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Photon.Pun;
 
 namespace GameManagement
 {
@@ -14,9 +15,12 @@ namespace GameManagement
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
             {
-                SetTrigger();
+                if (other.CompareTag("Player"))
+                {
+                    pv.RPC("PunRPCSetTrigger", RpcTarget.All);
+                }
             }
         }
     }

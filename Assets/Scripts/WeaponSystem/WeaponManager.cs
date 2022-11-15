@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using Player;
 using Interfaces;
+using Photon.Pun;
 
 namespace WeaponSystem
 {
@@ -18,7 +19,13 @@ namespace WeaponSystem
     /// </summary>
     public class WeaponManager : MonoBehaviour, ISave
     {
+
         public static bool hasWeapon = true;
+
+        //ref photon
+        public PhotonView view;
+        public PhotonView fatherview;
+
 
         PlayerInputs PlayerInput;
         InputAction SwapInput, ToggleInput;
@@ -46,37 +53,54 @@ namespace WeaponSystem
         }
         private void OnEnable()
         {
-            SwapInput = PlayerInput.Game.ChangeArm;
-            SwapInput.Enable();
-            ToggleInput = PlayerInput.Game.ToggleArm;
-            ToggleInput.Enable();
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
+            {
+                SwapInput = PlayerInput.Game.ChangeArm;
+                SwapInput.Enable();
+                ToggleInput = PlayerInput.Game.ToggleArm;
+                ToggleInput.Enable();
 
-            ToggleInput.performed += ToggleWeaponInput;
-            SwapInput.performed += Scroll;
+                ToggleInput.performed += ToggleWeaponInput;
+                SwapInput.performed += Scroll;
+            }
         }
         private void OnDisable()
         {
-            SwapInput.Disable();
-            ToggleInput.Disable();
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
+            {
+                SwapInput.Disable();
+                ToggleInput.Disable();
+            }
         }
         void Start()
         {
+
             FromJson();
             audios = GetComponentInParent<AudioAndVideoManager>();
-            Cursor.lockState = CursorLockMode.Confined;
+            //Cursor.lockState = CursorLockMode.Confined;
             for (int i = 0; i < weapons.Count; i++)
             {
                 weaponDictionary.Add(weapons[i].GetID(), i);
                 weapons[i].gameObject.SetActive(false);
             }
 
-            ToggleWeapon();
-
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
+            {
+                if (!GameManager.isOnline)
+                {
+                    PunRPCToggleWeapon();
+                }
+                else if (GameManager.isOnline)
+                {
+                    view.RPC("PunRPCToggleWeapon", RpcTarget.All);
+                }
+            }
             if (unlocked.unlock.Count > 0)
             {
                 selected = weapons[weaponDictionary[unlocked.unlock[0]]];
                 selected.gameObject.SetActive(true);
             }
+
         }
         private void LateUpdate()
         {
@@ -88,18 +112,28 @@ namespace WeaponSystem
         /// </summary>
         void Scroll(InputAction.CallbackContext callbackContext)
         {
-            if (unlocked.unlock.Count > 0)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
-
-                int selectedIndex = GetSelectedIndex();
-                selectedIndex++;
-
-                if (selectedIndex >= unlocked.unlock.Count)
+                if (unlocked.unlock.Count > 0)
                 {
-                    selectedIndex = 0;
-                }
 
-                ChangeWeapon(selectedIndex);
+                    int selectedIndex = GetSelectedIndex();
+                    selectedIndex++;
+
+                    if (selectedIndex >= unlocked.unlock.Count)
+                    {
+                        selectedIndex = 0;
+                    }
+
+                    if (!GameManager.isOnline)
+                    {
+                        PunRPCChangeWeapon(selectedIndex);
+                    }
+                    else if (GameManager.isOnline)
+                    {
+                        view.RPC("PunRPCChangeWeapon", RpcTarget.All, selectedIndex);
+                    }
+                }
             }
         }
         /// <summary>
@@ -118,12 +152,24 @@ namespace WeaponSystem
         /// </summary>
         public void ToggleWeaponInput(InputAction.CallbackContext context)
         {
-            if (unlocked.unlock.Count != 0)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
-                ToggleWeapon();
+                if (unlocked.unlock.Count != 0)
+                {
+                    if (!GameManager.isOnline)
+                    {
+                        PunRPCToggleWeapon();
+                    }
+                    else if (GameManager.isOnline)
+                    {
+                        view.RPC("PunRPCToggleWeapon", RpcTarget.All);
+                    }
+                }
             }
         }
-        public void ToggleWeapon()
+
+        [PunRPC]
+        public void PunRPCToggleWeapon()
         {
             hasWeapon = !hasWeapon;
             if (hasWeapon)
@@ -145,7 +191,8 @@ namespace WeaponSystem
         /// This Function is in charge og changing between the unlocked weapons
         /// </summary>
         /// <param name="i"> Weapon index relative to the unlocked weapons. </param>
-        public void ChangeWeapon(int i)
+        [PunRPC]
+        public void PunRPCChangeWeapon(int i)
         {
             if (unlocked.unlock.Count >= i)
             {
@@ -160,23 +207,42 @@ namespace WeaponSystem
         /// <param name="weapon"> Weapon Id given to the function. </param>
         public void UnlockWeapon(string weapon)
         {
-            if (unlocked.unlock.Contains(weapon) == false)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
-                unlocked.unlock.Add(weapon);
-            }
-            else if (unlocked.unlock.Contains(weapon))
-            {
-                weapons[weaponDictionary[weapon]].AddAmmo();
-            }
+                if (unlocked.unlock.Contains(weapon) == false)
+                {
+                    unlocked.unlock.Add(weapon);
+                }
+                else if (unlocked.unlock.Contains(weapon))
+                {
+                    weapons[weaponDictionary[weapon]].AddAmmo();
+                }
 
-            if (!hasWeapon)
-            {
-                selected = weapons[weaponDictionary[weapon]];
-                ChangeWeapon(GetSelectedIndex());
-                ToggleWeapon();
-            }
+                if (!hasWeapon)
+                {
+                    selected = weapons[weaponDictionary[weapon]];
 
-            Save();
+                    if (!GameManager.isOnline)
+                    {
+                        PunRPCChangeWeapon(GetSelectedIndex());
+                    }
+                    else if (GameManager.isOnline)
+                    {
+                        view.RPC("PunRPCChangeWeapon", RpcTarget.All, GetSelectedIndex());
+                    }
+
+                    if (!GameManager.isOnline)
+                    {
+                        PunRPCToggleWeapon();
+                    }
+                    else if (GameManager.isOnline)
+                    {
+                        view.RPC("PunRPCToggleWeapon", RpcTarget.All);
+                    }
+                }
+
+                Save();
+            }
         }
         /// <summary>
         /// This method gets the current selected weapon (can be Null) and returns the reference.
@@ -190,7 +256,7 @@ namespace WeaponSystem
         public void FromJson()
         {
             string s = JsonUtility.ToJson(unlocked);
-            Debug.Log(s);
+            //Debug.Log(s);
 
             if (PlayerPrefs.HasKey("WeaponManager.1"))
             {
@@ -203,7 +269,7 @@ namespace WeaponSystem
             }
 
             JsonUtility.FromJsonOverwrite(s, unlocked);
-            Debug.Log(JsonUtility.ToJson(this));
+            //Debug.Log(JsonUtility.ToJson(this));
         }
 
         public bool Save()
@@ -211,7 +277,7 @@ namespace WeaponSystem
             string s = JsonUtility.ToJson(unlocked);
             PlayerPrefs.SetString("WeaponManager.1", s);
 
-            Debug.Log("Saving: " + this.name);
+            //Debug.Log("Saving: " + this.name);
 
             return true;
         }

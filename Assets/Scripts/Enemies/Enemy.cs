@@ -4,13 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Photon.Pun;
 
 namespace Enemies
 {
     /// <summary>
     /// Main class of the enemy that manages its behaviour.
     /// </summary>
-    public class Enemy : MonoBehaviour, IDamage
+    public class Enemy : MonoBehaviourPun, IDamage//, IPunObservable
     {
         [Header("Enemy calculations")]
         public NavMeshAgent agent;
@@ -37,42 +38,61 @@ namespace Enemies
         [SerializeField] private Renderer render;
         private float maxHp;
 
+        PhotonView pv;
+
         // ----------------------------------------------------------------------------------------------- Unity Methods
-        void Awake()
+        void Start()
         {
-            // Initialize private components
-            player = GameObject.FindWithTag("Player").transform;
-            agent = GetComponent<NavMeshAgent>();
-            animator = GetComponent<Animator>();
-            GameObject manager = GameObject.FindWithTag("Manager");
-            if(manager!=null)
-                hitStop = manager.GetComponent<HitStop>();
-            
-            // Establish original values
-            maxHp = hp;
+            if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
+            {
+                pv = GetComponent<PhotonView>();
+                // Initialize private components
+                //player = GameObject.FindWithTag("Player").transform;
+                agent = GetComponent<NavMeshAgent>();
+                if (!PhotonNetwork.IsMasterClient && GameManager.isOnline)
+                    agent.enabled = false;
+
+                animator = GetComponent<Animator>();
+                GameObject manager = GameObject.FindWithTag("Manager");
+                if (manager != null)
+                    hitStop = manager.GetComponent<HitStop>();
+
+                // Establish original values
+                maxHp = hp;
+            }
         }
 
         void Update()
         {
-            //Check sight and attack range
-            playerInSights = Physics.CheckSphere(transform.position, sightRange, isPlayer);
-            playerInRange = Physics.CheckSphere(transform.position, attackRange, isPlayer);
 
-            //Set appropriate state based on current position of player in comparison to enemy
-            if(!playerInSights && !playerInRange)
-                Patrolling();
-            else if(playerInSights && !playerInRange)
-                Chasing();
-            else if(playerInSights && playerInRange)
-                Attacking();
+            if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
+            {
+                player = GameManager.GetClosestTarget(transform.position).transform;
+                //if (TimelineManager.enemiesCanMove)
+                //{
+                //Check sight and attack range
+                playerInSights = Physics.CheckSphere(transform.position, sightRange, isPlayer);
+                playerInRange = Physics.CheckSphere(transform.position, attackRange, isPlayer);
+
+                //Set appropriate state based on current position of player in comparison to enemy
+                if (!playerInSights && !playerInRange)
+                {
+                    Debug.Log("patroll");
+                    Patrolling();
+                }
+                else if (playerInSights && !playerInRange)
+                    Chasing();
+                else if (playerInSights && playerInRange)
+                    Attacking();
+                //}
+            }
         }
-
         public virtual void Patrolling()
         {
-            if(!walkPointSet)
+            if (!walkPointSet)
                 CreateWalkPoint();
 
-            if(walkPointSet)
+            if (walkPointSet)
                 agent.SetDestination(walkPoint);
 
             Vector3 distanceToGoal = transform.position - walkPoint;
@@ -80,18 +100,19 @@ namespace Enemies
             timePatrolling += Time.deltaTime;
 
             //Reached the destination, repeat to find a new one
-            if(distanceToGoal.magnitude < 1f || timePatrolling >= 3f)
+            if (distanceToGoal.magnitude < 1f || timePatrolling >= 3f)
             {
                 walkPointSet = false;
                 timePatrolling = 0f;
             }
-            
+
         }
 
         public void Chasing()
         {
-            if(this.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-                agent.SetDestination(player.position);    
+            player = GameManager.GetClosestTarget(transform.position).transform;
+            if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+                agent.SetDestination(player.position);
         }
 
         public virtual void Attacking()
@@ -102,10 +123,11 @@ namespace Enemies
             //Find the player's current position
             //Keep enemy's current position in Y axis to prevent tilt
             //Rotate enemy to face player
+            player = GameManager.GetClosestTarget(transform.position).transform;
             Vector3 targetPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
             transform.LookAt(targetPosition);
 
-            if(!hasAttacked)
+            if (!hasAttacked)
             {
                 animator.SetTrigger("Attack");
                 hasAttacked = true;
@@ -122,11 +144,11 @@ namespace Enemies
 
             walkPoint = new Vector3(transform.position.x + randX, transform.position.y, transform.position.z + randZ);
 
-            if(Physics.Raycast(walkPoint, -transform.up, 2f, isGround))
+            if (Physics.Raycast(walkPoint, -transform.up, 2f, isGround))
             {
                 walkPointSet = true;
             }
-                
+
         }
 
         public void ResetAttack()
@@ -134,11 +156,38 @@ namespace Enemies
             hasAttacked = false;
         }
 
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (this.gameObject.name.Contains("HammerEnemy"))
+            {
+                if (stream.IsWriting)
+                {
+                    stream.SendNext(this.gameObject.transform.position);
+                    stream.SendNext(this.gameObject.transform.rotation);
+
+                    stream.SendNext(hasAttacked);
+                }
+                else
+                {
+
+                    this.gameObject.transform.position = (Vector3)stream.ReceiveNext();
+                    this.gameObject.transform.rotation = (Quaternion)stream.ReceiveNext();
+
+                    hasAttacked = (bool)stream.ReceiveNext();
+                    print(this.gameObject.transform.position);
+                    if (hasAttacked)
+                    {
+                        animator.SetTrigger("Attack");
+                    }
+                }
+            }
+        }
         // ----------------------------------------------------------------------------------------------- Interface IDamage
         /// <summary>
         /// Interface Abstract method in charge of the death routine of the assigned Object.
         /// </summary>
-        public void Die()
+        [PunRPC]
+        public void PunRPCDie()
         {
             GameObject deathvfx;
             Vector3 vfxpos = this.transform.position;
@@ -146,7 +195,7 @@ namespace Enemies
             deathvfx = Instantiate(explosionfx, vfxpos, Quaternion.identity);
 
             Destroy(this.gameObject);
-            if(hitStop != null)
+            if (hitStop != null)
                 hitStop.HitStopFreeze(3f, 0.2f);
 
             var vfxDuration = 1f;
@@ -161,10 +210,19 @@ namespace Enemies
         public virtual void TakeDamage(float dmg)
         {
             hp -= dmg;
-            render.material.color = new Color(hp / maxHp, 1, hp / maxHp);
-            CameraShake.Instance.DoShake(0.5f, 1f, 0.1f);
+            //render.material.color = new Color(hp / maxHp, 1, hp / maxHp);
+            //CameraShake.Instance.DoShake(0.5f, 1f, 0.1f);
             if (hp < 0)
-                Die();
+            {
+                if (GameManager.isOnline)
+                {
+                    pv.RPC("PunRPCDie", RpcTarget.All);
+                }
+                else if (!GameManager.isOnline)
+                {
+                    PunRPCDie();
+                }
+            }
         }
 
         /// <summary>

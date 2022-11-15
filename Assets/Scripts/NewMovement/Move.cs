@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using GameManagement;
 using Player;
+using PlanetCrashUI;
+using Photon.Pun;
 
 [RequireComponent(typeof(CharacterController))]
 public class Move : MonoBehaviour
@@ -10,6 +13,7 @@ public class Move : MonoBehaviour
     PlayerInputs PlayerInput;
     InputAction MoveValue, JumpInput, AimInput, CrouchInput;
 
+    public GameObject playerOnlinePrefab;
     [Header("Camera movement")]
     // Variables needed for camera turning
     public float turnTime = 0.1f;
@@ -61,6 +65,7 @@ public class Move : MonoBehaviour
     public bool PossibleDialogue = false;
     CharacterController controller;
     Vector3 movDirection;
+    PhotonView view;
     private AudioAndVideoManager anim;
 
     // ------------------------------------- Unity Methods
@@ -71,35 +76,70 @@ public class Move : MonoBehaviour
     }
     private void OnEnable()
     {
-        MoveValue = PlayerInput.Game.WASD;
-        MoveValue.Enable();
-        JumpInput = PlayerInput.Game.Jump;
-        JumpInput.Enable();
-        AimInput = PlayerInput.Game.Aim;
-        AimInput.Enable();
-        CrouchInput = PlayerInput.Game.Crouch;
-        CrouchInput.Enable();
+        view = GetComponent<PhotonView>();
+        if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+        {
+            MoveValue = PlayerInput.Game.WASD;
+            MoveValue.Enable();
+            JumpInput = PlayerInput.Game.Jump;
+            JumpInput.Enable();
+            AimInput = PlayerInput.Game.Aim;
+            AimInput.Enable();
+            CrouchInput = PlayerInput.Game.Crouch;
+            CrouchInput.Enable();
 
-        JumpInput.performed += Jump;
-        CrouchInput.performed += CheckCrouch;
+            JumpInput.performed += Jump;
+            CrouchInput.performed += CheckCrouch;
+        }
     }
     private void OnDisable()
     {
-        MoveValue.Disable();
-        JumpInput.Disable();
-        AimInput.Disable();
-        CrouchInput.Disable();
+        view = GetComponent<PhotonView>();
+        if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+        {
+            MoveValue.Disable();
+            JumpInput.Disable();
+            AimInput.Disable();
+            CrouchInput.Disable();
+        }
     }
     void Start()
     {
-        controller = GetComponent<CharacterController>();
-        anim = GetComponent<AudioAndVideoManager>();
-        cam = Camera.main.transform;
-        jumpParticles.SetActive(false);
-        SeedMod = speed;
-        originalHeight = controller.height; //transform.localScale.y;
+        view = GetComponent<PhotonView>();
+        if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
+        {
+            controller = GetComponent<CharacterController>();
+            anim = GetComponent<AudioAndVideoManager>();
+            
+            cam = Camera.main.transform;
+            jumpParticles.SetActive(false);
+            SeedMod = speed;
+            originalHeight = controller.height; //transform.localScale.y;
+            FindObjectOfType<MiniMap>().player = this.gameObject;
 
-        StartCoroutine(SetFirstPos());
+            StartCoroutine(SetFirstPos());
+        }
+    }
+    // public void CreateOnlinePlayer()
+    // {
+    //     GameObject player = this.gameObject;
+    //     if(GameManager.isOnline && !view)
+    //     {
+    //         player = PhotonNetwork.Instantiate(playerOnlinePrefab.name, transform.position, Quaternion.identity);
+    //         FindObjectOfType<FollowPlayer>().Player = player.transform;
+    //         FindObjectOfType<MiniMap>().player = player.gameObject;
+    //         Destroy(gameObject);
+    //     }
+    //     player.GetComponent<Move>().canMove = true;
+    // }
+
+    public void setCam(SceneManagement sm)
+    {
+        view = GetComponent<PhotonView>();
+        if (!GameManager.isOnline || GameManager.isOnline  && view.IsMine)
+        {
+            sm.SetCam(this.transform);
+        }
     }
 
     IEnumerator SetFirstPos()
@@ -109,28 +149,32 @@ public class Move : MonoBehaviour
     }
     private void LateUpdate()
     {
-        SendAnimationVals();
-        wallFound = Physics.Raycast(transform.position, transform.forward, out wallHit, wallDistance, wallMask);
-        Physics.Raycast(transform.position, transform.up, out upHit, 1.6f, wallMask);
-
-        movDirection = new Vector3(
-            movDirection.x,
-            movDirection.y,
-            movDirection.z);
-        JumpHold();
-        Aim();
-        WASD();
-
-        if (!controller.isGrounded)
+        if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
         {
-            movDirection.y = movDirection.y - gravity * gravityModifier * Time.deltaTime;
+
+            SendAnimationVals();
+            wallFound = Physics.Raycast(transform.position, transform.forward, out wallHit, wallDistance, wallMask);
+            Physics.Raycast(transform.position, transform.up, out upHit, 1.6f, wallMask);
+
+            movDirection = new Vector3(
+                movDirection.x,
+                movDirection.y,
+                movDirection.z);
+            JumpHold();
+            Aim();
+            WASD();
+
+            if (!controller.isGrounded)
+            {
+                movDirection.y = movDirection.y - gravity * gravityModifier * Time.deltaTime;
+            }
+            movDirection.y = Mathf.Clamp(movDirection.y, -gravity * gravityModifier * 2, jumpForce * 100);
+
+            controller.Move(movDirection * Time.deltaTime);
+
+            wasGrounded = controller.isGrounded;
+            ResetMovement();
         }
-        movDirection.y = Mathf.Clamp(movDirection.y, -gravity * gravityModifier * 2, jumpForce * 100);
-
-        controller.Move(movDirection * Time.deltaTime);
-
-        wasGrounded = controller.isGrounded;
-        ResetMovement();
     }
 
     void SendAnimationVals()
