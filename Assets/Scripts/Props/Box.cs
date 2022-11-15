@@ -43,7 +43,7 @@ namespace Props
             GetComponent<Dropper>().Spawn();
             Instantiate(ExplosiveCrate, transform.position, Quaternion.identity);
             
-            if(!GameManager.isOnline || PhotonNetwork.IsMasterClient)
+            if(GameManager.isOnline && PhotonNetwork.IsMasterClient)
                 PhotonNetwork.Destroy(pv);
             else if(!GameManager.isOnline)
                 Destroy(this.gameObject);
