@@ -236,7 +236,7 @@ namespace Enemies
             //render.material.color = new Color(hp / maxHp, 1, hp / maxHp);
             //CameraShake.Instance.DoShake(0.5f, 1f, 0.1f);
 
-            if (GameManager.isOnline)
+            if (GameManager.isOnline && PhotonNetwork.IsMasterClient)
             {
                 pv.RPC("TakeDamageRPC", RpcTarget.All, dmg);
             }
