@@ -46,10 +46,7 @@ public class PlayerSpawner : MonoBehaviour
         }
         else
         {
-            transform.position = GameManager.getCheckpoint();
-            p.gameObject.SetActive(true);
-
-            //p.sceneLoader.LoadOnline();
+            p.sceneLoader.LoadOnline();
         }
     }
 }
