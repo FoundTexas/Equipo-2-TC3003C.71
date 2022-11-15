@@ -217,7 +217,7 @@ namespace GameManagement
         {
             if (SceneManager.GetActiveScene().buildIndex > 1)
             {
-                PlayerPrefs.GetInt("Loader.1", SceneManager.GetActiveScene().buildIndex);
+                PlayerPrefs.SetInt("Loader.1", SceneManager.GetActiveScene().buildIndex);
                 Debug.Log("Saving: " + this.name);
                 return true;
             }
