@@ -25,6 +25,8 @@ namespace GameManagement
         {
             anim = GetComponent<Animator>();
             FromJson();
+
+            Save();
         }
 
         // ----------------------------------------------------------------------------------------------- Public Methods
@@ -49,7 +51,7 @@ namespace GameManagement
         {
             int i = SceneManager.GetActiveScene().buildIndex;
             PlayerPrefs.SetInt("Loader.1", i);
-            if(GameManager.isOnline)
+            if (GameManager.isOnline)
             {
                 LoadOnline(2);
             }
@@ -107,7 +109,7 @@ namespace GameManagement
         /// <param name="index"> Scene index int. </param>
         async void Load(int index)
         {
-            
+
             anim.SetTrigger("FadeIn");
             var scene = SceneManager.LoadSceneAsync(index);
             scene.allowSceneActivation = false;
@@ -143,22 +145,52 @@ namespace GameManagement
         }
         public void LoadOnline(int sceneIndex = -1)
         {
-            int i = 1;
-            if (PlayerPrefs.HasKey("Loader.1"))
+            if (PhotonNetwork.IsMasterClient)
             {
-                i = PlayerPrefs.GetInt("Loader.1");
-            }
-            if(sceneIndex != -1)
-            {
-                i = sceneIndex;
-            }
+                int i = 1;
+                if (PlayerPrefs.HasKey("Loader.1"))
+                {
+                    i = PlayerPrefs.GetInt("Loader.1");
+                }
+                if (sceneIndex != -1)
+                {
+                    i = sceneIndex;
+                }
 
-            if (!loading)
+                if(i >= 2)
+                    i = 2;
+
+                if (!loading)
+                {
+                    loading = true;
+
+                    var hash = PhotonNetwork.CurrentRoom.CustomProperties;
+                    if (hash.ContainsKey("Scene"))
+                    {
+                        hash["Scene"] = i;
+                    }
+                    else if (!hash.ContainsKey("Scene"))
+                    {
+                        hash.Add("Scene", i);
+                    }
+
+                    PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
+
+                    GameManager.FirstPos(i);
+                    anim.SetTrigger("FadeIn");
+                    PhotonNetwork.LoadLevel(i);
+                }
+            }
+            else
             {
-                loading = true;
-                GameManager.FirstPos(i);
-                anim.SetTrigger("FadeIn");
-                PhotonNetwork.LoadLevel(i);
+                if (!loading)
+                {
+                    int i = (int)PhotonNetwork.CurrentRoom.CustomProperties["Scene"];
+                    loading = true;
+                    GameManager.FirstPos(i);
+                    anim.SetTrigger("FadeIn");
+                    PhotonNetwork.LoadLevel(i);
+                }
             }
         }
 
@@ -183,8 +215,12 @@ namespace GameManagement
 
         public bool Save()
         {
-            PlayerPrefs.GetInt("Loader.1", SceneManager.GetActiveScene().buildIndex);
-            Debug.Log("Saving: " + this.name);
+            if (SceneManager.GetActiveScene().buildIndex > 1)
+            {
+                PlayerPrefs.GetInt("Loader.1", SceneManager.GetActiveScene().buildIndex);
+                Debug.Log("Saving: " + this.name);
+                return true;
+            }
             return true;
         }
     }
