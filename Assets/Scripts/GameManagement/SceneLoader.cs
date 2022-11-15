@@ -143,7 +143,8 @@ namespace GameManagement
 
             LoadByIndex(i);
         }
-        public void LoadOnline(int sceneIndex = -1)
+
+        public void LoadOnline()
         {
             if (PhotonNetwork.IsMasterClient)
             {
@@ -152,12 +153,8 @@ namespace GameManagement
                 {
                     i = PlayerPrefs.GetInt("Loader.1");
                 }
-                if (sceneIndex != -1)
-                {
-                    i = sceneIndex;
-                }
 
-                if(i >= 2)
+                if (i >= 2)
                     i = 2;
 
                 if (!loading)
@@ -186,6 +183,53 @@ namespace GameManagement
                 if (!loading)
                 {
                     int i = (int)PhotonNetwork.CurrentRoom.CustomProperties["Scene"];
+                    loading = true;
+                    GameManager.FirstPos(i);
+                    anim.SetTrigger("FadeIn");
+                    PhotonNetwork.LoadLevel(i);
+                }
+            }
+        }
+        public void LoadOnline(int sceneIndex = -1)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                int i = 1;
+                if (sceneIndex != -1)
+                {
+                    i = sceneIndex;
+                }
+
+                if (!loading)
+                {
+                    loading = true;
+
+                    var hash = PhotonNetwork.CurrentRoom.CustomProperties;
+                    if (hash.ContainsKey("Scene"))
+                    {
+                        hash["Scene"] = i;
+                    }
+                    else if (!hash.ContainsKey("Scene"))
+                    {
+                        hash.Add("Scene", i);
+                    }
+
+                    PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
+
+                    GameManager.FirstPos(i);
+                    anim.SetTrigger("FadeIn");
+                    PhotonNetwork.LoadLevel(i);
+                }
+            }
+            else
+            {
+                if (!loading)
+                {
+                    int i = 1;
+                    if (sceneIndex != -1)
+                    {
+                        i = sceneIndex;
+                    }
                     loading = true;
                     GameManager.FirstPos(i);
                     anim.SetTrigger("FadeIn");
