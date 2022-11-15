@@ -69,6 +69,17 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
 
     public static void DisconectFromEvereywhere()
     {
+        // if(!PhotonNetwork.IsMasterClient)
+        //     return;
+        // PhotonNetwork.CurrentRoom.IsOpen = false;
+        // PhotonNetwork.CurrentRoom.EmptyRoomTtl = 0;
+        // PhotonNetwork.CurrentRoom.PlayerTtl = 0;
+        
+        // foreach(var player in PhotonNetwork.PlayerListOthers)
+        // {
+        //     PhotonNetwork.CloseConnection(player);
+        // }
+    
         PhotonNetwork.Disconnect();
         GameManager.isOnline = false;
     }

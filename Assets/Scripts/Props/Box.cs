@@ -42,7 +42,11 @@ namespace Props
         {
             GetComponent<Dropper>().Spawn();
             Instantiate(ExplosiveCrate, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            
+            if(GameManager.isOnline && PhotonNetwork.IsMasterClient)
+                PhotonNetwork.Destroy(pv);
+            else if(!GameManager.isOnline)
+                Destroy(this.gameObject);
         }
         /// <summary>
         /// Interface Abstract method that handels when an object takes damage.
@@ -50,7 +54,7 @@ namespace Props
         /// <param name="dmg"> Amount of damage taken. </param>
         public void TakeDamage(float dmg)
         {
-            if (GameManager.isOnline)
+            if (GameManager.isOnline && PhotonNetwork.IsMasterClient)
             {
                 pv.RPC("PunRPCupdateVisuals", RpcTarget.All);
                 pv.RPC("TakeDamageRPC", RpcTarget.All, dmg);

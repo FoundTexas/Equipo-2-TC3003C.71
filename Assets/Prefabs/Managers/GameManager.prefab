@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858c67116a48bc74cb4add17e34f3b11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CheckPoint: {x: 0, y: 0, z: 0}
   initialPositions:
+  - {x: 8.73, y: 13, z: 2}
+  - {x: 8.73, y: 13, z: 2}
   - {x: 0, y: 0, z: 0}
-  - {x: 8.73, y: 13, z: 2}
-  - {x: 8.73, y: 13, z: 2}
-  - {x: 8.73, y: 13, z: 2}
+  - {x: 0, y: 0, z: 0}
