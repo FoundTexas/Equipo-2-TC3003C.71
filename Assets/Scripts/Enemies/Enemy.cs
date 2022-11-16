@@ -124,7 +124,6 @@ namespace Enemies
             //Find the player's current position
             //Keep enemy's current position in Y axis to prevent tilt
             //Rotate enemy to face player
-            player = GameManager.GetClosestTarget(transform.position).transform;
             Vector3 targetPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
             transform.LookAt(targetPosition);
 

@@ -26,7 +26,7 @@ namespace Player
         public SceneLoader sceneLoader;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
-        private void OnEnable() 
+        public override void OnEnable() 
         {
             view = GetComponent<PhotonView>();
             if (view.IsMine)
@@ -123,20 +123,7 @@ namespace Player
         /// <summary>
         /// Interface Abstract method in charge of the death routine of the assigned Object.
         /// </summary>
-        public void PunRPCDie()
-        {
-            if (!GameManager.isOnline)
-            {
-                DieRPC();
-            }
-            else if (GameManager.isOnline && view.IsMine)
-            {
-                view.RPC("DieRPC", RpcTarget.All);
-            }
-        }
-
-        [PunRPC]
-        public void DieRPC()
+        public void Die()
         {
             // Create death effects
             Vector3 vfxPos = transform.position;

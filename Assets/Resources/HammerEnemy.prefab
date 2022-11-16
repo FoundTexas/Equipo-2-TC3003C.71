@@ -301,6 +301,7 @@ GameObject:
   - component: {fileID: -310043639210112327}
   - component: {fileID: 6961810081993369248}
   - component: {fileID: 8963327837801452296}
+  - component: {fileID: 3935988207727110487}
   m_Layer: 9
   m_Name: HammerEnemy
   m_TagString: Enemy
@@ -401,6 +402,7 @@ MonoBehaviour:
   timePatrolling: 0
   hp: 20
   render: {fileID: 0}
+  dazeTime: 0
 --- !u!65 &3850422007205044276
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -412,8 +414,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.11, y: 4, z: 1}
-  m_Center: {x: 0, y: 2.3, z: 0}
+  m_Size: {x: 2.11, y: 4, z: 1.9350815}
+  m_Center: {x: 0, y: 2.3000002, z: -0.46754074}
 --- !u!114 &3449380597821903445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,11 +518,24 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: Attack
   m_SynchronizeLayers:
-  - SynchronizeType: 1
+  - SynchronizeType: 2
     LayerIndex: 0
+--- !u!65 &3935988207727110487
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4477882904499583618}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.3, y: 4, z: 2.1}
+  m_Center: {x: 0, y: 2.3000002, z: -0.46754074}
 --- !u!1 &4834464066155577498
 GameObject:
   m_ObjectHideFlags: 0

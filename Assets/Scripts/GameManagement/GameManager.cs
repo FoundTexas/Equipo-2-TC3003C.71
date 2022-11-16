@@ -152,48 +152,6 @@ public class GameManager : MonoBehaviour
         return result;
     }
 
-    public static GameObject GetLocalPlayer()
-    {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-
-        if (players.Length == 1)
-            return players[0];
-
-        foreach (GameObject player in players)
-        {
-            Debug.Log(player.name);
-            if (!isOnline)
-            {
-                return player;
-            }
-            else if (player.GetComponent<Photon.Pun.PhotonView>().IsMine)
-            {
-                return player;
-            }
-        }
-
-        return null;
-    }
-
-    public static GameObject GetClosestTarget(Vector3 pos)
-    {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        GameObject result = null;
-        float distance = Mathf.Infinity;
-
-        foreach (GameObject player in players)
-        {
-            float newDistance = Vector3.Distance(pos, player.transform.position);
-            if (newDistance <= distance)
-            {
-                distance = Mathf.Abs(newDistance);
-                result = player;
-            }
-        }
-
-        return result;
-    }
-
     public static void SetEventReference(string val)
     {
         eventRef = val;

@@ -1277,6 +1277,7 @@ MonoBehaviour:
   explosionFx: {fileID: 2984970767663435081, guid: 645736631e667754caba46abda4eddfd, type: 3}
   forceField: {fileID: 2507200820708592872}
   maxHP: 6
+  sceneLoader: {fileID: 0}
 --- !u!114 &8005529672033931666
 MonoBehaviour:
   m_ObjectHideFlags: 0
