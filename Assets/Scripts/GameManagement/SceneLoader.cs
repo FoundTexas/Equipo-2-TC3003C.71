@@ -42,20 +42,22 @@ namespace GameManagement
             {
                 loading = true;
                 int index = SceneManager.GetSceneByName(name).buildIndex;
-                GameManager.FirstPos(0);
+                GameManager.FirstPos(index);
                 Load(index);
             }
         }
 
         public void EndScene()
         {
+            int i = SceneManager.GetActiveScene().buildIndex;
+            PlayerPrefs.SetInt("Loader.1", i);
             if (GameManager.isOnline)
             {
-                LoadOnline("LevelSelect");
+                LoadOnline(2);
             }
             else
             {
-                LoadByName("LevelSelect");
+                LoadByIndex(2);
             }
         }
         /// <summary>
@@ -68,7 +70,7 @@ namespace GameManagement
             if (!loading)
             {
                 loading = true;
-                GameManager.FirstPos(0);
+                GameManager.FirstPos(index);
                 Load(index);
             }
         }
@@ -146,19 +148,34 @@ namespace GameManagement
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                int sceneIndex = PlayerPrefs.GetInt("Loader.1", 1);
+                int i = 1;
+                if (PlayerPrefs.HasKey("Loader.1"))
+                {
+                    i = PlayerPrefs.GetInt("Loader.1");
+                }
 
-                if (sceneIndex >= 2)
-                    sceneIndex = 2;
+                if (i >= 2)
+                    i = 2;
 
                 if (!loading)
                 {
                     loading = true;
-                    SetScene(sceneIndex);
 
-                    GameManager.FirstPos(0);
+                    var hash = PhotonNetwork.CurrentRoom.CustomProperties;
+                    if (hash.ContainsKey("Scene"))
+                    {
+                        hash["Scene"] = i;
+                    }
+                    else if (!hash.ContainsKey("Scene"))
+                    {
+                        hash.Add("Scene", i);
+                    }
+
+                    PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
+
+                    GameManager.FirstPos(i);
                     anim.SetTrigger("FadeIn");
-                    PhotonNetwork.LoadLevel(sceneIndex);
+                    PhotonNetwork.LoadLevel(i);
                 }
             }
             else
@@ -169,50 +186,56 @@ namespace GameManagement
                     loading = true;
                     GameManager.FirstPos(i);
                     anim.SetTrigger("FadeIn");
-                    // PhotonNetwork.LoadLevel(i);
+                    PhotonNetwork.LoadLevel(i);
                 }
             }
         }
-        public void LoadOnline(string sceneName)
+        public void LoadOnline(int sceneIndex = -1)
         {
-            int sceneIndex = SceneManager.GetSceneByName(name).buildIndex;
             if (PhotonNetwork.IsMasterClient)
             {
+                int i = 1;
+                if (sceneIndex != -1)
+                {
+                    i = sceneIndex;
+                }
+
                 if (!loading)
                 {
                     loading = true;
-                    SetScene(sceneIndex);
 
-                    GameManager.FirstPos(0);
+                    var hash = PhotonNetwork.CurrentRoom.CustomProperties;
+                    if (hash.ContainsKey("Scene"))
+                    {
+                        hash["Scene"] = i;
+                    }
+                    else if (!hash.ContainsKey("Scene"))
+                    {
+                        hash.Add("Scene", i);
+                    }
+
+                    PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
+
+                    GameManager.FirstPos(i);
                     anim.SetTrigger("FadeIn");
-                    PhotonNetwork.LoadLevel(sceneName);
+                    PhotonNetwork.LoadLevel(i);
                 }
             }
             else
             {
                 if (!loading)
                 {
+                    int i = 1;
+                    if (sceneIndex != -1)
+                    {
+                        i = sceneIndex;
+                    }
                     loading = true;
-                    GameManager.FirstPos(0);
+                    GameManager.FirstPos(i);
                     anim.SetTrigger("FadeIn");
-                    // PhotonNetwork.LoadLevel(sceneIndex);
+                    PhotonNetwork.LoadLevel(i);
                 }
             }
-        }
-
-        private void SetScene(int sceneIndex)
-        {
-            var hash = PhotonNetwork.CurrentRoom.CustomProperties;
-            if (hash.ContainsKey("Scene"))
-            {
-                hash["Scene"] = sceneIndex;
-            }
-            else if (!hash.ContainsKey("Scene"))
-            {
-                hash.Add("Scene", sceneIndex);
-            }
-
-            PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
         }
 
         public void RestartGame()
@@ -226,7 +249,11 @@ namespace GameManagement
         }
         public void FromJson()
         {
-            int i = PlayerPrefs.GetInt("Loader.1", 1);
+            int i = 1;
+            if (PlayerPrefs.HasKey("Loader.1"))
+            {
+                i = PlayerPrefs.GetInt("Loader.1");
+            }
             PlayerPrefs.SetInt("Loader.1", i);
         }
 

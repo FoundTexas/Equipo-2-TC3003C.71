@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Cinematics/cowboy.meta
-guid: f4dffac89a35a274d93dbad4777d09db
-========
 guid: f664a29d43029284b82c7d6a8608650c
->>>>>>>> main:Assets/Materials/Planets.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
