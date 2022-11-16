@@ -18,7 +18,7 @@ namespace PlanetCrashUI {
         public PostProcessLayer layer;
         public AutoExposure exposure;
 
-        public GameObject camera;
+        new public GameObject camera;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
 

@@ -13,7 +13,8 @@ namespace Interfaces
         /// <summary>
         /// Interface Abstract method used to give and object a dead routine.
         /// </summary>
-        public void Die();
+        [PunRPC]
+        public void PunRPCDie();
         /// <summary>
         /// Interface Abstract method that handels when an object takes damage.
         /// </summary>

@@ -15,7 +15,7 @@ namespace GameManagement
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
             {
                 Debug.Log("impact");
                 SetTrigger();

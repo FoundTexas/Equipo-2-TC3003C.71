@@ -62,7 +62,6 @@ namespace GameManagement
                 {
                     follow.setFollow(target);
                 }
-
                 cam.Follow = target;
                 cam.LookAt = target;
             }
