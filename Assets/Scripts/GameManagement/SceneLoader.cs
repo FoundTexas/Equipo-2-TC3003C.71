@@ -51,11 +51,12 @@ namespace GameManagement
         {
             if (GameManager.isOnline)
             {
-                LoadOnline("LevelSelect");
+                LoadOnline(2);
             }
             else
             {
-                LoadByName("LevelSelect");
+                // LoadByName("LevelSelect");
+                LoadByIndex(2);
             }
         }
         /// <summary>
@@ -173,9 +174,9 @@ namespace GameManagement
                 }
             }
         }
-        public void LoadOnline(string sceneName)
+        public void LoadOnline(int sceneIndex)
         {
-            int sceneIndex = SceneManager.GetSceneByName(name).buildIndex;
+            // int sceneIndex = SceneManager.GetSceneByName(name).buildIndex;
             if (PhotonNetwork.IsMasterClient)
             {
                 if (!loading)
@@ -185,7 +186,7 @@ namespace GameManagement
 
                     GameManager.FirstPos(sceneIndex);
                     anim.SetTrigger("FadeIn");
-                    PhotonNetwork.LoadLevel(sceneName);
+                    PhotonNetwork.LoadLevel(sceneIndex);
                 }
             }
             else
@@ -195,7 +196,7 @@ namespace GameManagement
                     loading = true;
                     GameManager.FirstPos(sceneIndex);
                     anim.SetTrigger("FadeIn");
-                    PhotonNetwork.LoadLevel(sceneName);
+                    PhotonNetwork.LoadLevel(sceneIndex);
                 }
             }
         }
