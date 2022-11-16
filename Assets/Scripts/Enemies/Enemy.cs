@@ -38,6 +38,8 @@ namespace Enemies
         [SerializeField] private Renderer render;
         private float maxHp;
         public float dazeTime = 0f;
+        public bool isBoss = false;
+        public float invFrames = 0f;
 
         PhotonView pv;
 
@@ -47,7 +49,8 @@ namespace Enemies
             pv = GetComponent<PhotonView>();
             // Establish original values
             maxHp = hp;
-            animator = GetComponent<Animator>();
+            if(animator == null)
+                    animator = GetComponent<Animator>();
             GameObject manager = GameObject.FindWithTag("Manager");
             if (manager != null)
                 hitStop = manager.GetComponent<HitStop>();
@@ -63,7 +66,9 @@ namespace Enemies
             if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
             {
                 dazeTime -= Time.deltaTime;
-                if (dazeTime > 0f)
+                invFrames -= Time.deltaTime;
+                animator.SetFloat("DazeTime", dazeTime);
+                if(dazeTime > 0f)
                     return;
 
                 player = GameManager.GetClosestTarget(transform).transform;
@@ -89,6 +94,7 @@ namespace Enemies
         }
         public virtual void Patrolling()
         {
+            animator.SetBool("Walking", true);
             if (!walkPointSet)
                 CreateWalkPoint();
 
@@ -110,7 +116,9 @@ namespace Enemies
 
         public void Chasing()
         {
-            if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            animator.SetBool("Walking", true);
+            player = GameManager.GetClosestTarget(transform).transform;
+            if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("Running weaponless") || this.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
                 agent.SetDestination(player.position);
         }
 
@@ -233,6 +241,10 @@ namespace Enemies
         /// <param name="dmg"> Amount of damage taken. </param>
         public virtual void TakeDamage(float dmg)
         {
+            if(invFrames > 0f)
+                return;
+            if(isBoss)
+                invFrames = 2f;
             //render.material.color = new Color(hp / maxHp, 1, hp / maxHp);
             //CameraShake.Instance.DoShake(0.5f, 1f, 0.1f);
 

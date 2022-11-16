@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Photon.Pun;
 
 namespace Enemies
 {
@@ -12,6 +13,7 @@ namespace Enemies
     {
         [SerializeField] private GameObject bombPrefab;
         [SerializeField] private float throwStrength;
+        [SerializeField] private GameObject fragment;
         // ----------------------------------------------------------------------------------------------- Unity Methods
         void Awake()
         {
@@ -26,13 +28,29 @@ namespace Enemies
 
         void Update()
         {
-            playerInSights = Physics.CheckSphere(transform.position, sightRange, isPlayer);
-            playerInRange = Physics.CheckSphere(transform.position, attackRange, isPlayer);
+            if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
+            {
+                dazeTime -= Time.deltaTime;
+                invFrames -= Time.deltaTime;
 
-            if(playerInSights && !playerInRange)
-                Chasing();
-            else if(playerInSights && playerInRange)
-                Attacking();
+                player = GameManager.GetClosestTarget(transform).transform;
+                    if (player == null)
+                        player = transform;
+
+                
+                playerInSights = Physics.CheckSphere(transform.position, sightRange, isPlayer);
+                playerInRange = Physics.CheckSphere(transform.position, attackRange, isPlayer);
+
+                if(playerInSights && !playerInRange)
+                    Chasing();
+                else if(playerInSights && playerInRange)
+                    Attacking();
+            }
+        }
+
+        void OnDestroy()
+        {
+            fragment.transform.position =  new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
         }
 
         public override void Attacking()

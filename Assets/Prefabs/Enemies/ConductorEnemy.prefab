@@ -9983,9 +9983,11 @@ MonoBehaviour:
   hitStop: {fileID: 0}
   explosionfx: {fileID: 2984970767663435081, guid: 645736631e667754caba46abda4eddfd, type: 3}
   timePatrolling: 0
-  hp: 35
+  hp: 60
   render: {fileID: 1857451787605980178}
   dazeTime: 0
+  isBoss: 1
+  invFrames: 0
   bombPrefab: {fileID: 8403538924038456462, guid: a1166a81776cb364689a7e8194eaf5e0, type: 3}
   throwStrength: 1
 --- !u!65 &6930553625822819877

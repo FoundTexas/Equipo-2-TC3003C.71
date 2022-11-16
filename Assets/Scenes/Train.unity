@@ -1084,6 +1084,8 @@ MonoBehaviour:
   hp: 20
   render: {fileID: 2141754911}
   dazeTime: 0
+  isBoss: 0
+  invFrames: 0
   pParent: {fileID: 533073162}
   playerObj: {fileID: 0}
   patrolPoints: []
@@ -3263,6 +3265,8 @@ MonoBehaviour:
   hp: 20
   render: {fileID: 2051312748}
   dazeTime: 0
+  isBoss: 0
+  invFrames: 0
   pParent: {fileID: 1737206199}
   playerObj: {fileID: 0}
   patrolPoints: []
@@ -8631,15 +8635,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5725721577791721687, guid: 70598912c60cc144fb09973f9b8bdc65, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.34
+      value: 15.294528
       objectReference: {fileID: 0}
     - target: {fileID: 5725721577791721687, guid: 70598912c60cc144fb09973f9b8bdc65, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 18.72
+      value: 19.56
       objectReference: {fileID: 0}
     - target: {fileID: 5725721577791721687, guid: 70598912c60cc144fb09973f9b8bdc65, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 23.98
+      value: 47.9
       objectReference: {fileID: 0}
     - target: {fileID: 5725721577791721687, guid: 70598912c60cc144fb09973f9b8bdc65, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8647,15 +8651,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5725721577791721687, guid: 70598912c60cc144fb09973f9b8bdc65, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5725721577791721687, guid: 70598912c60cc144fb09973f9b8bdc65, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5725721577791721687, guid: 70598912c60cc144fb09973f9b8bdc65, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5725721577791721687, guid: 70598912c60cc144fb09973f9b8bdc65, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -8672,6 +8676,10 @@ PrefabInstance:
     - target: {fileID: 5725721577791721689, guid: 70598912c60cc144fb09973f9b8bdc65, type: 3}
       propertyPath: m_Name
       value: PlanetFragment
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725721577791721689, guid: 70598912c60cc144fb09973f9b8bdc65, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70598912c60cc144fb09973f9b8bdc65, type: 3}
@@ -10331,6 +10339,8 @@ MonoBehaviour:
   hp: 20
   render: {fileID: 1724126747}
   dazeTime: 0
+  isBoss: 0
+  invFrames: 0
   pParent: {fileID: 1098376665}
   playerObj: {fileID: 0}
   patrolPoints: []
@@ -22367,6 +22377,8 @@ MonoBehaviour:
   hp: 20
   render: {fileID: 2044206682}
   dazeTime: 0
+  isBoss: 0
+  invFrames: 0
   pParent: {fileID: 509147845}
   playerObj: {fileID: 0}
   patrolPoints: []
@@ -29773,7 +29785,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5725721577791721688, guid: 70598912c60cc144fb09973f9b8bdc65, type: 3}
   m_PrefabInstance: {fileID: 424346774}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1252209959}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80d1c3dd429af1a4fb92ef4aa66d3744, type: 3}
@@ -34499,6 +34511,11 @@ Transform:
   m_Father: {fileID: 1855824059}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1252209959 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5725721577791721689, guid: 70598912c60cc144fb09973f9b8bdc65, type: 3}
+  m_PrefabInstance: {fileID: 424346774}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1255886767
 GameObject:
   m_ObjectHideFlags: 0
@@ -52492,6 +52509,8 @@ MonoBehaviour:
   hp: 20
   render: {fileID: 1400533103}
   dazeTime: 0
+  isBoss: 0
+  invFrames: 0
   pParent: {fileID: 1661380541}
   playerObj: {fileID: 0}
   patrolPoints: []
@@ -53499,6 +53518,8 @@ MonoBehaviour:
   hp: 20
   render: {fileID: 616077176}
   dazeTime: 0
+  isBoss: 0
+  invFrames: 0
   pParent: {fileID: 853593695}
   playerObj: {fileID: 0}
   patrolPoints: []
@@ -56987,6 +57008,8 @@ MonoBehaviour:
   hp: 20
   render: {fileID: 664943059}
   dazeTime: 0
+  isBoss: 0
+  invFrames: 0
   pParent: {fileID: 1442795262}
   playerObj: {fileID: 0}
   patrolPoints: []
@@ -68853,6 +68876,10 @@ PrefabInstance:
       propertyPath: hitStop
       value: 
       objectReference: {fileID: 681072170}
+    - target: {fileID: 6776482624713298476, guid: 7b290dd062599b74f8304bf287084a17, type: 3}
+      propertyPath: fragment
+      value: 
+      objectReference: {fileID: 1252209959}
     - target: {fileID: 6930553625822819900, guid: 7b290dd062599b74f8304bf287084a17, type: 3}
       propertyPath: m_Name
       value: ConductorEnemy
