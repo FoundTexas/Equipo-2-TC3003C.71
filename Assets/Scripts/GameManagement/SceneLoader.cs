@@ -55,10 +55,22 @@ namespace GameManagement
             }
             else
             {
-                // LoadByName("LevelSelect");
                 LoadByIndex(2);
             }
         }
+
+        public void LoadScene(int index)
+        {
+            if (GameManager.isOnline)
+            {
+                LoadOnline(index);
+            }
+            else
+            {
+                LoadByIndex(index);
+            }
+        }
+        
         /// <summary>
         /// Method that start Loading scene routine by its index.
         /// </summary>
@@ -134,11 +146,7 @@ namespace GameManagement
 
         public void LoadLastSaved()
         {
-            int i = 1;
-            if (PlayerPrefs.HasKey("Loader.1"))
-            {
-                i = PlayerPrefs.GetInt("Loader.1");
-            }
+            int i = PlayerPrefs.GetInt("Loader.1", 2);
 
             LoadByIndex(i);
         }
@@ -147,7 +155,7 @@ namespace GameManagement
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                int sceneIndex = PlayerPrefs.GetInt("Loader.1", 1);
+                int sceneIndex = PlayerPrefs.GetInt("Loader.1", 2);
 
                 if (sceneIndex >= 2)
                     sceneIndex = 2;
@@ -176,7 +184,6 @@ namespace GameManagement
         }
         public void LoadOnline(int sceneIndex)
         {
-            // int sceneIndex = SceneManager.GetSceneByName(name).buildIndex;
             if (PhotonNetwork.IsMasterClient)
             {
                 if (!loading)
@@ -227,7 +234,7 @@ namespace GameManagement
         }
         public void FromJson()
         {
-            int i = PlayerPrefs.GetInt("Loader.1", 1);
+            int i = PlayerPrefs.GetInt("Loader.1", 2);
             PlayerPrefs.SetInt("Loader.1", i);
         }
 
