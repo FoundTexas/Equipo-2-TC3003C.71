@@ -14,5 +14,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelSelect.unity
     guid: f64fbaee3fe55eb4f8b8586ad103c2c8
+  - enabled: 1
+    path: Assets/Scenes/Cowboy.unity
+    guid: 08185f8993fad3342a845e0bb418eb63
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 7cbaf09584924bf439f5e0c990e9449a, type: 2}
