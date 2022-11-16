@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Shaders/Disolve/Shader Graphs_Disolve.mat.meta
-guid: e9dd1ee51c6a1f54190ecfe70700a341
-========
 guid: 11ed3d6e48491c142b11819e4492e165
->>>>>>>> main:Assets/Materials/Retro Testures/Materials/FLOOR_2A.mat.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000

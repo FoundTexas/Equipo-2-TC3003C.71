@@ -26,7 +26,7 @@ namespace Player
         public SceneLoader sceneLoader;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
-        public override void OnEnable() 
+        private void OnEnable() 
         {
             view = GetComponent<PhotonView>();
             if (view.IsMine)

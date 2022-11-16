@@ -44,8 +44,6 @@ namespace Enemies
 
         PhotonView pv;
 
-        PhotonView pv;
-
         // ----------------------------------------------------------------------------------------------- Unity Methods
         void Start()
         {
@@ -225,8 +223,7 @@ namespace Enemies
         /// <summary>
         /// Interface Abstract method in charge of the death routine of the assigned Object.
         /// </summary>
-        [PunRPC]
-        public void PunRPCDie()
+        public void Die()
         {
             Vector3 vfxpos = this.transform.position;
             vfxpos.y = this.transform.position.y + 1;
