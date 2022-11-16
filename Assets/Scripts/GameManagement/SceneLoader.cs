@@ -42,7 +42,7 @@ namespace GameManagement
             {
                 loading = true;
                 int index = SceneManager.GetSceneByName(name).buildIndex;
-                GameManager.FirstPos(0);
+                GameManager.FirstPos(index);
                 Load(index);
             }
         }
@@ -68,7 +68,7 @@ namespace GameManagement
             if (!loading)
             {
                 loading = true;
-                GameManager.FirstPos(0);
+                GameManager.FirstPos(index);
                 Load(index);
             }
         }
@@ -156,7 +156,7 @@ namespace GameManagement
                     loading = true;
                     SetScene(sceneIndex);
 
-                    GameManager.FirstPos(0);
+                    GameManager.FirstPos(sceneIndex);
                     anim.SetTrigger("FadeIn");
                     PhotonNetwork.LoadLevel(sceneIndex);
                 }
@@ -167,7 +167,7 @@ namespace GameManagement
                 {
                     int i = (int)PhotonNetwork.CurrentRoom.CustomProperties["Scene"];
                     loading = true;
-                    GameManager.FirstPos(0);
+                    GameManager.FirstPos(i);
                     anim.SetTrigger("FadeIn");
                     PhotonNetwork.LoadLevel(i);
                 }
@@ -183,7 +183,7 @@ namespace GameManagement
                     loading = true;
                     SetScene(sceneIndex);
 
-                    GameManager.FirstPos(0);
+                    GameManager.FirstPos(sceneIndex);
                     anim.SetTrigger("FadeIn");
                     PhotonNetwork.LoadLevel(sceneName);
                 }
@@ -193,7 +193,7 @@ namespace GameManagement
                 if (!loading)
                 {
                     loading = true;
-                    GameManager.FirstPos(0);
+                    GameManager.FirstPos(sceneIndex);
                     anim.SetTrigger("FadeIn");
                     PhotonNetwork.LoadLevel(sceneName);
                 }
