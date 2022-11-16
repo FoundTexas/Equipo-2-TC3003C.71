@@ -37,10 +37,11 @@ public class CheckPoint : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (!PhotonNetwork.IsMasterClient || !GameManager.isOnline)
+        if (PhotonNetwork.IsMasterClient || !GameManager.isOnline)
         {
             if (other.gameObject.CompareTag("Player"))
             {
+                Debug.Log("Check");
                 GameManager.setCheckPoint(pos);
                 collected = true;
 

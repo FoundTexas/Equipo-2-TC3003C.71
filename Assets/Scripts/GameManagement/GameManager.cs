@@ -50,16 +50,27 @@ public class GameManager : MonoBehaviour
     public static Vector3 getCheckpoint()
     {
         Vector3 pos = Vector3.zero;
-        if (PhotonNetwork.IsMasterClient || !isOnline)
+        if (PhotonNetwork.IsMasterClient && isOnline || !isOnline)
         {
             pos = inst.CheckPoint;
             if (inst.CheckPoint == Vector3.zero)
             {
                 pos = FirstPos(SceneManager.GetActiveScene().buildIndex);
             }
-            if (isOnline)
+            if (isOnline && PhotonNetwork.IsMasterClient)
             {
-                PhotonNetwork.CurrentRoom.CustomProperties["CheckPoint"] = JsonUtility.ToJson(pos);
+                var hash = PhotonNetwork.CurrentRoom.CustomProperties;
+
+                if(hash.ContainsKey("CheckPoint"))
+                {
+                    hash["CheckPoint"] = JsonUtility.ToJson(pos);
+                }
+                else if(!hash.ContainsKey("CheckPoint"))
+                {
+                    hash.Add("CheckPoint", JsonUtility.ToJson(pos));
+                }
+                
+                PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
             }
         }
         else if (!PhotonNetwork.IsMasterClient && isOnline)
@@ -74,7 +85,6 @@ public class GameManager : MonoBehaviour
                 pos = FirstPos(SceneManager.GetActiveScene().buildIndex);
             }
         }
-
         return pos;
     }
 
@@ -85,7 +95,17 @@ public class GameManager : MonoBehaviour
             inst.CheckPoint = newPos;
             if (isOnline)
             {
-                PhotonNetwork.CurrentRoom.CustomProperties["CheckPoint"] = JsonUtility.ToJson(newPos);
+                var hash = PhotonNetwork.CurrentRoom.CustomProperties;
+                if(hash.ContainsKey("CheckPoint"))
+                {
+                    hash["CheckPoint"] = JsonUtility.ToJson(newPos);
+                }
+                else if(!hash.ContainsKey("CheckPoint"))
+                {
+                    hash.Add("CheckPoint", JsonUtility.ToJson(newPos));
+                }
+                
+                PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
             }
         }
     }
@@ -113,15 +133,15 @@ public class GameManager : MonoBehaviour
         return null;
     }
 
-    public static GameObject GetClosestTarget(Vector3 pos)
+    public static GameObject GetClosestTarget(Transform pos)
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        GameObject result = null;
+        GameObject result = pos.gameObject;
         float distance = Mathf.Infinity;
 
         foreach (GameObject player in players)
         {
-            float newDistance = Vector3.Distance(pos, player.transform.position);
+            float newDistance = Vector3.Distance(pos.position, player.transform.position);
             if (newDistance <= distance)
             {
                 distance = Mathf.Abs(newDistance);

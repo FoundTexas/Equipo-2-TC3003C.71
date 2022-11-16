@@ -42,6 +42,7 @@ namespace PlanetCrashUI
         }
         void Start()
         {
+            isPaused = false;
             brightness.TryGetSettings(out exposure);
             sceneLoader = FindObjectOfType<SceneLoader>();
             AudioListener.volume = 0.5f;
@@ -82,6 +83,8 @@ namespace PlanetCrashUI
         /// </summary>
         public void Resume()
         {
+            player = GameManager.GetLocalPlayer();
+            playerMove = player.GetComponent<Move>();
             pauseCamera.gameObject.SetActive(false);
             pauseCamera.gameObject.tag = "Untagged";
             playerMove.canMove = true;

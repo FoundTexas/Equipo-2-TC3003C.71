@@ -18,31 +18,41 @@ namespace Player
         public HealthBar healthBar;
         public GameObject explosionFx;
         public GameObject forceField;
-        [Min(0)] public float maxHP = 6;
+        [Min(0)] public float maxHP = 4;
         private float playerHP;
         private float invFrames = 0f; // Invincivility frames after getting hit
         private HitStop hitStop;
         private Move playerMove;
-        private SceneLoader sceneLoader;
+        public SceneLoader sceneLoader;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
+        private void OnEnable() 
+        {
+            view = GetComponent<PhotonView>();
+            if (view.IsMine)
+            {
+                 if (!healthBar)
+                    healthBar = FindObjectOfType<HealthBar>();
+
+                healthBar.SetMaxHealth(maxHP);
+            }
+        }
         void Start()
         {
             view = GetComponent<PhotonView>();
+            playerMove = GetComponent<Move>();
+            playerHP = maxHP;
+            sceneLoader = GameObject.FindWithTag("SceneLoader").GetComponent<SceneLoader>();
+            GameObject manager = GameObject.FindWithTag("Manager");
+            if (manager != null)
+                hitStop = manager.GetComponent<HitStop>();
+
             if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
             {
-                // Initialize private components
-                GameObject manager = GameObject.FindWithTag("Manager");
-                if (manager != null)
-                    hitStop = manager.GetComponent<HitStop>();
-                sceneLoader = GameObject.FindWithTag("SceneLoader").GetComponent<SceneLoader>();
-
                 // Establish original values
-                playerHP = maxHP;
                 if (!healthBar)
                     healthBar = FindObjectOfType<HealthBar>();
                 healthBar.SetMaxHealth(maxHP);
-                playerMove = GetComponent<Move>();
             }
         }
 
@@ -81,7 +91,7 @@ namespace Player
                     playerMove.AddForce(15f, dir, 0.5f);
                     TakeDamage(1);
                 }
-                    
+
             }
         }
 
@@ -121,10 +131,16 @@ namespace Player
             GameObject deathvfx = Instantiate(explosionFx, vfxPos, Quaternion.identity);
 
             hitStop.HitStopFreeze(10f, 1f);
-            gameObject.SetActive(false);
 
-            sceneLoader.LoadByIndex(GameManager.getSceneIndex(), GameManager.getCheckpoint());
-            
+            if (!GameManager.isOnline)
+                sceneLoader.LoadByIndex(GameManager.getSceneIndex(), GameManager.getCheckpoint());
+            else if (GameManager.isOnline && view.IsMine)
+            {
+                playerHP = maxHP;
+                FindObjectOfType<PlayerSpawner>().respawnPlayer(this);
+            }
+
+            gameObject.SetActive(false);
             var vfxDuration = 1f;
             Destroy(deathvfx, vfxDuration);
 
@@ -136,6 +152,9 @@ namespace Player
         /// <param name="dmg"> Amount of damage taken. </param>
         public virtual void TakeDamage(float dmg)
         {
+            if (healthBar)
+                healthBar.SetHealth(playerHP - dmg);
+
             if (!GameManager.isOnline)
             {
                 TakeDamageRPC(dmg);
@@ -151,7 +170,6 @@ namespace Player
         {
             invFrames = 2f;
             playerHP -= dmg;
-            healthBar.SetHealth(playerHP);
             if (playerHP <= -1)
             {
                 Die();

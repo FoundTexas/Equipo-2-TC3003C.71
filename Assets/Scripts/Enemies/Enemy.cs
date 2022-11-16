@@ -76,7 +76,10 @@ namespace Enemies
                 animator.SetFloat("DazeTime", dazeTime);
                 if(dazeTime > 0f)
                     return;
-                player = GameManager.GetClosestTarget(transform.position).transform;
+
+                player = GameManager.GetClosestTarget(transform).transform;
+                if (player == null)
+                    player = transform;
                 //if (TimelineManager.enemiesCanMove)
                 //{
                 //Check sight and attack range
@@ -133,17 +136,29 @@ namespace Enemies
             //Find the player's current position
             //Keep enemy's current position in Y axis to prevent tilt
             //Rotate enemy to face player
-            player = GameManager.GetClosestTarget(transform.position).transform;
             Vector3 targetPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
             transform.LookAt(targetPosition);
 
             if (!hasAttacked)
             {
-                animator.SetTrigger("Attack");
+                if (!GameManager.isOnline)
+                {
+                    PunRPCAttackTrigger();
+                }
+                else if (GameManager.isOnline)
+                {
+                    pv.RPC("PunRPCAttackTrigger", RpcTarget.All);
+                }
                 hasAttacked = true;
                 Invoke(nameof(ResetAttack), attackSpeed);
             }
 
+        }
+
+        [PunRPC]
+        public void PunRPCAttackTrigger()
+        {
+            animator.SetTrigger("Attack");
         }
 
         public virtual void CreateWalkPoint()
@@ -210,18 +225,20 @@ namespace Enemies
         /// </summary>
         public void Die()
         {
-            GameObject deathvfx;
             Vector3 vfxpos = this.transform.position;
             vfxpos.y = this.transform.position.y + 1;
-            deathvfx = Instantiate(explosionfx, vfxpos, Quaternion.identity);
+            GameObject deathvfx = Instantiate(explosionfx, vfxpos, Quaternion.identity);
 
-            Destroy(this.gameObject);
             if (hitStop != null)
                 hitStop.HitStopFreeze(3f, 0.2f);
 
-            var vfxDuration = 1f;
             GetComponent<Dropper>().Spawn();
-            Destroy(deathvfx, vfxDuration);
+            Destroy(deathvfx, 1);
+
+            if (GameManager.isOnline && PhotonNetwork.IsMasterClient)
+                PhotonNetwork.Destroy(pv);
+            else if (!GameManager.isOnline)
+                Destroy(this.gameObject);
         }
 
         /// <summary>
@@ -238,7 +255,7 @@ namespace Enemies
             //render.material.color = new Color(hp / maxHp, 1, hp / maxHp);
             //CameraShake.Instance.DoShake(0.5f, 1f, 0.1f);
 
-            if (GameManager.isOnline)
+            if (GameManager.isOnline && PhotonNetwork.IsMasterClient)
             {
                 pv.RPC("TakeDamageRPC", RpcTarget.All, dmg);
             }
@@ -248,11 +265,11 @@ namespace Enemies
             }
         }
         [PunRPC]
-        void TakeDamageRPC(float dmg)
+        public void TakeDamageRPC(float dmg)
         {
-            hp -= dmg;
+            maxHp -= dmg;
 
-            if (hp <= 0)
+            if (maxHp <= 0)
             {
                 Die();
             }
