@@ -60,6 +60,19 @@ namespace GameManagement
                 LoadByIndex(2);
             }
         }
+
+        public void LoadScene(int index)
+        {
+            if (GameManager.isOnline)
+            {
+                LoadOnline(index);
+            }
+            else
+            {
+                LoadByIndex(index);
+            }
+        }
+        
         /// <summary>
         /// Method that start Loading scene routine by its index.
         /// </summary>
@@ -135,11 +148,7 @@ namespace GameManagement
 
         public void LoadLastSaved()
         {
-            int i = 1;
-            if (PlayerPrefs.HasKey("Loader.1"))
-            {
-                i = PlayerPrefs.GetInt("Loader.1");
-            }
+            int i = PlayerPrefs.GetInt("Loader.1", 2);
 
             LoadByIndex(i);
         }
@@ -148,34 +157,18 @@ namespace GameManagement
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                int i = 1;
-                if (PlayerPrefs.HasKey("Loader.1"))
-                {
-                    i = PlayerPrefs.GetInt("Loader.1");
-                }
+                int sceneIndex = PlayerPrefs.GetInt("Loader.1", 2);
 
-                if (i >= 2)
-                    i = 2;
+                if (sceneIndex >= 2)
+                    sceneIndex = 2;
 
                 if (!loading)
                 {
                     loading = true;
 
-                    var hash = PhotonNetwork.CurrentRoom.CustomProperties;
-                    if (hash.ContainsKey("Scene"))
-                    {
-                        hash["Scene"] = i;
-                    }
-                    else if (!hash.ContainsKey("Scene"))
-                    {
-                        hash.Add("Scene", i);
-                    }
-
-                    PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
-
-                    GameManager.FirstPos(i);
+                    GameManager.FirstPos(sceneIndex);
                     anim.SetTrigger("FadeIn");
-                    PhotonNetwork.LoadLevel(i);
+                    PhotonNetwork.LoadLevel(sceneIndex);
                 }
             }
             else
@@ -190,7 +183,7 @@ namespace GameManagement
                 }
             }
         }
-        public void LoadOnline(int sceneIndex = -1)
+        public void LoadOnline(int sceneIndex)
         {
             if (PhotonNetwork.IsMasterClient)
             {
@@ -204,21 +197,9 @@ namespace GameManagement
                 {
                     loading = true;
 
-                    var hash = PhotonNetwork.CurrentRoom.CustomProperties;
-                    if (hash.ContainsKey("Scene"))
-                    {
-                        hash["Scene"] = i;
-                    }
-                    else if (!hash.ContainsKey("Scene"))
-                    {
-                        hash.Add("Scene", i);
-                    }
-
-                    PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
-
-                    GameManager.FirstPos(i);
+                    GameManager.FirstPos(sceneIndex);
                     anim.SetTrigger("FadeIn");
-                    PhotonNetwork.LoadLevel(i);
+                    PhotonNetwork.LoadLevel(sceneIndex);
                 }
             }
             else
@@ -231,9 +212,9 @@ namespace GameManagement
                         i = sceneIndex;
                     }
                     loading = true;
-                    GameManager.FirstPos(i);
+                    GameManager.FirstPos(sceneIndex);
                     anim.SetTrigger("FadeIn");
-                    PhotonNetwork.LoadLevel(i);
+                    PhotonNetwork.LoadLevel(sceneIndex);
                 }
             }
         }
@@ -249,11 +230,7 @@ namespace GameManagement
         }
         public void FromJson()
         {
-            int i = 1;
-            if (PlayerPrefs.HasKey("Loader.1"))
-            {
-                i = PlayerPrefs.GetInt("Loader.1");
-            }
+            int i = PlayerPrefs.GetInt("Loader.1", 2);
             PlayerPrefs.SetInt("Loader.1", i);
         }
 

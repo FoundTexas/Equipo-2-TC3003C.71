@@ -17,8 +17,15 @@ namespace GameManagement
         {
             if (other.CompareTag("Player"))
             {
-                Debug.Log("impact");
-                SetTrigger();
+                if (GameManager.isOnline || PhotonNetwork.IsMasterClient)
+                {
+
+                    pv.RPC("PunRPCSetTrigger", RpcTarget.All);
+                }
+                else if (!GameManager.isOnline)
+                {
+                    PunRPCSetTrigger();
+                }
             }
         }
     }
