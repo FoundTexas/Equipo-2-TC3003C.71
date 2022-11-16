@@ -400,9 +400,10 @@ MonoBehaviour:
   hitStop: {fileID: 5903629768628973847, guid: 290af89ca8b899249ab60f6502e73d02, type: 3}
   explosionfx: {fileID: 2984970767663435081, guid: 645736631e667754caba46abda4eddfd, type: 3}
   timePatrolling: 0
-  hp: 20
+  hp: 60
   render: {fileID: 0}
   dazeTime: 0
+  isBoss: 1
 --- !u!65 &3850422007205044276
 BoxCollider:
   m_ObjectHideFlags: 0

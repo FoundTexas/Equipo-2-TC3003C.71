@@ -38,24 +38,33 @@ namespace Enemies
         [SerializeField] private Renderer render;
         private float maxHp;
         public float dazeTime = 0f;
+        public bool isBoss = false;
+        private float invFrames = 0f;
+
 
         PhotonView pv;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
         void Start()
         {
-            pv = GetComponent<PhotonView>();
-            // Establish original values
-            maxHp = hp;
-            animator = GetComponent<Animator>();
-            GameObject manager = GameObject.FindWithTag("Manager");
-            if (manager != null)
-                hitStop = manager.GetComponent<HitStop>();
+            if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
+            {
+                pv = GetComponent<PhotonView>();
+                // Initialize private components
+                //player = GameObject.FindWithTag("Player").transform;
+                agent = GetComponent<NavMeshAgent>();
+                if (!PhotonNetwork.IsMasterClient && GameManager.isOnline)
+                    agent.enabled = false;
 
+                if(animator == null)
+                    animator = GetComponent<Animator>();
+                GameObject manager = GameObject.FindWithTag("Manager");
+                if (manager != null)
+                    hitStop = manager.GetComponent<HitStop>();
 
-            // Initialize private components
-            //player = GameObject.FindWithTag("Player").transform;
-            agent = GetComponent<NavMeshAgent>();
+                // Establish original values
+                maxHp = hp;
+            }
         }
 
         void Update()
@@ -63,7 +72,9 @@ namespace Enemies
             if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
             {
                 dazeTime -= Time.deltaTime;
-                if (dazeTime > 0f)
+                invFrames -= Time.deltaTime;
+                animator.SetFloat("DazeTime", dazeTime);
+                if(dazeTime > 0f)
                     return;
 
                 player = GameManager.GetClosestTarget(transform).transform;
@@ -89,6 +100,7 @@ namespace Enemies
         }
         public virtual void Patrolling()
         {
+            animator.SetBool("Walking", true);
             if (!walkPointSet)
                 CreateWalkPoint();
 
@@ -110,7 +122,9 @@ namespace Enemies
 
         public void Chasing()
         {
-            if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            animator.SetBool("Walking", true);
+            player = GameManager.GetClosestTarget(transform.position).transform;
+            if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("Running weaponless") || this.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
                 agent.SetDestination(player.position);
         }
 
@@ -169,14 +183,14 @@ namespace Enemies
 
         public void OnTriggerEnter(Collider col)
         {
-            if (col.gameObject.tag == "Player")
-                dazeTime = 1f;
+            if(col.gameObject.tag == "Player")
+                dazeTime = 0.5f;
         }
 
         public void OnCollisionEnter(Collision col)
         {
-            if (col.gameObject.tag == "Player")
-                dazeTime = 1f;
+            if(col.gameObject.tag == "Player")
+                dazeTime = 0.5f;
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -233,6 +247,11 @@ namespace Enemies
         /// <param name="dmg"> Amount of damage taken. </param>
         public virtual void TakeDamage(float dmg)
         {
+            if(invFrames > 0f)
+                return;
+            if(isBoss)
+                invFrames = 3f;
+            hp -= dmg;
             //render.material.color = new Color(hp / maxHp, 1, hp / maxHp);
             //CameraShake.Instance.DoShake(0.5f, 1f, 0.1f);
 
