@@ -167,9 +167,9 @@ namespace GameManagement
                 {
                     int i = (int)PhotonNetwork.CurrentRoom.CustomProperties["Scene"];
                     loading = true;
-                    GameManager.FirstPos(i);
+                    GameManager.FirstPos(0);
                     anim.SetTrigger("FadeIn");
-                    // PhotonNetwork.LoadLevel(i);
+                    PhotonNetwork.LoadLevel(i);
                 }
             }
         }
@@ -195,7 +195,7 @@ namespace GameManagement
                     loading = true;
                     GameManager.FirstPos(0);
                     anim.SetTrigger("FadeIn");
-                    // PhotonNetwork.LoadLevel(sceneIndex);
+                    PhotonNetwork.LoadLevel(sceneName);
                 }
             }
         }
