@@ -21,7 +21,7 @@ public class LevelSelectUI : MonoBehaviour
     private void OnEnable()
     {
         pauseInput.Enable();
-        pauseInput.performed += PuseInput;
+        pauseInput.performed += PauseInput;
     }
     private void OnDisable()
     {
@@ -29,7 +29,7 @@ public class LevelSelectUI : MonoBehaviour
     }
     void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.tag == "Player" && (!GameManager.isOnline || PhotonNetwork.IsMasterClient))
+        if(col.gameObject.tag == "Player" && (!GameManager.isOnline || (PhotonNetwork.IsMasterClient && col.gameObject.GetComponent<PhotonView>().IsMine)))
         {
             if(levelSelectMenu.activeInHierarchy == false)
             {
@@ -44,7 +44,7 @@ public class LevelSelectUI : MonoBehaviour
         }
     }
 
-    void PuseInput(InputAction.CallbackContext context){
+    void PauseInput(InputAction.CallbackContext context){
             if(levelSelectMenu.activeInHierarchy == true)
                     ExitMenu();
         }
