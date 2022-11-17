@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - speakerName: JAM-66 111 98
-    dialogue: Okay, See you I guess.
+    dialogue: Okay, see you I guess.
     soundEffect: {fileID: 0}
   buttonsText: No
   Interactions: []

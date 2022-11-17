@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - speakerName: JAM-66 111 98
-    dialogue: What does a doggy Robot do?
+    dialogue: What does a doggy robot do?
     soundEffect: {fileID: 0}
   - speakerName: JAM-66 111 98
     dialogue: It Bytes!  :D

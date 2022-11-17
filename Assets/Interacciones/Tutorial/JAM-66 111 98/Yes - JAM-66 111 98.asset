@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - speakerName: JAM-66 111 98
-    dialogue: Okey, here I go!
+    dialogue: Okay, here I go!
     soundEffect: {fileID: 0}
   buttonsText: Yes
   Interactions:

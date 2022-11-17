@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - speakerName: JAM-66 111 98
-    dialogue: Why did the Robot go to the shoe shop?
+    dialogue: Why did the robot go to the shoe shop?
     soundEffect: {fileID: 0}
   - speakerName: JAM-66 111 98
-    dialogue: To get Rebooted! :D
+    dialogue: To get rebooted! :D
     soundEffect: {fileID: 0}
   buttonsText: 
   Interactions: []

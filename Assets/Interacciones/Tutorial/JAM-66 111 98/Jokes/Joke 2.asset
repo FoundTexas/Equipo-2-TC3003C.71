@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - speakerName: JAM-66 111 98
-    dialogue: Why did the Robot fail its exam?
+    dialogue: Why did the robot fail its exam?
     soundEffect: {fileID: 0}
   - speakerName: JAM-66 111 98
     dialogue: It was a bit Rusty!  :D
