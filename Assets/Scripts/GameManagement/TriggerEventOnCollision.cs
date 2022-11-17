@@ -26,6 +26,10 @@ namespace GameManagement
                 {
                     PunRPCSetTrigger();
                 }
+                else if (GameManager.isOnline)
+                {
+                    gameObject.SetActive(false);
+                }
             }
         }
     }
