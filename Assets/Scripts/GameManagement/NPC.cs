@@ -57,6 +57,7 @@ public class NPC : MonoBehaviour
     }
     private void Update()
     {
+        Player = GameManager.GetClosestTarget(transform).GetComponent<Move>();
         if (Waves.isEnded)
         {
             anim.SetBool("Afraid",false);
