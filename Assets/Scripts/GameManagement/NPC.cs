@@ -29,6 +29,7 @@ public class NPC : MonoBehaviour
     Quaternion rot;
 
     Move Player;
+    Animator anim;
 
     private void Awake()
     {
@@ -47,6 +48,7 @@ public class NPC : MonoBehaviour
     }
     private void Start()
     {
+        anim = GetComponent<Animator>();
         ShowInput(false);
         Locked = false;
         originalRot = transform.rotation;
@@ -55,29 +57,37 @@ public class NPC : MonoBehaviour
     }
     private void Update()
     {
-        GetTarget();
-        if(distance <= MaxDist)
+        if (Waves.isEnded)
         {
-            if (!Locked && interactions.Count > index && distance <= MinDist)
+            anim.SetBool("Afraid",false);
+            GetTarget();
+            if (distance <= MaxDist)
             {
-                InputBox.transform.LookAt(Camera.main.transform);
-                ShowInput(true);
-                Player.PossibleDialogue = true;
+                if (!Locked && interactions.Count > index && distance <= MinDist)
+                {
+                    InputBox.transform.LookAt(Camera.main.transform);
+                    ShowInput(true);
+                    Player.PossibleDialogue = true;
+                }
+                else if (distance > MinDist)
+                {
+                    ShowInput(false);
+                    Player.PossibleDialogue = false;
+                }
             }
-            else if(distance > MinDist)
+            else
             {
-                ShowInput(false);
-                Player.PossibleDialogue = false;
+                rot = originalRot;
             }
-        }
-        else
-        {
-            rot = originalRot;
-        }
 
-        if (transform.rotation != rot)
+            if (transform.rotation != rot)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, rot, 0.3f);
+            }
+        }
+        else if (!Waves.isEnded)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, rot, 0.3f);
+            anim.SetBool("Afraid",true);
         }
     }
     void ShowInput(bool b)
@@ -89,7 +99,7 @@ public class NPC : MonoBehaviour
     {
         if (DialogueManager.Ended)
         {
-            if(Player.wasGrounded)
+            if (Player.wasGrounded)
             {
                 Player.canMove = false;
                 if (context.performed && !Locked)
@@ -163,7 +173,7 @@ public class NPC : MonoBehaviour
             if (newDistance <= distance)
             {
                 distance = Mathf.Abs(newDistance);
-                Player = player.gameObject.GetComponent<Move> ();
+                Player = player.gameObject.GetComponent<Move>();
                 target.position = player.transform.position;
             }
         }
