@@ -382,6 +382,9 @@ GameObject:
   - component: {fileID: 2920909310714011901}
   - component: {fileID: 215461260145151600}
   - component: {fileID: 8149537822052528227}
+  - component: {fileID: 5608091912258781609}
+  - component: {fileID: 6699603304834681847}
+  - component: {fileID: 8253345791994077320}
   m_Layer: 0
   m_Name: Third Person Camera
   m_TagString: CinemachineCamera
@@ -584,6 +587,58 @@ MonoBehaviour:
   frequemcyGain: 0
   cmFreeCam: {fileID: 2920909310714011898}
   shakeDuration: 0
+--- !u!114 &5608091912258781609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2920909310714011897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7194dc27b9df64c8beca7482ee8e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerIndex: -1
+  AutoEnableInputs: 1
+  XYAxis: {fileID: 758227199682021204, guid: 9f075a2c0185d2c4bbb78de5cc3c850c, type: 3}
+  ZAxis: {fileID: 0}
+--- !u!114 &6699603304834681847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2920909310714011897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6267ad9602ca2614cbeb54d50521a38c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amplitudeGain: 0
+  frequemcyGain: 0
+  cmFreeCam: {fileID: 0}
+  shakeDuration: 0
+--- !u!95 &8253345791994077320
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2920909310714011897}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4608454321215697125
 GameObject:
   m_ObjectHideFlags: 0
