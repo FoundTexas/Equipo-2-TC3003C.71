@@ -186,6 +186,11 @@ namespace GameManagement
                 }
             }
         }
+        public void LoadOnline(int sceneIndex, Vector3 pos)
+        {
+            GameManager.setCheckPoint(pos);
+            LoadOnline(sceneIndex);
+        }
         public void LoadOnline(int sceneIndex)
         {
             if (PhotonNetwork.IsMasterClient)
