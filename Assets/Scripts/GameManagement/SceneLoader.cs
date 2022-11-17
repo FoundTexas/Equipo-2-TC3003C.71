@@ -157,7 +157,7 @@ namespace GameManagement
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                int sceneIndex = PlayerPrefs.GetInt("Loader.1", 2);
+                int sceneIndex = PlayerPrefs.GetInt("Loader.1", 1);
 
                 if (sceneIndex >= 2)
                     sceneIndex = 2;
@@ -230,13 +230,13 @@ namespace GameManagement
         }
         public void FromJson()
         {
-            int i = PlayerPrefs.GetInt("Loader.1", 2);
+            int i = PlayerPrefs.GetInt("Loader.1", 1);
             PlayerPrefs.SetInt("Loader.1", i);
         }
 
         public bool Save()
         {
-            if (SceneManager.GetActiveScene().buildIndex > 1)
+            if (SceneManager.GetActiveScene().buildIndex > PlayerPrefs.GetInt("Loader.1", 1))
             {
                 PlayerPrefs.SetInt("Loader.1", SceneManager.GetActiveScene().buildIndex);
                 Debug.Log("Saving: " + this.name);
