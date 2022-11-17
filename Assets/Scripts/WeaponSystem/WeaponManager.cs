@@ -20,7 +20,7 @@ namespace WeaponSystem
     public class WeaponManager : MonoBehaviour, ISave
     {
 
-        public static bool hasWeapon = true;
+        public static bool hasWeapon = false;
 
         //ref photon
         public PhotonView view;

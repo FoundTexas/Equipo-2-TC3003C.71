@@ -112,6 +112,7 @@ public class DialogueManager : MonoBehaviour
                 }
                 else
                 {
+                    currentInteraction.TryLoadScene();
                     Ended = true;
                     events.paused = false;
                     dialogUI.SetActive(false);

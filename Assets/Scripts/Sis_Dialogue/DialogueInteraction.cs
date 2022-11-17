@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using GameManagement;
 [CreateAssetMenu(fileName = "d_Interaction", menuName = "ScriptableObjects/Dialogue", order = 1)]
 
-public class DialogueInteraction : ScriptableObject 
+public class DialogueInteraction : ScriptableObject
 {
     [SerializeField] List<Line> lines = new List<Line>();
     [SerializeField] string buttonsText;
     [SerializeField] List<DialogueInteraction> Interactions = new List<DialogueInteraction>();
+    [SerializeField] int scene = -1;
 
-    public string getButtonText(){
+    public string getButtonText()
+    {
         return buttonsText;
     }
     public bool lineContinue(int index)
@@ -26,6 +29,21 @@ public class DialogueInteraction : ScriptableObject
     public List<DialogueInteraction> getInteractions()
     {
         return Interactions;
+    }
+
+    public void TryLoadScene()
+    {
+        if (scene != -1)
+        {
+            if (GameManager.isOnline)
+            {
+                FindObjectOfType<SceneLoader>().LoadOnline(scene);
+            }
+            if (GameManager.isOnline)
+            {
+                FindObjectOfType<SceneLoader>().LoadByIndex(scene);
+            }
+        }
     }
 
 }

@@ -148,7 +148,10 @@ namespace GameManagement
 
         public void LoadLastSaved()
         {
-            int i = PlayerPrefs.GetInt("Loader.1", 2);
+            int i = PlayerPrefs.GetInt("Loader.1", 1);
+
+            if (i >= 2)
+                    i = 2;
 
             LoadByIndex(i);
         }

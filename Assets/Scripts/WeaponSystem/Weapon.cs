@@ -79,6 +79,11 @@ namespace WeaponSystem
                 FireInput.Enable();
                 ReloadInput = PlayerInput.Game.Reload;
                 ReloadInput.Enable();
+
+                FindObjectOfType<AmmoDisplay>().SetGunName(ID);
+                FindObjectOfType<AmmoDisplay>().SetCurrentAmmo("∞");
+                FindObjectOfType<AmmoDisplay>().SetRemainingAmmo("∞");
+
             }
         }
         private void OnDisable()
