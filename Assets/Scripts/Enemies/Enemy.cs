@@ -40,6 +40,7 @@ namespace Enemies
         public float dazeTime = 0f;
         public bool isBoss = false;
         public float invFrames = 0f;
+        [SerializeField] public GameObject shield;
 
         PhotonView pv;
 
@@ -67,6 +68,8 @@ namespace Enemies
             {
                 dazeTime -= Time.deltaTime;
                 invFrames -= Time.deltaTime;
+                if(invFrames <= 0f)
+                    shield.SetActive(false);
                 animator.SetFloat("DazeTime", dazeTime);
                 if(dazeTime > 0f)
                     return;
@@ -244,7 +247,11 @@ namespace Enemies
             if(invFrames > 0f)
                 return;
             if(isBoss)
+            {
                 invFrames = 2f;
+                shield.SetActive(true);
+            }
+                
             //render.material.color = new Color(hp / maxHp, 1, hp / maxHp);
             //CameraShake.Instance.DoShake(0.5f, 1f, 0.1f);
 

@@ -32,7 +32,8 @@ namespace Enemies
             {
                 dazeTime -= Time.deltaTime;
                 invFrames -= Time.deltaTime;
-
+                if(invFrames <= 0f)
+                    shield.SetActive(false);
                 player = GameManager.GetClosestTarget(transform).transform;
                     if (player == null)
                         player = transform;
@@ -50,6 +51,7 @@ namespace Enemies
 
         void OnDestroy()
         {
+            fragment.SetActive(true);
             fragment.transform.position =  new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
         }
 

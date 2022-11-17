@@ -12811,31 +12811,55 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2474517096932674676, guid: adaf29cd02960b543b1f58968ec167f7, type: 3}
       propertyPath: CheckPoint.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2474517096932674676, guid: adaf29cd02960b543b1f58968ec167f7, type: 3}
       propertyPath: initialPositions.Array.size
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2474517096932674676, guid: adaf29cd02960b543b1f58968ec167f7, type: 3}
       propertyPath: initialPositions.Array.data[0].y
-      value: 1
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2474517096932674676, guid: adaf29cd02960b543b1f58968ec167f7, type: 3}
       propertyPath: initialPositions.Array.data[1].y
-      value: 1
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2474517096932674676, guid: adaf29cd02960b543b1f58968ec167f7, type: 3}
       propertyPath: initialPositions.Array.data[2].x
-      value: 8.73
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2474517096932674676, guid: adaf29cd02960b543b1f58968ec167f7, type: 3}
       propertyPath: initialPositions.Array.data[2].y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2474517096932674676, guid: adaf29cd02960b543b1f58968ec167f7, type: 3}
       propertyPath: initialPositions.Array.data[2].z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2474517096932674676, guid: adaf29cd02960b543b1f58968ec167f7, type: 3}
+      propertyPath: initialPositions.Array.data[3].x
+      value: -142.0779
+      objectReference: {fileID: 0}
+    - target: {fileID: 2474517096932674676, guid: adaf29cd02960b543b1f58968ec167f7, type: 3}
+      propertyPath: initialPositions.Array.data[3].y
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2474517096932674676, guid: adaf29cd02960b543b1f58968ec167f7, type: 3}
+      propertyPath: initialPositions.Array.data[3].z
+      value: -78.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 2474517096932674676, guid: adaf29cd02960b543b1f58968ec167f7, type: 3}
+      propertyPath: initialPositions.Array.data[4].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2474517096932674676, guid: adaf29cd02960b543b1f58968ec167f7, type: 3}
+      propertyPath: initialPositions.Array.data[4].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2474517096932674676, guid: adaf29cd02960b543b1f58968ec167f7, type: 3}
+      propertyPath: initialPositions.Array.data[4].z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8213522270943523079, guid: adaf29cd02960b543b1f58968ec167f7, type: 3}
       propertyPath: m_Name
