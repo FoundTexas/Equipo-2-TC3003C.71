@@ -20,7 +20,6 @@ public class EnemyWaves : MonoBehaviour
         enemyAgent = transform.GetComponent<NavMeshAgent>();
         enemyAgent.speed = 5f;
         waves = GameObject.Find("EnemyWave").GetComponent<Waves>();
-        playerTransform = waves.GetPlayerPos();
         mapCenter = waves.GetCenterPos();
         destPos = mapCenter.position;
     }

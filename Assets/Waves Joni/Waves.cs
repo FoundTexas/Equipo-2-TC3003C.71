@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameManagement;
+using Photon.Pun;
 
 public class Waves : MonoBehaviour
 {
-    public GameObject EnemyToSpawn;
-    public Transform player;
+    public GameObject EnemyToSpawn, forecfield;
     public Transform centerPos;
     public GameObject spawner;
     public int rounds;
@@ -23,11 +23,11 @@ public class Waves : MonoBehaviour
     {
         for (int i = 1; i < 4; i++)
         {
-            for (int j = 0; j <= 360; j+=45/2)
+            for (int j = 0; j <= 360; j += 45 / 4)
             {
                 GameObject spawn = Instantiate(spawner, transform.position, Quaternion.identity, transform);
-                spawn.transform.Rotate(0,j,0);
-                spawn.transform.localPosition += spawn.transform.forward * i * 5;
+                spawn.transform.Rotate(0, j, 0);
+                spawn.transform.localPosition += spawn.transform.forward * i * 2;
             }
         }
         foreach (Transform spawnPoint in transform)
@@ -39,18 +39,24 @@ public class Waves : MonoBehaviour
 
     private void OnEnable()
     {
-        allSpawned = false;
-        isEnded = false;
-        isStarted = true;
-        StartPoints();
-        rounds = 0;
+        if (PhotonNetwork.IsMasterClient || !GameManager.isOnline)
+        {
+            allSpawned = false;
+            isEnded = false;
+            isStarted = true;
+            StartPoints();
+            rounds = 0;
+        }
     }
 
     private void FixedUpdate()
     {
-        if (gameObject.activeInHierarchy && !isEnded)
+        if (PhotonNetwork.IsMasterClient || !GameManager.isOnline)
         {
-            StartRound();
+            if (gameObject.activeInHierarchy && !isEnded)
+            {
+                StartRound();
+            }
         }
     }
     private void StartRound()
@@ -69,7 +75,7 @@ public class Waves : MonoBehaviour
                     }
                 }
             }
-            else if(currentEnemies <= 0 && isStarted)
+            else if (currentEnemies <= 0 && isStarted)
             {
                 isStarted = false;
                 currentEnemies = 0;
@@ -80,6 +86,7 @@ public class Waves : MonoBehaviour
         {
             isEnded = true;
             endEvent.SetEnded(true);
+            this.gameObject.SetActive(false);
             GameManager.SaveGame();
         }
     }
@@ -102,7 +109,7 @@ public class Waves : MonoBehaviour
                             StartCoroutine(SpawnEnemies_(points, timeRandom));
                             currentEnemies++;
                             currentEnem++;
-                            if (currentEnem == numEnemy[rounds]) {allSpawned = true; }
+                            if (currentEnem == numEnemy[rounds]) { allSpawned = true; }
                             yield return new WaitForSeconds(timeRandom + .5f);
                         }
                         else if (allSpawned)
@@ -125,10 +132,6 @@ public class Waves : MonoBehaviour
     {
         yield return new WaitForSeconds(timeRandom);
         spawnedEnemies.Add(Instantiate(EnemyToSpawn, points.position, Quaternion.identity));
-    }
-    public Transform GetPlayerPos()
-    {
-        return player;
     }
     public Transform GetCenterPos()
     {

@@ -94,10 +94,11 @@ namespace GameManagement
                 }
                 else
                 {
-                    tmps = JsonUtility.ToJson(c);
+                    tmps = JsonUtility.ToJson(c.data);
                     PlayerPrefs.SetString(sname + "c" + i + "1", tmps);
                 }
-                JsonUtility.FromJsonOverwrite(tmps, c);
+                Debug.Log(tmps);
+                JsonUtility.FromJsonOverwrite(tmps, c.data);
             }
 
             if (!GameManager.isOnline || PhotonNetwork.IsMasterClient)
@@ -158,7 +159,7 @@ namespace GameManagement
             for (int i = 0; i < collect.Length; i++)
             {
                 Collectable e = collect[i];
-                string tmps = JsonUtility.ToJson(e);
+                string tmps = JsonUtility.ToJson(e.data);
 
                 PlayerPrefs.SetString(sname + "c" + i + "1", tmps);
                 //Debug.Log("Saving: " + e.name);

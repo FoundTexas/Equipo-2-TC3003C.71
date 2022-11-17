@@ -6,19 +6,25 @@ using UnityEngine;
 
 namespace Collectables
 {
+    [Serializable]
+    public class CollectableData
+    {
+        [Tooltip("Collected value of the Collectable")]
+        [SerializeField] public bool isCollected;
+    }
     /// <summary>
     /// Class assigned to all static Collectables that stores the collected value changing the in game appearance.
     /// </summary>
     [RequireComponent(typeof(MeshRenderer))]
-    [Serializable]
     public class Collectable : MonoBehaviour
     {
         public int index;
         public Material mat, mat2;
         [Tooltip("Renderer object to vizualize mesh")]
         [NonSerialized] public MeshRenderer render;
-        [Tooltip("Collected value of the Collectable")]
-        [SerializeField] private bool isCollected;
+
+        public CollectableData data;
+
         [Tooltip("Pick up effect")]
         [NonSerialized] private GameObject effect;
 
@@ -31,14 +37,14 @@ namespace Collectables
 
         private void Update()
         {
-            render.material = isCollected ? mat2 : mat;
+            render.material = data.isCollected ? mat2 : mat;
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.tag == "Player")
             {
-                isCollected = true;
+                data.isCollected = true;
                 GameManager.SaveGame();
                 gameObject.SetActive(false);
             }
@@ -52,16 +58,16 @@ namespace Collectables
         /// <param name="isCollected"> Bollean new value to isCollected. </param>
         public void SetCollected(bool isCollected)
         {
-            this.isCollected = isCollected;
+            data.isCollected = isCollected;
         }
 
         /// <summary>
         /// Method that gets the collected private value.
         /// </summary>
         /// <returns> isCollected boolean value. </returns>
-        public bool GetCollected() 
-        { 
-            return isCollected; 
+        public bool GetCollected()
+        {
+            return data.isCollected;
         }
     }
 }
