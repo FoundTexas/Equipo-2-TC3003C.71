@@ -163,6 +163,9 @@ namespace GameManagement
             {
                 int sceneIndex = PlayerPrefs.GetInt("Loader.1", 1);
 
+                if (sceneIndex >= 2)
+                    sceneIndex = 2;
+
                 var hash = PhotonNetwork.CurrentRoom.CustomProperties;
                 if(hash.ContainsKey("Scene"))
                     hash["Scene"] = sceneIndex;
@@ -170,9 +173,6 @@ namespace GameManagement
                     hash.Add("Scene", sceneIndex);
                 
                 PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
-
-                if (sceneIndex >= 2)
-                    sceneIndex = 2;
 
                 if (!loading)
                 {
@@ -212,9 +212,9 @@ namespace GameManagement
 
                 var hash = PhotonNetwork.CurrentRoom.CustomProperties;
                 if(hash.ContainsKey("Scene"))
-                    hash["Scene"] = sceneIndex;
+                    hash["Scene"] = i;
                 else if(!hash.ContainsKey("Scene"))
-                    hash.Add("Scene", sceneIndex);
+                    hash.Add("Scene", i);
                 
                 PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
 
