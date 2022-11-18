@@ -20,7 +20,8 @@ namespace Enemies
             // Initialize private components
             player = GameObject.FindWithTag("Player").transform;
             agent = GetComponent<NavMeshAgent>();
-            animator = GetComponent<Animator>();
+            if(animator == null)
+                animator = GetComponent<Animator>();
             GameObject manager = GameObject.FindWithTag("Manager");
             if(manager!=null)
                 hitStop = manager.GetComponent<HitStop>();
@@ -62,7 +63,6 @@ namespace Enemies
 
             if(!hasAttacked)
             {
-                animator.SetTrigger("Attack");
                 GameObject bomb;
                 Vector3 bombpos = this.transform.position;
                 bombpos.y = this.transform.position.y + 3;

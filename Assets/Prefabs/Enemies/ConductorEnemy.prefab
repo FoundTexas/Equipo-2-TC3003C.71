@@ -7405,6 +7405,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5365812825209421443
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4200784288463632591}
+  m_Layer: 9
+  m_Name: BombSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4200784288463632591
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5365812825209421443}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6851158052020402147}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5588678252858380621
 GameObject:
   m_ObjectHideFlags: 0
@@ -9993,6 +10024,7 @@ MonoBehaviour:
   bombPrefab: {fileID: 8403538924038456462, guid: a1166a81776cb364689a7e8194eaf5e0, type: 3}
   throwStrength: 1
   fragment: {fileID: 0}
+  bombSpawnPoint: {fileID: 4200784288463632591}
 --- !u!65 &6930553625822819877
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10534,7 +10566,8 @@ Transform:
   m_LocalPosition: {x: -0.00010620117, y: 0.000070576665, z: -0.027221657}
   m_LocalScale: {x: 0.22139543, y: 0.109009005, z: 0.22139548}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4200784288463632591}
   m_Father: {fileID: 8592758315671968608}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 5.894, y: -14.184, z: -0.94}

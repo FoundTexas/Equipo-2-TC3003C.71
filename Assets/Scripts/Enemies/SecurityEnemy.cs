@@ -36,7 +36,8 @@ namespace Enemies
         {
             // Initialize private components
             agent = GetComponent<NavMeshAgent>();
-            animator = GetComponent<Animator>();
+            if(animator == null)
+                animator = GetComponent<Animator>();
             fade = GameObject.FindWithTag("GameCanvas").GetComponentsInChildren<FadeBlack>()[0];
             GameObject manager = GameObject.FindWithTag("Manager");
             sceneLoader = GameObject.FindWithTag("SceneLoader").GetComponent<SceneLoader>();
@@ -73,6 +74,7 @@ namespace Enemies
             if(asleep && !capturing)
                 return;
             jumpTimer += Time.deltaTime;
+            
             if(this.animator.GetCurrentAnimatorStateInfo(0).IsName("Jump_CactusPal"))
                     agent.isStopped = false;
             else
@@ -80,7 +82,7 @@ namespace Enemies
                 agent.isStopped = true;
                 agent.velocity = Vector3.zero;
             }
-                
+
             if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayHit, viewRange))
             {
                 if(rayHit.collider.tag == "Prop"){}

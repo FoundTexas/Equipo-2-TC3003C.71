@@ -14,6 +14,7 @@ public class Bomb : MonoBehaviour
     private SphereCollider originalCol;
     private Rigidbody rb;
     private bool hasExploded;
+    [SerializeField] private AudioSource explosionSfx;
     
 
     void Awake()
@@ -41,6 +42,7 @@ public class Bomb : MonoBehaviour
 
     void Explode()
     {
+        explosionSfx.Play();
         explosionCol.enabled = true;
         originalCol.enabled = false;
         render.enabled = false;
