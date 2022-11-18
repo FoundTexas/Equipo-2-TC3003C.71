@@ -18,11 +18,13 @@ public class Waves : MonoBehaviour
     bool isStarted = true;
     public static bool isEnded = true;
     bool allSpawned = false;
-    private void Start() {
+    private void Start()
+    {
         isEnded = true;
     }
     void StartPoints()
     {
+        Debug.Log("points 1");
         for (int i = 1; i < 4; i++)
         {
             for (int j = 0; j <= 360; j += 45 / 4)
@@ -37,25 +39,27 @@ public class Waves : MonoBehaviour
             spawnPoints.Add(spawnPoint);
         }
         spawnPoints.Reverse();
+        Debug.Log("points 2");
     }
 
     private void OnEnable()
     {
-        if (PhotonNetwork.IsMasterClient || !GameManager.isOnline)
-        {
-            allSpawned = false;
-            isEnded = false;
-            isStarted = true;
-            StartPoints();
-            rounds = 0;
-        }
+        Debug.Log("Start spawn");
+        allSpawned = false;
+        isEnded = false;
+        Debug.Log(isEnded);
+        isStarted = true;
+        StartPoints();
+        rounds = 0;
     }
 
     private void FixedUpdate()
     {
+
         if (PhotonNetwork.IsMasterClient || !GameManager.isOnline)
         {
-            if (gameObject.activeInHierarchy && !isEnded)
+            Debug.Log(!isEnded);
+            if (isStarted)
             {
                 StartRound();
             }
@@ -63,6 +67,7 @@ public class Waves : MonoBehaviour
     }
     private void StartRound()
     {
+        Debug.Log("Spawn");
         if (rounds < numEnemy.Count)
         {
             if (currentEnemies > 0)

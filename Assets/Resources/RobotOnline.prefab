@@ -1278,6 +1278,7 @@ MonoBehaviour:
   forceField: {fileID: 2507200820708592872}
   maxHP: 6
   sceneLoader: {fileID: 0}
+  dead: 0
 --- !u!114 &8005529672033931666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18355,7 +18356,7 @@ MonoBehaviour:
   BulletTrail: {fileID: 5111957209854044782, guid: 97700d8afa1a790408a805fab56667bb, type: 3}
   rayMasks:
     serializedVersion: 2
-    m_Bits: 1673
+    m_Bits: 1929
 --- !u!82 &9166353688554501926
 AudioSource:
   m_ObjectHideFlags: 0
