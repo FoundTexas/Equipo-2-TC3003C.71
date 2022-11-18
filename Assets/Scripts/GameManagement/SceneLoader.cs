@@ -203,14 +203,7 @@ namespace GameManagement
             LoadOnline(sceneIndex);
         }
         public void LoadOnline(int sceneIndex)
-        {
-            pv.RPC("PunRPCLoad",RpcTarget.All ,sceneIndex);
-        }
-
-        [PunRPC]
-        public void PunRPCLoad(int sceneIndex)
-        {
-            
+        { 
             if (PhotonNetwork.IsMasterClient)
             {
                 int i = 1;
