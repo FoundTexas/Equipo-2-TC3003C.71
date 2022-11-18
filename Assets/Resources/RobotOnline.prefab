@@ -18265,7 +18265,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4006117001361561573
 Transform:
   m_ObjectHideFlags: 0
@@ -25528,7 +25528,8 @@ MonoBehaviour:
   torso: {fileID: 558904372479904475}
   hand: {fileID: 3944342862519984316}
   unlocked:
-    unlock: []
+    unlock:
+    - BasicGun
   selected: {fileID: 1816392268262265136}
 --- !u!114 &8062322865626927880
 MonoBehaviour:

@@ -86,14 +86,10 @@ namespace WeaponSystem
             if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
                 hasWeapon = false;
-                if (!GameManager.isOnline)
-                {
-                        PunRPCToggleWeapon(hasWeapon);
-                }
-                else if (GameManager.isOnline)
-                {
-                        view.RPC("PunRPCToggleWeapon", RpcTarget.All, hasWeapon);
-                }
+            }
+            else
+            {
+                selected.gameObject.SetActive(true);
             }
 
         }
@@ -277,6 +273,9 @@ namespace WeaponSystem
             }
 
             JsonUtility.FromJsonOverwrite(s, unlocked);
+
+            if (unlocked.unlock.Contains(selected.GetID()))
+                selected.gameObject.SetActive(true);
             //Debug.Log(JsonUtility.ToJson(this));
         }
 
