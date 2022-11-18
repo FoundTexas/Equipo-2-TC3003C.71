@@ -1573,7 +1573,24 @@ PrefabInstance:
       propertyPath: m_ScreenMatchMode
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8679826781646922542, guid: e3035f92ed3381f4999ac11574ada215, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679826781646922542, guid: e3035f92ed3381f4999ac11574ada215, type: 3}
+      propertyPath: Synchronization
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679826781646922542, guid: e3035f92ed3381f4999ac11574ada215, type: 3}
+      propertyPath: observableSearch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679826781646922542, guid: e3035f92ed3381f4999ac11574ada215, type: 3}
+      propertyPath: OwnershipTransfer
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8679826781646922542, guid: e3035f92ed3381f4999ac11574ada215, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e3035f92ed3381f4999ac11574ada215, type: 3}
 --- !u!1 &359021803
 GameObject:

@@ -109,6 +109,10 @@ public class Move : MonoBehaviour
         view = GetComponent<PhotonView>();
         if (!GameManager.isOnline || GameManager.isOnline && view.IsMine)
         {
+            if(GameManager.isOnline && view.IsMine)
+            {
+                PhotonNetwork.AutomaticallySyncScene = true;
+            }
             controller = GetComponent<CharacterController>();
             anim = GetComponent<AudioAndVideoManager>();
             

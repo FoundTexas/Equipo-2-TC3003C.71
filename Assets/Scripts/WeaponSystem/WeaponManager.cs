@@ -83,11 +83,9 @@ namespace WeaponSystem
                 weaponDictionary.Add(weapons[i].GetID(), i);
                 weapons[i].gameObject.SetActive(false);
             }
-
-            if (unlocked.unlock.Count > 0)
+            if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
-                selected = weapons[weaponDictionary[unlocked.unlock[0]]];
-                selected.gameObject.SetActive(true);
+                hasWeapon = false;
             }
 
         }
@@ -145,38 +143,48 @@ namespace WeaponSystem
             {
                 if (unlocked.unlock.Count != 0)
                 {
+                    hasWeapon = !hasWeapon;
+
                     if (!GameManager.isOnline)
                     {
-                        PunRPCToggleWeapon();
+                        PunRPCToggleWeapon(hasWeapon);
                     }
                     else if (GameManager.isOnline)
                     {
-                        view.RPC("PunRPCToggleWeapon", RpcTarget.All);
+                        view.RPC("PunRPCToggleWeapon", RpcTarget.All, hasWeapon);
                     }
                 }
             }
         }
 
         [PunRPC]
-        public void PunRPCToggleWeapon()
+        public void PunRPCToggleWeapon(bool vaL)
         {
-            hasWeapon = !hasWeapon;
-            if (hasWeapon)
+            if (vaL)
             {
                 this.transform.parent = hand;
                 pos = Vector3.zero;
                 transform.localRotation = Quaternion.Euler(-65, 48, 54);
             }
-            else if (!hasWeapon)
+            else if (!vaL)
             {
                 this.transform.parent = torso;
                 pos = Vector3.zero;
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }
-            if(selected != null)
-                if(audios)
-                    if(unlocked.unlock.Contains(selected.GetID()))
-                        audios.GunValue(hasWeapon, selected.select);
+            if (selected != null)
+            {
+                if (audios)
+                {
+                    if (unlocked.unlock.Contains(selected.GetID()))
+                    { audios.GunValue(vaL, selected.select); }
+                }
+                if (!selected.gameObject.activeInHierarchy)
+                {
+                    selected.gameObject.SetActive(vaL && unlocked.unlock.Contains(selected.GetID()));
+                }
+                int selectedIndex = GetSelectedIndex();
+            }
         }
         /// <summary>
         /// This Function is in charge og changing between the unlocked weapons
@@ -224,11 +232,11 @@ namespace WeaponSystem
 
                     if (!GameManager.isOnline)
                     {
-                        PunRPCToggleWeapon();
+                        PunRPCToggleWeapon(false);
                     }
                     else if (GameManager.isOnline)
                     {
-                        view.RPC("PunRPCToggleWeapon", RpcTarget.All);
+                        view.RPC("PunRPCToggleWeapon", RpcTarget.All, false);
                     }
                 }
 
