@@ -74,6 +74,7 @@ MonoBehaviour:
   - SetSetted
   - PunRPCSetSetted
   - PunRPCAttackTrigger
+  - PunRPCLoad
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

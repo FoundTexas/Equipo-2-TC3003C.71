@@ -18,7 +18,7 @@ namespace GameManagement
         [SerializeField] Slider progress;
         bool loading = false;
         Animator anim;
-        PhotonView pv;
+        public PhotonView pv;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
 
