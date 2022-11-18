@@ -90,6 +90,18 @@ namespace WeaponSystem
                 selected.gameObject.SetActive(true);
             }
 
+            if (unlocked.unlock.Count != 0)
+                {
+                    if (!GameManager.isOnline)
+                    {
+                        PunRPCToggleWeapon();
+                    }
+                    else if (GameManager.isOnline)
+                    {
+                        view.RPC("PunRPCToggleWeapon", RpcTarget.All);
+                    }
+                }
+
         }
         private void LateUpdate()
         {
