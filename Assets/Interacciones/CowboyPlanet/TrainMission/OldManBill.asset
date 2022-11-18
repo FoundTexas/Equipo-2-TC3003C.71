@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a154a8ac7f0d2284c94bc94d6fd72ef8, type: 3}
+  m_Name: OldManBill
+  m_EditorClassIdentifier: 
+  lines:
+  - speakerName: Old Man Bill
+    dialogue: "Listen kid, you've gotta believe me. \nThe conductor's been replaced
+      by some machine!"
+    soundEffect: {fileID: 0}
+  - speakerName: Old Man Bill
+    dialogue: Everyone thinks I've lost my marbles, but I know what I saw!
+    soundEffect: {fileID: 0}
+  - speakerName: Old Man Bill
+    dialogue: "It may seem like the train\u2019s operatin\u2019 like usual, but some
+      of the minerals are being stolen."
+    soundEffect: {fileID: 0}
+  - speakerName: Old Man Bill
+    dialogue: "I need you to prove me right, and stop those scumbags from takin\u2019
+      what\u2019s ours!"
+    soundEffect: {fileID: 0}
+  - speakerName: Old Man Bill
+    dialogue: "But yer gonna have to go in there like a visitor, otherwise they\u2019ll
+      see it comin\u2019 from a mile away."
+    soundEffect: {fileID: 0}
+  - speakerName: Old Man Bill
+    dialogue: You believe me right?
+    soundEffect: {fileID: 0}
+  buttonsText: 
+  Interactions:
+  - {fileID: 11400000, guid: 86b7a447c8716a043b1b9091027f7c63, type: 2}
+  - {fileID: 11400000, guid: c14a0655688f6a440abd145e1afe5193, type: 2}
+  scene: -1

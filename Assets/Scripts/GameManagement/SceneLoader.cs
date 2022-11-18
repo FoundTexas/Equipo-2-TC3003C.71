@@ -79,6 +79,7 @@ namespace GameManagement
         /// <param name="index"> Scene index int. </param>
         public void LoadByIndex(int index)
         {
+            Debug.Log("Trying to load scene by index.");
             if (SceneManager.GetSceneByBuildIndex(index) == null) { return; }
             if (!loading)
             {

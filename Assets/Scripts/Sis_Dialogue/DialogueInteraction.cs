@@ -31,17 +31,17 @@ public class DialogueInteraction : ScriptableObject
         return Interactions;
     }
 
-    public void TryLoadScene()
+    public void TryLoadScene(SceneLoader sl)
     {
         if (scene != -1)
         {
             if (GameManager.isOnline)
             {
-                FindObjectOfType<SceneLoader>().LoadOnline(scene);
+                sl.LoadOnline(scene);
             }
-            if (GameManager.isOnline)
+            else if (!GameManager.isOnline)
             {
-                FindObjectOfType<SceneLoader>().LoadByIndex(scene);
+                sl.LoadByIndex(scene);
             }
         }
     }
