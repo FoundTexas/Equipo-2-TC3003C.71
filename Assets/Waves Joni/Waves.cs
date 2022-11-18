@@ -16,7 +16,7 @@ public class Waves : MonoBehaviour
     public List<Transform> spawnPoints = new List<Transform>();
     public List<int> numEnemy = new List<int>();
     bool isStarted = true;
-    public static bool isEnded = false;
+    public static bool isEnded = true;
     bool allSpawned = false;
     private void Start() {
         isEnded = true;

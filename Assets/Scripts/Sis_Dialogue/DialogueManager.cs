@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 using UnityEngine.InputSystem;
+using GameManagement;
 
 [RequireComponent(typeof(AudioSource))]
 public class DialogueManager : MonoBehaviour
@@ -112,7 +113,7 @@ public class DialogueManager : MonoBehaviour
                 }
                 else
                 {
-                    currentInteraction.TryLoadScene();
+                    currentInteraction.TryLoadScene(FindObjectOfType<SceneLoader>());
                     Ended = true;
                     events.paused = false;
                     dialogUI.SetActive(false);

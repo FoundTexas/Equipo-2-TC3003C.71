@@ -17,5 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Cowboy.unity
     guid: 08185f8993fad3342a845e0bb418eb63
+  - enabled: 1
+    path: Assets/Scenes/Train.unity
+    guid: 23212267aa493fc41940a54b950659ca
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 7cbaf09584924bf439f5e0c990e9449a, type: 2}
