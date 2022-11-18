@@ -46,7 +46,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
             {
                 load = false;
                 PhotonNetwork.JoinOrCreateRoom(roomName.text, new RoomOptions() { MaxPlayers = 4, }, TypedLobby.Default);
-                PhotonNetwork.AutomaticallySyncScene = true;
+                // PhotonNetwork.AutomaticallySyncScene = true;
                 infoText.text = "JoinOrCreateRoom...";
             }
         }

@@ -162,16 +162,12 @@ namespace GameManagement
             if (PhotonNetwork.IsMasterClient)
             {
                 int sceneIndex = PlayerPrefs.GetInt("Loader.1", 1);
-                var hash = PhotonNetwork.CurrentRoom.CustomProperties;
 
+                var hash = PhotonNetwork.CurrentRoom.CustomProperties;
                 if(hash.ContainsKey("Scene"))
-                {
                     hash["Scene"] = sceneIndex;
-                }
                 else if(!hash.ContainsKey("Scene"))
-                {
                     hash.Add("Scene", sceneIndex);
-                }
                 
                 PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
 
@@ -214,24 +210,28 @@ namespace GameManagement
                     i = sceneIndex;
                 }
 
+                var hash = PhotonNetwork.CurrentRoom.CustomProperties;
+                if(hash.ContainsKey("Scene"))
+                    hash["Scene"] = sceneIndex;
+                else if(!hash.ContainsKey("Scene"))
+                    hash.Add("Scene", sceneIndex);
+                
+                PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
+
                 if (!loading)
                 {
                     loading = true;
 
-                    GameManager.FirstPos(sceneIndex);
+                    GameManager.FirstPos(i);
                     anim.SetTrigger("FadeIn");
-                    PhotonNetwork.LoadLevel(sceneIndex);
+                    PhotonNetwork.LoadLevel(i);
                 }
             }
             else
             {
                 if (!loading)
                 {
-                    int i = 1;
-                    if (sceneIndex != -1)
-                    {
-                        i = sceneIndex;
-                    }
+                    sceneIndex = (int)PhotonNetwork.CurrentRoom.CustomProperties["Scene"];
                     loading = true;
                     GameManager.FirstPos(sceneIndex);
                     anim.SetTrigger("FadeIn");
