@@ -25,6 +25,8 @@ namespace Player
         private Move playerMove;
         public SceneLoader sceneLoader;
 
+        bool dead;
+
         // ----------------------------------------------------------------------------------------------- Unity Methods
         public override void OnEnable() 
         {
@@ -39,6 +41,7 @@ namespace Player
         }
         void Start()
         {
+            dead = false;
             view = GetComponent<PhotonView>();
             playerMove = GetComponent<Move>();
             playerHP = maxHP;
@@ -68,6 +71,12 @@ namespace Player
                 {
 
                     view.RPC("PunRPCResetShield", RpcTarget.All);
+                }
+
+                if(transform.position.y < -100 && !dead)
+                {
+                    dead = true;
+                    TakeDamage(maxHP*2);
                 }
             }
         }
