@@ -18,8 +18,6 @@ namespace PlanetCrashUI
         public GameObject quitMenu;
         [Tooltip("Reference to the confirmMenu GameObject")]
         public GameObject confirmMenu;
-        [Tooltip("Reference to the miniMap GameObject")]
-        public GameObject miniMap;
         public GameObject background;
 
         SceneLoader sceneLoader;
@@ -71,7 +69,6 @@ namespace PlanetCrashUI
             background.transform.position = pauseCamera.transform.position + pauseCamera.transform.forward * 3;
             background.SetActive(true);
             pauseMenu.SetActive(true);
-            miniMap.SetActive(false);
             playerMove.canMove = false;
             playerMove.StopMove();
             isPaused = true;
@@ -97,7 +94,6 @@ namespace PlanetCrashUI
             confirmMenu.SetActive(false);
             Time.timeScale = 1f;
             isPaused = false;
-            miniMap.SetActive(true);
             FindObjectOfType<EventSystemUpdater>().OnPause(false);
         }
         /// <summary>

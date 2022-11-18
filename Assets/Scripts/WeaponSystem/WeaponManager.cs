@@ -86,6 +86,14 @@ namespace WeaponSystem
             if (!GameManager.isOnline || GameManager.isOnline && fatherview.IsMine)
             {
                 hasWeapon = false;
+                if (!GameManager.isOnline)
+                {
+                        PunRPCToggleWeapon(hasWeapon);
+                }
+                else if (GameManager.isOnline)
+                {
+                        view.RPC("PunRPCToggleWeapon", RpcTarget.All, hasWeapon);
+                }
             }
 
         }
@@ -160,7 +168,7 @@ namespace WeaponSystem
         [PunRPC]
         public void PunRPCToggleWeapon(bool vaL)
         {
-            if (vaL)
+            if (vaL && unlocked.unlock.Contains(selected.GetID()))
             {
                 this.transform.parent = hand;
                 pos = Vector3.zero;
@@ -174,14 +182,15 @@ namespace WeaponSystem
             }
             if (selected != null)
             {
-                if (audios)
-                {
-                    if (unlocked.unlock.Contains(selected.GetID()))
-                    { audios.GunValue(vaL, selected.select); }
-                }
                 if (!selected.gameObject.activeInHierarchy)
                 {
                     selected.gameObject.SetActive(vaL && unlocked.unlock.Contains(selected.GetID()));
+
+                    if (audios)
+                    {
+                        if (unlocked.unlock.Contains(selected.GetID()))
+                        { audios.GunValue(vaL, selected.select); }
+                    }
                 }
                 int selectedIndex = GetSelectedIndex();
             }
