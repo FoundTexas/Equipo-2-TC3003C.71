@@ -44,13 +44,16 @@ public class Waves : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("Start spawn");
-        allSpawned = false;
-        isEnded = false;
-        Debug.Log(isEnded);
-        isStarted = true;
-        StartPoints();
-        rounds = 0;
+        if (PhotonNetwork.IsMasterClient || !GameManager.isOnline)
+        {
+            Debug.Log("Start spawn");
+            allSpawned = false;
+            isEnded = false;
+            Debug.Log(isEnded);
+            isStarted = true;
+            StartPoints();
+            rounds = 0;
+        }
     }
 
     private void FixedUpdate()
@@ -138,7 +141,14 @@ public class Waves : MonoBehaviour
     private IEnumerator SpawnEnemies_(Transform points, float timeRandom)
     {
         yield return new WaitForSeconds(timeRandom);
-        spawnedEnemies.Add(Instantiate(EnemyToSpawn, points.position, Quaternion.identity));
+        if (GameManager.isOnline || PhotonNetwork.IsMasterClient)
+        {
+            spawnedEnemies.Add(PhotonNetwork.Instantiate(EnemyToSpawn.name, points.position, Quaternion.identity));
+        }
+        else if (!GameManager.isOnline)
+        {
+            spawnedEnemies.Add(Instantiate(EnemyToSpawn, points.position, Quaternion.identity));
+        }
     }
     public Transform GetCenterPos()
     {
