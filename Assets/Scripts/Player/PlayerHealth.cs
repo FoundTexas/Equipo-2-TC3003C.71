@@ -25,7 +25,7 @@ namespace Player
         private Move playerMove;
         public SceneLoader sceneLoader;
 
-        bool dead;
+        public bool dead;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
         public override void OnEnable() 

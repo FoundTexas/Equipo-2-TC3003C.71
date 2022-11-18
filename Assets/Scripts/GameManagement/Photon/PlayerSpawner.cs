@@ -48,5 +48,7 @@ public class PlayerSpawner : MonoBehaviour
         {
             p.sceneLoader.LoadOnline();
         }
+
+        p.dead = false;
     }
 }
