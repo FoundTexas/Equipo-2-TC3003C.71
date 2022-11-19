@@ -39,9 +39,10 @@ public class PlayerSpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         GameObject[] others = GameObject.FindGameObjectsWithTag("Player");
+        print("Alive: " + others.Length);
         if (others.Length > 0)
         {
-            transform.position = GameManager.getCheckpoint();
+            p.gameObject.transform.position = GameManager.getCheckpoint();
             p.gameObject.SetActive(true);
         }
         else
