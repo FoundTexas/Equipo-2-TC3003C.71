@@ -18,8 +18,10 @@ public class Waves : MonoBehaviour
     bool isStarted = true;
     public static bool isEnded = true;
     bool allSpawned = false;
+    PhotonView pv;
     private void Start()
     {
+        pv = GetComponent<PhotonView>();
         isEnded = true;
     }
     void StartPoints()
@@ -29,12 +31,12 @@ public class Waves : MonoBehaviour
         {
             for (int j = 0; j <= 360; j += 45 / 4)
             {
-                GameObject spawn = Instantiate(spawner, transform.position, Quaternion.identity, transform);
+                GameObject spawn = Instantiate(spawner, transform.position, Quaternion.identity, transform.GetChild(0));
                 spawn.transform.Rotate(0, j, 0);
                 spawn.transform.localPosition += spawn.transform.forward * i * 2;
             }
         }
-        foreach (Transform spawnPoint in transform)
+        foreach (Transform spawnPoint in transform.GetChild(0))
         {
             spawnPoints.Add(spawnPoint);
         }
@@ -44,11 +46,11 @@ public class Waves : MonoBehaviour
 
     private void OnEnable()
     {
+        isEnded = false;
         if (PhotonNetwork.IsMasterClient || !GameManager.isOnline)
         {
             Debug.Log("Start spawn");
             allSpawned = false;
-            isEnded = false;
             Debug.Log(isEnded);
             isStarted = true;
             StartPoints();
@@ -61,29 +63,21 @@ public class Waves : MonoBehaviour
 
         if (PhotonNetwork.IsMasterClient || !GameManager.isOnline)
         {
-            Debug.Log(!isEnded);
-            if (isStarted)
-            {
-                StartRound();
-            }
+            StartRound();
         }
     }
     private void StartRound()
     {
         Debug.Log("Spawn");
+        spawnedEnemies.RemoveAll(x => x == null);
+        currentEnemies = spawnedEnemies.Count;
+
         if (rounds < numEnemy.Count)
         {
             if (currentEnemies > 0)
             {
+                spawnedEnemies.RemoveAll(x => x == null);
                 currentEnemies = spawnedEnemies.Count;
-                for (int i = 0; i < spawnedEnemies.Count; i++)
-                {
-                    if (!spawnedEnemies[i])
-                    {
-                        spawnedEnemies.RemoveAt(i);
-                        return;
-                    }
-                }
             }
             else if (currentEnemies <= 0 && isStarted)
             {
@@ -92,14 +86,29 @@ public class Waves : MonoBehaviour
                 StartCoroutine(SpawnEnemies());
             }
         }
-        else if (!isEnded)
+        else if (rounds >= numEnemy.Count && currentEnemies <= 0)
         {
-            isEnded = true;
-            endEvent.SetEnded(true);
-            this.gameObject.SetActive(false);
-            GameManager.SaveGame();
+            if(GameManager.isOnline && PhotonNetwork.IsMasterClient)
+            {
+                pv.RPC("PunRPCStartRound",RpcTarget.All);
+            }
+            else if(!GameManager.isOnline)
+            {
+                PunRPCStartRound();
+            }
         }
     }
+
+    [PunRPC]
+    public void PunRPCStartRound()
+    {
+        isEnded = true;
+        endEvent.SetEnded(true);
+        this.gameObject.SetActive(false);
+        GameManager.SaveGame();
+    }
+
+
     private IEnumerator SpawnEnemies()
     {
         int currentEnem = 0;

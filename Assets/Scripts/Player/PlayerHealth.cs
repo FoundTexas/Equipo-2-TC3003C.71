@@ -143,7 +143,7 @@ namespace Player
 
             if (!GameManager.isOnline)
                 sceneLoader.LoadByIndex(GameManager.getSceneIndex(), GameManager.getCheckpoint());
-            else if (GameManager.isOnline && view.IsMine)
+            else if (GameManager.isOnline)
             {
                 playerHP = maxHP;
                 FindObjectOfType<PlayerSpawner>().respawnPlayer(this);
