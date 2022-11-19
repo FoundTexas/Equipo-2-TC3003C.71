@@ -10,14 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a154a8ac7f0d2284c94bc94d6fd72ef8, type: 3}
-  m_Name: Joke 1
+  m_Name: Cactus_1
   m_EditorClassIdentifier: 
   lines:
-  - speakerName: JAM-66 111 98
-    dialogue: What does a doggy Robot do?
+  - speakerName: Tired Man
+    dialogue: Another day, another shift at the mine.
     soundEffect: {fileID: 0}
-  - speakerName: JAM-66 111 98
-    dialogue: It Bytes!  :D
+  - speakerName: Tired Man
+    dialogue: 'Gotta get paid to get my lovely wife a new pot.
+
+      Anythin'' to
+      make her happy!'
     soundEffect: {fileID: 0}
   buttonsText: 
   Interactions: []
+  scene: -1
