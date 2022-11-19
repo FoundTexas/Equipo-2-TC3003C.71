@@ -11,7 +11,7 @@ using GameManagement;
 [RequireComponent(typeof(AudioSource))]
 public class DialogueManager : MonoBehaviour
 {
-    [SerializeField] GameObject dialogUI, dialogBox, InputBox, responsePrefab;
+    [SerializeField] GameObject dialogUI, dialogBox, InputBox, responsePrefab, fragmentsUI, healthBar, ammoUI;
     [SerializeField] Transform spawnSpot;
     [SerializeField] TextMeshProUGUI dialogText;
 
@@ -68,6 +68,9 @@ public class DialogueManager : MonoBehaviour
 
                 dialogUI.SetActive(true);
                 dialogBox.SetActive(true);
+                fragmentsUI.SetActive(false);
+                healthBar.SetActive(false);
+                ammoUI.transform.localScale = Vector3.zero;
 
                 Line line = currentInteraction.getLine(index);
                 audios.PlayOneShot(line.getSound());
@@ -118,6 +121,9 @@ public class DialogueManager : MonoBehaviour
                     events.paused = false;
                     dialogUI.SetActive(false);
                     dialogBox.SetActive(false);
+                    fragmentsUI.SetActive(true);
+                    healthBar.SetActive(true);
+                    ammoUI.transform.localScale = new Vector3(1f, 1f, 1f);
                     End.Invoke();
                 }
             }
