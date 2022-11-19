@@ -120,7 +120,6 @@ public class Move : MonoBehaviour
             jumpParticles.SetActive(false);
             SeedMod = speed;
             originalHeight = controller.height; //transform.localScale.y;
-            FindObjectOfType<MiniMap>().player = this.gameObject;
 
             StartCoroutine(SetFirstPos());
         }
