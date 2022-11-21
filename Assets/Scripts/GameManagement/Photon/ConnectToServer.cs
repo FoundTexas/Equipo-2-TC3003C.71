@@ -96,7 +96,16 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-        StartCoroutine(FinishDisconnect());
+        if(SceneManager.GetActiveScene().buildIndex != 0)
+            FindObjectOfType<SceneLoader>().LoadByIndex(0);
+        
+        infoText.text = "";
+        GameManager.isOnline = false;
+        mainPanel.SetActive(true);
+        onlinePanel.SetActive(false);
+        
+        load = false;
+        // StartCoroutine(FinishDisconnect());
     }
 
     public IEnumerator FinishDisconnect()
