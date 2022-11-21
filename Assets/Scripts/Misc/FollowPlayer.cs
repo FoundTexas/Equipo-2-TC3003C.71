@@ -7,7 +7,8 @@ public class FollowPlayer : MonoBehaviour
     [SerializeField] public Transform Player;
     void Update()
     {
-        transform.position = Player.position;
+        if(Player != null)
+            transform.position = Player.position;
     }
     public void setFollow(Transform target)
     {
