@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
 using GameManagement;
 
 public class ConnectToServer : MonoBehaviourPunCallbacks
@@ -70,11 +71,6 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     public void OnClickDisconnect()
     {
         PhotonNetwork.Disconnect();
-        infoText.text = "";
-        GameManager.isOnline = false;
-        mainPanel.SetActive(true);
-        onlinePanel.SetActive(false);
-        load = false;
     }
 
     public static void DisconectFromEvereywhere(SceneLoader _sceneLoader)
@@ -96,7 +92,17 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         PhotonNetwork.Disconnect();
-        sceneLoader.LoadByIndex(0);
+    }
+
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        if(SceneManager.GetActiveScene().buildIndex != 0)
+            FindObjectOfType<SceneLoader>().LoadByIndex(0);
+        
+        infoText.text = "";
         GameManager.isOnline = false;
+        mainPanel.SetActive(true);
+        onlinePanel.SetActive(false);
+        load = false;
     }
 }
