@@ -175,17 +175,20 @@ namespace WeaponSystem
                 this.transform.parent = torso;
                 pos = Vector3.zero;
                 transform.rotation = Quaternion.Euler(0, 0, 0);
+                selected.gameObject.SetActive(false);
             }
             if (selected != null)
             {
                 if (!selected.gameObject.activeInHierarchy)
                 {
+                    Debug.Log("selected is not active in hierarchy");
                     selected.gameObject.SetActive(vaL && unlocked.unlock.Contains(selected.GetID()));
-
-                    if (audios)
+                    if (audios != null)
                     {
                         if (unlocked.unlock.Contains(selected.GetID()))
-                        { audios.GunValue(vaL, selected.select); }
+                        { 
+                            audios.GunValue(vaL, selected.select);
+                        }
                     }
                 }
                 int selectedIndex = GetSelectedIndex();
