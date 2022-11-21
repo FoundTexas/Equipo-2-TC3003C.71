@@ -96,6 +96,12 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(DisconnectCause cause)
     {
+        StartCoroutine(FinishDisconnect());
+    }
+
+    public IEnumerator FinishDisconnect()
+    {
+        yield return new WaitForSeconds(0.4f);
         if(SceneManager.GetActiveScene().buildIndex != 0)
             FindObjectOfType<SceneLoader>().LoadByIndex(0);
         
