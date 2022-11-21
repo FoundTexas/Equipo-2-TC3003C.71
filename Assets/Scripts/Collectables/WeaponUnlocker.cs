@@ -23,7 +23,10 @@ namespace Collectables
         // ----------------------------------------------------------------------------------------------- Unity Methods
         private void Start()
         {
-            gunText.text = "<<" + weapon.GetID() + ">>";
+            if(weapon.GetID() == "BasicGun")
+                gunText.text = "Laser Gun";
+            else if(weapon.GetID() == "Grappling")
+                gunText.text = "Grappling Hook";
             InstantiateObject();
         }
 
