@@ -20,6 +20,10 @@ MonoBehaviour:
     dialogue: "Here, take my ticket and get in the train once it arrives.\nYou\u2019ll
       have to take it from there."
     soundEffect: {fileID: 0}
+  - speakerName: Old Man Bill
+    dialogue: And make sure ya don't use that peashooter till you find that fake
+      conductor!
+    soundEffect: {fileID: 0}
   buttonsText: Yes
   Interactions: []
   scene: 4

@@ -503,9 +503,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InputBox: {fileID: 8325170128518666060}
-  Involved:
+  Involved: []
+  endEvents:
   - {fileID: 0}
-  endEvents: []
   target: {fileID: 3004904549087940507}
   turnRig: {fileID: 3004904550005383847}
   MaxDist: 6
