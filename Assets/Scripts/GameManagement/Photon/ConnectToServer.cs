@@ -99,28 +99,13 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
         if(SceneManager.GetActiveScene().buildIndex != 0)
             FindObjectOfType<SceneLoader>().LoadByIndex(0);
         
-        infoText.text = "";
+        //infoText.text = "";
         GameManager.isOnline = false;
-        mainPanel.SetActive(true);
-        onlinePanel.SetActive(false);
-        
-        load = false;
-        // StartCoroutine(FinishDisconnect());
-    }
-
-    public IEnumerator FinishDisconnect()
-    {
-        yield return new WaitForSeconds(0.4f);
-        if(SceneManager.GetActiveScene().buildIndex != 0)
-            FindObjectOfType<SceneLoader>().LoadByIndex(0);
-        
-        GameManager.isOnline = false;
-        if(infoText != null)
-        {
-            infoText.text = "";
-            mainPanel.SetActive(true);
-            onlinePanel.SetActive(false);
-        }
+        //mainPanel.SetActive(true);
+        //onlinePanel.SetActive(false);
+        Debug.Log("1");
+        Debug.Log("2");
+        Debug.Log("3");
         
         load = false;
     }
