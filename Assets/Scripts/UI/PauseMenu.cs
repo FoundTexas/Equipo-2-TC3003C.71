@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using Photon.Pun;
 
 namespace PlanetCrashUI
 {
@@ -94,7 +95,6 @@ namespace PlanetCrashUI
             settingsMenu.SetActive(false);
             quitMenu.SetActive(false);
             confirmMenu.SetActive(false);
-            Time.timeScale = 1f;
             isPaused = false;
             updater.OnPause(false);
         }
@@ -103,9 +103,8 @@ namespace PlanetCrashUI
         /// </summary>
         public void LoadMenu()
         {
-            ConnectToServer.DisconectFromEvereywhere();
-            Time.timeScale = 1f;
-            sceneLoader.LoadByIndex(0);
+            PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
+            ConnectToServer.DisconectFromEvereywhere(sceneLoader);
         }
     }
 }
