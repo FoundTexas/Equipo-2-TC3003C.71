@@ -15,6 +15,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     [Header("Lobby")]
     public Text roomName;
     bool load = false;
+    private static SceneLoader sceneLoader;
 
     public void OnClickConnect()
     {
@@ -45,16 +46,24 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
             if (roomName.text.Length >= 1)
             {
                 load = false;
-                PhotonNetwork.JoinOrCreateRoom(roomName.text, new RoomOptions() { MaxPlayers = 4, }, TypedLobby.Default);
+                print("ClickJoin");
+                PhotonNetwork.JoinOrCreateRoom(roomName.text, new RoomOptions() { MaxPlayers = 4}, TypedLobby.Default);
                 // PhotonNetwork.AutomaticallySyncScene = true;
                 infoText.text = "JoinOrCreateRoom...";
             }
         }
     }
 
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        print(returnCode);
+        print(message);
+    }
+
     public override void OnJoinedRoom()
     {
         GameManager.isOnline = true;
+        print("Joining");
         FindObjectOfType<SceneLoader>().LoadOnline();
     }
 
@@ -68,7 +77,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
         load = false;
     }
 
-    public static void DisconectFromEvereywhere()
+    public static void DisconectFromEvereywhere(SceneLoader _sceneLoader)
     {
         // if(!PhotonNetwork.IsMasterClient)
         //     return;
@@ -80,8 +89,14 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
         // {
         //     PhotonNetwork.CloseConnection(player);
         // }
-    
+        sceneLoader = _sceneLoader;
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnLeftRoom()
+    {
         PhotonNetwork.Disconnect();
+        sceneLoader.LoadByIndex(0);
         GameManager.isOnline = false;
     }
 }

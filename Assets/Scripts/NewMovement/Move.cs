@@ -150,6 +150,7 @@ public class Move : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         transform.position = GameManager.getCheckpoint();
+        print(transform.position);
     }
     private void LateUpdate()
     {
@@ -249,6 +250,8 @@ public class Move : MonoBehaviour
             movDirection.x * curSpeed,
             movDirection.y,
             movDirection.z * curSpeed);
+        // if(movDirection.x > 0)
+        //     print(movDirection.x + " " + curSpeed);
 
     }
     void Jump(InputAction.CallbackContext context)
@@ -406,6 +409,7 @@ public class Move : MonoBehaviour
 
     public void AddForce(float force, Vector3 dir, float time)
     {
+        print("Force");
         movDirection = dir * force;
         StartCoroutine(ForceRoutine(time));
     }

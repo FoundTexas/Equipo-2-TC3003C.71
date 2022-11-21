@@ -97,7 +97,7 @@ namespace GameManagement
                     tmps = JsonUtility.ToJson(c.data);
                     PlayerPrefs.SetString(sname + "c" + i + "1", tmps);
                 }
-                Debug.Log(tmps);
+                // Debug.Log(tmps);
                 JsonUtility.FromJsonOverwrite(tmps, c.data);
             }
 

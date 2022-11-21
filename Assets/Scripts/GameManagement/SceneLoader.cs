@@ -189,6 +189,7 @@ namespace GameManagement
             {
                 if (!loading)
                 {
+                    print("Joining as client");
                     int i = (int)PhotonNetwork.CurrentRoom.CustomProperties["Scene"];
                     loading = true;
                     GameManager.FirstPos(i);
