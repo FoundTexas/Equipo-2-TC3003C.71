@@ -17,6 +17,7 @@ public class LevelSelectUI : MonoBehaviour
     public EventSystemUpdater events;
     public GameObject firstButton;
     public GameObject resumeButton;
+    public GameObject fragmentsUI, healthBar, ammoUI;
     
     private void OnEnable()
     {
@@ -40,6 +41,9 @@ public class LevelSelectUI : MonoBehaviour
                 background.SetActive(false);
                 levelSelectMenu.SetActive(true);
                 menuCamera.SetActive(true);
+                fragmentsUI.SetActive(false);
+                healthBar.SetActive(false);
+                ammoUI.transform.localScale = Vector3.zero;
             }                 
         }
     }
@@ -54,6 +58,9 @@ public class LevelSelectUI : MonoBehaviour
         levelSelectMenu.SetActive(false);
         menuCamera.SetActive(false);
         events.UpdateSelected(resumeButton);
+        fragmentsUI.SetActive(true);
+        healthBar.SetActive(true);
+        ammoUI.transform.localScale = new Vector3(1f, 1f, 1f);
         canvas.GetComponent<PauseMenu>().Resume();
     }
 
