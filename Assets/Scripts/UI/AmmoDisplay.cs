@@ -26,9 +26,12 @@ public class AmmoDisplay : MonoBehaviour
     {
         remainingAmmo.text = amount;
     }
-    public void SetGunName(string amount)
+    public void SetGunName(string id)
     {
-        gunName.text = amount;
+        if(id == "BasicGun")
+            gunName.text = "Laser\nGun";
+        else if(id == "Grappling")
+            gunName.text = "Grappling\nHook";
     }
 
 }

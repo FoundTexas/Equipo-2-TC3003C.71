@@ -203,6 +203,7 @@ namespace WeaponSystem
                 selected.gameObject.SetActive(false);
                 selected = weapons[weaponDictionary[unlocked.unlock[i]]];
                 selected.gameObject.SetActive(true);
+                FindObjectOfType<AmmoDisplay>().SetGunName(CurrentSelect().GetID());
             }
         }
         /// <summary>
