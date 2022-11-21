@@ -99,10 +99,10 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
         if(SceneManager.GetActiveScene().buildIndex != 0)
             FindObjectOfType<SceneLoader>().LoadByIndex(0);
         
-        //infoText.text = "";
+        infoText.text = "";
         GameManager.isOnline = false;
-        //mainPanel.SetActive(true);
-        //onlinePanel.SetActive(false);
+        mainPanel.SetActive(true);
+        onlinePanel.SetActive(false);
         
         load = false;
         // StartCoroutine(FinishDisconnect());
