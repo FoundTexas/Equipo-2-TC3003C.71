@@ -23415,6 +23415,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: feffdf73fa041e9439c80b071cf18046, type: 3}
+--- !u!1 &1051202036 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4546401474123396737, guid: feffdf73fa041e9439c80b071cf18046, type: 3}
+  m_PrefabInstance: {fileID: 1051202035}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1054261740
 GameObject:
   m_ObjectHideFlags: 0
@@ -63728,6 +63733,10 @@ PrefabInstance:
       propertyPath: brightness
       value: 
       objectReference: {fileID: 11400000, guid: 2cdb497b4054ef349b3207cf9851e67c, type: 2}
+    - target: {fileID: 987296852563506236, guid: 31e301423cff2be4ebb66d2a827438c0, type: 3}
+      propertyPath: dialogueUI
+      value: 
+      objectReference: {fileID: 1051202036}
     - target: {fileID: 987296852563506236, guid: 31e301423cff2be4ebb66d2a827438c0, type: 3}
       propertyPath: mainCamera
       value: 

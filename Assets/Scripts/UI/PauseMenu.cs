@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 namespace PlanetCrashUI
 {
@@ -27,6 +28,7 @@ namespace PlanetCrashUI
         public Camera pauseCamera;
         public EventSystemUpdater updater;
         public GameObject resumeButton;
+        public GameObject dialogueUI;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
         private void OnEnable()
@@ -50,7 +52,7 @@ namespace PlanetCrashUI
         void PuseInput(InputAction.CallbackContext context){
             if(isPaused)
                     Resume();
-                else
+                else if(!dialogueUI.activeInHierarchy)
                     Pause();
         }
 
@@ -73,7 +75,7 @@ namespace PlanetCrashUI
             playerMove.StopMove();
             isPaused = true;
 
-            FindObjectOfType<EventSystemUpdater>().OnPause(true);
+            updater.OnPause(true);
         }
         /// <summary>
         /// Method that handels the resume of the game.
@@ -94,7 +96,7 @@ namespace PlanetCrashUI
             confirmMenu.SetActive(false);
             Time.timeScale = 1f;
             isPaused = false;
-            FindObjectOfType<EventSystemUpdater>().OnPause(false);
+            updater.OnPause(false);
         }
         /// <summary>
         /// Method that loads the Menu from the game.
