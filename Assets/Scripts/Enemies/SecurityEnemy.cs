@@ -153,7 +153,7 @@ namespace Enemies
             fade.DoFade(true, 0.5f);
             if(fade.IsFaded())
             {
-                if(GameManager.isOnline && PhotonNetwork.IsMasterClient || !GameManager.isOnline)
+                if(GameManager.isOnline || !GameManager.isOnline)
                     sceneLoader.LoadScene(4);
             }
                 
