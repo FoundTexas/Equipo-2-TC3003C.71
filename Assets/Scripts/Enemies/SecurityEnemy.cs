@@ -154,7 +154,7 @@ namespace Enemies
             if(fade.IsFaded())
             {
                 if(GameManager.isOnline && PhotonNetwork.IsMasterClient || !GameManager.isOnline)
-                    sceneLoader.LoadByIndex(GameManager.getSceneIndex(), GameManager.getCheckpoint());
+                    sceneLoader.LoadScene(4);
             }
                 
         }
