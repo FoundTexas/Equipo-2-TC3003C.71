@@ -14,25 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - speakerName: JAM-66 111 98
-    dialogue: "Nice to see a new Face aound ! \nI Reckon you are a Nam unit still
-      on one pice."
+    dialogue: "Nice to see a new face around ! \nI reckon you are a Nam unit still
+      in one piece."
     soundEffect: {fileID: 0}
   - speakerName: JAM-66 111 98
-    dialogue: "I'm a Joking Automaton Machine make for Mr. Heim's new friends. \nWhy
-      did Mr got rid of you?"
+    dialogue: "I'm a Joking Automaton Machine made for Mr. Heim's new friends. \nWhy
+      did Mr get rid of you?"
     soundEffect: {fileID: 0}
   - speakerName: JAM-66 111 98
-    dialogue: I see Your voice modulator is broken but, don't worry I do undertand
-      1 and 0.
+    dialogue: I see your voice modulator is broken but, don't worry I do understand
+      1s and 0s.
     soundEffect: {fileID: 0}
   - speakerName: JAM-66 111 98
-    dialogue: I suffer from a memory malfunction that Rebots me frecuently therefore
+    dialogue: I suffer from a memory malfunction that reboots me frequently, therefore
       I tend to repeat my jokes.
     soundEffect: {fileID: 0}
   - speakerName: JAM-66 111 98
-    dialogue: Before you go would you like to hear a Joke?
+    dialogue: Before you go would you like to hear a joke?
     soundEffect: {fileID: 0}
   buttonsText: 
   Interactions:
   - {fileID: 11400000, guid: 141855bbcf867c44089018bc4473e441, type: 2}
   - {fileID: 11400000, guid: 506c3a8803492164392e287f1b5bdd2c, type: 2}
+  scene: -1
