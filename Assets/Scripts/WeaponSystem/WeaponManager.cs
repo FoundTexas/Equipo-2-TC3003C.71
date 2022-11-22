@@ -161,6 +161,11 @@ namespace WeaponSystem
             }
         }
 
+        public WeaponsUnlocked GetWeaponsUnlocked()
+        {
+            return unlocked;
+        }
+
         [PunRPC]
         public void PunRPCToggleWeapon(bool vaL)
         {

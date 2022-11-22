@@ -4,13 +4,14 @@ using UnityEngine;
 using TMPro;
 using WeaponSystem;
 using Player;
+using Photon.Pun;
 
 namespace Collectables
 {
     /// <summary>
     /// This Class unlocks weapons by adding the Weapon ID to the Player's WeaponManager when colllided and adding the max Ammo to that weapon by calling AddAmmo()
     /// </summary>
-    public class WeaponUnlocker : MonoBehaviour
+    public class WeaponUnlocker : MonoBehaviourPunCallbacks
     {
         [Tooltip("Reference to the weapon script to be unlocked")]
         [SerializeField] private Weapon weapon;
@@ -19,6 +20,8 @@ namespace Collectables
         [Tooltip("Pick up effect")]
         [SerializeField] private GameObject effect;
         private Transform gun;
+        private GameObject player;
+        private WeaponManager weapons;
 
         // ----------------------------------------------------------------------------------------------- Unity Methods
         private void Start()
@@ -28,27 +31,35 @@ namespace Collectables
             else if(weapon.GetID() == "Grappling")
                 gunText.text = "Grappling Hook";
             InstantiateObject();
+                
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (gun)
             {
-                if (other.CompareTag("Player"))
+                if(GameManager.isOnline && other.CompareTag("Player"))
                 {
+                    if(other.GetComponent<PhotonView>().IsMine)
+                    {
+                        weapons = other.gameObject.GetComponent<PlayerAttack>().GetWeaponManager();
+                        GameObject g = Instantiate(effect, transform.position, Quaternion.identity);
+                        Destroy(gun.gameObject);
+                        Destroy(g, 1f);
+                        weapons.UnlockWeapon(weapon.GetID());
+                        Destroy(gameObject);
+                    }
+                }
+                else if (other.CompareTag("Player") && !GameManager.isOnline)
+                {
+                    weapons = other.gameObject.GetComponent<PlayerAttack>().GetWeaponManager();
                     GameObject g = Instantiate(effect, transform.position, Quaternion.identity);
-                    WeaponManager player = other.GetComponent<PlayerAttack>().GetWeaponManager();
                     Destroy(gun.gameObject);
                     Destroy(g, 1f);
-                    player.UnlockWeapon(weapon.GetID());
+                    weapons.UnlockWeapon(weapon.GetID());
+                    Destroy(gameObject);
                 }
             }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.CompareTag("Player"))
-                InstantiateObject();
         }
 
         // ----------------------------------------------------------------------------------------------- Private Methods
