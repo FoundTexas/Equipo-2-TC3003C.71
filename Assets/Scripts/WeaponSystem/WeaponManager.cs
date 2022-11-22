@@ -181,7 +181,6 @@ namespace WeaponSystem
             {
                 if (!selected.gameObject.activeInHierarchy)
                 {
-                    Debug.Log("selected is not active in hierarchy");
                     selected.gameObject.SetActive(vaL && unlocked.unlock.Contains(selected.GetID()));
                     if (audios != null)
                     {

@@ -22,7 +22,6 @@ public class Waves : MonoBehaviour
     private void Start()
     {
         pv = GetComponent<PhotonView>();
-        isEnded = true;
     }
     void StartPoints()
     {
@@ -51,7 +50,6 @@ public class Waves : MonoBehaviour
         {
             Debug.Log("Start spawn");
             allSpawned = false;
-            Debug.Log(isEnded);
             isStarted = true;
             StartPoints();
             rounds = 0;
@@ -60,7 +58,7 @@ public class Waves : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+        Debug.Log(isEnded);
         if (PhotonNetwork.IsMasterClient || !GameManager.isOnline)
         {
             StartRound();
@@ -90,18 +88,19 @@ public class Waves : MonoBehaviour
         {
             if(GameManager.isOnline && PhotonNetwork.IsMasterClient)
             {
-                pv.RPC("PunRPCStartRound",RpcTarget.All);
+                pv.RPC("PunRPCFinishWaves",RpcTarget.All);
             }
             else if(!GameManager.isOnline)
             {
-                PunRPCStartRound();
+                PunRPCFinishWaves();
             }
         }
     }
 
     [PunRPC]
-    public void PunRPCStartRound()
+    public void PunRPCFinishWaves()
     {
+        Debug.Log("PUNRPCFINISHWAVES CALLED.");
         isEnded = true;
         endEvent.SetEnded(true);
         this.gameObject.SetActive(false);

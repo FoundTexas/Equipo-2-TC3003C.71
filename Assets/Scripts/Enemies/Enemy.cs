@@ -181,13 +181,13 @@ namespace Enemies
         public void OnTriggerEnter(Collider col)
         {
             if (col.gameObject.tag == "Player")
-                dazeTime = 1f;
+                dazeTime = 0.5f;
         }
 
         public void OnCollisionEnter(Collision col)
         {
             if (col.gameObject.tag == "Player")
-                dazeTime = 1f;
+                dazeTime = 0.5f;
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
