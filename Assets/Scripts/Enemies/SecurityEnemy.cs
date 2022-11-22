@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using GameManagement;
 using WeaponSystem;
+using Photon.Pun;
 
 namespace Enemies
 {
@@ -58,17 +59,9 @@ namespace Enemies
                 return;
             } 
             
-            playerObj = GameManager.GetClosestTarget(transform);
-            player = playerObj.transform;
-            playerAnimator = player.GetComponentsInChildren<Animator>()[1];
-            playerMove = player.GetComponent<Move>();
             if(GameObject.FindWithTag("Bullet") != null && !capturing)
             {
-                playerMove.canMove = false;
-                playerMove.StopMove();
-                playerAnimator.SetTrigger("ArmRaise");
-                capturing = true;
-                frozenPlayer = true;
+                Capture();
             }
             playerObj = GameManager.GetClosestTarget(transform);
             if(asleep && !capturing)
@@ -88,14 +81,7 @@ namespace Enemies
                 if(rayHit.collider.tag == "Prop"){}
                 else if(rayHit.collider.tag == "Player")
                 {
-                    if(!frozenPlayer)
-                    {
-                        playerMove.canMove = false;
-                        playerMove.StopMove();
-                        playerAnimator.SetTrigger("ArmRaise");
-                        capturing = true;
-                        frozenPlayer = true;
-                    }      
+                    Capture();  
                 }
             }
             if(capturing)
@@ -145,20 +131,32 @@ namespace Enemies
 
         public void Capture()
         {
-            if(!frozenPlayer)
+            if(!capturing)
             {
-                playerMove.canMove = false;
-                playerMove.StopMove();
-                playerAnimator.SetTrigger("ArmRaise");
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                foreach(GameObject player in players)
+                {
+                    playerMove = player.GetComponent<Move>();
+                    playerAnimator = player.GetComponentsInChildren<Animator>()[1];
+                    playerMove.canMove = false;
+                    playerMove.StopMove();
+                    playerAnimator.SetTrigger("ArmRaise");
+                }
                 capturing = true;
                 frozenPlayer = true;
             }
+            
+            player = GameManager.GetClosestTarget(transform).transform;
             agent.SetDestination(transform.position);
             Vector3 targetPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
             transform.LookAt(targetPosition);
             fade.DoFade(true, 0.5f);
             if(fade.IsFaded())
-                sceneLoader.LoadByIndex(GameManager.getSceneIndex(), GameManager.getCheckpoint());
+            {
+                if(GameManager.isOnline && PhotonNetwork.IsMasterClient || !GameManager.isOnline)
+                    sceneLoader.LoadByIndex(GameManager.getSceneIndex(), GameManager.getCheckpoint());
+            }
+                
         }
 
         void OnTriggerEnter(Collider col)

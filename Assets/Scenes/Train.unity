@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 729138}
   m_Layer: 0
   m_Name: PassageCamera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2065,7 +2065,7 @@ GameObject:
   - component: {fileID: 250813754}
   m_Layer: 0
   m_Name: PassageCamera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6922,7 +6922,7 @@ GameObject:
   - component: {fileID: 453792958}
   m_Layer: 0
   m_Name: PassageCamera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12006,7 +12006,7 @@ GameObject:
   - component: {fileID: 638813449}
   m_Layer: 0
   m_Name: PassageCamera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17690,7 +17690,7 @@ GameObject:
   - component: {fileID: 858229652}
   m_Layer: 0
   m_Name: PassageCamera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
