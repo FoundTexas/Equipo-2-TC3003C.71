@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using GameManagement;
+using Photon.Pun;
 [CreateAssetMenu(fileName = "d_Interaction", menuName = "ScriptableObjects/Dialogue", order = 1)]
 
 public class DialogueInteraction : ScriptableObject
@@ -33,7 +34,7 @@ public class DialogueInteraction : ScriptableObject
 
     public void TryLoadScene(SceneLoader sl)
     {
-        if (scene != -1)
+        if (scene != -1 && GameManager.isOnline && PhotonNetwork.IsMasterClient || !GameManager.isOnline)
         {
             if (GameManager.isOnline)
             {

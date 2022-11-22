@@ -146,7 +146,7 @@ namespace GameManagement
                     // string eventName = sname + "e" + i + "1";
                     // tmps = PhotonNetwork.CurrentRoom.CustomProperties[eventName].ToString();
                     //PlayerPrefs.SetString(sname + "e" + i + "1", tmps);
-                    print(tmps);
+                    // print(tmps);
                 }
             }
             ChangeUI();

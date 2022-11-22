@@ -159,7 +159,7 @@ namespace Enemies
                 
         }
 
-        void OnTriggerEnter(Collider col)
+        new void OnTriggerEnter(Collider col)
         {
             if(col.tag == "Player")
             {

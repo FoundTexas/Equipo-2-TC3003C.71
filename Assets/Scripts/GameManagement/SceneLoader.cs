@@ -126,13 +126,13 @@ namespace GameManagement
         async void Load(int index)
         {
 
-            anim.SetTrigger("FadeIn");
+            // anim.SetTrigger("FadeIn");
             var scene = SceneManager.LoadSceneAsync(index);
             scene.allowSceneActivation = false;
             await Task.Delay(3000);
             do
             {
-                Debug.Log("waiting");
+                // Debug.Log("waiting");
                 await Task.Delay(100);
             } while (GameManager.saved == false);
             do
@@ -219,6 +219,7 @@ namespace GameManagement
                 else if(!hash.ContainsKey("Scene"))
                     hash.Add("Scene", i);
                 
+                print("Load Scene as server: " + i);
                 PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
 
                 if (!loading)
@@ -235,6 +236,7 @@ namespace GameManagement
                 if (!loading)
                 {
                     sceneIndex = (int)PhotonNetwork.CurrentRoom.CustomProperties["Scene"];
+                    print("Load Scene as client: " + sceneIndex);
                     loading = true;
                     GameManager.FirstPos(sceneIndex);
                     anim.SetTrigger("FadeIn");

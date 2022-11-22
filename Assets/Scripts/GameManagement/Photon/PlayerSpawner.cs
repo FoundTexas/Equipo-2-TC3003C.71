@@ -15,7 +15,6 @@ public class PlayerSpawner : MonoBehaviour
         GameObject g = null;
         if (GameManager.isOnline)
         {
-            print("spawn");
             g = PhotonNetwork.Instantiate(
                 player.name, transform.position, Quaternion.identity);
         }
@@ -40,7 +39,7 @@ public class PlayerSpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         GameObject[] others = GameObject.FindGameObjectsWithTag("Player");
-        print("Alive: " + others.Length);
+        // print("Alive: " + others.Length);
         if (others.Length > 0)
         {
             p.gameObject.transform.position = GameManager.getCheckpoint();

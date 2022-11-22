@@ -47,7 +47,6 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
             if (roomName.text.Length >= 1)
             {
                 load = false;
-                print("ClickJoin");
                 PhotonNetwork.JoinOrCreateRoom(roomName.text, new RoomOptions() { MaxPlayers = 4}, TypedLobby.Default);
                 // PhotonNetwork.AutomaticallySyncScene = true;
                 infoText.text = "JoinOrCreateRoom...";
@@ -64,7 +63,6 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         GameManager.isOnline = true;
-        print("Joining");
         FindObjectOfType<SceneLoader>().LoadOnline();
     }
 
@@ -75,16 +73,13 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
 
     public static void DisconectFromEvereywhere(SceneLoader _sceneLoader)
     {
-        // if(!PhotonNetwork.IsMasterClient)
-        //     return;
-        // PhotonNetwork.CurrentRoom.IsOpen = false;
-        // PhotonNetwork.CurrentRoom.EmptyRoomTtl = 0;
-        // PhotonNetwork.CurrentRoom.PlayerTtl = 0;
-        
-        // foreach(var player in PhotonNetwork.PlayerListOthers)
-        // {
-        //     PhotonNetwork.CloseConnection(player);
-        // }
+        if(PhotonNetwork.IsMasterClient)
+        {
+            foreach(Photon.Realtime.Player player in PhotonNetwork.PlayerListOthers)
+            {
+                PhotonNetwork.CloseConnection(player);
+            }
+        }
         sceneLoader = _sceneLoader;
         PhotonNetwork.LeaveRoom();
     }
