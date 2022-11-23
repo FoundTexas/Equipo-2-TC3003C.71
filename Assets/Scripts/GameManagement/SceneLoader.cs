@@ -77,7 +77,11 @@ namespace GameManagement
 
         public void RPCLoadScene(int index)
         {
-            pv.RPC("PunRPCLoadScene", RpcTarget.MasterClient, 4);
+            foreach (var player in PhotonNetwork.PlayerList)
+            {
+                LoadOnline(index);
+            }
+            // pv.RPC("PunRPCLoadScene", RpcTarget.All, 4);
         }
 
         [PunRPC]
