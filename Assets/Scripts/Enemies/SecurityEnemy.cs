@@ -131,7 +131,7 @@ namespace Enemies
 
         public void Capture()
         {
-            if(!capturing)
+            if(true)
             {
                 GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
                 foreach(GameObject player in players)
