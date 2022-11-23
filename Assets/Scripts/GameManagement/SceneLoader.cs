@@ -79,7 +79,8 @@ namespace GameManagement
         {
             foreach (var player in PhotonNetwork.PlayerList)
             {
-                LoadOnline(index);
+                if(player.IsMasterClient)
+                    LoadOnline(index);
             }
             // pv.RPC("PunRPCLoadScene", RpcTarget.All, 4);
         }
