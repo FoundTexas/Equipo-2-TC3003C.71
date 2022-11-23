@@ -163,7 +163,7 @@ namespace Enemies
                 }
                 else
                 {
-                    sceneLoader.pv.RPC("LoadScene", RpcTarget.All, 4);
+                    sceneLoader.pv.RPC("PunRPCLoadScene", RpcTarget.All, 4);
                 }
             }
         }
