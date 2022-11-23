@@ -967,6 +967,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 90
@@ -1518,6 +1526,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 89
@@ -1921,6 +1937,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 88
@@ -1995,6 +2019,14 @@ PrefabInstance:
     - target: {fileID: 491964, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
@@ -2426,6 +2458,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 86
@@ -2625,6 +2665,14 @@ PrefabInstance:
     - target: {fileID: 491964, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
@@ -5322,6 +5370,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 84
@@ -7319,6 +7375,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 83
@@ -7887,6 +7951,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 82
@@ -8365,6 +8437,14 @@ PrefabInstance:
     - target: {fileID: 491964, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
@@ -12229,6 +12309,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 80
@@ -12406,6 +12494,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 79
@@ -12570,6 +12666,14 @@ PrefabInstance:
     - target: {fileID: 491964, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
@@ -13875,6 +13979,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 77
@@ -14049,6 +14161,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 76
@@ -14128,6 +14248,14 @@ PrefabInstance:
     - target: {fileID: 491964, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
@@ -17541,6 +17669,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 74
@@ -17902,6 +18038,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 73
@@ -17987,6 +18131,14 @@ PrefabInstance:
     - target: {fileID: 491964, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
@@ -23194,6 +23346,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 71
@@ -23745,6 +23905,14 @@ PrefabInstance:
     - target: {fileID: 491964, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
@@ -24512,6 +24680,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 69
@@ -24723,6 +24899,14 @@ PrefabInstance:
     - target: {fileID: 491964, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
@@ -24994,6 +25178,14 @@ PrefabInstance:
     - target: {fileID: 491964, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
@@ -28694,6 +28886,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 66
@@ -29132,6 +29332,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 65
@@ -29303,6 +29511,14 @@ PrefabInstance:
     - target: {fileID: 491964, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
@@ -30737,6 +30953,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 63
@@ -31223,6 +31447,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 62
@@ -31297,6 +31529,14 @@ PrefabInstance:
     - target: {fileID: 491964, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
@@ -34427,6 +34667,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 60
@@ -35138,6 +35386,14 @@ PrefabInstance:
     - target: {fileID: 491964, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
@@ -36270,6 +36526,14 @@ PrefabInstance:
     - target: {fileID: 491964, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
@@ -44875,6 +45139,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 57
@@ -49625,6 +49897,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 56
@@ -49699,6 +49979,14 @@ PrefabInstance:
     - target: {fileID: 491964, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
@@ -53019,6 +53307,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 54
@@ -55999,6 +56295,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 53
@@ -56296,6 +56600,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 52
@@ -56571,6 +56883,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId
       value: 51
@@ -56645,6 +56965,14 @@ PrefabInstance:
     - target: {fileID: 491964, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440778, guid: b6f85ab78777475418783e03debe7255, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7986865234055846740, guid: b6f85ab78777475418783e03debe7255, type: 3}
       propertyPath: sceneViewId

@@ -103,8 +103,15 @@ namespace PlanetCrashUI
         /// </summary>
         public void LoadMenu()
         {
-            PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
-            ConnectToServer.DisconectFromEvereywhere(sceneLoader);
+            if(GameManager.isOnline)
+            {
+                PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
+                ConnectToServer.DisconectFromEvereywhere(sceneLoader);
+            }
+            else
+            {
+                sceneLoader.LoadScene(0);
+            }
         }
     }
 }
