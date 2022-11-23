@@ -74,6 +74,12 @@ namespace GameManagement
                 LoadByIndex(index);
             }
         }
+
+        [PunRPC]
+        public void RPCLoadScene(int index)
+        {
+            pv.RPC("LoadScene", RpcTarget.All, index);
+        }
         
         /// <summary>
         /// Method that start Loading scene routine by its index.
@@ -203,6 +209,7 @@ namespace GameManagement
             GameManager.setCheckPoint(pos);
             LoadOnline(sceneIndex);
         }
+        [PunRPC]
         public void LoadOnline(int sceneIndex)
         { 
             if (PhotonNetwork.IsMasterClient)

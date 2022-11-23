@@ -157,10 +157,8 @@ namespace Enemies
             transform.LookAt(targetPosition);
             if(fade.IsFaded())
             {
-                sceneLoader.LoadScene(4);
+                sceneLoader.RPCLoadScene(4);
             }
-            
-                
         }
 
         new void OnTriggerEnter(Collider col)
