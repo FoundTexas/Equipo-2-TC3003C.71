@@ -141,6 +141,11 @@ namespace Enemies
                     playerMove.canMove = false;
                     playerMove.StopMove();
                     playerAnimator.SetTrigger("ArmRaise");
+                    if((GameManager.isOnline && player.GetComponent<PhotonView>().IsMine) || !GameManager.isOnline)
+                    {
+                        fade.DoFade(true, 0.5f);
+                    }
+                    
                 }
                 capturing = true;
                 frozenPlayer = true;
@@ -150,11 +155,11 @@ namespace Enemies
             agent.SetDestination(transform.position);
             Vector3 targetPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
             transform.LookAt(targetPosition);
-            fade.DoFade(true, 0.5f);
             if(fade.IsFaded())
             {
                 sceneLoader.LoadScene(4);
             }
+            
                 
         }
 
