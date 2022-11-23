@@ -34,7 +34,7 @@ public class DialogueInteraction : ScriptableObject
 
     public void TryLoadScene(SceneLoader sl)
     {
-        if (scene != -1 && GameManager.isOnline && PhotonNetwork.IsMasterClient || !GameManager.isOnline)
+        if (scene != -1 && GameManager.isOnline && PhotonNetwork.IsMasterClient || !GameManager.isOnline && scene != -1)
         {
             if (GameManager.isOnline)
             {
