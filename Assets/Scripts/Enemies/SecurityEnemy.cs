@@ -157,8 +157,22 @@ namespace Enemies
             transform.LookAt(targetPosition);
             if(fade.IsFaded())
             {
-                sceneLoader.RPCLoadScene(4);
+                if(!GameManager.isOnline)
+                {
+                    PunRPCLoadScene(4);
+                }
+                else
+                {
+                    sceneLoader.pv.RPC("LoadScene", RpcTarget.All, 4);
+                }
             }
+        }
+
+
+        [PunRPC]
+        public void PunRPCLoadScene(int index)
+        {
+            sceneLoader.LoadScene(index);
         }
 
         new void OnTriggerEnter(Collider col)

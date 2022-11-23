@@ -75,11 +75,6 @@ namespace GameManagement
             }
         }
 
-        [PunRPC]
-        public void RPCLoadScene(int index)
-        {
-            pv.RPC("LoadScene", RpcTarget.All, index);
-        }
         
         /// <summary>
         /// Method that start Loading scene routine by its index.
