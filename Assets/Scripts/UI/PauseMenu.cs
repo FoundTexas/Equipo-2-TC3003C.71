@@ -105,7 +105,6 @@ namespace PlanetCrashUI
         {
             if(GameManager.isOnline)
             {
-                PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
                 ConnectToServer.DisconectFromEvereywhere(sceneLoader);
             }
             else

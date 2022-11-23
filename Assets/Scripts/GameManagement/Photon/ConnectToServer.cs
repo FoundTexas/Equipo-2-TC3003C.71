@@ -77,6 +77,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
         {
             foreach(Photon.Realtime.Player player in PhotonNetwork.PlayerListOthers)
             {
+                PhotonNetwork.DestroyPlayerObjects(player);
                 PhotonNetwork.CloseConnection(player);
             }
         }
