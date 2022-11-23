@@ -77,7 +77,7 @@ namespace GameManagement
 
         public void RPCLoadScene(int index)
         {
-            pv.RPC("PunRPCLoadScene", RpcTarget.All, 4);
+            pv.RPC("PunRPCLoadScene", RpcTarget.MasterClient, 4);
         }
 
         [PunRPC]
