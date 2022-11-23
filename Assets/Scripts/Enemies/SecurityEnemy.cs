@@ -159,21 +159,16 @@ namespace Enemies
             {
                 if(!GameManager.isOnline)
                 {
-                    PunRPCLoadScene(4);
+                    sceneLoader.LoadScene(4);
                 }
                 else
                 {
-                    sceneLoader.pv.RPC("PunRPCLoadScene", RpcTarget.All, 4);
+                    sceneLoader.RPCLoadScene(4);
                 }
             }
         }
 
 
-        [PunRPC]
-        public void PunRPCLoadScene(int index)
-        {
-            sceneLoader.LoadScene(index);
-        }
 
         new void OnTriggerEnter(Collider col)
         {
