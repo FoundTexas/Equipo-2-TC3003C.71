@@ -2131,7 +2131,7 @@ MonoBehaviour:
   walkPointRange: 4
   attackSpeed: 0.5
   hasAttacked: 0
-  sightRange: 15
+  sightRange: 300
   attackRange: 0
   playerInSights: 0
   playerInRange: 0
