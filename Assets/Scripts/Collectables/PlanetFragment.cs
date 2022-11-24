@@ -178,5 +178,21 @@ namespace Collectables {
 				myMesh.vertices = tmpList;
 			}
 		}
+
+		private void OnTriggerEnter(Collider other)
+        {
+            if (other.tag == "Player")
+            {
+                data.isCollected = true;
+                GameManager.SaveGame();
+                gameObject.SetActive(false);
+				Animator playerAnim = other.gameObject.GetComponentsInChildren<Animator>()[1];
+				Move playerMove = other.gameObject.GetComponent<Move>();
+				playerAnim.SetTrigger("Dance");
+				playerMove.enabled = false;
+				if(playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Dance")){Debug.Log("Dancing");}
+				playerMove.enabled = true;
+            }
+        }
 	}
 }
