@@ -13,9 +13,9 @@ namespace Collectables
         [Header("Stats")]
 
         [Tooltip("Chance off dropping Energy collectable")]
-        [Range(0, 1)] public float dropEnergy = 0.4f;
+        [Range(0, 1)] public float dropEnergy = 1f;
         [Tooltip("Chance off dropping Ammo collectable")]
-        [Range(0, 1)] public float dropCurrency = 0.6f;
+        [Range(0, 1)] public float dropCurrency = 0f;
 
         [Header("Prefabs")]
 
@@ -44,17 +44,17 @@ namespace Collectables
                 return;
             else if (!isApplicationQuitting)
             {
-                if (Random.Range(0f, 1f) >= dropCurrency)
+                if (Random.Range(0.01f, 1f) >= dropEnergy)
+                {
+                    Vector3 randomPosition = transform.position + Random.insideUnitSphere;
+                    Instantiate(EnergyPrefab, randomPosition, Quaternion.identity);
+                    return;
+                }
+                if (Random.Range(0.01f, 1f) >= dropCurrency)
                 {
                     //Player obtained currency
                     Vector3 randomPosition = transform.position + Random.insideUnitSphere;
                     Instantiate(CurrencyPrefab, randomPosition, Quaternion.identity);
-                    return;
-                }
-                if (Random.Range(0f, 1f) >= dropEnergy)
-                {
-                    Vector3 randomPosition = transform.position + Random.insideUnitSphere;
-                    Instantiate(EnergyPrefab, randomPosition, Quaternion.identity);
                     return;
                 }
             }
