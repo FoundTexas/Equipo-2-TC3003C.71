@@ -1186,14 +1186,17 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 00cb177fe32b1a24f884f03a879053ce, type: 3}
   - {fileID: 8300000, guid: 0f720e2cda80a984ba559ce24e728c77, type: 3}
   - {fileID: 8300000, guid: b4583ab64af695045979a2e637a9b047, type: 3}
+  - {fileID: 8300000, guid: f27894a23b6f4144398c4ec302388a49, type: 3}
   step2:
   - {fileID: 8300000, guid: aed1b279413ba8b4d9e256c39b6b5e63, type: 3}
   - {fileID: 8300000, guid: 2a994084484e9dc429224f60ad536c70, type: 3}
   - {fileID: 8300000, guid: aea376a0bd9520b469d35e5c3247f6f7, type: 3}
+  - {fileID: 8300000, guid: 55644454fc225f74d8bc2ebb73b5aae7, type: 3}
   grounds:
   - Concrete
   - Metal
   - Trash
+  - Sand
   anim: {fileID: 5093075011802140933}
 --- !u!114 &8570393034943283155
 MonoBehaviour:
